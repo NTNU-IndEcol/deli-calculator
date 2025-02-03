@@ -11,10 +11,13 @@ led by
 
 ## Development info 🪲
 
-### Project structure
-\- tba
+### Project structure ⏫
 
-### App architecture ⏫
+[./misc/](./misc/) - things related to the research project, e.g. publications, (jupyter) noteboks, datasheets, illustrations
+
+[./app/](./app/) - the app: source files, server and deployment configs etc.
+
+### App architecture 🛠️
 \- tba
 
 ### Database schema 🗃️
