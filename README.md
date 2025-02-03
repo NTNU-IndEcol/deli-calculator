@@ -47,7 +47,8 @@ If necessary - commit/push the changes to an upstream (github) repository.
 
 #### - in data
   1. either ssh to the VM and find the datasets under `./app/backend/data` or use samba `smb://10.212.26.57/<share-name>` (credentials @ Bitwarden too)
-  2. make and save changes, the app will pick them up instantaneously
+  2. make and save changes
+  3. `ssh` to the VM and `cd` to the `app` directory, as described above, then `docker compose restart`
 
 ### TLS cert renewal
 Stored under `/etc/letsencrypt/live/deli-calculator.indecol.no/`. Renew before May 5th, 2025.
