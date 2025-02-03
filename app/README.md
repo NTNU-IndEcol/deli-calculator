@@ -10,9 +10,9 @@ This is a simple web app to calculate the carbon footprint of food based on user
    cd deli-calculator/app
    ```
 2. **Run the app**: 
-   '''
+   ```bash
    python app.py  
-   ''' 
+   ``` 
 
 ## Project Structure
 
