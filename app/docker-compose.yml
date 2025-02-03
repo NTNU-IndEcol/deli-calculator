@@ -1,37 +1,46 @@
-version: "3"
+version: "3.3"
 
 services:
+
   traefik:
-    image: traefik:v2.10
-    restart: always
+    container_name: "traefik"
+    image: "traefik:v2.10"
     command:
-      - "--api.insecure=true"  # Enable Traefik dashboard (disable in production)
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=bo.huang@ntnu.no"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--providers.file.watch=true"
+      - "--providers.file.directory=/traefikconf/"
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./letsencrypt:/letsencrypt"
-    networks:
-      - web
+      - "./traefikconf/:/traefikconf/"
+      - "/etc/letsencrypt/:/etc/letsencrypt/:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: unless-stopped
 
-  foodCalculator:
-    image: foodcalculator:latest  # Replace with your Docker image
-    restart: always
+  delicalc-build:
+    container_name: delicalc-build
+    build:
+      context: .
+    image: delicalc-build
+
+    # volumes:
+    #   - "./backend/data/:./backend/data/"
+
+  delicalc-host: # compute.lca4bio-app.indecol.no
+    container_name: delicalc-host
+    depends_on:
+      delicalc-host:
+        condition: service_completed_successfully
+        restart: true
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.foodCalculator.rule=Host(`foodCalculator.ntnu.no`)"
-      - "traefik.http.routers.foodCalculator.entrypoints=websecure"
-      - "traefik.http.routers.foodCalculator.tls.certresolver=myresolver"
-    networks:
-      - web
-
-networks:
-  web:
-    external: true
+      - "traefik.http.routers.delicalc-host.tls=true"
+      - "traefik.http.routers.delicalc-host.rule=Host(`deli-calculator.indecol.no`)"

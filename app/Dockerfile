@@ -1,5 +1,6 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM python:slim-bullseye
 WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+ENTRYPOINT ["gunicorn", "--workers", "5", "--threads", "1", "--bind", "0.0.0.0:8000", "--timeout", "90", "app:app"]
