@@ -1,0 +1,5 @@
+tls:
+  certificates:
+    # deli-calculator.indecol.no
+    - certFile: /etc/letsencrypt/live/deli-calculator.indecol.no/fullchain.pem
+      keyFile: /etc/letsencrypt/live/deli-calculator.indecol.no/privkey.pem
