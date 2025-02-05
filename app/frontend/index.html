@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Carbon Footprint Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Add jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <h1>Food Carbon Footprint Calculator</h1>
-    <form id="calculator-form">
+    <!-- FORM -->
+    <form id="entry-form">  <!-- ← Must match JS -->
         <label for="ingredient">Ingredient:</label>
         <input type="text" id="ingredient" name="ingredient" required>
 
@@ -27,24 +30,52 @@
         <label for="import-location">Import Location:</label>
         <input type="text" id="import-location" name="import-location" placeholder="Enter 'local' or import location" required>
 
-        <button type="submit">Calculate</button>
+        <button type="submit">Add to List</button>
     </form>
 
-    <h2>Result:</h2>
-    <p id="result"></p>
+    <!-- ENTRY LIST -->
+    <div id="entry-list">
+        <h2>Ingredients List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Amount</th>
+                    <th>Unit</th>
+                    <th>Import Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="entries-table-body"></tbody>  <!-- ← Must match JS -->
+        </table>
+        <button id="calculate-total">Calculate Total Footprint</button>
+    </div>
 
-    <!-- Charts -->
-    <div class="charts">
-        <div class="chart-container">
-            <h3>Carbon Footprint by Ingredient</h3>
-            <canvas id="barChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <h3>Carbon Footprint Distribution</h3>
-            <canvas id="pieChart"></canvas>
+    <!-- RESULTS -->
+    <div id="results">
+        <h2>Total Carbon Footprint: <span id="total-footprint">0.00</span> kg CO₂</h2>
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Carbon Footprint by Ingredient</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Carbon Footprint Distribution</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
         </div>
     </div>
 
+    <!-- Include your script.js -->
     <script src="script.js"></script>
 </body>
+
+<!-- Add export barchart and pie chart -->
+<div class="export-buttons">
+    <button onclick="exportChart('barChart')">Export Bar Chart</button>
+    <button onclick="exportChart('pieChart')">Export Pie Chart</button>
+</div>
+
+
 </html>
+
