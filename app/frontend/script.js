@@ -96,22 +96,80 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Initialize charts
-    let barChart, pieChart;
-    const barCtx = document.getElementById("barChart").getContext("2d");
-    const pieCtx = document.getElementById("pieChart").getContext("2d");
+ // Initialize charts
+ let barChart, pieChart;
 
-    barChart = new Chart(barCtx, { /* Chart config */ });
-    pieChart = new Chart(pieCtx, { /* Chart config */ });
+ // Bar Chart
+ const barCtx = document.getElementById("barChart").getContext("2d");
+ barChart = new Chart(barCtx, {
+     type: "bar",
+     data: {
+         labels: [],
+         datasets: [{
+             label: "Carbon Footprint (kg CO₂)",
+             data: [],
+             backgroundColor: "rgba(75, 192, 192, 0.2)",
+             borderColor: "rgba(75, 192, 192, 1)",
+             borderWidth: 1
+         }]
+     },
+     options: {
+         scales: { y: { beginAtZero: true } }
+     }
+ });
 
-    // Update charts
-    function updateCharts(breakdown) {
-        barChart.data.labels = breakdown.map(item => item.ingredient);
-        barChart.data.datasets[0].data = breakdown.map(item => item.emission);
-        barChart.update();
+ // Pie Chart
+ const pieCtx = document.getElementById("pieChart").getContext("2d");
+ pieChart = new Chart(pieCtx, {
+     type: "pie",
+     data: {
+         labels: [],
+         datasets: [{
+             label: "Carbon Footprint (kg CO₂)",
+             data: [],
+             backgroundColor: [
+                 "rgba(255, 99, 132, 0.2)",
+                 "rgba(54, 162, 235, 0.2)",
+                 "rgba(255, 206, 86, 0.2)",
+                 "rgba(75, 192, 192, 0.2)",
+                 "rgba(153, 102, 255, 0.2)",
+                 "rgba(255, 159, 64, 0.2)"
+             ],
+             borderColor: [
+                 "rgba(255, 99, 132, 1)",
+                 "rgba(54, 162, 235, 1)",
+                 "rgba(255, 206, 86, 1)",
+                 "rgba(75, 192, 192, 1)",
+                 "rgba(153, 102, 255, 1)",
+                 "rgba(255, 159, 64, 1)"
+             ],
+             borderWidth: 1
+         }]
+     }
+ });
+// Define updateCharts
+function updateCharts(breakdown) {
+    const labels = breakdown.map(item => item.ingredient);
+    const emissions = breakdown.map(item => item.emission);
 
-        pieChart.data.labels = breakdown.map(item => item.ingredient);
-        pieChart.data.datasets[0].data = breakdown.map(item => item.emission);
-        pieChart.update();
-    }
+    barChart.data.labels = labels;
+    barChart.data.datasets[0].data = emissions;
+    barChart.update();
+
+    pieChart.data.labels = labels;
+    pieChart.data.datasets[0].data = emissions;
+    pieChart.update();
+}
+
+// Event listeners and other code
+document.getElementById("entry-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Add entry logic
+});
+
+document.getElementById("calculate-total").addEventListener("click", async () => {
+    // Calculate logic
+    updateCharts(data.breakdown); // Now accessible
+});
+
 });
