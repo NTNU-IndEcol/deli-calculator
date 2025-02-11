@@ -42,7 +42,7 @@ VM user is cofigured to do git operations on behalf of `iedlWeb` github user. He
   2. `cd deli-calculator/app`
   3. `docker compose down -v` (shut down the docker compose service)
   4. `git pull` (fetch the changes from github)
-  5. `docker compose up -d ` (rebuild image(s) and start the service)
+  5. `docker compose up --build -d ` (rebuild image(s) and start the service)
 If necessary - commit/push the changes to an upstream (github) repository.
 
 #### - in data
