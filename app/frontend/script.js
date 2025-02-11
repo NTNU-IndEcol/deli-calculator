@@ -76,23 +76,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Calculate total footprint
     document.getElementById("calculate-total").addEventListener("click", async () => {
-        if (entries.length === 0) {
-            alert("Please add at least one ingredient!");
-            return;
-        }
-
         try {
-            const response = await fetch("/calculate", {
+            // 1. Calculate PRODUCTION emissions
+            const productionResponse = await fetch("/calculate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ entries })
             });
-
-            const data = await response.json();
-            document.getElementById("total-footprint").textContent = data.total_emission.toFixed(2);
-            updateCharts(data.breakdown);
+            const productionData = await productionResponse.json();
+    
+            // 2. Calculate TRANSPORTATION emissions for non-"local" entries
+            let totalTransportEmission = 0;
+            let totalDistance = 0;
+    
+            for (const entry of entries) {
+                if (entry.importLocation.toLowerCase() !== "local") {
+                    const transportResponse = await fetch("/transport-emissions", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            import_location: entry.importLocation,
+                            user_coords: userLocation.coords,
+                            mass_kg: parseFloat(entry.amount)
+                        })
+                    });
+                    const transportData = await transportResponse.json();
+                    
+                    totalTransportEmission += transportData.emissions;
+                    totalDistance += transportData.distance_km;
+                }
+            }
+    
+            // 3. Update UI
+            document.getElementById("production-emission").textContent = 
+                productionData.total_emission.toFixed(2);
+            document.getElementById("transport-emission").textContent = 
+                totalTransportEmission.toFixed(2);
+            document.getElementById("transport-distance").textContent = 
+                totalDistance.toFixed(2);
+    
+            const totalEmission = 
+                productionData.total_emission + totalTransportEmission;
+            document.getElementById("total-footprint").textContent = 
+                totalEmission.toFixed(2);
+    
+            updateCharts(productionData.breakdown);
         } catch (error) {
             console.error("Error:", error);
+            alert("Calculation failed. Check the console for details.");
         }
     });
 
@@ -167,9 +198,83 @@ document.getElementById("entry-form").addEventListener("submit", (e) => {
     // Add entry logic
 });
 
-document.getElementById("calculate-total").addEventListener("click", async () => {
+//---
+//document.getElementById("calculate-total").addEventListener("click", async () => {
     // Calculate logic
-    updateCharts(data.breakdown); // Now accessible
+//    updateCharts(data.breakdown); // Now accessible
+//});
+//
+document.getElementById("calculate-total").addEventListener("click", async () => {
+    try {
+        // Calculate production emissions
+        const productionResponse = await fetch("/calculate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ entries })
+        });
+        const productionData = await productionResponse.json();
+
+        if (productionData.error) {
+            alert(productionData.error);
+            return;
+        }
+
+        // Calculate transportation emissions 
+        const transportResponse = await fetch("/transport-emissions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                import_location: entries[0].importLocation,  // Get from user input
+                user_coords: userLocation.coords,
+                mass_kg: entries.reduce((sum, entry) => sum + parseFloat(entry.amount), 0)
+            })
+        });
+        
+        if (!transportResponse.ok) {
+            console.error("❌ Transport API failed:", transportResponse.status);
+            throw new Error(`Transport API failed with status: ${transportResponse.status}`);
+        }
+        
+        const transportData = await transportResponse.json();
+        console.log("🚀 Transport Data:", transportData);
+        
+        if (!transportData.emissions) {
+            console.error("❌ Transport Data is missing 'emissions':", transportData);
+            throw new Error("Transport Data does not contain 'emissions'");
+        }
+
+        // Update UI
+        document.getElementById("production-emission").textContent = 
+            productionData.total_emission.toFixed(2);
+        document.getElementById("transport-emission").textContent = 
+            transportData.emissions.toFixed(2);
+        document.getElementById("transport-distance").textContent = 
+            transportData.distance_km.toFixed(2);
+
+        const totalEmission = 
+            productionData.total_emission + transportData.emissions;
+        document.getElementById("total-footprint").textContent = 
+            totalEmission.toFixed(2);
+
+        updateCharts(productionData.breakdown);
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to calculate emissions. Check the console for details.");
+    }
 });
+
+let userLocation = null;
+
+// Get user location via IP
+fetch("https://ipapi.co/json/")
+    .then(response => response.json())
+    .then(data => {
+        userLocation = {
+            country: data.country_name,
+            coords: { lat: data.latitude, lon: data.longitude }
+        };
+        console.log("User location:", userLocation);
+    });
+
 
 });
