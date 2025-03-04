@@ -3,85 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Carbon Footprint Calculator</title>
+    <title>DELI Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Add jQuery and jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <!-- Add Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Food Carbon Footprint Calculator</h1>
-    <!-- FORM -->
-    <form id="entry-form">  <!-- ← Must match JS -->
-        <label for="ingredient">Ingredient:</label>
-        <input type="text" id="ingredient" name="ingredient" required>
+    <header class="header">
+        <div class="header-logo"></div>
+        <span class="header-title">DELI Calculator</span>
+        <nav class="nav-menu">
+            <a href="recipes.html">Recipes</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search in site">
+            <button id="search-btn">🔍</button>
+        </div>
+    </header>
 
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Calculate Recipe Environmental Impact</h1>
+        <p>Paste a recipe URL to analyze its environmental footprint</p>
+        <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
+        <button class="button button-primary" id="extract-btn">Extract Ingredients</button>
+    </section>
 
-        <label for="unit">Unit:</label>
-        <select id="unit" name="unit" required>
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="lb">lb</option>
+    <!-- Recipe Selection -->
+    <section class="recipe-selector">
+        <h2>Recipe details</h2>
+        <select id="ingredient-dropdown">
+            <option value="">Choose a ingredient...</option>
         </select>
+    </section>
 
-        <label for="import-location">Import Location:</label>
-        <input type="text" id="import-location" name="import-location" placeholder="Enter 'local' or import location" required>
-
-        <button type="submit">Add to List</button>
-    </form>
-
-    <!-- ENTRY LIST -->
-    <div id="entry-list">
-        <h2>Ingredients List</h2>
-        <table>
+    <!-- Selected Ingredients Table -->
+    <section class="selected-ingredients">
+        <h3>Selected Ingredients</h3>
+        <table id="ingredients-table" border="1">
             <thead>
                 <tr>
+                    <th>Category</th>
                     <th>Ingredient</th>
                     <th>Amount</th>
                     <th>Unit</th>
-                    <th>Import Location</th>
-                    <th>Actions</th>
+                    <th>Source</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="entries-table-body"></tbody>  <!-- ← Must match JS -->
+            <tbody id="ingredients-table-body">
+                <!-- Ingredients will be dynamically added here -->
+            </tbody>
         </table>
-        <button id="calculate-total">Calculate Total Footprint</button>
-    </div>
+    </section>
 
-    <!-- RESULTS -->
-    <div id="results">
-        <h2>Total Carbon Footprint: <span id="total-footprint">0.00</span> kg CO₂</h2>
-        <h3>Breakdown:</h3>
-        <p>Production: <span id="production-emission">0.00</span> kg CO₂</p>
-        <p>Transportation: <span id="transport-emission">0.00</span> kg CO₂</p>
-        <p>Distance: <span id="transport-distance">0</span> km</p>
-        <div class="charts">
-            <div class="chart-container">
-                <h3>Carbon Footprint by Ingredient</h3>
-                <canvas id="barChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h3>Carbon Footprint Distribution</h3>
-                <canvas id="pieChart"></canvas>
-            </div>
-        </div>
-    </div>
+    <!-- Calculation Controls -->
+    <section class="calculation-controls">
+        <button class="button button-primary" id="calculate-selected">
+            Calculate Environmental Impact
+        </button>
+    </section>
 
-    <!-- Include your script.js -->
+    <!-- Results Display -->
+    <section id="calculation-results">
+        <!-- Results will be dynamically inserted here -->
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 DELI Calculator. All rights reserved. Privacy Policy | Terms of Use</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
-
-<!-- Add export barchart and pie chart -->
-<div class="export-buttons">
-    <button onclick="exportChart('barChart')">Export Bar Chart</button>
-    <button onclick="exportChart('pieChart')">Export Pie Chart</button>
-</div>
-
-
 </html>
-

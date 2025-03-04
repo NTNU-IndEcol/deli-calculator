@@ -1,280 +1,256 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let entries = [];
+document.addEventListener('DOMContentLoaded', function ()  {
+        console.log("✅ DOM fully loaded"); // Debugging
 
-    // Initialize autocomplete
-    fetch("/ingredients")
-        .then(response => response.json())
-        .then(data => {
-            $("#ingredient").autocomplete({ source: data.ingredients });
-        });
+        let currentRecipe = null; // Store the loaded recipe
+        let selectedIngredients = []; // Store selected ingredients
 
-    // Add entry to list
-    document.getElementById("entry-form").addEventListener("submit", (e) => {
-        e.preventDefault();
 
-        const newEntry = {
-            ingredient: document.getElementById("ingredient").value,
-            amount: document.getElementById("amount").value,
-            unit: document.getElementById("unit").value,
-            importLocation: document.getElementById("import-location").value,
-            id: Date.now()
-        };
-
-        entries.push(newEntry);
-        updateEntryList();
-        clearForm();
-    });
-
-    // Update entry list display
-    function updateEntryList() {
-        const tbody = document.getElementById("entries-table-body");
-        tbody.innerHTML = "";
-
-        entries.forEach((entry, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${entry.ingredient}</td>
-                <td>${entry.amount}</td>
-                <td>${entry.unit}</td>
-                <td>${entry.importLocation}</td>
-                <td>
-                    <button class="edit-btn" data-index="${index}">Edit</button>
-                    <button class="remove-btn" data-index="${index}">Remove</button>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
-
-    // Edit entry (using event delegation)
-    document.getElementById("entries-table-body").addEventListener("click", (e) => {
-        if (e.target.classList.contains("edit-btn")) {
-            const index = e.target.dataset.index;
-            const entry = entries[index];
-            document.getElementById("ingredient").value = entry.ingredient;
-            document.getElementById("amount").value = entry.amount;
-            document.getElementById("unit").value = entry.unit;
-            document.getElementById("import-location").value = entry.importLocation;
-            entries.splice(index, 1);
-            updateEntryList();
-        }
-    });
-
-    // Remove entry (using event delegation)
-    document.getElementById("entries-table-body").addEventListener("click", (e) => {
-        if (e.target.classList.contains("remove-btn")) {
-            const index = e.target.dataset.index;
-            entries.splice(index, 1);
-            updateEntryList();
-        }
-    });
-
-    // Clear form
-    function clearForm() {
-        document.getElementById("entry-form").reset();
-    }
-
-    // Calculate total footprint
-    document.getElementById("calculate-total").addEventListener("click", async () => {
-        try {
-            // 1. Calculate PRODUCTION emissions
-            const productionResponse = await fetch("/calculate", {
+        document.getElementById("extract-btn").addEventListener("click", function () {
+            const url = document.getElementById("recipe-url").value;
+            fetch("/extract-recipe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ entries })
-            });
-            const productionData = await productionResponse.json();
-    
-            // 2. Calculate TRANSPORTATION emissions for non-"local" entries
-            let totalTransportEmission = 0;
-            let totalDistance = 0;
-    
-            for (const entry of entries) {
-                if (entry.importLocation.toLowerCase() !== "local") {
-                    const transportResponse = await fetch("/transport-emissions", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            import_location: entry.importLocation,
-                            user_coords: userLocation.coords,
-                            mass_kg: parseFloat(entry.amount)
-                        })
-                    });
-                    const transportData = await transportResponse.json();
-                    
-                    totalTransportEmission += transportData.emissions;
-                    totalDistance += transportData.distance_km;
-                }
-            }
-    
-            // 3. Update UI
-            document.getElementById("production-emission").textContent = 
-                productionData.total_emission.toFixed(2);
-            document.getElementById("transport-emission").textContent = 
-                totalTransportEmission.toFixed(2);
-            document.getElementById("transport-distance").textContent = 
-                totalDistance.toFixed(2);
-    
-            const totalEmission = 
-                productionData.total_emission + totalTransportEmission;
-            document.getElementById("total-footprint").textContent = 
-                totalEmission.toFixed(2);
-    
-            updateCharts(productionData.breakdown);
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Calculation failed. Check the console for details.");
-        }
-    });
-
- // Initialize charts
- let barChart, pieChart;
-
- // Bar Chart
- const barCtx = document.getElementById("barChart").getContext("2d");
- barChart = new Chart(barCtx, {
-     type: "bar",
-     data: {
-         labels: [],
-         datasets: [{
-             label: "Carbon Footprint (kg CO₂)",
-             data: [],
-             backgroundColor: "rgba(75, 192, 192, 0.2)",
-             borderColor: "rgba(75, 192, 192, 1)",
-             borderWidth: 1
-         }]
-     },
-     options: {
-         scales: { y: { beginAtZero: true } }
-     }
- });
-
- // Pie Chart
- const pieCtx = document.getElementById("pieChart").getContext("2d");
- pieChart = new Chart(pieCtx, {
-     type: "pie",
-     data: {
-         labels: [],
-         datasets: [{
-             label: "Carbon Footprint (kg CO₂)",
-             data: [],
-             backgroundColor: [
-                 "rgba(255, 99, 132, 0.2)",
-                 "rgba(54, 162, 235, 0.2)",
-                 "rgba(255, 206, 86, 0.2)",
-                 "rgba(75, 192, 192, 0.2)",
-                 "rgba(153, 102, 255, 0.2)",
-                 "rgba(255, 159, 64, 0.2)"
-             ],
-             borderColor: [
-                 "rgba(255, 99, 132, 1)",
-                 "rgba(54, 162, 235, 1)",
-                 "rgba(255, 206, 86, 1)",
-                 "rgba(75, 192, 192, 1)",
-                 "rgba(153, 102, 255, 1)",
-                 "rgba(255, 159, 64, 1)"
-             ],
-             borderWidth: 1
-         }]
-     }
- });
-// Define updateCharts
-function updateCharts(breakdown) {
-    const labels = breakdown.map(item => item.ingredient);
-    const emissions = breakdown.map(item => item.emission);
-
-    barChart.data.labels = labels;
-    barChart.data.datasets[0].data = emissions;
-    barChart.update();
-
-    pieChart.data.labels = labels;
-    pieChart.data.datasets[0].data = emissions;
-    pieChart.update();
-}
-
-// Event listeners and other code
-document.getElementById("entry-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    // Add entry logic
-});
-
-//---
-//document.getElementById("calculate-total").addEventListener("click", async () => {
-    // Calculate logic
-//    updateCharts(data.breakdown); // Now accessible
-//});
-//
-document.getElementById("calculate-total").addEventListener("click", async () => {
-    try {
-        // Calculate production emissions
-        const productionResponse = await fetch("/calculate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ entries })
+                body: JSON.stringify({ url }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("🔍 Extracted Recipe Response:", data);
+            })
+            .catch(error => console.error("❌ Fetch Error:", error));
         });
-        const productionData = await productionResponse.json();
 
-        if (productionData.error) {
-            alert(productionData.error);
+        // Load saved recipe when the page loads
+        async function loadSavedRecipe() {
+            try {
+                const response = await fetch("/saved-recipes");
+                const recipe = await response.json();
+
+                if (recipe && recipe.recipeIngredient) {
+                    console.log("✅ Loaded Recipe:", recipe);
+                    currentRecipe = recipe;
+                    populateIngredientDropdown(recipe.recipeIngredient);
+                } else {
+                    console.log("No saved recipe found.");
+                }
+            } catch (error) {
+                console.error("Error loading saved recipe:", error);
+            }
+        }
+
+        // Populate dropdown with ingredients
+        function populateIngredientDropdown(ingredients) {
+            const dropdown = document.getElementById("ingredient-dropdown");
+            if (!dropdown) {
+                console.error("❌ Dropdown element not found!");
+                return;
+            }
+
+            dropdown.innerHTML = '<option value="">Choose an ingredient...</option>';
+            ingredients.forEach((ingredient, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = `${ingredient.name} (${ingredient.amount} ${ingredient.unit})`;
+                dropdown.appendChild(option);
+            });
+
+            console.log("✅ Dropdown populated with ingredients:", ingredients);
+        }
+
+        // Handle ingredient selection
+        document.getElementById("ingredient-dropdown").addEventListener("change", function () {
+            const selectedIndex = this.value;
+            if (selectedIndex === "" || !currentRecipe) return;
+
+            const selectedIngredient = currentRecipe.recipeIngredient[selectedIndex];
+
+            // Prevent duplicate selection
+            if (selectedIngredients.some(i => i.name === selectedIngredient.name)) {
+                alert("Ingredient already added!");
+                return;
+            }
+
+            // Add ingredient with default source
+            selectedIngredients.push({
+                category: currentRecipe.category || "Uncategorized",
+                name: selectedIngredient.name,
+                amount: selectedIngredient.amount,
+                unit: selectedIngredient.unit,
+                source: "Local"
+            });
+
+            updateIngredientTable();
+        });
+
+        function updateIngredientTable() {
+            const tableBody = document.getElementById("ingredients-table-body");
+            tableBody.innerHTML = ""; // Clear previous entries
+    
+            selectedIngredients.forEach((ingredient, index) => {
+                const row = document.createElement("tr");
+    
+                row.innerHTML = `
+                    <td>${ingredient.category}</td>
+                    <td>${ingredient.name}</td>
+                    <td><input type="number" value="${ingredient.amount}" min="0" class="amount-input" data-index="${index}" /></td>
+                    <td>${ingredient.unit}</td>
+                    <td>
+                        <select class="source-dropdown" data-index="${index}">
+                            <option value="Local" ${ingredient.source === "Local" ? "selected" : ""}>Local</option>
+                            <option value="Imported" ${ingredient.source !== "Local" ? "selected" : ""}>Imported</option>
+                        </select>
+                        <input type="text" class="import-location-input" data-index="${index}" 
+                            placeholder="Enter country" value="${ingredient.importLocation}" 
+                            style="display: ${ingredient.source === "Imported" ? "inline-block" : "none"};" />
+                    </td>
+                    <td><button class="remove-btn" data-index="${index}">❌</button></td>
+                `;
+    
+                tableBody.appendChild(row);
+            });
+
+            // Handle amount changes
+            document.querySelectorAll(".amount-input").forEach(input => {
+                input.addEventListener("input", function () {
+                    const index = this.getAttribute("data-index");
+                    selectedIngredients[index].amount = this.value;
+                });
+            });
+    
+            // Handle source selection changes
+            document.querySelectorAll(".source-dropdown").forEach(select => {
+                select.addEventListener("change", function () {
+                    const index = this.getAttribute("data-index");
+                    const importInput = document.querySelector(`.import-location-input[data-index="${index}"]`);
+    
+                    if (this.value === "Imported") {
+                        selectedIngredients[index].source = "Imported";
+                        importInput.style.display = "inline-block"; // Show country input
+                    } else {
+                        selectedIngredients[index].source = "Local";
+                        selectedIngredients[index].importLocation = "";
+                        importInput.style.display = "none"; // Hide country input
+                        importInput.value = "";
+                    }
+                });
+            });
+    
+            // Handle country input changes
+            document.querySelectorAll(".import-location-input").forEach(input => {
+                input.addEventListener("input", function () {
+                    const index = this.getAttribute("data-index");
+                    selectedIngredients[index].importLocation = this.value;
+                });
+            });
+    
+            // Handle ingredient removal
+            document.querySelectorAll(".remove-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    const removeIndex = this.getAttribute("data-index");
+                    selectedIngredients.splice(removeIndex, 1);
+                    updateIngredientTable();
+                });
+            });
+        }
+    
+        loadSavedRecipe();  
+
+        const calculateBtn = document.getElementById("calculate-selected"); // Ensure ID matches HTML
+        if (!calculateBtn) {
+            console.error("❌ ERROR: #calculate-selected button not found!");
             return;
         }
-
-        // Calculate transportation emissions 
-        const transportResponse = await fetch("/transport-emissions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                import_location: entries[0].importLocation,  // Get from user input
-                user_coords: userLocation.coords,
-                mass_kg: entries.reduce((sum, entry) => sum + parseFloat(entry.amount), 0)
-            })
+    
+        calculateBtn.addEventListener("click", async function () {
+            if (selectedIngredients.length === 0) {
+                alert("Please select at least one ingredient.");
+                return;
+            }
+    
+            try {
+                // Send all ingredients in one request
+                const response = await fetch("/calculate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ entries: selectedIngredients }),
+                });
+    
+                const data = await response.json();
+                if (data.error) {
+                    alert("Error: " + data.error);
+                    return;
+                }
+    
+                let total_emission = data.total_emission;
+                let breakdown = data.breakdown;
+    
+                // Calculate transport emissions for imported ingredients
+                for (let ingredient of selectedIngredients) {
+                    if (ingredient.source === "Imported") {
+                        let transportEmission = await calculateTransportEmissions(ingredient);
+                        total_emission += transportEmission;
+    
+                        // Update emission for this ingredient in the breakdown
+                        const index = breakdown.findIndex(item => item.ingredient === ingredient.name);
+                        if (index !== -1) {
+                            breakdown[index].emission += transportEmission;
+                        }
+                    }
+                }
+    
+                displayResults({ total_emission, breakdown });
+    
+            } catch (error) {
+                console.error("❌ Calculation Error:", error);
+            }
         });
-        
-        if (!transportResponse.ok) {
-            console.error("❌ Transport API failed:", transportResponse.status);
-            throw new Error(`Transport API failed with status: ${transportResponse.status}`);
+    
+        async function calculateTransportEmissions(ingredient) {
+            if (ingredient.source === "Local") return 0; // No transport emissions for local
+    
+            try {
+                const response = await fetch("/transport-emissions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        import_location: ingredient.importLocation,
+                        mass_kg: ingredient.amount / 1000, // Convert grams to kg
+                        transport_mode: "sea" // Default mode
+                    })
+                });
+    
+                const data = await response.json();
+                if (data.error) {
+                    console.error("Transport Emission Error:", data.error);
+                    return 0;
+                }
+    
+                console.log(`🌍 Transport Emissions for ${ingredient.name}: ${data.emissions} kg CO2`);
+                return data.emissions;
+            } catch (error) {
+                console.error("❌ Transport API Error:", error);
+                return 0;
+            }
         }
-        
-        const transportData = await transportResponse.json();
-        console.log("🚀 Transport Data:", transportData);
-        
-        if (!transportData.emissions) {
-            console.error("❌ Transport Data is missing 'emissions':", transportData);
-            throw new Error("Transport Data does not contain 'emissions'");
+    
+        function displayResults(data) {
+            const resultSection = document.getElementById("calculation-results");
+            resultSection.innerHTML = `<h3>Total Environmental Impact: ${data.total_emission.toFixed(2)} kg CO2</h3>`;
+            
+            const breakdownTable = document.createElement("table");
+            breakdownTable.innerHTML = `
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Emission (kg CO2)</th>
+                </tr>
+            `;
+            
+            data.breakdown.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${item.ingredient}</td><td>${item.emission.toFixed(2)}</td>`;
+                breakdownTable.appendChild(row);
+            });
+    
+            resultSection.appendChild(breakdownTable);
         }
-
-        // Update UI
-        document.getElementById("production-emission").textContent = 
-            productionData.total_emission.toFixed(2);
-        document.getElementById("transport-emission").textContent = 
-            transportData.emissions.toFixed(2);
-        document.getElementById("transport-distance").textContent = 
-            transportData.distance_km.toFixed(2);
-
-        const totalEmission = 
-            productionData.total_emission + transportData.emissions;
-        document.getElementById("total-footprint").textContent = 
-            totalEmission.toFixed(2);
-
-        updateCharts(productionData.breakdown);
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Failed to calculate emissions. Check the console for details.");
-    }
-});
-
-let userLocation = null;
-
-// Get user location via IP
-fetch("https://ipapi.co/json/")
-    .then(response => response.json())
-    .then(data => {
-        userLocation = {
-            country: data.country_name,
-            coords: { lat: data.latitude, lon: data.longitude }
-        };
-        console.log("User location:", userLocation);
+    
     });
-
-
-});

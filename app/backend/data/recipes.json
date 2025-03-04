@@ -1,0 +1,126 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "id": 1,
+    "name": "Dakdoritang (Spicy Chicken Stew)",
+    "author": "Korean Bapsang",
+    "datePublished": "2025-03-04",
+    "category": "Main Dish",
+    "recipeIngredient": [
+        {
+            "amount": null,
+            "unit": "pounds",
+            "name": "bone-in chicken parts"
+        },
+        {
+            "amount": 10.0,
+            "unit": "ounces",
+            "name": "potatoes"
+        },
+        {
+            "amount": 1.0,
+            "unit": "g",
+            "name": "medium size carrot (can be omitted)"
+        },
+        {
+            "amount": 0.5,
+            "unit": "g",
+            "name": "large onion"
+        },
+        {
+            "amount": 7.5,
+            "unit": "g",
+            "name": "plump garlic cloves"
+        },
+        {
+            "amount": 2.5,
+            "unit": "g",
+            "name": "thinly sliced ginger pieces (about 1-inch round)"
+        },
+        {
+            "amount": 2.0,
+            "unit": "stalks",
+            "name": "scallions"
+        },
+        {
+            "amount": 1.0,
+            "unit": "",
+            "name": "red chili pepper - optional"
+        },
+        {
+            "amount": 2.5,
+            "unit": "tablespoons",
+            "name": "gochugaru (Korean red chili pepper flakes)"
+        },
+        {
+            "amount": 2.0,
+            "unit": "tablespoons",
+            "name": "sugar"
+        },
+        {
+            "amount": 4.0,
+            "unit": "tablespoons",
+            "name": "soy sauce"
+        },
+        {
+            "amount": 2.0,
+            "unit": "tablespoons",
+            "name": "rice wine (or mirin)"
+        },
+        {
+            "amount": 2.0,
+            "unit": "tablespoons",
+            "name": "gochujang (Korean red chili pepper paste)"
+        },
+        {
+            "amount": null,
+            "unit": "pinch",
+            "name": "pepper"
+        },
+        {
+            "amount": 1.0,
+            "unit": "tablespoon",
+            "name": "sesame oil"
+        },
+        {
+            "amount": 1.0,
+            "unit": "teaspoon",
+            "name": "sesame seeds"
+        }
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Prepare the vegetables by cutting up in big chunks."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Add 1.5 cups water to a large pot along with the chicken and the sauce (except the sesame oil and sesame seeds). Stir well. Bring it to a boil over high heat. Reduce the heat to medium and cook, covered, for 15 minutes, stirring occasionally."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Stir in the vegetables (except the scallions). Cover, and cook for an additional 10 minutes, stirring occasionally."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Continue to cook, uncovered this time, until the chicken is tender and the sauce is slightly thickened, about 5 minutes. Stir in the scallions, optional chili pepper, sesame oil and sesame seeds right before turning off the heat."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Place the prepared chicken and vegetables (except the scallions) in the slow cooker. Add all the sauce ingredients (except the sesame oil and seeds). Stir well to coat the chicken and vegetables evenly."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Turn the slow cooker on high heat. Cover, and cook for about 4 hours. (You can cook on low heat if you’ll be out longer, about 6 hours). Stir in the scallions, sesame oil and sesame seeds. Skim off excess fat before serving, if desired."
+        }
+    ],
+    "recipeYield": "4",
+    "prepTime": "10 Minutes",
+    "cookTime": "30 Minutes",
+    "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/12/DSC7155.jpg",
+    "description": "Dakdoritang is a red spicy braised chicken dish. This recipe shows two ways to cook it - stove top and slow cooker. What is Dakdoritang Also called",
+    "environmentalImpact": {
+        "co2Emissions": 0,
+        "waterUse": 0
+    }
+}
