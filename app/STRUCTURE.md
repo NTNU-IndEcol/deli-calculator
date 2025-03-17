@@ -8,7 +8,10 @@ foodCalculator/
 ├── backend/
 │   ├── carbon_calculator.py    # Logic for calculating emissions
 │   ├── data/                   # Dataset for food emissions
-│   │   └── food_emissions.csv  # Sample dataset
+│   │   ├── food_item_poore_and_nemecek.csv # Database, Poore and Nemecek
+|   |   ├── Conversion_factors.csv          # Conversion ingredient unit to gram 
+|   |   └── food_emissions.csv  # Sample dataset
+|   |   
 │   └── requirements.txt        # Python dependencies
 │
 ├── frontend/                   # Frontend files

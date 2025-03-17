@@ -2,123 +2,130 @@
     "@context": "https://schema.org",
     "@type": "Recipe",
     "id": 1,
-    "name": "Dakdoritang (Spicy Chicken Stew)",
+    "name": "Instant Pot Korean Braised Short Ribs",
     "author": "Korean Bapsang",
-    "datePublished": "2025-03-04",
+    "datePublished": "2025-03-17",
     "category": "Main Dish",
     "recipeIngredient": [
         {
-            "amount": null,
+            "amount": 3.5,
             "unit": "pounds",
-            "name": "bone-in chicken parts"
+            "name": "beef short ribs"
         },
         {
-            "amount": 10.0,
+            "amount": 8.0,
             "unit": "ounces",
-            "name": "potatoes"
+            "name": "Korean radish"
         },
         {
             "amount": 1.0,
             "unit": "g",
-            "name": "medium size carrot (can be omitted)"
+            "name": "medium carrot"
+        },
+        {
+            "amount": 3.5,
+            "unit": "",
+            "name": "fresh or dried shiitake mushrooms"
         },
         {
             "amount": 0.5,
             "unit": "g",
-            "name": "large onion"
+            "name": "medium Korean/Asian pear or 1 small apple"
         },
         {
-            "amount": 7.5,
+            "amount": 0.5,
             "unit": "g",
-            "name": "plump garlic cloves"
+            "name": "medium onion"
         },
         {
-            "amount": 2.5,
+            "amount": 6.0,
             "unit": "g",
-            "name": "thinly sliced ginger pieces (about 1-inch round)"
+            "name": "plump garlic cloves (about 2 TB minced)"
+        },
+        {
+            "amount": 1.0,
+            "unit": "inch",
+            "name": "ginger piece (a thumb size) or 1 teaspoon minced"
+        },
+        {
+            "amount": 0.5,
+            "unit": "cup",
+            "name": "soy sauce"
+        },
+        {
+            "amount": 0.5,
+            "unit": "cup",
+            "name": "rice wine (or mirin or dry white wine)"
+        },
+        {
+            "amount": 4.0,
+            "unit": "tablespoons",
+            "name": "sugar (or 2 TB sugar and 2 TB honey)"
+        },
+        {
+            "amount": 2.0,
+            "unit": "tablespoons",
+            "name": "sesame oil"
+        },
+        {
+            "amount": null,
+            "unit": "",
+            "name": "pepper to taste"
+        },
+        {
+            "amount": 5.5,
+            "unit": "pieces",
+            "name": "chestnuts"
         },
         {
             "amount": 2.0,
             "unit": "stalks",
             "name": "scallions"
-        },
-        {
-            "amount": 1.0,
-            "unit": "",
-            "name": "red chili pepper - optional"
-        },
-        {
-            "amount": 2.5,
-            "unit": "tablespoons",
-            "name": "gochugaru (Korean red chili pepper flakes)"
-        },
-        {
-            "amount": 2.0,
-            "unit": "tablespoons",
-            "name": "sugar"
-        },
-        {
-            "amount": 4.0,
-            "unit": "tablespoons",
-            "name": "soy sauce"
-        },
-        {
-            "amount": 2.0,
-            "unit": "tablespoons",
-            "name": "rice wine (or mirin)"
-        },
-        {
-            "amount": 2.0,
-            "unit": "tablespoons",
-            "name": "gochujang (Korean red chili pepper paste)"
-        },
-        {
-            "amount": null,
-            "unit": "pinch",
-            "name": "pepper"
-        },
-        {
-            "amount": 1.0,
-            "unit": "tablespoon",
-            "name": "sesame oil"
-        },
-        {
-            "amount": 1.0,
-            "unit": "teaspoon",
-            "name": "sesame seeds"
         }
     ],
     "recipeInstructions": [
         {
             "@type": "HowToStep",
-            "text": "Prepare the vegetables by cutting up in big chunks."
+            "text": "Trim off any thick layer of surface fat. In the pot, rinse the ribs with cold water a couple of times to remove surface blood and bone dust."
         },
         {
             "@type": "HowToStep",
-            "text": "Add 1.5 cups water to a large pot along with the chicken and the sauce (except the sesame oil and sesame seeds). Stir well. Bring it to a boil over high heat. Reduce the heat to medium and cook, covered, for 15 minutes, stirring occasionally."
+            "text": "Drain, and fill the pot with 4 cups of water to cover the ribs. Close the lid tightly. Press the “Manual” function and High Pressure, and using the “-” button, adjust the time to 2 minutes. Make sure the pressure switch is turned to “sealing”. When finished, carefully released the pressure."
         },
         {
             "@type": "HowToStep",
-            "text": "Stir in the vegetables (except the scallions). Cover, and cook for an additional 10 minutes, stirring occasionally."
+            "text": "Discard the cooking liquid (or save to use it as a soup base later), and rinse the ribs and the pot. Return the ribs to the pot."
         },
         {
             "@type": "HowToStep",
-            "text": "Continue to cook, uncovered this time, until the chicken is tender and the sauce is slightly thickened, about 5 minutes. Stir in the scallions, optional chili pepper, sesame oil and sesame seeds right before turning off the heat."
+            "text": "In a small blender, blend together the pear, onion, garlic, and ginger. You can separately grate them if you want. Transfer to a bowl. Mix well with the remaining braising liquid ingredients."
         },
         {
             "@type": "HowToStep",
-            "text": "Place the prepared chicken and vegetables (except the scallions) in the slow cooker. Add all the sauce ingredients (except the sesame oil and seeds). Stir well to coat the chicken and vegetables evenly."
+            "text": "Add the radish, carrot, and mushrooms to the pot. If using fresh mushrooms, you can add them in step 7. Pour the braising liquid over to the ribs. Toss everything well to coat the ribs evenly. (You can prepare up to this point ahead of time.) Close the lid tightly. Pressure cook the ribs for 35 minutes, NPR (Natural release of Pressure) for 10 minutes. (See the quicker alternative method below.) Then, remove the ribs and vegetables to a large bowl or plate."
         },
         {
             "@type": "HowToStep",
-            "text": "Turn the slow cooker on high heat. Cover, and cook for about 4 hours. (You can cook on low heat if you’ll be out longer, about 6 hours). Stir in the scallions, sesame oil and sesame seeds. Skim off excess fat before serving, if desired."
+            "text": "Strain the braising liquid. You can skim off the fat or use a fat separator."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Put everything back to the Instant Pot. This will be a good point to add optional chestnuts, fresh vegetables such as potatoes, and/or even rice cake (tteokbokki tteok) if you want. Boil everything together on Saute for 10 to 15 minutes."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Garnish with the optional scallions and sesame seeds."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Press the “Manual” function, 40 minutes (45 minutes if your meat is thick and you want extra tender meat), NPR 10 minutes. Strain the braising liquid if you want. You can skim off the fat or use a fat separator."
         }
     ],
     "recipeYield": "4",
     "prepTime": "10 Minutes",
-    "cookTime": "30 Minutes",
-    "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/12/DSC7155.jpg",
-    "description": "Dakdoritang is a red spicy braised chicken dish. This recipe shows two ways to cook it - stove top and slow cooker. What is Dakdoritang Also called",
+    "cookTime": "10 Minutes",
+    "image": "https://www.koreanbapsang.com/wp-content/uploads/2020/03/DSC7900-2-e1640239830367.jpg",
+    "description": "This Instant Pot Galbijjim recipe show you how to best make these tender, juicy and flavorful Korean braised short ribs in your pressure cooker!",
     "environmentalImpact": {
         "co2Emissions": 0,
         "waterUse": 0

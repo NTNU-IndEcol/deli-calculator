@@ -2,17 +2,18 @@ from flask import Flask, request, jsonify, send_from_directory
 from backend.carbon_calculator import CarbonCalculator
 from backend.extract_recipe import extract_recipe_data, save_recipe
 from dotenv import load_dotenv
-import os, json, requests
+import os, json
+import pandas as pd
 
 load_dotenv()  # Load .env file
 
 API_KEY = os.getenv("OPENCAGE_API_KEY")
-
+RECIPE_FILE = "backend/data/recipes.json"
+DATABASE_FIEL = "backend/data/food_item_poore_and_nemecek.csv"
 #print($OPENCAGE_API_KEY)
 
 app = Flask(__name__)
-calculator = CarbonCalculator("backend/data/food_item_poore_and_nemecek.csv")
-RECIPE_FILE = "backend/data/recipes.json"
+calculator = CarbonCalculator("backend/data/food_emissions.csv")
 
 # Serve frontend files
 @app.route("/")
@@ -23,23 +24,10 @@ def index():
 def frontend_files(filename):
     return send_from_directory("frontend", filename)
 
-# Get user location
-def get_user_location():
-    """Get user's approximate location based on IP address."""
-    try:
-        response = requests.get("https://ipinfo.io/json")
-        data = response.json()
+@app.route('/backend/data/<filename>')
+def serve_csv(filename):
+    return send_from_directory('backend/data', filename)
 
-        if "loc" in data:
-            lat, lon = map(float, data["loc"].split(","))
-            return {"lat": lat, "lon": lon}
-
-        print("❌ Could not determine user location from IP.")
-        return None
-    except Exception as e:
-        print(f"❌ IP Geolocation error: {e}")
-        return None
-    
 # Extract recipe
 @app.route("/extract-recipe", methods=["POST"])
 def extract_recipe():
@@ -59,6 +47,7 @@ def extract_recipe():
 
     return jsonify({"recipe": recipe})
 
+# Load recipes
 @app.route("/saved-recipes", methods=["GET"])
 def get_saved_recipes():
     """Retrieve the latest saved recipe from the JSON file."""
@@ -72,6 +61,24 @@ def get_saved_recipes():
     except Exception as e:
         return jsonify({"error": f"Failed to load recipe: {e}"}), 500
 
+# Load database
+@app.route("/load-database", methods=["GET"])
+def load_database():
+    """Retrieve the latest saved recipe from the JSON file."""
+    try:
+        if os.path.exists(DATABASE_FIEL):
+       #     with open(DATABASE_FIEL, "r", encoding="utf-8") as f:
+       #         database = json.load(f)  # Read as a single object, not a list
+            df = pd.read_csv(DATABASE_FIEL, encoding="ISO-8859-1")  # Load CSV into a DataFrame
+            database = df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
+ 
+            return jsonify(database)
+
+        return jsonify({"error": "Database file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Failed to load database: {e}"}), 500
+    
+
 # Add ingredient list endpoint
 @app.route("/ingredients")
 def get_ingredients():
@@ -84,89 +91,39 @@ def calculate():
     try:
         data = request.json
         entries = data.get("entries", [])
-
+        
         total_emission = 0
         breakdown = []
-
+        
         for entry in entries:
-            if not all(key in entry for key in ["name", "amount", "unit", "source"]):
+            # Validate required fields
+            if not all(key in entry for key in ["name", "amount", "unit"]):
                 return jsonify({"error": "Missing required fields"}), 400
-
+            
             try:
                 emission = calculator.calculate_emission(
                     entry["name"],
                     float(entry["amount"]),
                     entry["unit"],
-                    entry.get("source", "Local")  # Use source location
+                    entry.get("importLocation", "local")
                 )
-
-                if emission is None:
-                    return jsonify({"error": f"Ingredient '{entry['name']}' not found in the dataset."}), 400
-
                 total_emission += emission
                 breakdown.append({
                     "ingredient": entry["name"],
                     "emission": emission
                 })
-
             except ValueError as e:
                 return jsonify({"error": str(e)}), 400
-
+            
         return jsonify({
-            "total_emission": round(total_emission, 2),
+            "total_emission": total_emission,
             "breakdown": breakdown
         })
-
+        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 # Transportation emissions
-@app.route("/transport-emissions", methods=["POST"])
-def transport_emissions():
-    data = request.json
-    import_location = data.get("import_location")
-    mass_kg = data.get("mass_kg", 1)
-    transport_mode = data.get("transport_mode", "sea")
-
-    try:
-        # Get user's location via IP
-        user_coords = get_user_location()
-        if not user_coords:
-            return jsonify({"error": "Could not determine user location"}), 400
-
-        # Geocode import location
-        import_coords = calculator.geocode_location(import_location)
-        if not import_coords:
-            return jsonify({"error": "Invalid import location"}), 400
-
-        print(f"🌍 Import Location {import_location} -> {import_coords}")  # Debugging
-        print(f"📍 User Location -> {user_coords}")  # Debugging
-
-        # Calculate distance
-        distance_km = calculator.haversine_distance(user_coords, import_coords)
-
-        # Calculate emissions based on transport mode
-        transport_emission_factors = {
-            "air": 0.5,  # kg CO₂ per km per kg
-            "sea": 0.02,  # kg CO₂ per km per kg
-            "truck": 0.1,  # kg CO₂ per km per kg
-            "rail": 0.03   # kg CO₂ per km per kg
-        }
-
-        emission_factor = transport_emission_factors.get(transport_mode, 0.02)
-        emissions = distance_km * emission_factor * mass_kg
-
-        return jsonify({
-            "distance_km": round(distance_km, 2),
-            "emissions": round(emissions, 2),
-            "transport_mode": transport_mode
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-'''
 
 @app.route("/transport-emissions", methods=["POST"])
 def transport_emissions():
@@ -205,7 +162,6 @@ def transport_emissions():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-'''        
 '''
 # Debug
 @app.route("/debug-geocode", methods=["GET"])

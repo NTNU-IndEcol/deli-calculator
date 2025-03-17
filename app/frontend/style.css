@@ -118,6 +118,28 @@ body {
     background-color: rgba(8, 100, 0, 1); /* Darker green on hover */
 }
 
+/* Autocomplete-list */
+.autocomplete-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background: white;
+    width: 200px;
+    display: none;
+}
+.autocomplete-list li {
+    padding: 5px;
+    cursor: pointer;
+}
+.autocomplete-list li:hover {
+    background: #f0f0f0;
+}
+
+
 .ingredient-selector {
     margin: 40px 0;
 }
