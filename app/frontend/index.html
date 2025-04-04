@@ -19,6 +19,7 @@
             <a href="recipes.html">Recipes</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
+            <a></a>
         </nav>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search in site">
@@ -31,7 +32,8 @@
         <h1>Calculate Recipe Environmental Impact</h1>
         <p>Paste a recipe URL to analyze its environmental footprint</p>
         <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
-        <button class="button button-primary" id="extract-btn">Extract Ingredients</button>
+        <p></p>
+        <button class="button button-primary" id="extract-btn">Extract Recipe</button>
     </section>
 
     <!-- User add the ingredient -->
@@ -75,19 +77,12 @@
         <input type="number" id="amount-input" min="0" />
     
         <label>Unit:</label>
-        <select id="unit-dropdown">
-            <option value="g">g</option>
-            <option value="kg">kg</option>
-            <option value="ml">ml</option>
-            <option value="l">l</option>
-        </select>
+        <input type="text" id="unit-input" placeholder="Type to search..." />
     
         <label>Source:</label>
-        <select id="source-dropdown">
-            <option value="Local">Local</option>
-            <option value="Imported">Imported</option>
-        </select>
-    
+        <input type="text" id="importCountry-input" placeholder="Type to search..." />
+
+        
         <button id="add-ingredient-btn">➕ Add</button>
     </div>
     

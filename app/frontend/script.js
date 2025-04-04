@@ -1,53 +1,66 @@
+// import { detectUserCountry, handleDataError } from './utilities.js';
+
 // Declare globally so all functions can access them
+let userLocation = {
+    countryName: 'Norway',
+    countryCodeISO3: 'NOR'
+  };
 let categoryDataBase = [];
 let ingredientDataBase = [];
 let fullDatabase = [];
+let database = [];
+let importData = [];
+let regions = [];
+let envImpact = [];
 let categoryInput, ingredientInput, categoryList, ingredientList, updateIngredientList;
+let importCountryList ;
+
+// Directly dectect the user location
+async function detectUserLocation() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      
+      return {
+        countryName: data.country_name,
+        countryCodeISO3: data.country_code_iso3 || 'NOR', // Fallback to Norway
+        success: !!data.country_name
+      };
+    } catch (error) {
+      console.error('Location detection failed:', error);
+      return {
+        countryName: 'Norway',
+        countryCodeISO3: 'NOR',
+        success: false
+      };
+    }
+  }
 
 
 // Load all data when the page starts
+
 async function initializeApp() {
-    await loadDataBase();
-  //  await loadSavedRecipe();
-  //  await loadIngredients();
-    await loadImportData();
-    await loadRegions();
-    await loadEnvImpact();
-}
-
-/*
-// Load ingredients mapping
-async function loadIngredients() {
     try {
-        let response = await fetch("/load-ingredients");
-        let data = await response.json();
-        // Process ingredients data as needed
-        console.log("✅ Ingredients Mapping:", data);
+      // First detect location
+      userLocation = await detectUserLocation();
+      console.log(`🌍 Detected country: ${userLocation.countryName} (${userLocation.countryCodeISO3})`);
+  
+      // Load import data FIRST
+      const importData = await loadImportData();
+      
+      // Then load database WITH import data
+      const database = await loadDataBase(importData);
+      
+      // Load other dependencies
+      const regions = await loadRegions();
+      const envImpact = await loadEnvImpact();
+  
+      console.log("✅ All data loaded successfully");
+      
     } catch (error) {
-        console.error("Error loading ingredients:", error);
+      console.error("Initialization failed:", error);
     }
-}
-*/
-
-// Load import data
-async function loadImportData() {
-    try {
-        let response = await fetch("/load-import-data");
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        let data = await response.json();
-        
-        // Handle backend errors (e.g., file not found)
-        if (data.error) {
-            throw new Error(data.error);
-        }
-        
-        console.log("✅ Import Data:", data);
-    } catch (error) {
-        console.error("Error loading import data:", error);
-    }
-}
+  }
 
 // Load regions
 async function loadRegions() {
@@ -62,6 +75,101 @@ async function loadRegions() {
 }
 
 
+// Modified loadDataBase to accept importData as parameter
+async function loadDataBase(importData) {
+    try {
+      const response = await fetch("load-database");
+      const data = await response.json();
+  
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid data format: Expected an array.");
+      }
+  
+      // Enhance database with import data
+      const enhancedDatabase = data.map(item => {
+        const commCode = item.comm_code;
+        const topExporters = importData[commCode] || [];
+        
+        return {
+          ...item,
+          Top1: topExporters[0]?.country || 'N/A',
+          Top2: topExporters[1]?.country || 'N/A',
+          Top3: topExporters[2]?.country || 'N/A',
+          Top4: topExporters[3]?.country || 'N/A',
+          Top5: topExporters[4]?.country || 'N/A',
+        };
+      });
+  
+      // Store the enhanced database
+      fullDatabase = enhancedDatabase;
+      
+      const allImportCountries = enhancedDatabase.flatMap(item => [
+        item.Top1,
+        item.Top2,
+        item.Top3,
+        item.Top4,
+        item.Top5
+      ]).filter(Boolean); // Remove empty/null/undefined values
+
+      
+      // Extract unique categories and ingredients
+      categoryDataBase = [...new Set(enhancedDatabase.map(item => item["Food group"].trim()))];
+      ingredientDataBase = [...new Set(enhancedDatabase.map(item => item.Ingredient.trim()))];
+      importCountryList = [...new Set(allImportCountries)].sort();
+
+      console.log("Unique dropdown options:");
+      console.log("Categories:", categoryDataBase);
+      console.log("Ingredients:", ingredientDataBase);
+      console.log("Import Countries:", importCountryList);
+
+      console.log("✅ Database loaded with import data");
+      return enhancedDatabase;
+      
+    } catch (error) {
+      console.error("Error loading data:", error);
+      return [];
+    }
+  }
+  
+  // Ensure loadImportData returns proper structure
+  async function loadImportData() {
+    try {
+      const response = await fetch("/load-import-data");
+      const rawData = await response.json();
+      
+      // Process to {c001: [...], c002: [...]} format
+      const processed = processImportData(rawData);
+      return processed;
+      
+    } catch (error) {
+      console.error("Error loading import data:", error);
+      return {}; // Return empty object as fallback
+    }
+  }
+  
+  // Add the data processor
+  function processImportData(rawData) {
+    const commodityMap = {};
+    
+    rawData.forEach(item => {
+      const code = item.Commodity;
+      if (!commodityMap[code]) commodityMap[code] = [];
+      commodityMap[code].push({
+        country: item.Country,
+        rank: Number(item.Rank)
+      });
+    });
+  
+    // Sort and keep top 5
+    Object.values(commodityMap).forEach(arr => {
+      arr.sort((a, b) => a.rank - b.rank);
+      arr.splice(5); // Keep only top 5
+    });
+  
+    return commodityMap;
+  } 
+
+ /* 
 // Load database
 async function loadDataBase() {
     try {
@@ -87,7 +195,7 @@ async function loadDataBase() {
         console.error("Error loading data:", error);
     }
 }
-
+*/
 // Load regions
 async function loadEnvImpact() {
     try {
@@ -105,7 +213,111 @@ async function loadEnvImpact() {
 window.onload = initializeApp;
 
 // Autocomplete list
+function showSuggestions(inputElement, listElement, data, forceShow = false) {
+    let inputValue = inputElement.value.toLowerCase();
+    listElement.innerHTML = "";
 
+    let matches = forceShow ? data : data.filter(item => item.toLowerCase().includes(inputValue));
+
+    if (matches.length === 0) {
+        listElement.style.display = "none";
+        return;
+    }
+
+    // Create suggestion items
+    const items = matches.slice(0, 10).map(match => {
+        let li = document.createElement("li");
+        li.textContent = match;
+        li.onclick = () => {
+            inputElement.value = match;
+            listElement.style.display = "none";
+            
+            // Existing logic to update category and ingredients
+            const ingredientEntry = fullDatabase.find(item => 
+                item["Ingredient"].trim() === match
+            );
+            if (ingredientEntry) {
+                const category = ingredientEntry["Food group"].trim();
+                categoryInput.value = category;
+                updateIngredientList(category);
+                setTimeout(() => {
+                    showSuggestions(ingredientInput, ingredientList, ingredientDataBase, true);
+                }, 0);
+            }
+        };
+        // Highlight on hover
+        li.onmouseover = () => {
+            Array.from(listElement.children).forEach(child => child.classList.remove('selected'));
+            li.classList.add('selected');
+        };
+        return li;
+    });
+
+    items.forEach(li => listElement.appendChild(li));
+
+    // Position and show dropdown
+    listElement.style.display = "block";
+    listElement.style.position = "absolute";
+    listElement.style.left = `${inputElement.offsetLeft}px`;
+    listElement.style.top = `${inputElement.offsetTop + inputElement.offsetHeight}px`;
+    listElement.style.width = `${inputElement.offsetWidth}px`;
+
+    // Keyboard navigation handler
+    const handleKeyDown = (e) => {
+        if (listElement.style.display !== "block") return;
+
+        const items = listElement.getElementsByTagName("li");
+        if (!items.length) return;
+
+        let selectedIndex = Array.from(items).findIndex(li => li.classList.contains("selected"));
+
+        switch(e.key) {
+            case "ArrowDown":
+                e.preventDefault();
+                selectedIndex = selectedIndex === -1 ? 0 : (selectedIndex + 1) % items.length;
+                break;
+            case "ArrowUp":
+                e.preventDefault();
+                selectedIndex = selectedIndex === -1 ? items.length - 1 : (selectedIndex - 1 + items.length) % items.length;
+                break;
+            case "Enter":
+                e.preventDefault();
+                if (selectedIndex !== -1) {
+                    items[selectedIndex].click();
+                }
+                return;
+            case "Escape":
+                listElement.style.display = "none";
+                return;
+            default:
+                return;
+        }
+
+        // Update selection highlight
+        Array.from(items).forEach(li => li.classList.remove("selected"));
+        if (selectedIndex !== -1) {
+            items[selectedIndex].classList.add("selected");
+            items[selectedIndex].scrollIntoView({ block: "nearest" });
+        }
+    };
+
+    // Remove previous handler and attach new one
+    inputElement.removeEventListener("keydown", inputElement._suggestionKeyHandler);
+    inputElement._suggestionKeyHandler = handleKeyDown;
+    inputElement.addEventListener("keydown", handleKeyDown);
+}
+
+// Add CSS for highlighting
+const style = document.createElement("style");
+style.textContent = `
+    li.selected {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+`;
+document.head.appendChild(style);
+
+/*
 // Modify the showSuggestions function to accept forceShow
 function showSuggestions(inputElement, listElement, data, forceShow = false) {
     let inputValue = inputElement.value.toLowerCase();
@@ -153,13 +365,19 @@ function showSuggestions(inputElement, listElement, data, forceShow = false) {
     listElement.style.width = `${inputElement.offsetWidth}px`;
 }
 
+*/
+
 document.addEventListener('DOMContentLoaded', async function ()  {
     console.log("✅ DOM fully loaded"); // Debugging
 
+    // Initialize elements
     categoryInput = document.getElementById("category-input");
     ingredientInput = document.getElementById("ingredient-input");
     categoryList = document.getElementById("category-suggestions");
     ingredientList = document.getElementById("ingredient-suggestions");
+    const unitInput = document.getElementById("unit-input");
+    const importCountryInput = document.getElementById("importCountry-input");
+
     let addIngredientBtn = document.getElementById("add-ingredient-btn");
 
     let currentRecipe = null; // Store the loaded recipe
