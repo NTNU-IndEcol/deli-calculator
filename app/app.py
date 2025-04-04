@@ -2,18 +2,34 @@ from flask import Flask, request, jsonify, send_from_directory
 from backend.carbon_calculator import CarbonCalculator
 from backend.extract_recipe import extract_recipe_data, save_recipe
 from dotenv import load_dotenv
-import os, json
+import os, json, csv
 import pandas as pd
 
 load_dotenv()  # Load .env file
 
-API_KEY = os.getenv("OPENCAGE_API_KEY")
-RECIPE_FILE = "backend/data/recipes.json"
-DATABASE_FIEL = "backend/data/food_item_poore_and_nemecek.csv"
 #print($OPENCAGE_API_KEY)
 
 app = Flask(__name__)
-calculator = CarbonCalculator("backend/data/food_emissions.csv")
+
+API_KEY = os.getenv("OPENCAGE_API_KEY")
+RECIPE_FILE = "backend/data/recipes.json"
+DATABASE_FIEL = "backend/data/food_item_poore_and_nemecek.csv"
+
+
+# Load config.json
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+# Define file paths from config
+RECIPE_FILE = config['recipe']
+DATABASE_FILE = config['database']
+#INGREDIENTS_FILE = config['ingredients']
+IMPORT_DATA_FILE = config['import_data']
+REGIONS_FILE = config['regions']
+ENV_IMPACTS_FILE = config['env_impacts']
+
+
+calculator = CarbonCalculator("backend/data/food_item_poore_and_nemecek.csv")
 
 # Serve frontend files
 @app.route("/")
@@ -47,6 +63,102 @@ def extract_recipe():
 
     return jsonify({"recipe": recipe})
 
+# Existing route for database
+@app.route("/load-database", methods=["GET"])
+def load_database():
+    try:
+        if os.path.exists(DATABASE_FILE):
+            df = pd.read_csv(DATABASE_FILE, encoding="ISO-8859-1")
+            return jsonify(df.to_dict(orient="records"))
+        return jsonify({"error": "Database file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Failed to load database: {e}"}), 500
+
+'''
+# New route for ingredients
+@app.route("/load-ingredients", methods=["GET"])
+def load_ingredients():
+    try:
+        if os.path.exists(INGREDIENTS_FILE):
+            # Use quoting=csv.QUOTE_MINIMAL to handle quoted fields
+            df = pd.read_csv(
+                INGREDIENTS_FILE,
+                encoding="utf-8",
+                quotechar='"',
+                quoting=csv.QUOTE_MINIMAL
+            )
+            return jsonify(df.to_dict(orient="records"))
+        return jsonify({"error": "Ingredients file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Failed to load ingredients: {e}"}), 500
+'''
+# New route for import data
+@app.route("/load-import-data", methods=["GET"])
+def load_import_data():
+    try:
+        if os.path.exists(IMPORT_DATA_FILE):
+            print("✅ Import data file found, loading...")
+
+            # Read CSV with error handling
+            df = pd.read_csv(
+                IMPORT_DATA_FILE,
+                encoding="ISO-8859-1",
+               # errors="replace",
+                quotechar='"',
+                quoting=csv.QUOTE_MINIMAL,
+                on_bad_lines="skip"
+            )
+
+            print("✅ Data loaded successfully.")
+            print(df.head())  # Print first few rows
+            print(df.dtypes)  # Print data types
+
+            # Replace NaN with None for JSON compatibility
+            #df = df.replace({np.nan: None})
+
+            return jsonify(df.to_dict(orient="records"))
+
+        print("❌ Import data file not found!")
+        return jsonify({"error": "Import data file not found"}), 404
+    except Exception as e:
+        print(f"❌ Failed to load import data: {e}")
+        return jsonify({"error": f"Failed to load import data: {e}"}), 500
+    
+
+# New route for regions
+@app.route("/load-regions", methods=["GET"])
+def load_regions():
+    try:
+        if os.path.exists(REGIONS_FILE):
+            df = pd.read_csv(REGIONS_FILE, encoding="ISO-8859-1")
+            return jsonify(df.to_dict(orient="records"))
+        return jsonify({"error": "Regions file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Failed to load regions: {e}"}), 500
+
+# New route for environmental impact
+@app.route("/load-env-impact", methods=["GET"])
+def load_env_impact():
+    try:
+        if os.path.exists(ENV_IMPACTS_FILE):
+            df = pd.read_csv(ENV_IMPACTS_FILE, encoding="ISO-8859-1")
+            return jsonify(df.to_dict(orient="records"))
+        return jsonify({"error": "Env impact file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Failed to load Env impact: {e}"}), 500
+       
+# Existing route for recipes
+@app.route("/saved-recipes", methods=["GET"])
+def get_saved_recipes():
+    try:
+        if os.path.exists(RECIPE_FILE):
+            with open(RECIPE_FILE, "r", encoding="utf-8") as f:
+                recipe = json.load(f)
+            return jsonify(recipe)
+        return jsonify({})
+    except Exception as e:
+        return jsonify({"error": f"Failed to load recipe: {e}"}), 500
+'''
 # Load recipes
 @app.route("/saved-recipes", methods=["GET"])
 def get_saved_recipes():
@@ -77,6 +189,7 @@ def load_database():
         return jsonify({"error": "Database file not found"}), 404
     except Exception as e:
         return jsonify({"error": f"Failed to load database: {e}"}), 500
+'''
     
 
 # Add ingredient list endpoint

@@ -36,13 +36,13 @@ Beer (Fat Tire Amber Ale),Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128
 "Beer (Pinnacle Peak Pale Ale, Harmon Brewing Company)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
 Beer (Varshon Brewing Company),Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
 "Beer (Vortex IPA, Fort George Brewery)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
-"Beer, alcohol-free (<1,2° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, alcohol-free (<1,2Â° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
 "Beer, dark",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
-"Beer, low alcohol-content (3° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
-"Beer, regular (4-5° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
-"Beer, special (5-6° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, low alcohol-content (3Â° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, regular (4-5Â° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, special (5-6Â° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
 "Beer, ""specialty"", from abbey or regional (varying alcohol content)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
-"Beer, strong (>8° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, strong (>8Â° alcohol)",Barley (Beer),206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
 Oats,Oatmeal,4463,3.414,1.352,0,0.001,0,1.37,0.042,0.067,0.066,0.029,0.00697,0.00705,302,11774,Poore&Nemecek
 Rice flour,Rice,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,PA based on AGRIBALYSE
 Jasmine rice,Rice,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
@@ -244,7 +244,7 @@ Cream cheese,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.17
 "Brie de Melun cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Camembert cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Cantal cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Carré de l'Est cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Carrï¿½ de l'Est cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Causses blue cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Chabichou cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Chaource cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
@@ -254,14 +254,14 @@ Cream cheese,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.17
 "Cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Cheese, semi-dry, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Chevrot cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Comté cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Comtï¿½ cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Corsica soft ripened cheese, from ewe's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Coulommiers cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Crottin cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Crottin de Chavignol cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Edam cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Emmental cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Époisses cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"ï¿½poisses cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Feta cheese, from ewe's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 Feta-type cheese from cow's milk,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Fontina cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
@@ -281,19 +281,19 @@ Goat cheese from raw milk,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.7
 "Morbier cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Mozzarella cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Munster cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Neufchâtel cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Neufchï¿½tel cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Ossau-Iraty cheese, from ewe's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Parmesan cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Pélardon cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pï¿½lardon cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Picodon cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Plant-based cheese, without soybean, prepacked, shredded",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Plant-based cheese, without soybean, prepacked, sliced",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Plant-based spread-cheese type, with soybean, prepacked",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Pont l'Evêque cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pont l'Evï¿½que cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Pouligny Saint-Pierre cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 Processed cheese,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Provolone cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Pyrénées cheese, from ewe's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pyrï¿½nï¿½es cheese, from ewe's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Raclette cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Reblochon cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Rocamadour cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
@@ -310,7 +310,7 @@ Soft ripened cheese,Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.1
 "Tomme cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Uncured soft cheese, spreadable",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 "Vacherin cheese or Mont d'or cheese, from cow's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
-"Valençay cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Valenï¿½ay cheese, from goat's milk",Cheese,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
 Chicken eggs,Eggs,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,Poore&Nemecek
 Duck eggs,Eggs,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,PA based on AGRIBALYSE
 Goose eggs,Eggs,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,PA based on AGRIBALYSE

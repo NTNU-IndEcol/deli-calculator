@@ -94,28 +94,8 @@
     <!-- Autocomplete Suggestions -->
     <ul id="category-suggestions" class="autocomplete-list"></ul>
     <ul id="ingredient-suggestions" class="autocomplete-list"></ul>
-    
-    <style>
-        .autocomplete-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            border: 1px solid #ccc;
-            max-height: 150px;
-            overflow-y: auto;
-            position: absolute;
-            background: white;
-            width: 200px;
-            display: none;
-        }
-        .autocomplete-list li {
-            padding: 5px;
-            cursor: pointer;
-        }
-        .autocomplete-list li:hover {
-            background: #f0f0f0;
-        }
-    </style>
+    <tbody id="ingredients-table-body"></tbody>
+
 
     <!-- Selected Ingredients Table -->
     <section class="Ingredients">
@@ -153,6 +133,6 @@
         <p>© 2025 DELI Calculator. All rights reserved. Privacy Policy | Terms of Use</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script  type="module" src="script.js"></script>
 </body>
 </html>

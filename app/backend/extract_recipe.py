@@ -32,60 +32,104 @@ def parse_amount(amount_text):
     except ValueError:
         return None  # Return None if parsing fails
 
+def extract_main_ingredient(name):
+    """Extract the main component from ingredient name."""
+    descriptors = {
+        'size': ['medium', 'small', 'large', 'jumbo', 'baby'],
+        'state': ['fresh', 'dried', 'minced', 'chopped', 'sliced'],
+        'type': ['korean', 'asian', 'plump', 'thumb-sized']
+    }
+    
+    # Remove measurement references and special characters
+    clean_name = re.sub(r'\([^)]*\)|[0-9]+\s?%?|optional|divided', '', name, flags=re.IGNORECASE)
+    
+    # Split into words and filter descriptors
+    words = [word.lower() for word in clean_name.split() 
+            if word.lower() not in [item for sublist in descriptors.values() for item in sublist]]
+    
+    # Find the most specific noun (usually last word)
+    main_ingredient = words[-1] if words else name
+    
+    # Singularize and clean
+    main_ingredient = main_ingredient.rstrip('s')  # Simple singularization
+    return main_ingredient.capitalize()
+
 def map_to_si_unit(name, unit):
-    """Convert ingredient descriptions into SI units when possible."""
+    """Convert units to grams and return (standard_unit, conversion_factor)."""
+    unit = unit.lower().strip('s')
     name = name.lower()
-    unit = unit.lower()
+    
+    conversion_map = {
+        # Weight conversions
+        'pound': ('g', 453.592),
+        'lb': ('g', 453.592),
+        'ounce': ('g', 28.3495),
+        'oz': ('g', 28.3495),
+        'kg': ('g', 1000),
+        'g': ('g', 1),
+        'gram': ('g', 1),
+        
+        # Volume conversions
+        'cup': ('cup', 1),
+        'tablespoon': ('tbsp', 1),
+        'teaspoon': ('tsp', 1),
+        'tsp': ('tsp', 1),
+        'dl': ('dl', 1),
+        'Liter': ('L', 1),
 
-    volume_units = ["cup", "cups", "tbsp", "tablespoon", "tsp", "teaspoon", "liter", "l"]
-    weight_units = ["lb", "pound", "oz", "ounce", "g", "gram", "kg", "kilogram"]
-
-    # If the unit is already standard, return it
-    if unit in volume_units + weight_units:
-        return unit
-
-    # Convert descriptive sizes to approximate SI units
-    size_map = {
-        "medium": "g",
-        "small": "g",
-        "large": "g",
-        "clove": "g",
-        "head": "g",
-        "stalk": "stalks",
-        "slice": "g",
-        "leaf": "leaves",
-        "chestnuts": "pieces",
-        "scallions": "stalks",
+        # Special food items
+        'package': ('g', 400),        # Tofu package standard size
+        'head': ('unit', 1),          # e.g., head of lettuce
+        'bunch': ('bunch', 1),
+        'clove': ('clove', 1),
+        'slice': ('slice', 1)
     }
 
-    for keyword, si_unit in size_map.items():
-        if keyword in name:
-            return si_unit
+    # Check direct unit matches first
+    for key, (std_unit, factor) in conversion_map.items():
+        if key == unit:
+            return (std_unit, factor)
 
-    return ""  # Default to empty if no clear unit is found
+    # Check for unit clues in ingredient name
+    if any(x in name for x in ['lb', 'pound']):
+        return ('g', 453.592)
+    if any(x in name for x in ['oz', 'ounce']):
+        return ('g', 28.3495)
+    if 'package' in name and 'tofu' in name:
+        return ('g', 400)
+
+    # Default for unknown units
+    return ('unit', 1)
 
 def clean_ingredient_text(ingredient):
-    """Extract and clean ingredient details."""
+    """Convert ingredients to standardized units with gram conversion."""
     amount_text = ingredient.select_one('.wprm-recipe-ingredient-amount')
     unit_text = ingredient.select_one('.wprm-recipe-ingredient-unit')
     name_text = ingredient.select_one('.wprm-recipe-ingredient-name')
 
-    amount = parse_amount(amount_text.get_text(strip=True) if amount_text else '')
-    unit = unit_text.get_text(strip=True) if unit_text else ''
-    name = name_text.get_text(strip=True) if name_text else ''
+    # Parse original values
+    raw_amount = parse_amount(amount_text.get_text(strip=True)) if amount_text else None
+    raw_unit = unit_text.get_text(strip=True) if unit_text else ''
+    raw_name = name_text.get_text(strip=True) if name_text else ''
 
-    # Handle 'to taste' properly
-    if amount == "to taste":
-        unit = "to taste"
-
-    # If unit is missing, infer from name
-    if not unit:
-        unit = map_to_si_unit(name, unit)
-
+    # Get standardized unit and conversion
+    std_unit, conversion_factor = map_to_si_unit(raw_name, raw_unit)
+    
+    # Convert amount to grams if applicable
+    final_amount = raw_amount * conversion_factor if std_unit == 'g' and raw_amount else raw_amount
+    
+    # Handle special cases
+    if 'marinated' in raw_name.lower() and std_unit == 'g':
+        final_amount *= 1.2  # Account for marinade weight
+    
     return {
-        "amount": amount,
-        "unit": unit,
-        "name": name
+       # "amount": final_amount,
+       # "unit": std_unit,
+        "name": extract_main_ingredient(raw_name),
+       # "original_text": f"{raw_amount} {raw_unit} {raw_name}".strip() if raw_amount else raw_name
+        "amount": raw_amount,
+        "unit": raw_unit,
+        "original_text": f"{raw_name}".strip() if raw_amount else raw_name
     }
 
 
@@ -165,7 +209,15 @@ def extract_recipe_details(url, recipe_id):
         "author": "Korean Bapsang",
         "datePublished": datetime.now().strftime('%Y-%m-%d'),
         "category": category,
-        "recipeIngredient": ingredients,
+        #"recipeIngredient": ingredients,
+        "recipeIngredient": [{
+            "mainIngredient": ingredient["name"],
+            "details": {
+                "amount": ingredient["amount"],
+                "unit": ingredient["unit"],
+                "originalText": ingredient["original_text"]
+            }
+        } for ingredient in ingredients],    
         "recipeInstructions": [{"@type": "HowToStep", "text": instruction} for instruction in instructions],
         "recipeYield": servings,
         "prepTime": prep_time_cleaned,

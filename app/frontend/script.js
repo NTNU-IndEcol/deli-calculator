@@ -4,6 +4,64 @@ let ingredientDataBase = [];
 let fullDatabase = [];
 let categoryInput, ingredientInput, categoryList, ingredientList, updateIngredientList;
 
+
+// Load all data when the page starts
+async function initializeApp() {
+    await loadDataBase();
+  //  await loadSavedRecipe();
+  //  await loadIngredients();
+    await loadImportData();
+    await loadRegions();
+    await loadEnvImpact();
+}
+
+/*
+// Load ingredients mapping
+async function loadIngredients() {
+    try {
+        let response = await fetch("/load-ingredients");
+        let data = await response.json();
+        // Process ingredients data as needed
+        console.log("✅ Ingredients Mapping:", data);
+    } catch (error) {
+        console.error("Error loading ingredients:", error);
+    }
+}
+*/
+
+// Load import data
+async function loadImportData() {
+    try {
+        let response = await fetch("/load-import-data");
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        let data = await response.json();
+        
+        // Handle backend errors (e.g., file not found)
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        console.log("✅ Import Data:", data);
+    } catch (error) {
+        console.error("Error loading import data:", error);
+    }
+}
+
+// Load regions
+async function loadRegions() {
+    try {
+        let response = await fetch("/load-regions");
+        let data = await response.json();
+        // Process regions data as needed
+        console.log("✅ Regions:", data);
+    } catch (error) {
+        console.error("Error loading regions:", error);
+    }
+}
+
+
 // Load database
 async function loadDataBase() {
     try {
@@ -30,6 +88,21 @@ async function loadDataBase() {
     }
 }
 
+// Load regions
+async function loadEnvImpact() {
+    try {
+        let response = await fetch("/load-env-impact");
+        let data = await response.json();
+        // Process regions data as needed
+        console.log("✅ Env impact:", data);
+    } catch (error) {
+        console.error("Error loading Env impact:", error);
+    }
+}
+
+
+// Call initializeApp when the page loads
+window.onload = initializeApp;
 
 // Autocomplete list
 
@@ -109,10 +182,10 @@ document.addEventListener('DOMContentLoaded', async function ()  {
     });
 
     // Load database
-    await loadDataBase();
+  //  await loadDataBase();
     
-    console.log("🔍 categoryDatabase:", categoryDataBase)
-    console.log("🔍 ingredientsDatabase:", ingredientDataBase)
+   // console.log("🔍 categoryDatabase:", categoryDataBase)
+    //console.log("🔍 ingredientsDatabase:", ingredientDataBase)
 
     // Event listener for category selection from the dropdown
     categoryList.addEventListener("click", (event) => {
@@ -232,16 +305,18 @@ document.addEventListener('DOMContentLoaded', async function ()  {
         try {
             const response = await fetch("/saved-recipes");
             const recipe = await response.json();
-
+    
             if (recipe && recipe.recipeIngredient) {
                 console.log("✅ Loaded Recipe:", recipe);
                 currentRecipe = recipe;
                 selectedIngredients = recipe.recipeIngredient.map(ingredient => ({
                     category: recipe.category || "Uncategorized",
-                    name: ingredient.name,
-                    amount: ingredient.amount,
-                    unit: ingredient.unit,
-                    source: "Local"
+                    name: ingredient.details.originalText, // Show original text in table
+                    mainIngredient: ingredient.mainIngredient, // Store for calculations
+                    amount: ingredient.details.amount,
+                    unit: ingredient.details.unit,
+                    source: "Local",
+                    originalUnit: ingredient.details.unit // Preserve original unit if needed
                 }));
                 updateIngredientTable();
             } else {
@@ -251,7 +326,10 @@ document.addEventListener('DOMContentLoaded', async function ()  {
             console.error("Error loading saved recipe:", error);
         }
     }
+    
+    loadSavedRecipe();  
 
+    // Updated ingredient table
     function updateIngredientTable() {
         const tableBody = document.getElementById("ingredients-table-body");
         tableBody.innerHTML = ""; // Clear previous entries
@@ -325,7 +403,7 @@ document.addEventListener('DOMContentLoaded', async function ()  {
         });
     }
 
-    loadSavedRecipe();  
+
 
     const calculateBtn = document.getElementById("calculate-selected"); // Ensure ID matches HTML
     if (!calculateBtn) {

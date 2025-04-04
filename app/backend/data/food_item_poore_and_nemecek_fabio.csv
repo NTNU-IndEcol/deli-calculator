@@ -1,0 +1,530 @@
+Ingredient,Food group old,comm_code,item,Food group,Food and Waste,Land Use (m2) Arable,Land Use (m2) Fallow,Land Use (m2) Perm Past,"GHG (kg CO2eq, IPCC 2013) LUC","GHG (kg CO2eq, IPCC 2013) Feed","GHG (kg CO2eq, IPCC 2013) Farm","GHG (kg CO2eq, IPCC 2013) Processing","GHG (kg CO2eq, IPCC 2013) Transport","GHG (kg CO2eq, IPCC 2013) Packging","GHG (kg CO2eq, IPCC 2013) Retail",Acid.(kg SO2eq),Eutr. (kg PO43-eq),Freshwater (L),Str-Wt WU (L eq),Datasource
+Bread wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Rye,Wheat & Rye (Bread),c005,Rye and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Soft wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat and rye bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat flour,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Bagel,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Bran grain bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Bread, French bread, baguette",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Bread, gluten free",Wheat & Rye (Bread),c009,"Cereals, Other","Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Brioche,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Chocolate croissant,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Corn tortilla wrap, to be filled",Wheat & Rye (Bread),c004,Maize and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Crispbread, extruded and grilled",Wheat & Rye (Bread),c009,"Cereals, Other","Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Croissant,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Croutons,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"English muffin, prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Grissini or bread stick,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Milk roll, prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Panini bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Pita bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Rolls for hamburger/hotdog (buns), prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Rusk,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Rye bread, and wheat",Wheat & Rye (Bread),c005,Rye and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Sandwich loaf,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Wheat tortilla wrap, to be filled",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Maize,Maize (Meal),c004,Maize and products,"Cereals, bread and cakes",194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,Poore&Nemecek
+Maize flour,Maize (Meal),c004,Maize and products,"Cereals, bread and cakes",194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,PA based on AGRIBALYSE
+Barley,Barley (Beer),c003,Barley and products,"Cereals, bread and cakes",206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+Beer,Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+Beer (Fat Tire Amber Ale),Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+"Beer (Horn Blonde Ale, RAM Brewery)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+"Beer (HUB Lager, Hopworks Urban Brewery)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+"Beer (Pinnacle Peak Pale Ale, Harmon Brewing Company)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+Beer (Varshon Brewing Company),Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+"Beer (Vortex IPA, Fort George Brewery)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+"Beer, alcohol-free (<1,2° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, dark",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, low alcohol-content (3° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, regular (4-5° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, special (5-6° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, ""specialty"", from abbey or regional (varying alcohol content)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+"Beer, strong (>8° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
+Oats,Oatmeal,c006,Oats,"Cereals, bread and cakes",4463,3.414,1.352,0,0.001,0,1.37,0.042,0.067,0.066,0.029,0.00697,0.00705,302,11774,Poore&Nemecek
+Rice flour,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,PA based on AGRIBALYSE
+Jasmine rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Long grain rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Potatoes,Potatoes,c010,Potatoes and products,Potatoes,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,Poore&Nemecek
+Sweet potatoes,Potatoes,c012,Sweet potatoes,Vegetables,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,Poore&Nemecek
+Yam or Indian potatoes,Potatoes,c014,Yams,Vegetables,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,PA based on AGRIBALYSE
+French fries,Potatoes,c010,Potatoes and products,Potatoes,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,PA based on AGRIBALYSE
+Cassava,Cassava,c011,Cassava and products,Vegetables,173814,0.934,0.32,0,0.589,0,0.22,0,0.094,0.045,0.039,0.00298,0.00056,0,0,Poore&Nemecek
+Tapioca,Cassava,c011,Cassava and products,Vegetables,173814,0.934,0.32,0,0.589,0,0.22,0,0.094,0.045,0.039,0.00298,0.00056,0,0,PA based on AGRIBALYSE
+Sugar,Cane Sugar,c066,Sugar (Raw Equivalent),Sugar and sweet products,141702,1.213,0.381,0,1.247,0,0.485,0.037,0.784,0.083,0.036,0.01537,0.0136,492,13096,Poore&Nemecek
+Sugar cane,Cane Sugar,c015,Sugar cane,Sugar and sweet products,141702,1.213,0.381,0,1.247,0,0.485,0.037,0.784,0.083,0.036,0.01537,0.0136,492,13096,Poore&Nemecek
+Cane molasses,Cane Sugar,c015,Sugar cane,Sugar and sweet products,141702,1.213,0.381,0,1.247,0,0.485,0.037,0.784,0.083,0.036,0.01537,0.0136,492,13096,PA based on AGRIBALYSE
+Sugar from beet,Beet Sugar,c015,Sugar cane,Sugar and sweet products,34038,1.159,0.274,0,0,0,0.536,0.242,0.629,0.09,0.039,0.01076,0.00437,170,7413,Poore&Nemecek
+Sugar beet,Beet Sugar,c015,Sugar cane,Sugar and sweet products,34038,1.159,0.274,0,0,0,0.536,0.242,0.629,0.09,0.039,0.01076,0.00437,170,7413,Poore&Nemecek
+Adsuki bean,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Brown beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Chickpeas,Other Pulses,c018,Peas,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Faba beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Field beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Lentils,Other Pulses,c019,"Pulses, Other and products",Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Lupins,Other Pulses,c019,"Pulses, Other and products",Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Pigeon peas,Other Pulses,c018,Peas,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Runner beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Red kidney beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,PA based on AGRIBALYSE
+Split pea,Other Pulses,c018,Peas,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,PA based on AGRIBALYSE
+Haricot beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,PA based on AGRIBALYSE
+Flageolet beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,PA based on AGRIBALYSE
+Peas,Peas,c018,Peas,Legumes,6026,5.354,1.384,0,0,0,0.717,0,0.095,0.045,0.039,0.00759,0.00683,353,24856,Poore&Nemecek
+Almonds,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Carob,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Cashew nuts,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Chestnuts,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Hazelnuts,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Pistachios,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Walnuts,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,Poore&Nemecek
+Macadamia,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,PA based on AGRIBALYSE
+Pecan,Nuts,c020,Nuts and products,Nuts and seeds,15296,4.681,0.399,0,-2.052,0,2.126,0.032,0.067,0.078,0.027,0.01904,0.0088,1914,106382,PA based on AGRIBALYSE
+Peanuts,Groundnuts,c022,Groundnuts,Nuts and seeds,11827,5.802,1.169,0,0.439,0,1.425,0.372,0.12,0.099,0.042,0.01792,0.01117,1431,48147,Poore&Nemecek
+Soymilk,Soymilk,c021,Soyabeans,Beverages,33318,0.464,0.128,0,0.18,0,0.093,0.163,0.11,0.098,0.27,0.0025,0.00097,26,894,Poore&Nemecek
+Coconut milk,Soymilk,c026,Coconuts - Incl Copra,Beverages,33318,0.464,0.128,0,0.18,0,0.093,0.163,0.11,0.098,0.27,0.0025,0.00097,26,894,PA based on AGRIBALYSE
+Soybean Tofu,Tofu,c021,Soyabeans,Other foods and dishes,11853,2.473,0.681,0,0.958,0,0.495,0.794,0.177,0.177,0.27,0.00625,0.00553,139,4785,Poore&Nemecek
+Soybean oil,Soybean Oil,c068,Soyabean Oil,Cooking fat,24148,7.815,2.359,0,3.096,0,1.519,0.311,0.299,0.849,0.043,0.0157,0.01123,418,15039,Poore&Nemecek
+"Soybean, whole grain",Soybean Oil,c021,Soyabeans,Legumes,24148,7.815,2.359,0,3.096,0,1.519,0.311,0.299,0.849,0.043,0.0157,0.01123,418,15039,Poore&Nemecek
+Palm oil,Palm Oil,c074,Palm Oil,Cooking fat,16691,2.259,0.179,0,3.096,0,2.107,1.264,0.208,0.886,0.044,0.01832,0.01089,7,37,Poore&Nemecek
+Palm fruit,Palm Oil,c028,"Oil, palm fruit",Cooking fat,16691,2.259,0.179,0,3.096,0,2.107,1.264,0.208,0.886,0.044,0.01832,0.01089,7,37,Poore&Nemecek
+Sunflower oil,Sunflower Oil,c070,Sunflowerseed Oil,Cooking fat,9554,13.581,3.613,0,0.133,0,2.148,0.229,0.201,0.853,0.043,0.02735,0.05061,943,34064,Poore&Nemecek
+Sunflower seeds,Sunflower Oil,c023,Sunflower seed,Cooking fat,9554,13.581,3.613,0,0.133,0,2.148,0.229,0.201,0.853,0.043,0.02735,0.05061,943,34064,Poore&Nemecek
+Canola seeds,Rapeseed Oil,c024,Rape and Mustardseed,Cooking fat,10311,8.458,2.09,0,0.212,0,2.343,0.193,0.19,0.844,0.046,0.0288,0.01939,234,10412,Poore&Nemecek
+Canola oil,Rapeseed Oil,c071,Rape and Mustard Oil,Cooking fat,10311,8.458,2.09,0,0.212,0,2.343,0.193,0.19,0.844,0.046,0.0288,0.01939,234,10412,Poore&Nemecek
+Rapeseed,Rapeseed Oil,c024,Rape and Mustardseed,Cooking fat,10311,8.458,2.09,0,0.212,0,2.343,0.193,0.19,0.844,0.046,0.0288,0.01939,234,10412,Poore&Nemecek
+Rapeseed oil,Rapeseed Oil,c071,Rape and Mustard Oil,Cooking fat,10311,8.458,2.09,0,0.212,0,2.343,0.193,0.19,0.844,0.046,0.0288,0.01939,234,10412,Poore&Nemecek
+Extra virgin olive oil,Olive Oil,c077,Olive Oil,Cooking fat,2997,27.213,1.089,0,-0.377,0,4.272,0.66,0.482,0.861,0.046,0.04108,0.04024,2322,192719,Poore&Nemecek
+"Extra virgin olive oil (""GranFruttato"")",Olive Oil,c077,Olive Oil,Cooking fat,2997,27.213,1.089,0,-0.377,0,4.272,0.66,0.482,0.861,0.046,0.04108,0.04024,2322,192719,Poore&Nemecek
+Olive oil,Olive Oil,c077,Olive Oil,Cooking fat,2997,27.213,1.089,0,-0.377,0,4.272,0.66,0.482,0.861,0.046,0.04108,0.04024,2322,192719,Poore&Nemecek
+Olives,Olive Oil,c029,Olives (including preserved),Vegetables,2997,27.213,1.089,0,-0.377,0,4.272,0.66,0.482,0.861,0.046,0.04108,0.04024,2322,192719,Poore&Nemecek
+Virgin olive oil,Olive Oil,c077,Olive Oil,Cooking fat,2997,27.213,1.089,0,-0.377,0,4.272,0.66,0.482,0.861,0.046,0.04108,0.04024,2322,192719,Poore&Nemecek
+Tomatoes,Tomatoes,c031,Tomatoes and products,Vegetables,148957,0.328,0.182,0,0.372,0,0.704,0.012,0.177,0.145,0.017,0.01143,0.00481,235,4013,Poore&Nemecek
+Tomatoes (baby plum),Tomatoes,c031,Tomatoes and products,Vegetables,148957,0.328,0.182,0,0.372,0,0.704,0.012,0.177,0.145,0.017,0.01143,0.00481,235,4013,Poore&Nemecek
+Tomatoes (loose classic),Tomatoes,c031,Tomatoes and products,Vegetables,148957,0.328,0.182,0,0.372,0,0.704,0.012,0.177,0.145,0.017,0.01143,0.00481,235,4013,Poore&Nemecek
+Tomatoes (round/globe),Tomatoes,c031,Tomatoes and products,Vegetables,148957,0.328,0.182,0,0.372,0,0.704,0.012,0.177,0.145,0.017,0.01143,0.00481,235,4013,Poore&Nemecek
+Tomatoes (vine),Tomatoes,c031,Tomatoes and products,Vegetables,148957,0.328,0.182,0,0.372,0,0.704,0.012,0.177,0.145,0.017,0.01143,0.00481,235,4013,Poore&Nemecek
+Onions,Onions & Leeks,c032,Onions,Vegetables,77927,0.219,0.066,0,0.005,0,0.211,0,0.095,0.045,0.039,0.00304,0.0023,11,746,Poore&Nemecek
+Leeks,Onions & Leeks,c032,Onions,Vegetables,77927,0.219,0.066,0,0.005,0,0.211,0,0.095,0.045,0.039,0.00304,0.0023,11,746,Poore&Nemecek
+Spring onions,Onions & Leeks,c032,Onions,Vegetables,77927,0.219,0.066,0,0.005,0,0.211,0,0.095,0.045,0.039,0.00304,0.0023,11,746,Poore&Nemecek
+Carrots,Root Vegetables,c033,"Vegetables, Other",Vegetables,35154,0.231,0.032,0,0.013,0,0.154,0,0.114,0.045,0.039,0.00253,0.00132,23,776,Poore&Nemecek
+Celeriac,Root Vegetables,c033,"Vegetables, Other",Vegetables,35154,0.231,0.032,0,0.013,0,0.154,0,0.114,0.045,0.039,0.00253,0.00132,23,776,Poore&Nemecek
+Parsnip,Root Vegetables,c033,"Vegetables, Other",Vegetables,35154,0.231,0.032,0,0.013,0,0.154,0,0.114,0.045,0.039,0.00253,0.00132,23,776,Poore&Nemecek
+Swede,Root Vegetables,c033,"Vegetables, Other",Vegetables,35154,0.231,0.032,0,0.013,0,0.154,0,0.114,0.045,0.039,0.00253,0.00132,23,776,Poore&Nemecek
+Broccoli,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Cabbage,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Cauliflower,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Chinese cabbage,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Pakchoi,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Savoy cabbage,Brassicas,c033,"Vegetables, Other",Vegetables,77045,0.303,0.149,0,0.002,0,0.278,0,0.095,0.045,0.017,0.00686,0.00414,97,6878,Poore&Nemecek
+Artichokes,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Chicory,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Courgette,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Cucumber,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Endive,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Rutabaga,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Sim beans,Other Vegetables,c017,Beans,Legumes,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+French beans,Other Vegetables,c017,Beans,Legumes,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Green beans,Other Vegetables,c017,Beans,Legumes,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Hokkaido pumpkins,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Iceberg lettuce,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Lambs lettuce,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Lettuce,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Pumpkins,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,Poore&Nemecek
+Asparagus,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Beetroot,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Brussels sprout,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Cardoon,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Chilli pepper,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Zucchini,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Plantain banana,Other Vegetables,c039,Plantains,Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Spinach,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Squash,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Sweet corn,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Sweet pepper,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on AGRIBALYSE
+Mushrooms,Other Vegetables,c033,"Vegetables, Other",Vegetables,654375,0.223,0.087,0,0.001,0,0.174,0.06,0.164,0.041,0.015,0.00531,0.00186,83,3958,PA based on SHARPID
+Blood oranges,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Chinese oranges,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Citrus,Citrus Fruit,c037,"Citrus, Other",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Clementine,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Lemons,Citrus Fruit,c035,"Lemons, Limes and products",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Mandarin,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Oranges,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Tangerine,Citrus Fruit,c034,"Oranges, Mandarines",Fruits and berries,127923,0.637,0.038,0,-0.146,0,0.307,0,0.094,0.045,0.017,0.00306,0.00157,65,3678,Poore&Nemecek
+Bananas,Bananas,c038,Bananas,Fruits and berries,128971,1.23,0,0,-0.025,0,0.266,0.059,0.292,0.065,0.021,0.00469,0.00225,86,491,Poore&Nemecek
+Apples,Apples,c040,Apples and products,Fruits and berries,75781,0.465,0.028,0,-0.029,0,0.225,0.004,0.096,0.044,0.017,0.00291,0.00115,140,10007,Poore&Nemecek
+Blueberries,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,Poore&Nemecek
+Raspberries,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,Poore&Nemecek
+Strawberries,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,Poore&Nemecek
+Black currants,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,PA based on AGRIBALYSE
+Blackberries,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,PA based on AGRIBALYSE
+Cranberries,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,PA based on AGRIBALYSE
+Gooseberry,Berries & Grapes,c044,"Fruits, Other",Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,PA based on AGRIBALYSE
+Raisin,Berries & Grapes,c043,Grapes and products (excl wine),Fruits and berries,67079,0.741,0.899,0,0.025,0,0.722,0,0.238,0.212,0.017,0.00989,0.00531,292,15180,PA based on AGRIBALYSE
+Red wine,Wine,c090,Wine,Beverages,26013,1.553,0,0,-0.061,0,0.626,0.139,0.093,0.749,0.039,0.01128,0.00402,68,1003,Poore&Nemecek
+White wine,Wine,c090,Wine,Beverages,26013,1.553,0,0,-0.061,0,0.626,0.139,0.093,0.749,0.039,0.01128,0.00402,68,1003,Poore&Nemecek
+Wine,Wine,c090,Wine,Beverages,26013,1.553,0,0,-0.061,0,0.626,0.139,0.093,0.749,0.039,0.01128,0.00402,68,1003,Poore&Nemecek
+Wine grapes,Wine,c034,"Oranges, Mandarines",Fruits and berries,26013,1.553,0,0,-0.061,0,0.626,0.139,0.093,0.749,0.039,0.01128,0.00402,68,1003,Poore&Nemecek
+Avocado,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Canary melon,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Chinese pear,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Kiwi,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Melon,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Nectarines,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Apricot,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Peaches,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Pears,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Pineapples,Other Fruit,c041,Pineapples and products,Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Sweet cherries,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Watermelon,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,Poore&Nemecek
+Carambola,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Fig,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Guava,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Lychee,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Mango,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Papaya,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Passion fruit,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Pomegranate,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Tamarind,Other Fruit,c044,"Fruits, Other",Fruits and berries,210650,0.465,0.145,0,0.126,0,0.369,0.015,0.182,0.042,0.016,0.00438,0.00179,119,7771,PA based on AGRIBALYSE
+Coffee beans,Coffee,c045,"Coffee, green",Beverages,7778,10.683,1.038,0,3.688,0,10.386,0.592,0.13,1.63,0.051,0.04608,0.0602,14,182,Poore&Nemecek
+Coffee,Coffee,c045,"Coffee, green",Beverages,7778,10.683,1.038,0,3.688,0,10.386,0.592,0.13,1.63,0.051,0.04608,0.0602,14,182,PA based on AGRIBALYSE
+Chocolate,Dark Chocolate,c046,Cocoa beans,Sugar and sweet products,4416,18.634,5.059,0,14.308,0,3.706,0.185,0.061,0.4,0.021,0.01659,0.03061,209,1097,Poore&Nemecek
+Cocoa,Dark Chocolate,c046,Cocoa beans,Sugar and sweet products,4416,18.634,5.059,0,14.308,0,3.706,0.185,0.061,0.4,0.021,0.01659,0.03061,209,1097,Poore&Nemecek
+Beef,Bovine Meat (beef herd),c113,Bovine Meat,Meat and Poultry,40571,20.507,5.067,168.092,16.278,1.878,39.388,1.269,0.346,0.247,0.164,0.18929,0.17747,871,21163,Poore&Nemecek
+Beef sausages,Bovine Meat (beef herd),c113,Bovine Meat,Meat and Poultry,40571,20.507,5.067,168.092,16.278,1.878,39.388,1.269,0.346,0.247,0.164,0.18929,0.17747,871,21163,PA based on AGRIBALYSE
+Beef burger,Bovine Meat (beef herd),c113,Bovine Meat,Meat and Poultry,40571,20.507,5.067,168.092,16.278,1.878,39.388,1.269,0.346,0.247,0.164,0.18929,0.17747,871,21163,PA based on AGRIBALYSE
+Bresaola,Bovine Meat (beef herd),c113,Bovine Meat,Meat and Poultry,40571,20.507,5.067,168.092,16.278,1.878,39.388,1.269,0.346,0.247,0.164,0.18929,0.17747,871,21163,PA based on AGRIBALYSE
+Veal,Bovine Meat (beef herd),c113,Bovine Meat,Meat and Poultry,40571,20.507,5.067,168.092,16.278,1.878,39.388,1.269,0.346,0.247,0.164,0.18929,0.17747,871,21163,PA based on AGRIBALYSE
+Cow,Bovine Meat (dairy herd),c096,Cattle,Meat and Poultry,31425,10.096,1.965,13.667,0.906,2.508,15.689,1.108,0.424,0.268,0.182,0.20946,0.20883,1650,75339,Poore&Nemecek
+Goat,Lamb & Mutton,c099,Goats,Meat and Poultry,14195,9.292,1.666,212.348,0.468,2.37,19.508,1.111,0.49,0.251,0.217,0.08726,0.05965,1082,85193,Poore&Nemecek
+Lamb,Lamb & Mutton,c098,Sheep,Meat and Poultry,14195,9.292,1.666,212.348,0.468,2.37,19.508,1.111,0.49,0.251,0.217,0.08726,0.05965,1082,85193,Poore&Nemecek
+Kid,Lamb & Mutton,c099,Goats,Meat and Poultry,14195,9.292,1.666,212.348,0.468,2.37,19.508,1.111,0.49,0.251,0.217,0.08726,0.05965,1082,85193,Poore&Nemecek
+Mutton,Lamb & Mutton,c098,Sheep,Meat and Poultry,14195,9.292,1.666,212.348,0.468,2.37,19.508,1.111,0.49,0.251,0.217,0.08726,0.05965,1082,85193,Poore&Nemecek
+Pork,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,Poore&Nemecek
+Bacon,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,PA based on AGRIBALYSE
+Ham,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,PA based on AGRIBALYSE
+Pork sausages,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,PA based on AGRIBALYSE
+Pork ribs,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,PA based on AGRIBALYSE
+Pork burger,Pig Meat,c115,Pigmeat,Meat and Poultry,112892,7.882,2.23,0.044,1.535,2.94,1.694,0.284,0.343,0.296,0.19,0.08265,0.04416,1073,40028,PA based on AGRIBALYSE
+Chicken,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,Poore&Nemecek
+Chicken sausages,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,PA based on AGRIBALYSE
+Chicken burger,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,PA based on AGRIBALYSE
+Goose,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,Poore&Nemecek
+Turkey,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,Poore&Nemecek
+Duck,Poultry Meat,c116,Poultry Meat,Meat and Poultry,96439,5.66,1.83,0,2.54,1.775,0.672,0.44,0.276,0.212,0.177,0.06439,0.02957,402,8828,Poore&Nemecek
+Buffalo milk,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Cow milk,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Sheep milk,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Goat milk,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Condensed milk,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,PA based on AGRIBALYSE
+Milk powder,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,PA based on AGRIBALYSE
+Yogurt,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,PA based on AGRIBALYSE
+Greek yogurt,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,PA based on AGRIBALYSE
+Dairy drink,Milk,c109,Milk - Excluding Butter,Dairy products,470267,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,PA based on AGRIBALYSE
+Cheese from Buffalo milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cheese from Cow milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cheese from Sheep milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cheese from Goat milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cow cheese,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cheddar,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Gouda,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Emmental,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Mozarella,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,Poore&Nemecek
+Cream cheese,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Abondance cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Asiago cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Auvergne blue cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Beaufort cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Blue cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Bresse blue cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Brie cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Brie de Meaux cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Brie de Melun cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Camembert cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cantal cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Carr� de l'Est cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Causses blue cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Chabichou cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Chaource cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cheddar cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cheese, buche, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cheese, dry, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Cheese, semi-dry, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Chevrot cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Comt� cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Corsica soft ripened cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Coulommiers cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Crottin cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Crottin de Chavignol cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Edam cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Emmental cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"�poisses cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Feta cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Feta-type cheese from cow's milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Fontina cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Fourme d'Ambert cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Fourme de Montbrison cheese,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Gex blue cheese, or Jura blue cheese or Septmoncel blue cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Goat cheese from raw milk,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Gorgonzola cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Gouda cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Grana Padano cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Gruyere cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Hard cheese, emmental-type cheese, reduced fat",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Langres cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Livarot cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Maroilles cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Mimolette cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Morbier cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Mozzarella cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Munster cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Neufch�tel cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Ossau-Iraty cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Parmesan cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"P�lardon cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Picodon cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Plant-based cheese, without soybean, prepacked, shredded",Cheese,c080,"Oilcrops Oil, Other",Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Plant-based cheese, without soybean, prepacked, sliced",Cheese,c080,"Oilcrops Oil, Other",Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Plant-based spread-cheese type, with soybean, prepacked",Cheese,c021,Soyabeans,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pont l'Ev�que cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pouligny Saint-Pierre cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Processed cheese,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Provolone cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Pyr�n�es cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Raclette cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Reblochon cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Rocamadour cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Roquefort cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Sainte Maure cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Saint-Felicien cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Saint-Marcellin cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Saint-Nectaire cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Saint-Paulin cheese, from cow's milk (semi-hard cheese)",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Salers cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Selles-sur-Cher cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Semi-hard cheese, from ewe's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Soft ripened cheese,Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Tomme cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Uncured soft cheese, spreadable",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Vacherin cheese or Mont d'or cheese, from cow's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+"Valen�ay cheese, from goat's milk",Cheese,c109,Milk - Excluding Butter,Dairy products,21191,12.104,3.658,64.88,4.455,2.346,13.059,0.738,0.138,0.172,0.332,0.14894,0.08875,4735,155464,PA based on AGRIBALYSE
+Chicken eggs,Eggs,c111,Eggs,Egg,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,Poore&Nemecek
+Duck eggs,Eggs,c111,Eggs,Egg,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,PA based on AGRIBALYSE
+Goose eggs,Eggs,c111,Eggs,Egg,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,PA based on AGRIBALYSE
+Turkey eggs,Eggs,c111,Eggs,Egg,63489,4.652,1.397,0,0.709,2.2,1.317,0,0.084,0.161,0.036,0.05182,0.02102,556,17315,PA based on AGRIBALYSE
+Brook trout,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Brown trout,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Tench,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Roach,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Perch,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Artich char,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Common carp,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Pike,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Sander,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Grass carp,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Silver carp,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Big head carp,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Catfish,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Pangasius,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Rainbown trout,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Salmon,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Sea bass,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Sea bream,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Tambaqui,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Tilapia,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+African catfish,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Striped catfish,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Kissing gourami,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Giant gourami,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Silver barb,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Trout,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,Poore&Nemecek
+Gilthead seabream,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,PA based on AGRIBALYSE
+Mediterranean bass,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,PA based on AGRIBALYSE
+Turbot,Fish (farmed),c123,"Fish, Seafood",Fish and shellfish,45223,2.67,0.708,0,0.534,0.819,3.598,0.02,0.111,0.061,0.04,0.025,0.09207,1315,13691,PA based on AGRIBALYSE
+Amazon river prawn,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,Poore&Nemecek
+Giant giver prawn,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,Poore&Nemecek
+Giant river prawn,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,Poore&Nemecek
+Shrimp,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,Poore&Nemecek
+Tiger prawn,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,Poore&Nemecek
+Mussel,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
+Lobster,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
+Crab,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
+Oyster,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
+Snails,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
+Cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
+Pasta,Cereals & Oilcrops Misc.,c002,Wheat and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Asian noodles,Cereals & Oilcrops Misc.,c002,Wheat and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Quinoa,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Nuts and seeds,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Breakfast cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Cereal bar,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Muesli flakes,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Corn chips or tortilla chips,Cereals & Oilcrops Misc.,c004,Maize and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Pop corn,Cereals & Oilcrops Misc.,c004,Maize and products,Other foods and dishes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Oilcrops Misc.,Cereals & Oilcrops Misc.,c030,"Oilcrops, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
+Avocado oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Hazelnut oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Linseed oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Sesame oil,Cereals & Oilcrops Misc.,c076,Sesameseed Oil,Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Vegetable fat,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Nutritional yeast,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Other foods and dishes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Oils Misc.,Oils Misc.,c080,"Oilcrops Oil, Other",Cooking fat,13404,8.241,1.873,0,2.022,0,2.03,0.546,0.251,0.859,0.044,0.02145,0.01973,449,21573,Poore&Nemecek
+Fish oil,Oils Misc.,c123,"Fish, Seafood",Other foods and dishes,13404,8.241,1.873,0,2.022,0,2.03,0.546,0.251,0.859,0.044,0.02145,0.01973,449,21573,PA based on AGRIBALYSE
+Sweeteners,Sweeteners & Honey,c067,"Sweeteners, Other",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,Poore&Nemecek
+Honey,Sweeteners & Honey,c121,Honey,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,Poore&Nemecek
+Fructose,Sweeteners & Honey,c066,Sugar (Raw Equivalent),Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Dulce de leche,Sweeteners & Honey,c109,Milk - Excluding Butter,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Marmalade,Sweeteners & Honey,c044,"Fruits, Other",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Jam,Sweeteners & Honey,c044,"Fruits, Other",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Milk chocolate,Sweeteners & Honey,c110,"Butter, Ghee",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+White chocolate,Sweeteners & Honey,c110,"Butter, Ghee",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Cookies,Sweeteners & Honey,c002,Wheat and products,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Cakes,Sweeteners & Honey,c002,Wheat and products,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Frozen yogurt,Sweeteners & Honey,c109,Milk - Excluding Butter,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Ice cream,Sweeteners & Honey,c109,Milk - Excluding Butter,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+"Candies, all types",Sweeteners & Honey,c066,Sugar (Raw Equivalent),Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
+Stimulants,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,Poore&Nemecek
+Spices Misc.,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,Poore&Nemecek
+Mustard,Stimulants & Spices Misc.,c024,Rape and Mustardseed,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Vinegar,Stimulants & Spices Misc.,c044,"Fruits, Other",Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Mayonnaise,Stimulants & Spices Misc.,c080,"Oilcrops Oil, Other",Cooking fat,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Ketchup,Stimulants & Spices Misc.,c031,Tomatoes and products,Vegetables,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Barbecue,Stimulants & Spices Misc.,c031,Tomatoes and products,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Aioli sauce,Stimulants & Spices Misc.,c080,"Oilcrops Oil, Other",Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Bechamel sauce,Stimulants & Spices Misc.,c109,Milk - Excluding Butter,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Humus,Stimulants & Spices Misc.,c018,Peas,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Salad dressing,Stimulants & Spices Misc.,c077,Olive Oil,Cooking fat,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Soy sauce,Stimulants & Spices Misc.,c021,Soyabeans,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sweet and sour sauce,Stimulants & Spices Misc.,c066,Sugar (Raw Equivalent),Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Pesto,Stimulants & Spices Misc.,c052,"Spices, Other",Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tartare sauce,Stimulants & Spices Misc.,c080,"Oilcrops Oil, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tomate paste,Stimulants & Spices Misc.,c031,Tomatoes and products,Vegetables,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tomato sauce,Stimulants & Spices Misc.,c031,Tomatoes and products,Vegetables,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tomato sauce for pizza base,Stimulants & Spices Misc.,c031,Tomatoes and products,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Cream sauce for pizza base,Stimulants & Spices Misc.,c109,Milk - Excluding Butter,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Basil,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Chervil,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Coriander,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Dill,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Garlic,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Horseradish,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Marjoram,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Mint,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Molokhia powder,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Oregano,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Parsley,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Rosemary,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sage,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Savory,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tarragon,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Thyme,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Gelatine,Stimulants & Spices Misc.,c119,"Fats, Animals, Raw",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Miso,Stimulants & Spices Misc.,c021,Soyabeans,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Oat bran,Stimulants & Spices Misc.,c006,Oats,"Cereals, bread and cakes",13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Rice bran,Stimulants & Spices Misc.,c001,Rice and products,"Cereals, bread and cakes",13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sodium carbonate,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Soy lecithin,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Tempeh,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Salt,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sea salt,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Black pepper,Stimulants & Spices Misc.,c049,Pepper,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Caraway,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Cardamom,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Cinnamon,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Cumin,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Curry powder,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Fennel seed,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Fenugreek seed,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Ginger powder,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Ginger raw,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Paprika,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Saffron,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Turmeric,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Vanilla,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Broth vegetables,Stimulants & Spices Misc.,c033,"Vegetables, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Broth beef,Stimulants & Spices Misc.,c113,Bovine Meat,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Broth poultry,Stimulants & Spices Misc.,c116,Poultry Meat,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Animal Fats,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,Poore&Nemecek
+Chicken fat,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,PA based on AGRIBALYSE
+Duck fat,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,PA based on AGRIBALYSE
+Goose fat,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,PA based on AGRIBALYSE
+Lard or pork fat,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,PA based on AGRIBALYSE
+Turkey fat,Animal Fats,c119,"Fats, Animals, Raw",Cooking fat,10599,6.858,2.046,0.024,1.998,2.403,1.223,0.356,0.312,0.257,0.184,0.07424,0.03744,764,25654,PA based on AGRIBALYSE
+Buffalo,Buffalo,c097,Buffaloes,Meat and Poultry,6618,15.963,3.713,100.688,9.569,2.153,29.044,1.199,0.38,0.256,0.172,0.19809,0.19116,1211,44810,Poore&Nemecek
+Butter,"Butter, Cream & Ghee",c110,"Butter, Ghee",Cooking fat,12066,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Cream,"Butter, Cream & Ghee",c109,Milk - Excluding Butter,Cooking fat,12066,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Ghee,"Butter, Cream & Ghee",c110,"Butter, Ghee",Cooking fat,12066,1.327,0.402,6.275,0.495,0.236,1.458,0.149,0.09,0.097,0.256,0.01766,0.00934,533,16951,Poore&Nemecek
+Fish & Crustaceans (capture),Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,Poore&Nemecek
+Alaska pollock,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Albacore,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+American bass,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Sea scallop,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Anchovy,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Anglerfish,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Arctic char,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Atlantic bass,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Atlantic chub mackerel,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Atlantic halibut,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Atlantic herring,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Bigeye scad,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Big-scale sand smelt,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Black seabream,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Blackspot seabream,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Blue grenadier,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Blue ling,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Blue shark,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Bogue,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Brown bullhead,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Brown meagre,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Capelin,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Cod,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Common dab,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Common dentex,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Common sole,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Conger,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Crab,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Crevalle jack,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Deep water pink shrimp,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Pilchard,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Sardine,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Hake,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Plaice,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Garfish,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Golden redfish,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Greenland halibut,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Grouper,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Haddock,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Wild crab,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Wild mussel,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Wild lobster,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Wild oyster,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Lemon sole,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Ling,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Megrim,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Mullet,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Nile perch,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Pollack,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Pond smelt,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Ray,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Red gurnard,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Saithe,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Wild snail,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Snapper,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Spotted wolffish,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Squid,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Surimi,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Swordfish,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Tonguesole,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Tub gurnard,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Turbot,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Whiting,Fish & Crustaceans (capture),c123,"Fish, Seafood",Fish and shellfish,72347,0,0,0,0,0,2.443,0.014,0.138,0.14,0.092,0.04108,0.00504,4,4,PA based on AGRIBALYSE
+Aquatic Plants,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Poore&Nemecek
+Seaweed,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Laver,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Wakame,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Sea lettuce,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Sea thong,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Spirulina,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
+Tangle,Aquatic Plants,c123,"Fish, Seafood",Other foods and dishes,12385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,PA based on AGRIBALYSE
