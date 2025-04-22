@@ -1,7 +1,0 @@
-{
-    "recipe": "backend/data/recipes.json",
-    "database": "backend/data/food_item_poore_and_nemecek_fabio.csv",
-    "import_data": "backend/data/top_exporters_to_Norway.csv",
-    "regions": "backend/data/regions.csv",
-    "env_impacts": "backend/data/E_full_2020.csv"
-}

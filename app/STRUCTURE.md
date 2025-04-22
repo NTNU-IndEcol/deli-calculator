@@ -3,23 +3,41 @@
 ```
 foodCalculator/
 │
-├── app.py                      # Flask backend server (entry point)
+├── app.py                      # Flask backend (keep in root for easy deployment)
 │
 ├── backend/
-│   ├── carbon_calculator.py    # Logic for calculating emissions
-│   ├── data/                   # Dataset for food emissions
-│   │   ├── food_item_poore_and_nemecek.csv # Database, Poore and Nemecek
-|   |   ├── Conversion_factors.csv          # Conversion ingredient unit to gram 
-|   |   └── food_emissions.csv  # Sample dataset
-|   |   
-│   └── requirements.txt        # Python dependencies
+│   ├── carbon_calculator.py    # Core calculation logic
+│   ├── data_loader.py          # CSV/data processing
+│   ├── routes.py               # API endpoint definitions
+│   └── data/
+│       ├── food_items.csv
+│       ├── conversion_factors.csv
+│       └── regions.csv
 │
-├── frontend/                   # Frontend files
-│   ├── index.html              # Main HTML file
-│   ├── style.css               # CSS for styling
-│   └── script.js               # JavaScript for handling user input
+├── frontend/
+│   ├── static/
+│   │   ├── js/
+│   │   │   ├── core/
+│   │   │   │   ├── data-manager.js    # Data initialization
+│   │   │   │   └── api-client.js      # HTTP communication
+│   │   │   ├── ui/
+│   │   │   │   ├── autocomplete.js    # Search components
+│   │   │   │   ├── form-handler.js     # Ingredient form
+│   │   │   │   └── results-view.js     # Calculation display
+│   │   │   └── main.js                 # Entry point
+│   │   │
+│   │   └── css/
+│   │       └── style.css
+│   │
+│   └── templates/
+│       └── index.html
 │
-├── README.md                   # Project documentation
-├── STRUCTURE.md                # Project structure documentation
-└── setup.sh                    # Bash script to set up the project
+├── tests/                      # Test directory
+│   ├── unit/
+│   └── integration/
+│
+├── config.py                  # Configuration settings
+├── requirements.txt           # Python dependencies
+├── README.md
+└── setup.sh
 ```

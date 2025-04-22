@@ -5,8 +5,17 @@ from datetime import datetime
 from fractions import Fraction
 import os
 import re
+ALLOWED_DOMAINS = ['koreanbapsang.com', 'your-recipesite.com']
 
 RECIPE_FILE = "backend/data/recipes.json"
+
+def validate_url(url):
+    """Ensure URL is from allowed domains"""
+    from urllib.parse import urlparse
+    parsed = urlparse(url)
+    if parsed.netloc not in ALLOWED_DOMAINS:
+        raise ValueError(f"Domain {parsed.netloc} not allowed")
+    return True
 
 def parse_amount(amount_text):
     """Convert amount text to a float value."""
@@ -33,26 +42,55 @@ def parse_amount(amount_text):
         return None  # Return None if parsing fails
 
 def extract_main_ingredient(name):
-    """Extract the main component from ingredient name."""
+    """Extract the main component from ingredient name, handling alternatives."""
     descriptors = {
         'size': ['medium', 'small', 'large', 'jumbo', 'baby'],
-        'state': ['fresh', 'dried', 'minced', 'chopped', 'sliced'],
-        'type': ['korean', 'asian', 'plump', 'thumb-sized']
+        'state': ['fresh', 'dried', 'minced', 'chopped', 'sliced', 'thinly', 'shaved', 'divided'],
+        'type': ['korean', 'asian', 'plump', 'thumb-sized', 'other'],
+        'state': ['optional', 'to taste', 'divided', '-'],
+        'preparation': ['thinly sliced', 'shaved', 'sliced', 'minced']
     }
     
-    # Remove measurement references and special characters
-    clean_name = re.sub(r'\([^)]*\)|[0-9]+\s?%?|optional|divided', '', name, flags=re.IGNORECASE)
+    # Split into alternatives separated by 'or'
+    alternatives = re.split(r'\s+or\s+', name, flags=re.IGNORECASE)
+    main_ingredients = []
     
-    # Split into words and filter descriptors
-    words = [word.lower() for word in clean_name.split() 
-            if word.lower() not in [item for sublist in descriptors.values() for item in sublist]]
+    for alt in alternatives:
+        # Clean the alternative
+        clean_alt = re.sub(
+            r'\([^)]*\)|[\d%]+|-\s*|(\b(?:optional|to taste)\b)',
+            '', 
+            alt, 
+            flags=re.IGNORECASE
+        ).strip(' -')
+        
+        
+        # Remove preparation terms from the start (e.g., "thinly sliced")
+        prep_pattern = r'^\s*(?:' + '|'.join(descriptors['preparation']) + r')\s+'
+        clean_alt = re.sub(prep_pattern, '', clean_alt, flags=re.IGNORECASE)
+        
+        # Split into words and filter descriptors
+        words = [
+            word.lower() for word in clean_alt.split() 
+            if word.lower() not in [item for sublist in descriptors.values() for item in sublist]
+        ]
+        
+        # Join remaining words to form the main ingredient
+        main_ingredient = ' '.join(words) if words else clean_alt
+        
+        # Handle compound terms (e.g., "pork belly" → "pork")
+        if ' ' in main_ingredient:
+            parts = main_ingredient.split()
+            if parts[0] in ['pork', 'beef', 'chicken']:  # Known meat bases
+                main_ingredient = parts[0]
+        
+        # Singularize
+        if main_ingredient.endswith('s'):
+            main_ingredient = main_ingredient.rstrip('s')
+            
+        main_ingredients.append(main_ingredient.capitalize())
     
-    # Find the most specific noun (usually last word)
-    main_ingredient = words[-1] if words else name
-    
-    # Singularize and clean
-    main_ingredient = main_ingredient.rstrip('s')  # Simple singularization
-    return main_ingredient.capitalize()
+    return ' or '.join(main_ingredients)
 
 def map_to_si_unit(name, unit):
     """Convert units to grams and return (standard_unit, conversion_factor)."""

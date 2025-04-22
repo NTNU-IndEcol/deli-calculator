@@ -1,34 +1,34 @@
 Ingredient,Food group old,comm_code,item,Food group,Food and Waste,Land Use (m2) Arable,Land Use (m2) Fallow,Land Use (m2) Perm Past,"GHG (kg CO2eq, IPCC 2013) LUC","GHG (kg CO2eq, IPCC 2013) Feed","GHG (kg CO2eq, IPCC 2013) Farm","GHG (kg CO2eq, IPCC 2013) Processing","GHG (kg CO2eq, IPCC 2013) Transport","GHG (kg CO2eq, IPCC 2013) Packging","GHG (kg CO2eq, IPCC 2013) Retail",Acid.(kg SO2eq),Eutr. (kg PO43-eq),Freshwater (L),Str-Wt WU (L eq),Datasource
-Bread wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Rye,Wheat & Rye (Bread),c005,Rye and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Soft wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Wheat,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Wheat and rye bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Wheat bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Wheat flour,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
-Bagel,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Bran grain bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Bread, French bread, baguette",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Bread, gluten free",Wheat & Rye (Bread),c009,"Cereals, Other","Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Brioche,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Chocolate croissant,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Corn tortilla wrap, to be filled",Wheat & Rye (Bread),c004,Maize and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Crispbread, extruded and grilled",Wheat & Rye (Bread),c009,"Cereals, Other","Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Croissant,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Croutons,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"English muffin, prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Grissini or bread stick,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Milk roll, prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Panini bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Pita bread,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Rolls for hamburger/hotdog (buns), prepacked",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Rusk,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Rye bread, and wheat",Wheat & Rye (Bread),c005,Rye and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Sandwich loaf,Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Wheat tortilla wrap, to be filled",Wheat & Rye (Bread),c002,Wheat and products,"Cereals, bread and cakes",482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-Maize,Maize (Meal),c004,Maize and products,"Cereals, bread and cakes",194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,Poore&Nemecek
-Maize flour,Maize (Meal),c004,Maize and products,"Cereals, bread and cakes",194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,PA based on AGRIBALYSE
-Barley,Barley (Beer),c003,Barley and products,"Cereals, bread and cakes",206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
+Bread wheat,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Rye,Wheat & Rye (Bread),c005,Rye and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Soft wheat,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat and rye bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Wheat flour,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,Poore&Nemecek
+Bagel,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Bran grain bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Bread, French bread, baguette",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Bread, gluten free",Wheat & Rye (Bread),c009,"Cereals, Other",Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Brioche,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Chocolate croissant,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Corn tortilla wrap, to be filled",Wheat & Rye (Bread),c004,Maize and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Crispbread, extruded and grilled",Wheat & Rye (Bread),c009,"Cereals, Other",Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Croissant,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Croutons,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"English muffin, prepacked",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Grissini or bread stick,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Milk roll, prepacked",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Panini bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Pita bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Rolls for hamburger/hotdog (buns), prepacked",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Rusk,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Rye bread, and wheat",Wheat & Rye (Bread),c005,Rye and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Sandwich loaf,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Wheat tortilla wrap, to be filled",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+Maize,Maize (Meal),c004,Maize and products,Cereals  bread and cakes,194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,Poore&Nemecek
+Maize flour,Maize (Meal),c004,Maize and products,Cereals  bread and cakes,194554,1.171,0.457,0,0.315,0,0.475,0.052,0.06,0.06,0.026,0.00673,0.00226,120,6007,PA based on AGRIBALYSE
+Barley,Barley (Beer),c003,Barley and products,Cereals  bread and cakes,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
 Beer,Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
 Beer (Fat Tire Amber Ale),Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
 "Beer (Horn Blonde Ale, RAM Brewery)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,Poore&Nemecek
@@ -43,11 +43,11 @@ Beer (Varshon Brewing Company),Barley (Beer),c091,Beer,Beverages,206523,0.674,0.
 "Beer, special (5-6° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
 "Beer, ""specialty"", from abbey or regional (varying alcohol content)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
 "Beer, strong (>8° alcohol)",Barley (Beer),c091,Beer,Beverages,206523,0.674,0.266,0,0.009,0,0.176,0.128,0.035,0.497,0.264,0.00612,0.00211,15,604,PA based on AGRIBALYSE
-Oats,Oatmeal,c006,Oats,"Cereals, bread and cakes",4463,3.414,1.352,0,0.001,0,1.37,0.042,0.067,0.066,0.029,0.00697,0.00705,302,11774,Poore&Nemecek
-Rice flour,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,PA based on AGRIBALYSE
-Jasmine rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
-Rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
-Long grain rice,Rice,c001,Rice and products,"Cereals, bread and cakes",397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Oats,Oatmeal,c006,Oats,Cereals  bread and cakes,4463,3.414,1.352,0,0.001,0,1.37,0.042,0.067,0.066,0.029,0.00697,0.00705,302,11774,Poore&Nemecek
+Rice flour,Rice,c001,Rice and products,Cereals  bread and cakes,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,PA based on AGRIBALYSE
+Jasmine rice,Rice,c001,Rice and products,Cereals  bread and cakes,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Rice,Rice,c001,Rice and products,Cereals  bread and cakes,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
+Long grain rice,Rice,c001,Rice and products,Cereals  bread and cakes,397780,2.093,0.308,0,-0.022,0,3.553,0.065,0.096,0.084,0.063,0.02357,0.02972,1962,43275,Poore&Nemecek
 Potatoes,Potatoes,c010,Potatoes and products,Potatoes,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,Poore&Nemecek
 Sweet potatoes,Potatoes,c012,Sweet potatoes,Vegetables,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,Poore&Nemecek
 Yam or Indian potatoes,Potatoes,c014,Yams,Vegetables,332343,0.498,0.145,0,-0.001,0,0.193,0,0.094,0.045,0.039,0.00323,0.00255,43,2027,PA based on AGRIBALYSE
@@ -354,16 +354,16 @@ Lobster,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197
 Crab,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
 Oyster,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
 Snails,Crustaceans (farmed),c123,"Fish, Seafood",Fish and shellfish,10633,1.197,0.232,0,0.206,2.51,8.379,0,0.206,0.334,0.219,0.05977,0.09787,1394,50685,PA based on AGRIBALYSE
-Cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
-Pasta,Cereals & Oilcrops Misc.,c002,Wheat and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Asian noodles,Cereals & Oilcrops Misc.,c002,Wheat and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
+Pasta,Cereals & Oilcrops Misc.,c002,Wheat and products,Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Asian noodles,Cereals & Oilcrops Misc.,c002,Wheat and products,Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Quinoa,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Nuts and seeds,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Breakfast cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Cereal bar,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Muesli flakes,Cereals & Oilcrops Misc.,c009,"Cereals, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Corn chips or tortilla chips,Cereals & Oilcrops Misc.,c004,Maize and products,"Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Breakfast cereals,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Cereal bar,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Muesli flakes,Cereals & Oilcrops Misc.,c009,"Cereals, Other",Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Corn chips or tortilla chips,Cereals & Oilcrops Misc.,c004,Maize and products,Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Pop corn,Cereals & Oilcrops Misc.,c004,Maize and products,Other foods and dishes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Oilcrops Misc.,Cereals & Oilcrops Misc.,c030,"Oilcrops, Other","Cereals, bread and cakes",97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
+Oilcrops Misc.,Cereals & Oilcrops Misc.,c030,"Oilcrops, Other",Cereals  bread and cakes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,Poore&Nemecek
 Avocado oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Hazelnut oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Linseed oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
@@ -422,8 +422,8 @@ Tarragon,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,1
 Thyme,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Gelatine,Stimulants & Spices Misc.,c119,"Fats, Animals, Raw",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Miso,Stimulants & Spices Misc.,c021,Soyabeans,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
-Oat bran,Stimulants & Spices Misc.,c006,Oats,"Cereals, bread and cakes",13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
-Rice bran,Stimulants & Spices Misc.,c001,Rice and products,"Cereals, bread and cakes",13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Oat bran,Stimulants & Spices Misc.,c006,Oats,Cereals  bread and cakes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Rice bran,Stimulants & Spices Misc.,c001,Rice and products,Cereals  bread and cakes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Sodium carbonate,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Soy lecithin,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Tempeh,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE

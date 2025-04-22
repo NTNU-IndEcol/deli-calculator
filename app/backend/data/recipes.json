@@ -1,242 +1,114 @@
 {
-    "@context": "https://schema.org",
-    "@type": "Recipe",
-    "id": 1,
-    "name": "Tangsuyuk (Sweet and Sour Beef or Pork)",
-    "author": "Korean Bapsang",
-    "datePublished": "2025-04-03",
-    "category": "Appetizers",
-    "recipeIngredient": [
-        {
-            "mainIngredient": "Beef",
-            "details": {
-                "amount": 10.0,
-                "unit": "ounces",
-                "originalText": "tender cut of pork or beef (such as pork loin or beef sirloin)"
-            }
-        },
-        {
-            "mainIngredient": "Pepper",
-            "details": {
-                "amount": null,
-                "unit": "",
-                "originalText": "salt and pepper"
-            }
-        },
-        {
-            "mainIngredient": "Ginger",
-            "details": {
-                "amount": 0.5,
-                "unit": "teaspoon",
-                "originalText": "grated ginger"
-            }
-        },
-        {
-            "mainIngredient": "Starch",
-            "details": {
-                "amount": 1.0,
-                "unit": "cup",
-                "originalText": "potato starch"
-            }
-        },
-        {
-            "mainIngredient": "Egg",
-            "details": {
-                "amount": 2.0,
-                "unit": "tablespoons",
-                "originalText": "lightly beaten egg"
-            }
-        },
-        {
-            "mainIngredient": "Oil",
-            "details": {
-                "amount": 1.0,
-                "unit": "tablespoon",
-                "originalText": "canola oil"
-            }
-        },
-        {
-            "mainIngredient": "Frying",
-            "details": {
-                "amount": 4.0,
-                "unit": "cups",
-                "originalText": "canola or vegetable oil for deep frying"
-            }
-        },
-        {
-            "mainIngredient": "Carrot",
-            "details": {
-                "amount": 0.5,
-                "unit": "",
-                "originalText": "small carrot"
-            }
-        },
-        {
-            "mainIngredient": "Onion",
-            "details": {
-                "amount": 0.25,
-                "unit": "",
-                "originalText": "small onion"
-            }
-        },
-        {
-            "mainIngredient": "-",
-            "details": {
-                "amount": null,
-                "unit": "",
-                "originalText": "wood ear mushrooms - optional"
-            }
-        },
-        {
-            "mainIngredient": "Cucumber",
-            "details": {
-                "amount": 0.5,
-                "unit": "",
-                "originalText": "small cucumber"
-            }
-        },
-        {
-            "mainIngredient": "Water",
-            "details": {
-                "amount": 1.0,
-                "unit": "cup",
-                "originalText": "water"
-            }
-        },
-        {
-            "mainIngredient": "Sauce",
-            "details": {
-                "amount": 1.0,
-                "unit": "tablespoon",
-                "originalText": "soy sauce"
-            }
-        },
-        {
-            "mainIngredient": "Sugar",
-            "details": {
-                "amount": 4.0,
-                "unit": "tablespoons",
-                "originalText": "sugar"
-            }
-        },
-        {
-            "mainIngredient": "Vinegar",
-            "details": {
-                "amount": 2.0,
-                "unit": "tablespoons",
-                "originalText": "vinegar (or to taste)"
-            }
-        },
-        {
-            "mainIngredient": "Salt",
-            "details": {
-                "amount": null,
-                "unit": "pinch",
-                "originalText": "salt"
-            }
-        },
-        {
-            "mainIngredient": "Water",
-            "details": {
-                "amount": null,
-                "unit": "",
-                "originalText": "Starch slurry – 2 tablespoons starch* in 4 tablespoons water"
-            }
-        },
-        {
-            "mainIngredient": "Sauce",
-            "details": {
-                "amount": 1.0,
-                "unit": "tablespoon",
-                "originalText": "soy sauce"
-            }
-        },
-        {
-            "mainIngredient": "Water",
-            "details": {
-                "amount": 1.0,
-                "unit": "tablespoon",
-                "originalText": "water"
-            }
-        },
-        {
-            "mainIngredient": "Vinegar",
-            "details": {
-                "amount": 1.0,
-                "unit": "teaspoon",
-                "originalText": "vinegar"
-            }
-        },
-        {
-            "mainIngredient": "Pepper",
-            "details": {
-                "amount": null,
-                "unit": "pinch",
-                "originalText": "black pepper"
-            }
-        },
-        {
-            "mainIngredient": "Flake",
-            "details": {
-                "amount": null,
-                "unit": "pinch",
-                "originalText": "red chili pepper flakes"
-            }
-        }
-    ],
-    "recipeInstructions": [
-        {
-            "@type": "HowToStep",
-            "text": "At least an hour before cooking this dish, combine 1 cup of the starch with 1 cup of water and refrigerate until ready to use. The starch and water will separate, and you will need to pour out the water on top to use the soaked starch at the bottom."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Cut the beef (or pork) into 2 to 2.5-inch long strips (about 3/4-inch wide and ⅛ - inch thick). Mix well with the grated ginger, and lightly sprinkle with salt and pepper. Let it sit until ready to deep fry."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Prepare the vegetables by cutting into thin bite size pieces."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "In a pan, add 1 cup of water along with the remaining sauce ingredients except the starch slurry. Boil just until the sugar melts and turn off the heat. You will finish the sauce when the meat has been deep fried."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Carefully pour out the soaking water from the starch. Use your hand to mix the soaked starch with the egg and oil. The starch will be very stiff. The addition of oil will help loosen it a little."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Coat the meat with the starch batter."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Add 4 cups of oil to a deep fryer, wok or large pot. Heat over high heat to 350°F. Using metal tongs or chopsticks, drop the meat in the oil one piece at a time. Do not crowd the oil. Cook until golden brown, about 3 minutes, in two or three batches, reheating the oil to 350°F between the batches."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Remove them with a wire skimmer or a slotted spoon. Drain on a wire rack or in a large mesh strainer set on a bowl."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Reheat the oil to 350°F. Add the meat (you can do this in one batch for the second frying) and deep fry again for 2 to 3 minute. Drain on a wire rack or in a large mesh strainer set on a bowl."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Bring the sauce to a boil again. Add the carrot, onion, and optional mushrooms, which take slightly longer to cook than the green vegetable. When the sauce boils, add the starch slurry, stirring well. Taste the sauce and add a little more sugar or vinegar if desired. Turn the heat off, and then add the cucumber slices (or green pepper if using). The green vegetables lose their color quickly if boiled in the sauce."
-        },
-        {
-            "@type": "HowToStep",
-            "text": "Place the meat on a large serving plate and pour the tangsuyuk sauce on top or serve the sauce on the side. Serve immediately with the optional dipping sauce."
-        }
-    ],
-    "recipeYield": "3",
-    "prepTime": "20 Minutes",
-    "cookTime": "15 Minutes",
-    "image": "https://www.koreanbapsang.com/wp-content/uploads/2011/09/DSC_0210-e1541395225208.jpg",
-    "description": "Tangsuyuk is a Chinese sweet and sour pork dish adapted for Korean taste. It can also be made with beef.",
-    "environmentalImpact": {
-        "co2Emissions": 0,
-        "waterUse": 0
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "id": 1,
+  "name": "Samgyupsal sukju bokkeum (Stir fried pork belly and bean sprouts)",
+  "author": "Korean Bapsang",
+  "datePublished": "2025-04-22",
+  "category": "Main Dishes",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Thinly sliced/shaved pork belly or Thinly pork or Beef",
+      "details": {
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "thinly sliced/shaved pork belly (\ub300\ud328 \uc0bc\uacb9\uc0b4) or other thinly sliced pork or beef"
+      }
+    },
+    {
+      "mainIngredient": "Bean sprout",
+      "details": {
+        "amount": 10.0,
+        "unit": "ounces",
+        "originalText": "bean sprouts (sukju, \uc219\uc8fc)"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 0.25,
+        "unit": "",
+        "originalText": "medium onion"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "minced garlic"
+      }
+    },
+    {
+      "mainIngredient": "Or scallion",
+      "details": {
+        "amount": 2.0,
+        "unit": "",
+        "originalText": "or 3 scallions"
+      }
+    },
+    {
+      "mainIngredient": "Soy sauce or Oyster sauce",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "soy sauce or oyster sauce (or 1 T each)"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "sugar - optional"
+      }
+    },
+    {
+      "mainIngredient": "Pepper",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "pepper to taste"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seed",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "sesame seeds - optional"
+      }
     }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cut the meat into bite size pieces (about 2 to 3 inches long)."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Give the bean sprouts a quick rinse, and drain. Thinly slice the onion, and cut the scallions (or garlic chives) into 2-inch pieces."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Heat a large pan over high heat until very hot. Add the pork, and stir-fry quickly until no longer pink. You don't need cooking oil if using pork belly, but use a tablespoon if needed. A non-stick pan helps with no additional oil as well,"
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the bean sprouts, garlic, and onion, and continue to stir fry until the bean sprouts have wilted slightly."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the soy sauce and/or oyster sauce, optional sugar and pepper to taste. Stir-fry quickly. Stir in the scallion (or garlic chives). Sprinkle with optional sesame seeds to serve."
+    }
+  ],
+  "recipeYield": "2",
+  "prepTime": "5 Minutes",
+  "cookTime": "10 Minutes",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2021/08/DSC1143-3.jpg",
+  "description": "Stir-fried pork belly with bean sprouts from Korean Drama Itaewon Class. It's quick, easy and delicious! In my first Korean drama series post, we took a",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  }
 }

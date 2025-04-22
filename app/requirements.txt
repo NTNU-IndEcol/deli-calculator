@@ -1,6 +1,6 @@
 gunicorn
-flask
-pandas
 requests
-python-dotenv
-
+Flask==3.0.2
+Flask-Cors==4.0.0
+pandas==2.2.1
+python-dotenv==1.0.0

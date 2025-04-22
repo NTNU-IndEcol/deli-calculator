@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DELI Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -64,7 +64,7 @@
     
         <button id="add-ingredient-btn">➕ Add</button>
     </div--->
-    <div>
+    <div class="form-group">
         <h3>User add ingredient</h3>
     
         <label>Category:</label>
@@ -80,17 +80,17 @@
         <input type="text" id="unit-input" placeholder="Type to search..." />
     
         <label>Source:</label>
-        <input type="text" id="importCountry-input" placeholder="Type to search..." />
-
-        
+        <input type="text" id="source-input" placeholder="Select country...">
+   
         <button id="add-ingredient-btn">➕ Add</button>
     </div>
+    
+    <div id="form-errors" class="error-container"></div>
     
     <!-- Autocomplete Suggestions -->
     <ul id="category-suggestions" class="autocomplete-list"></ul>
     <ul id="ingredient-suggestions" class="autocomplete-list"></ul>
-    <tbody id="ingredients-table-body"></tbody>
-
+  
 
     <!-- Selected Ingredients Table -->
     <section class="Ingredients">
@@ -128,6 +128,6 @@
         <p>© 2025 DELI Calculator. All rights reserved. Privacy Policy | Terms of Use</p>
     </footer>
 
-    <script  type="module" src="script.js"></script>
+    <script  type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
