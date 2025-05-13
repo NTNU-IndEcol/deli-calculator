@@ -44,11 +44,11 @@ def parse_amount(amount_text):
 def extract_main_ingredient(name):
     """Extract the main component from ingredient name, handling alternatives."""
     descriptors = {
-        'size': ['medium', 'small', 'large', 'jumbo', 'baby'],
-        'state': ['fresh', 'dried', 'minced', 'chopped', 'sliced', 'thinly', 'shaved', 'divided'],
-        'type': ['korean', 'asian', 'plump', 'thumb-sized', 'other'],
-        'state': ['optional', 'to taste', 'divided', '-'],
-        'preparation': ['thinly sliced', 'shaved', 'sliced', 'minced']
+        'size': ['medium', 'small', 'large', 'jumbo', 'baby', 'piece', 'pieces'],
+        'state': ['fresh', 'dried', 'dry', 'minced', 'chopped', 'sliced', 
+                 'thinly', 'shaved', 'divided', 'optional', 'to taste', 'marinated'],
+        'type': ['korean', 'asian', 'plump', 'thumb-sized', 'soup', 'other'],
+        'preparation': ['thinly sliced', 'shaved', 'sliced', 'minced', 'grated', 'crushed']
     }
     
     # Split into alternatives separated by 'or'
@@ -172,24 +172,7 @@ def clean_ingredient_text(ingredient):
 
 
 
-'''
 
-def clean_ingredient_text(ingredient):
-    """Extract and clean ingredient details."""
-    amount = ingredient.select_one('.wprm-recipe-ingredient-amount')
-    unit = ingredient.select_one('.wprm-recipe-ingredient-unit')
-    name = ingredient.select_one('.wprm-recipe-ingredient-name')
-    
-    cleaned_amount = amount.get_text(strip=True) if amount else ''
-    cleaned_unit = unit.get_text(strip=True) if unit else ''
-    cleaned_name = name.get_text(strip=True) if name else ''
-    
-    return {
-        "amount": cleaned_amount,
-        "unit": cleaned_unit,
-        "name": cleaned_name
-    }
-'''
 def clean_time_text(time_text):
     """Clean and standardize time text."""
     match = re.search(r'(\d+)\s*(minutes|hours|seconds|days)', time_text, re.IGNORECASE)

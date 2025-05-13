@@ -6,6 +6,7 @@ export class FormHandler {
     constructor() {
       this.selectedIngredients = [];
       this.unmatchedIngredients = [];
+      this.recipeLoaded = false; // Track load state
       this.initializeElements();
       this.setupEventListeners();
     }
@@ -63,7 +64,6 @@ export class FormHandler {
       const sourceDropdown = document.getElementById("source-input");
       if (sourceDropdown) {
         sourceDropdown.innerHTML = `
-          <option value="Local">Local</option>
           ${countries.map(c => `<option>${c}</option>`).join('')}
         `;
       }
@@ -93,6 +93,8 @@ export class FormHandler {
           this.handleRemoveIngredient(e);
         }
       });
+
+     // this.elements.form.addEventListener('submit', (e) => e.preventDefault());
     }
   
     // Validate input
@@ -120,104 +122,150 @@ export class FormHandler {
   
     // handle add ingredient
     handleAddIngredient() {
+     
       const validation = this.validateInputs();
       if (!validation.valid) {
         this.showErrors(validation.errors);
         return;
       }
     
+      // Get comm code from hidden data attribute
+      const commCode = document.getElementById('ingredient-input').dataset.commCode;
+  
       const newIngredient = {
-        id: Date.now(),
+        id: Date.now()+ Math.random(),
         category: validation.data.category,
         name: validation.data.ingredient,
         amount: validation.data.amount,
         unit: validation.data.unit,
         source: validation.data.source,
+        comm_code: commCode || 'UNKNOWN', // Use stored code
         matched: false
       };
     
       // Process immediately without adding to unmatched first
       this.processNewIngredient(newIngredient);
       this.updateTable();
+      //this.clearForm();
     }
-    
+  
+    // Process new ingredient
     processNewIngredient(ingredient) {
-      const match = DataManager.database.find(item => 
-        this.fuzzyMatch(item.Ingredient, ingredient.name)
-      );
+      const cleanInputName = ingredient.name.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+    
+      // 1. Try partial match
+      const match = DataManager.database.find(item => {
+        const dbName = item.Ingredient.toLowerCase().replace(/[^a-z0-9]/g, ' ');
+        return dbName.includes(cleanInputName) || cleanInputName.includes(dbName);
+      });
     
       if (match) {
+        // Handle matched ingredient
+        const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
         this.selectedIngredients.push({
           ...ingredient,
-          ...this.createMatchedIngredient(match)
+          comm_code: match.comm_code,
+          matched: true,
+          possibleSources: possibleSources,
+          source: ingredient.source || possibleSources[0] || ''
         });
       } else {
-        this.unmatchedIngredients.push(ingredient);
+        // Handle unmatched ingredient
+        this.unmatchedIngredients.push({
+          ...ingredient,
+          comm_code: 'UNKNOWN',
+          matched: false,
+          possibleSources: DataManager.getAllCountries() || [''],
+          source: ingredient.source || ''
+        });
       }
     }
+
+    static getCommCodeByCategory(category) {
+      // Normalize both input and database values
+      const cleanCategory = category.toLowerCase().replace(/\s+/g, ' ');
+      return DataManager.database.find(item => 
+        item["Food group"].toLowerCase().replace(/\s+/g, ' ') === cleanCategory
+      )?.comm_code;
+    }
+
 
     // Update the normalizeUnit method
     normalizeUnit(unit) {
-      // Preserve original unit if valid, default to 'unit' only when empty
-      const validUnits = ['g', 'kg', 'cup', 'tbsp', 'tsp', 'unit', 'ounce', 'oz', 'lb'];
-      const cleanUnit = String(unit || 'unit').toLowerCase().trim();
-      return validUnits.includes(cleanUnit) ? cleanUnit : 'unit'; // Only replace truly invalid units
+      const unitAliases = {
+        'oz': 'ounce',
+        'ounces': 'ounce',
+        'pound': 'lb',
+        'lbs': 'lb',
+        'teaspoon': 'tsp',
+        'teaspoons': 'tsp',
+        'tablespoon': 'tbsp',
+        'tablespoons': 'tbsp',
+        'cup': 'cup',
+        'cups': 'cup'
+      };
+      
+      const cleanUnit = String(unit || 'unit')
+        .toLowerCase()
+        .replace(/s$/, '') // Remove plural "s"
+        .trim();
+    
+      // First check aliases, then allowed units
+      return unitAliases[cleanUnit] ?? 
+        (['g', 'kg', 'cup', 'tbsp', 'tsp', 'ounce', 'lb'].includes(cleanUnit) 
+          ? cleanUnit 
+          : 'unit');
     }
+    
 
+  
+    //  Updated loadSavedRecipe method
+    // Updated loadRecipe method
+    async loadRecipe() {
+      if (this.recipeLoaded) return; // Prevent duplicate loads
 
-    // loadSavedRecipe method in form-handler.js
-   
-    async loadSavedRecipe() {
       try {
-        const ingredients = await DataManager.loadSavedRecipe();
-        if (!ingredients.length) throw new Error('No ingredients found');
-    
-        // Reset state
-        this.selectedIngredients = [];
-        this.unmatchedIngredients = [];
-    
-        // Process ingredients
-        const processedIngredients = ingredients.map(ing => {
-          const cleanName = this.cleanIngredientName(ing.mainIngredient || ing.name);
-          return {
-            id: Date.now() + Math.random(),
-            category: ing.category,
-            name: cleanName,
-            amount: this.parseAmount(ing.amount),
-            unit: this.normalizeUnit(ing.unit),
-            source: ing.source,
-            matched: false // Start as unmatched
-          };
-        });
-    
-        // Pass ingredients to matching system
+        const savedIngredients = await DataManager.loadSavedRecipe();
+        const processedIngredients = savedIngredients.map(ing => ({
+          ...ing,
+          id: Date.now() + Math.random(), // Ensure unique ID
+          category: ing.category,
+          name: this.cleanIngredientName(ing.mainIngredient || ing.name),
+          amount: this.parseAmount(ing.amount),
+          unit: this.normalizeUnit(ing.unit),
+          source: ing.source?.trim() || '',
+          matched: false
+        }));
+
+        // Append to existing ingredients instead of replacing
         this.initDatabaseMatching(processedIngredients);
+ 
+        this.recipeLoaded = true; // Mark as loaded
         this.updateTable();
-        
+
       } catch (error) {
-        console.error('Recipe loading failed:', error);
+        console.error('Failed to load recipe:', error);
         this.showErrors([error.message]);
       }
     }
+
+  
     // Unified table update for both sources
     updateTable() {
-      this.elements.tableBody.innerHTML = '';
+      const fragment = document.createDocumentFragment(); // Use a fragment
+      const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
       
-      // Create combined list without duplicates
-      const allIngredients = [
-        ...new Map([...this.selectedIngredients, ...this.unmatchedIngredients]
-          .map(item => [item.id, item]))
-          .values()
-      ];
-    
       allIngredients.forEach((ingredient, index) => {
         const row = this.createTableRow(ingredient, index);
-        this.elements.tableBody.appendChild(row);
+        fragment.appendChild(row);
       });
-    
+      
+      this.elements.tableBody.innerHTML = ''; // Clear once
+      this.elements.tableBody.appendChild(fragment); // Batch update
       this.setupRowInteractions();
     }
  
+    // Create table row
     createTableRow(ingredient, index) {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -236,69 +284,48 @@ export class FormHandler {
         <td>
           <input type="number" class="amount-input" 
                  value="${ingredient.amount}" min="0" step="0.1"
-                 data-index="${index}">
+                  data-id="${ingredient.id}">
         </td>
         <td>
           <select class="unit-input" data-index="${index}">
-            ${['g', 'kg', 'unit', 'tbsp', 'tsp', 'ounce', 'oz'].map(unit => `
+            ${['g', 'kg', 'ounce', 'lb', 'cup', 'tbsp', 'tsp', 'unit'].map(unit => `
               <option value="${unit}" ${unit === ingredient.unit ? 'selected' : ''}>
                 ${unit}
               </option>
             `).join('')}
           </select>
         </td>
-        <td class="source-cell">
-          ${this.createSourceInput(ingredient, index)}
-        </td>
+          <td class="source-cell" style="text-align: center;">
+            ${this.createSourceInput(ingredient)}
+          </td>
+        
         <td>
-          ${!ingredient.matched ?
-            `<button class="save-btn" data-index="${index}">💾</button>` : ''
-          }
-          <button class="remove-btn" data-index="${index}">🗑️</button>
+           <button class="remove-btn" data-id="${ingredient.id}">🗑️</button>
         </td>
       `;
       return row;
     }
   
-    createSourceInput(ingredient, index) {
-      if (!ingredient.matched) return 'Match required';
-      
+    // Create source input
+    createSourceInput(ingredient) {
+      let sources = ingredient.matched 
+        ? ingredient.possibleSources 
+        : DataManager.getAllCountries();
+    
+      // Fallback if no sources are found
+      if (!sources || sources.length === 0) {
+        sources = [''];
+      }
+    
       return `
-        <select class="source-select" data-index="${index}">
-          <option value="Local">Local</option>
-          ${ingredient.possibleSources?.map(country => `
+        <select class="source-select centered-select" data-id="${ingredient.id}">
+          ${sources.map(country => `
             <option value="${country}" ${country === ingredient.source ? 'selected' : ''}>
               ${country}
             </option>
           `).join('')}
         </select>
       `;
-    }
-  
-    // Unified matching initialization
-    initDatabaseMatching() {
-      // Only process unmatched ingredients once
-      const newlyMatched = [];
-      const stillUnmatched = [];
-    
-      this.unmatchedIngredients.forEach(ingredient => {
-        const match = DataManager.database.find(item => 
-          this.fuzzyMatch(item.Ingredient, ingredient.name)
-        );
-        
-        if (match) {
-          newlyMatched.push({ 
-            ...ingredient,
-            ...this.createMatchedIngredient(match)
-          });
-        } else {
-          stillUnmatched.push(ingredient);
-        }
-      });
-    
-      // Update arrays
-      this.selectedIngredients = [...this.selectedIngredients, ...newlyMatched];
-      this.unmatchedIngredients = stillUnmatched;
     }
 
 
@@ -312,7 +339,7 @@ export class FormHandler {
       return {
         matched: true,
         category: dbEntry["Food group"],
-        commCode: dbEntry.comm_code,
+        comm_code: dbEntry.comm_code, // CORRECTED PROPERTY NAME
         possibleSources: [
           dbEntry.Top1, dbEntry.Top2, dbEntry.Top3, dbEntry.Top4, dbEntry.Top5
         ].filter(Boolean)
@@ -320,43 +347,38 @@ export class FormHandler {
     }
   
     setupRowInteractions() {
-      // Handle manual corrections
       document.querySelectorAll('.save-btn').forEach(btn => {
         btn.addEventListener('click', e => {
-          const index = e.target.dataset.index;
-          const ingredient = this.unmatchedIngredients[index];
+          const id = Number(e.target.dataset.id); // Convert to number
+          const ingredient = this.unmatchedIngredients.find(item => item.id === id);
           
-          // Update from inputs
-          ingredient.category = document.querySelector(`[data-index="${index}"] .category-input`).value;
-          ingredient.name = document.querySelector(`[data-index="${index}"] .name-input`).value;
-          
-          // Try to match again
-          const match = DataManager.database.find(item => 
-            this.fuzzyMatch(item.Ingredient, ingredient.name)
-          );
-          
-          if (match) {
-            this.selectedIngredients.push({ ...ingredient, ...this.createMatchedIngredient(match) });
-            this.unmatchedIngredients.splice(index, 1);
+          if (ingredient) {
+            // Update category/name from inputs
+            const row = e.target.closest('tr');
+            ingredient.category = row.querySelector('.category-input').value;
+            ingredient.name = row.querySelector('.name-input').value;
+            
+            // Attempt re-matching
+            const match = DataManager.database.find(item => 
+              this.fuzzyMatch(item.Ingredient, ingredient.name)
+            );
+            if (match) {
+              this.selectedIngredients.push({ ...ingredient, ...this.createMatchedIngredient(match) });
+              this.unmatchedIngredients = this.unmatchedIngredients.filter(item => item.id !== id);
+            }
+            this.updateTable();
           }
-          
-          this.updateTable();
         });
       });
-  
-      // ... rest of interaction handlers
     }
     
-    // Replace both initDatabaseMatching methods with this single version
-    initDatabaseMatching(ingredients = []) {
-      // Clear previous matches
+    // initDatabaseMatching methods with this single version
+    initDatabaseMatching(newIngredients = []) {
+      // Process new ingredients without clearing existing ones
       const newlyMatched = [];
       const stillUnmatched = [];
-
-      // Process provided ingredients or use class properties
-      const itemsToProcess = ingredients.length ? ingredients : this.selectedIngredients;
-      
-      itemsToProcess.forEach(ingredient => {
+    
+      newIngredients.forEach(ingredient => {
         const match = DataManager.database.find(item => 
           this.fuzzyMatch(item.Ingredient, ingredient.name)
         );
@@ -370,12 +392,13 @@ export class FormHandler {
           stillUnmatched.push(ingredient);
         }
       });
-
-      // Update state
+    
+      // Merge with existing ingredients instead of replacing
       this.selectedIngredients = [...this.selectedIngredients, ...newlyMatched];
       this.unmatchedIngredients = [...this.unmatchedIngredients, ...stillUnmatched];
     }
     
+    // Handle database match
     handleDatabaseMatch(index, dbEntry) {
         // Update the ingredient with database info
         this.selectedIngredients[index] = {
@@ -438,47 +461,56 @@ export class FormHandler {
           amount || 0;
     }
 
-    normalizeUnit(unit) {
-      const units = ['g', 'kg', 'cup', 'tbsp', 'tsp'];
-      return units.includes(unit.toLowerCase()) ? unit : 'unit';
-    }
-
+   
     extractSource(text) {
       const countryMatch = text.match(/\((.*?)\)/);
-      return countryMatch ? countryMatch[1] : 'Local';
+      return countryMatch ? countryMatch[1] : '';
     }
   
   
-    handleAmountChange(event) {
-      const index = event.target.dataset.index;
-      const newValue = parseFloat(event.target.value);
-      
-      if (!isNaN(newValue)) {
-        this.selectedIngredients[index].amount = newValue;
-      }
-    }
   
     handleSourceChange(event) {
-      const index = event.target.dataset.index;
-      const newSource = event.target.value;
+    const id = Number(event.target.dataset.id); // Convert to number
+    const newSource = event.target.value;
+
+    // Search across ALL ingredients (both matched and unmatched)
+    const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
+    const ingredient = allIngredients.find(item => item.id === id);
+
+    if (ingredient) {
+      ingredient.source = newSource; // Directly update the source
+      console.log('Source updated:', ingredient); // Debug log
+    } else {
+      console.warn('Ingredient not found. ID:', id, 'All IDs:', allIngredients.map(i => i.id));
+    }
+  }
+  
+    handleAmountChange(event) {
+      const id = Number(event.target.dataset.id); // Convert to number
+      const newValue = parseFloat(event.target.value);
       
-      this.selectedIngredients[index].source = newSource;
+      const ingredient = this.selectedIngredients.find(item => item.id === id);
+      if (ingredient && !isNaN(newValue)) {
+        ingredient.amount = newValue;
+      }
+    }
+    
+    handleRemoveIngredient(event) {
+      const id = Number(event.target.dataset.id);
       
-      // Safely handle country input visibility
-      if (newSource === 'Imported' && this.elements.countryInput) {
-        this.elements.countryInput.style.display = 'inline-block';
-      } else if (this.elements.countryInput) {
-        this.elements.countryInput.style.display = 'none';
+      // Remove from selectedIngredients
+      let index = this.selectedIngredients.findIndex(item => item.id === id);
+      if (index !== -1) {
+        this.selectedIngredients.splice(index, 1);
+      } else {
+        // Remove from unmatchedIngredients if not found in selected
+        index = this.unmatchedIngredients.findIndex(item => item.id === id);
+        if (index !== -1) {
+          this.unmatchedIngredients.splice(index, 1);
+        }
       }
       
-      // Re-render row to show/hide country input
-      this.updateTable();
-    }
-  
-    handleRemoveIngredient(event) {
-      const index = event.target.dataset.index;
-      this.selectedIngredients.splice(index, 1);
-      this.updateTable();
+      this.updateTable(); // Refresh the table
     }
   
     showErrors(errors) {
@@ -511,6 +543,119 @@ export class FormHandler {
         // Add any necessary transformations here
       }));
     }
+    
+    // Calculate environmental impact
+    calculateEnvironmentalImpact() {
+      const totals = {
+        landuse: 0,
+        blue_water: 0,
+        CO2: 0,
+        CH4: 0,
+        N2O: 0
+      };
+      const errors = [];
+      
+      // Process ALL ingredients (both matched and unmatched)
+      const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
+      console.log("Processing ingredients:", allIngredients); // Debug log 
+    
+      allIngredients.forEach(ingredient => {
+        console.log(`Processing: ${ingredient.name} (${ingredient.comm_code})`); // Debug
+
+        if (!ingredient.comm_code || ingredient.comm_code === 'UNKNOWN') {
+          errors.push(`${ingredient.name}: Missing commodity code`);
+          return;
+        }
+    
+        const finalSource = ingredient.source || ingredient.possibleSources?.[0];
+
+        const countryCode = DataManager.getCountryCode(finalSource);
+        if (!countryCode) {
+          errors.push(`${ingredient.name}: Invalid country '${ingredient.source}'`);
+          return;
+        }
+
+        const factors = DataManager.getEnvImpactFactors(countryCode, ingredient.comm_code);
+        console.log(`Factors for ${ingredient.name}:`, factors); // Debug
+
+        if (!factors) {
+          errors.push(`${ingredient.name}: No impact data for ${ingredient.source} (${countryCode})`);
+          return;
+        }
+    
+ //       const kgAmount = this.convertToKilograms(ingredient.amount, ingredient.unit);
+        const tonAmount = this.convertToTons(ingredient.amount, ingredient.unit);
+        console.log(`Converted amount for ${ingredient.name}: ${tonAmount} tons`); // Debug
+
+
+        // Accumulate all metrics
+        totals.landuse += tonAmount * factors.landuse;
+        totals.blue_water += tonAmount * factors.blue_water;
+        totals.CO2 += tonAmount * factors.CO2;
+        totals.CH4 += tonAmount * factors.CH4;
+        totals.N2O += tonAmount * factors.N2O;
+      });
+    
+      return { totals, errors };
+    }
+
+    calculateImpact() {
+      const result = this.calculateEnvironmentalImpact();
+      
+      if (result.hasErrors) {
+        this.showErrors(result.errors);
+        return null;
+      }
+
+      // Convert GHG emissions to CO2 equivalents
+      const co2e = result.totals.CO2 //+ 
+            //      (result.totals.CH4 * 25) //+ // GWP100 for CH4
+            //      (result.totals.N2O * 298); // GWP100 for N2O
+
+      return {
+        landUse: this.formatNumber(result.totals.landuse),
+        waterUse: this.formatNumber(result.totals.blue_water),
+        co2e: this.formatNumber(co2e)
+      };
+    }
+
+    // Add these helper methods
+    formatNumber(value) {
+      return Number(value.toFixed(2));
+    }
+
+    convertToKilograms(amount, unit) {
+      const conversions = {
+        'g': amount => amount / 1000,
+        'kg': amount => amount,
+        'ml': amount => amount * 0.001,    // Assuming water-like density
+        'l': amount => amount * 1.0,
+        'ton': amount => amount * 1000
+      };
+
+      if (!conversions[unit]) {
+        console.error(`Invalid unit: ${unit}`);
+        return 0;
+      }
+
+      return conversions[unit](Number(amount));
+    }
+
+    convertToTons(amount, unit) {
+      const conversions = {
+        'g': amount => amount / 1e6,       // grams to tons (1g = 0.000001 tons)
+        'kg': amount => amount / 1000,     // kg to tons (1kg = 0.001 tons)
+        'ounce': amount => amount * 0.0000283495,  // 1 ounce = 0.0000283495 tons
+        'lb': amount => amount * 0.000453592,      // 1 pound = 0.000453592 tons
+        'cup': amount => amount * 0.000236588,     // 1 cup (water) ≈ 0.000236588 tons
+        'tbsp': amount => amount * 0.0000147868,   // 1 tbsp (water) ≈ 0.0000147868 tons
+        'tsp': amount => amount * 0.00000492892,   // 1 tsp (water) ≈ 0.00000492892 tons
+        'unit': amount => amount / 1000/50    // Default assumption for 'unit' (treat as kg/50)
+      };
+    
+      return conversions[unit]?.(Number(amount)) || 0;
+    }
+
   }
 
 

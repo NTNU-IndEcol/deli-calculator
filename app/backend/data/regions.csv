@@ -1,4 +1,4 @@
-code,name,iso3c,continent
+CountryCode,CountryName,iso3c,continent
 1,Armenia,ARM,ASI
 2,Afghanistan,AFG,ASI
 3,Albania,ALB,EUR
@@ -76,7 +76,7 @@ code,name,iso3c,continent
 104,Ireland,IRL,EU
 105,Israel,ISR,ASI
 106,Italy,ITA,EU
-107,Côte d'Ivoire,CIV,AFR
+107,Cï¿½te d'Ivoire,CIV,AFR
 108,Kazakhstan,KAZ,ASI
 109,Jamaica,JAM,LAM
 110,Japan,JPN,ASI

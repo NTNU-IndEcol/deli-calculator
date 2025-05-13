@@ -6,29 +6,28 @@ import { FormHandler } from './form-handler.js';
 import { ResultsView } from './results-view.js';
 
 export class FoodCalculatorApp {
-    constructor() {
+    constructor(formHandler) {
       this.autocompleteInstances = {}; // Add this line
-      this.formHandler = new FormHandler(); // Create FormHandler instance
+      this.formHandler = formHandler; //new FormHandler(); // Create FormHandler instance
+      this.resultsView = new ResultsView(); // Add ResultsView instance
       this.initializeApp();
-      this.selectedIngredients = [];
+  //    this.selectedIngredients = [];
     }
   
-    async initializeApp() {
-      try {
-        // Initialize core systems first
-        await DataManager.initialize();
-        
-        // Set up UI components after data is ready
+
+    initializeApp(){
+      
+      DataManager.initialize().then(() => {
         this.setupAutocomplete();
         this.setupEventListeners();
-        
-        console.log('🍎 Application initialized successfully');
-      } catch (error) {
-        console.error('🚨 Critical initialization error:', error);
-        ResultsView.showError('Failed to initialize application');
-      }
+
+        this.formHandler.loadRecipe(); 
+
+
+      })
+
     }
-  
+
     setupAutocomplete() {
       const app = this; // Capture 'this' reference
   
@@ -49,19 +48,8 @@ export class FoodCalculatorApp {
           app.updateIngredientAutocomplete(ingredients);
         }
       });
-   /*   
-      new AutocompleteHandler({
-        input: '#category-input',
-        dataset: DataManager.categories,
-        onSelect: (selectedCategory) => {
-          const input = document.getElementById('category-input');
-          input.value = selectedCategory; // Explicit set
-          input.dispatchEvent(new Event('input')); // Trigger validation update
-        }
-      });
-  */
   
-        // Ingredient autocomplete
+      // Ingredient autocomplete
        
       this.autocompleteInstances.ingredient = new AutocompleteHandler({
         input: '#ingredient-input',
@@ -72,7 +60,12 @@ export class FoodCalculatorApp {
           );
           
           if (ingredient) {
-            FormHandler.updateCategory(ingredient["Food group"].trim());
+            // Store comm_code in the input's dataset
+            const ingredientInput = document.getElementById('ingredient-input');
+            ingredientInput.dataset.commCode = ingredient.comm_code; // Add this line
+       //     FormHandler.updateCategory(ingredient["Food group"].trim());
+            document.getElementById('category-input').value = ingredient["Food group"];
+
             const countries = [
               ingredient.Top1,
               ingredient.Top2,
@@ -110,9 +103,11 @@ export class FoodCalculatorApp {
   
     }
 
-  
+    
+    
     setupEventListeners() {
-
+    
+      /*
       // Save correction handler (FIXED)
       this.formHandler.elements.tableBody.addEventListener('click', (e) => {
         if (e.target.classList.contains('save-correction-btn')) {
@@ -129,17 +124,32 @@ export class FoodCalculatorApp {
           this.formHandler.validateAgainstDatabase(row);
         }
       });
- 
-      // Calculate button (FIXED)
-      document.getElementById('calculate-selected')
-        .addEventListener('click', async () => {
-          const ingredients = this.formHandler.getIngredients();
-          const results = await DataManager.calculateImpact(ingredients);
-          ResultsView.display(results);
-        });
+      */
+      // In the calculate button handler
+      document.getElementById('calculate-selected').addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        // Clear previous results
+        this.resultsView.clear();
+
+        // Perfrom calculation
+        const impact = this.formHandler.calculateImpact();
+
+        if(impact) {
+          this.resultsView.showResults({
+            co2e: impact.co2e.toFixed(2),
+            water: impact.waterUse.toFixed(2),
+            land: impact.landUse.toFixed(2)
+          });
+  
+
+        }
+
+      });  
         
     }
-      
+    
+    /*
     updateIngredientAutocomplete(ingredients) {
       this.autocompleteInstances.ingredient.updateDataset(ingredients);
       
@@ -147,24 +157,8 @@ export class FoodCalculatorApp {
       document.getElementById('ingredient-input').focus();
       this.autocompleteInstances.ingredient.showSuggestions();
     }
+    */
 
-    /*
-    loadRecipe() {
-      const recipeData = ApiClient.getSavedRecipes();
-    
-      // Match ingredients with database - FIXED PROPERTY NAME
-      const matchedIngredients = recipeData.recipeIngredient.map(item => {
-        // Use mainIngredient instead of name
-        const cleanName = (item.mainIngredient || '').trim().toLowerCase();
-        return DataManager.database.find(ingredient => 
-          ingredient.Ingredient.toLowerCase().includes(cleanName)
-        );
-      }).filter(Boolean);
-    
-      console.log('Matched ingredients:', matchedIngredients);
-      this.formHandler.updateTable(matchedIngredients);
-    }
-  */
  
   }
   

@@ -9,11 +9,11 @@ Wheat flour,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes
 Bagel,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 Bran grain bread,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 "Bread, French bread, baguette",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Bread, gluten free",Wheat & Rye (Bread),c009,"Cereals, Other",Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Bread, gluten free",Wheat & Rye (Bread),c009,Cereals or Other,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 Brioche,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 Chocolate croissant,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 "Corn tortilla wrap, to be filled",Wheat & Rye (Bread),c004,Maize and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
-"Crispbread, extruded and grilled",Wheat & Rye (Bread),c009,"Cereals, Other",Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
+"Crispbread, extruded and grilled",Wheat & Rye (Bread),c009,Cereals or Other,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 Croissant,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 Croutons,Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
 "English muffin, prepacked",Wheat & Rye (Bread),c002,Wheat and products,Cereals  bread and cakes,482152,2.55,0.932,0,0.1,0,0.847,0.217,0.129,0.09,0.058,0.01209,0.00706,567,28918,PA based on AGRIBALYSE
@@ -64,8 +64,8 @@ Brown beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,
 Chickpeas,Other Pulses,c018,Peas,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
 Faba beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
 Field beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
-Lentils,Other Pulses,c019,"Pulses, Other and products",Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
-Lupins,Other Pulses,c019,"Pulses, Other and products",Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Lentils,Other Pulses,c019,Pulses Other and products,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
+Lupins,Other Pulses,c019,Pulses Other and products,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
 Pigeon peas,Other Pulses,c018,Peas,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
 Runner beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,Poore&Nemecek
 Red kidney beans,Other Pulses,c017,Beans,Legumes,42765,9.851,3.769,0,0.033,0,1.089,0,0.096,0.353,0.039,0.01913,0.01501,364,18670,PA based on AGRIBALYSE

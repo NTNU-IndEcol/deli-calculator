@@ -4,21 +4,38 @@ export class ResultsView {
     constructor() {
       this.elements = {
         container: document.getElementById('calculation-results'),
-        totalEmission: document.getElementById('total-emission'),
-        breakdownBody: document.getElementById('breakdown-body'),
-        chartCanvas: document.getElementById('impact-chart'),
-        exportButton: document.getElementById('export-results')
+      //  totalEmission: document.getElementById('total-emission'),
+      //  breakdownBody: document.getElementById('breakdown-body'),
+      //  chartCanvas: document.getElementById('impact-chart'),
+      //  exportButton: document.getElementById('export-results'),
+        co2Display: document.getElementById('co2-result'),
+        waterDisplay: document.getElementById('water-result'),
+        landDisplay: document.getElementById('land-result')
       };
   
-      this.chartInstance = null;
-      this.initialize();
+  //    this.chartInstance = null;
+  //    this.initialize();
+    }
+
+    showResults(data) {
+      this.elements.co2Display.textContent = `${data.co2e} ton CO₂ eq`;
+      this.elements.waterDisplay.textContent = `${data.water} m3`;
+      this.elements.landDisplay.textContent = `${data.land} hectare`;
     }
   
+    clear() {
+      if (this.elements.co2Display) this.elements.co2Display.textContent = '--';
+      if (this.elements.waterDisplay) this.elements.waterDisplay.textContent = '--';
+      if (this.elements.landDisplay) this.elements.landDisplay.textContent = '--';
+    }
+
+  
+    /*
     initialize() {
       this.elements.exportButton?.addEventListener('click', () => this.exportResults());
     }
     
-    static showError(message) {
+    showError(message) {
       const errorContainer = document.getElementById('error-container');
       if (errorContainer) {
         errorContainer.innerHTML = `
@@ -28,7 +45,8 @@ export class ResultsView {
         `;
       }
     }
-
+*/
+    /*
     static displayRecipe(recipe) {
       const ingredientsSection = document.querySelector('.Ingredients');
       if (!ingredientsSection) return;
@@ -47,9 +65,10 @@ export class ResultsView {
       
       ingredientsSection.insertBefore(header, ingredientsSection.firstChild);
     }
-    
+    */
 
-    static display(results) {
+    /*
+    display(results) {
       this.clear();
       
       const resultsContainer = document.getElementById('results-container');
@@ -206,4 +225,7 @@ export class ResultsView {
       // Return mock PDF content for demonstration
       return new TextEncoder().encode('PDF Export Feature - Implement with jsPDF');
     }
+
+    */
+
   }
