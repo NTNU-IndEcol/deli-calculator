@@ -1,6 +1,22 @@
-gunicorn
-requests
-Flask==3.0.2
-Flask-Cors==4.0.0
-pandas==2.2.1
-python-dotenv==1.0.0
+name: fastapi
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - fastapi
+  - geopandas
+  - numpy
+  - pandas
+  - pyogrio
+  - regionmask
+  - uvicorn
+  - xarray
+  - flask
+  - netcdf4
+  - pyproj
+  - rasterio
+  - shapely
+  - rioxarray
+  - gunicorn
+  - fuzzywuzzy
+  - python-levenshtein
