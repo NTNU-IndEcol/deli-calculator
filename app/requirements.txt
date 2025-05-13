@@ -1,22 +1,17 @@
-name: fastapi
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - fastapi
-  - geopandas
-  - numpy
-  - pandas
-  - pyogrio
-  - regionmask
-  - uvicorn
-  - xarray
-  - flask
-  - netcdf4
-  - pyproj
-  - rasterio
-  - shapely
-  - rioxarray
-  - gunicorn
-  - fuzzywuzzy
-  - python-levenshtein
+fastapi
+geopandas
+numpy
+pandas
+pyogrio
+regionmask
+uvicorn
+xarray
+flask
+netcdf4
+pyproj
+rasterio
+shapely
+rioxarray
+gunicorn
+fuzzywuzzy
+python-levenshtein
