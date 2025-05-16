@@ -18,7 +18,7 @@ export class ResultsView {
     }
 
     showResults(data) {
-      this.elements.co2Display.textContent = `${data.co2e} ton CO₂ eq`;
+      this.elements.co2Display.textContent = `${data.co2e} kg CO₂ eq`;
       this.elements.waterDisplay.textContent = `${data.water} m3`;
       this.elements.landDisplay.textContent = `${data.land} hectare`;
     }

@@ -369,7 +369,7 @@ Hazelnut oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,975
 Linseed oil,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Sesame oil,Cereals & Oilcrops Misc.,c076,Sesameseed Oil,Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Vegetable fat,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Cooking fat,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
-Nutritional yeast,Cereals & Oilcrops Misc.,c080,"Oilcrops Oil, Other",Other foods and dishes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
+Nutritional yeast,Cereals & Oilcrops Misc.,c125,"Oilcrops Oil, Other",Other foods and dishes,97562,2.162,0.799,0,0.161,0,0.744,0.169,0.109,0.081,0.049,0.01052,0.00569,438,22262,PA based on AGRIBALYSE
 Oils Misc.,Oils Misc.,c080,"Oilcrops Oil, Other",Cooking fat,13404,8.241,1.873,0,2.022,0,2.03,0.546,0.251,0.859,0.044,0.02145,0.01973,449,21573,Poore&Nemecek
 Fish oil,Oils Misc.,c123,"Fish, Seafood",Other foods and dishes,13404,8.241,1.873,0,2.022,0,2.03,0.546,0.251,0.859,0.044,0.02145,0.01973,449,21573,PA based on AGRIBALYSE
 Sweeteners,Sweeteners & Honey,c067,"Sweeteners, Other",Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,Poore&Nemecek
@@ -385,7 +385,7 @@ Cakes,Sweeteners & Honey,c002,Wheat and products,Sugar and sweet products,21564,
 Frozen yogurt,Sweeteners & Honey,c109,Milk - Excluding Butter,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
 Ice cream,Sweeteners & Honey,c109,Milk - Excluding Butter,Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
 "Candies, all types",Sweeteners & Honey,c066,Sugar (Raw Equivalent),Sugar and sweet products,21564,0,0,0,0,0,0,0.139,0.706,0.087,0.038,0.00746,0.00218,0,0,PA based on AGRIBALYSE
-Stimulants,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,Poore&Nemecek
+Stimulants,Stimulants & Spices Misc.,c124,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,Poore&Nemecek
 Spices Misc.,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,Poore&Nemecek
 Mustard,Stimulants & Spices Misc.,c024,Rape and Mustardseed,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Vinegar,Stimulants & Spices Misc.,c044,"Fruits, Other",Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
@@ -424,11 +424,11 @@ Gelatine,Stimulants & Spices Misc.,c119,"Fats, Animals, Raw",Herbs and spices,13
 Miso,Stimulants & Spices Misc.,c021,Soyabeans,Other foods and dishes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Oat bran,Stimulants & Spices Misc.,c006,Oats,Cereals  bread and cakes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Rice bran,Stimulants & Spices Misc.,c001,Rice and products,Cereals  bread and cakes,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
-Sodium carbonate,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sodium carbonate,Stimulants & Spices Misc.,c124,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Soy lecithin,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Tempeh,Stimulants & Spices Misc.,c021,Soyabeans,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
-Salt,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
-Sea salt,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Salt,Stimulants & Spices Misc.,c124,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
+Sea salt,Stimulants & Spices Misc.,c124,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Black pepper,Stimulants & Spices Misc.,c049,Pepper,Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Caraway,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE
 Cardamom,Stimulants & Spices Misc.,c052,"Spices, Other",Herbs and spices,13269,10.019,2.332,0,6.007,0,4.938,0.259,0.143,0.747,0.03,0.02419,0.03204,172,5486,PA based on AGRIBALYSE

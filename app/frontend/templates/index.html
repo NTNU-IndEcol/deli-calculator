@@ -65,22 +65,64 @@
         <button id="add-ingredient-btn">➕ Add</button>
     </div--->
     <div class="form-group">
-        <h3>User add ingredient</h3>
-    
-        <label>Category:</label>
-        <input type="text" id="category-input" placeholder="Type to search..." />
-    
+        <h3 class="section-heading">
+            User add ingredient
+            <button class="inline-help-icon section-help" 
+                aria-label="Help"
+                data-tooltip-text="Ingredient is from Poore_and_Nemecke_FABIO datasets.">?
+            </button>
+        </h3>
+
         <label>Ingredient:</label>
         <input type="text" id="ingredient-input" placeholder="Type to search..." />
-    
+
+        <label>Category:</label>
+        <input type="text" id="category-input" placeholder="Type to search..." />
+
         <label>Amount:</label>
         <input type="number" id="amount-input" min="0" />
     
         <label>Unit:</label>
-        <input type="text" id="unit-input" placeholder="Type to search..." />
-    
-        <label>Source:</label>
+        <input type="text" id="unit-input" list="unit-options" placeholder="Type to search...">
+        <datalist id="unit-options">
+            <option value="g">g (grams)</option>
+            <option value="kg">kg (kilograms)</option>
+            <option value="ounce">ounce</option>
+            <option value="lb">lb (pounds)</option>
+            <option value="cup">cup</option>
+            <option value="tbsp">tbsp (tablespoon)</option>
+            <option value="tsp">tsp (teaspoon)</option>
+            <option value="unit">unit</option>
+        </datalist>
+
+   
+        <!--label class="source-label">
+                <span class="label-text">Source</span>
+                <button class="inline-help-icon" aria-label="Help">?</button>:
+        </label-->
+        <label class="source-label">
+            <span class="label-text">
+                Source
+            <button class="inline-help-icon" 
+                    aria-label="Help"
+                    data-tooltip-text="The source is from the top import country for the ingredient.">?
+            </button>
+            </span>:
+        </label>
+        
         <input type="text" id="source-input" placeholder="Select country...">
+        
+
+        
+        <!--label>Source:</label>
+          <input type="text" id="source-input" placeholder="Select country...">
+        <div class="input-help-container">
+            <input type="text" id="source-input" placeholder="Select country...">
+            <button type="button" class="help-icon" onclick="toggleSourceHelp()" aria-label="Help">?</button>
+            <div id="source-help" class="help-tooltip">
+                The source is from the top import country for the ingredient
+            </div>
+        </div-->
    
         <button id="add-ingredient-btn">➕ Add</button>
     </div>

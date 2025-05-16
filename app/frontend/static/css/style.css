@@ -207,14 +207,6 @@ body {
     cursor: pointer;
 }
 
-/*
-#results {
-    background-color: #f8f8f8;
-    padding: 30px;
-    border-radius: 8px;
-}
-*/
-
 
 .recipe-selector {
     max-width: 600px;
@@ -371,40 +363,7 @@ body {
   cursor: not-allowed;
 }
 
-/*
-.results-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 20px;
-}
 
-.breakdown-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.standardized-units {
-    background: #fff3e0;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.standardized-units li {
-    margin: 5px 0;
-    color: #666;
-}
-
-
-.emission-results strong {
-    color: #2e7d32;
-    font-size: 1.2em;
-}
-*/
 .location-input {
     width: 150px;
     padding: 5px;
@@ -419,6 +378,133 @@ body {
     border-radius: 8px;
 }
 
+/*help icon*/
+
+
+.tooltip-overlay {
+    position: fixed;
+    background: #fdfeff;
+    color: #001aff;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 200px;
+    line-height: 1.4;
+    box-shadow: 0 4px 6px rgb(8, 8, 8);
+    word-wrap: break-word;
+}
+
+.tooltip-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.source-label {
+    position: relative; /* Needed for absolute positioning of child */
+    padding-right: 12px; /* Space for the help icon */
+    display: inline-block; /* Ensure proper positioning */
+}
+
+.inline-help-icon {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    font-size: 0.6rem;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #0044ff;
+    justify-content: center;
+    cursor: help; /* Change cursor to indicate interactivity */
+    border: 1px solid currentColor;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+/* Optional hover effect */
+.inline-help-icon:hover {
+    background: #0026ff;
+    border-color: #cbd5e0;
+}
+/*
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.source-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+
+.inline-help-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #666;
+    color: white;
+    border: none;
+    cursor: help;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.inline-help-icon:hover {
+    background: #007bff;
+}
+
+.inline-help-icon:hover::after {
+    content: "The source is from the top import country for the ingredient";
+    position: absolute;
+    top: 130%;
+    left: -20px;
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 220px;
+    white-space: normal;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.inline-help-icon:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.inline-help-icon::after {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.inline-help-icon:hover::after {
+    opacity: 1;
+}
+*/
 
 .results-panel {
     display: flex;

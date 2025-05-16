@@ -63,8 +63,83 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 */
 
+    // Create tooltip container
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip-overlay';
+    document.body.appendChild(tooltip);
+
+    // Handle all help icons
+    document.querySelectorAll('.inline-help-icon').forEach(icon => {
+        // Get message from data attribute
+        const message = icon.dataset.tooltipText;
+        
+        icon.addEventListener('mouseenter', function(e) {
+            const rect = e.target.getBoundingClientRect();
+            tooltip.textContent = message;
+            
+            // Position calculation with viewport boundary checks
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Default position below icon
+            let top = rect.bottom + 8;
+            let left = rect.left;
+            
+            // Adjust if near bottom edge
+            if (top + tooltip.offsetHeight > windowHeight) {
+                top = rect.top - tooltip.offsetHeight - 8;
+            }
+            
+            // Adjust if near right edge
+            if (left + tooltip.offsetWidth > windowWidth) {
+                left = windowWidth - tooltip.offsetWidth - 16;
+            }
+            
+            tooltip.style.top = `${top}px`;
+            tooltip.style.left = `${left}px`;
+            tooltip.classList.add('visible');
+        });
+
+        icon.addEventListener('mouseleave', function() {
+            tooltip.classList.remove('visible');
+        });
+    });
+
+
   } catch (error) {
     console.error('Critical initialization error:', error);
     alert('Failed to initialize application. Please try reloading.');
   }
+/*
+function toggleHelp() {
+    const helpTooltip = document.getElementById('source-help');
+    const isVisible = helpTooltip.style.display === 'block';
+    helpTooltip.style.display = isVisible ? 'none' : 'block';
+    document.getElementById('source-help-button').setAttribute('aria-expanded', !isVisible);
+}
+
+// Event listeners
+document.getElementById('source-help-button').addEventListener('click', toggleHelp);
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+    const helpTooltip = document.getElementById('source-help');
+    const helpButton = document.getElementById('source-help-button');
+    
+    if (!helpButton.contains(e.target) && !helpTooltip.contains(e.target)) {
+        helpTooltip.style.display = 'none';
+        helpButton.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// Close on ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.getElementById('source-help').style.display = 'none';
+        document.getElementById('source-help-button').setAttribute('aria-expanded', 'false');
+    }
+});
+
+*/
+
 });

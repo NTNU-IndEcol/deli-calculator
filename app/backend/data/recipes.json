@@ -2,103 +2,175 @@
   "@context": "https://schema.org",
   "@type": "Recipe",
   "id": 1,
-  "name": "Gyeran Mari (Rolled Omelette)",
+  "name": "Instant Pot Korean Braised Short Ribs",
   "author": "Korean Bapsang",
-  "datePublished": "2025-05-13",
-  "category": "Appetizers",
+  "datePublished": "2025-05-14",
+  "category": "Main Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Egg",
+      "mainIngredient": "Beef",
       "details": {
-        "amount": 3.0,
-        "unit": "",
-        "originalText": "large eggs"
+        "amount": 3.5,
+        "unit": "pounds",
+        "originalText": "beef short ribs"
       }
     },
     {
-      "mainIngredient": "Or . tablespoons finely scallion",
+      "mainIngredient": "Radish",
+      "details": {
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "Korean radish"
+      }
+    },
+    {
+      "mainIngredient": "Carrot",
       "details": {
         "amount": 1.0,
         "unit": "",
-        "originalText": "or 1.5 tablespoons finely chopped scallion"
+        "originalText": "medium carrot"
       }
     },
     {
-      "mainIngredient": "Or . tablespoons finely carrot",
+      "mainIngredient": "Fresh or Shiitake mushroom",
+      "details": {
+        "amount": 3.5,
+        "unit": "",
+        "originalText": "fresh or dried shiitake mushrooms"
+      }
+    },
+    {
+      "mainIngredient": "Korean/asian pear or Apple",
+      "details": {
+        "amount": 0.5,
+        "unit": "",
+        "originalText": "medium Korean/Asian pear or 1 small apple"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 0.5,
+        "unit": "",
+        "originalText": "medium onion"
+      }
+    },
+    {
+      "mainIngredient": "Garlic clove",
+      "details": {
+        "amount": 6.0,
+        "unit": "",
+        "originalText": "plump garlic cloves (about 2 TB minced)"
+      }
+    },
+    {
+      "mainIngredient": "Ginger or Teaspoon",
       "details": {
         "amount": 1.0,
-        "unit": "",
-        "originalText": "or 1.5 tablespoons finely chopped carrot"
+        "unit": "inch",
+        "originalText": "ginger piece (a thumb size) or 1 teaspoon minced"
       }
     },
     {
-      "mainIngredient": "Salt",
+      "mainIngredient": "Soy sauce",
       "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "Salt to taste"
+        "amount": 0.5,
+        "unit": "cup",
+        "originalText": "soy sauce"
       }
     },
     {
-      "mainIngredient": "Black pepper",
+      "mainIngredient": "Rice wine (or mirin or White wine)",
       "details": {
-        "amount": null,
-        "unit": "Pinch",
-        "originalText": "black pepper"
+        "amount": 0.5,
+        "unit": "cup",
+        "originalText": "rice wine (or mirin or dry white wine)"
       }
     },
     {
-      "mainIngredient": "Vegetable oil for frying",
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 4.0,
+        "unit": "tablespoons",
+        "originalText": "sugar (or 2 TB sugar and 2 TB honey)"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Pepper",
       "details": {
         "amount": null,
         "unit": "",
-        "originalText": "vegetable oil for frying"
+        "originalText": "pepper to taste"
+      }
+    },
+    {
+      "mainIngredient": "Chestnut",
+      "details": {
+        "amount": 5.5,
+        "unit": "",
+        "originalText": "chestnuts"
+      }
+    },
+    {
+      "mainIngredient": "Scallion",
+      "details": {
+        "amount": 2.0,
+        "unit": "",
+        "originalText": "scallions"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Finely chop the scallion and carrot."
+      "text": "Trim off any thick layer of surface fat. In the pot, rinse the ribs with cold water a couple of times to remove surface blood and bone dust."
     },
     {
       "@type": "HowToStep",
-      "text": "Crack and beat the eggs, in a bowl with a spoon, a fork, or a pair of chopsticks until the yolks and whites are blended well with no visible strings of whites. Stir in salt and pepper."
+      "text": "Drain, and fill the pot with 4 cups of water to cover the ribs. Close the lid tightly. Press the \u201cManual\u201d function and High Pressure, and using the \u201c-\u201d button, adjust the time to 2 minutes. Make sure the pressure switch is turned to \u201csealing\u201d. When finished, carefully released the pressure."
     },
     {
       "@type": "HowToStep",
-      "text": "Stir in the chopped vegetables."
+      "text": "Discard the cooking liquid (or save to use it as a soup base later), and rinse the ribs and the pot. Return the ribs to the pot."
     },
     {
       "@type": "HowToStep",
-      "text": "Add a teaspoon of vegetable oil to a medium size non-stick pan and distribute the oil evenly using a napkin or paper towel. Preheat over medium low heat, until it feels hot when you place your hand 2 to 3 inches above the bottom of the pan."
+      "text": "In a small blender, blend together the pear, onion, garlic, and ginger. You can separately grate them if you want. Transfer to a bowl. Mix well with the remaining braising liquid ingredients."
     },
     {
       "@type": "HowToStep",
-      "text": "Add 1/2 of the egg mixture to the pan. Swirl it around to cover the pan. Let it cook until the top begins to set but is still wet."
+      "text": "Add the radish, carrot, and mushrooms to the pot. If using fresh mushrooms, you can add them in step 7. Pour the braising liquid over to the ribs. Toss everything well to coat the ribs evenly. (You can prepare up to this point ahead of time.) Close the lid tightly. Pressure cook the ribs for 35 minutes, NPR (Natural release of Pressure) for 10 minutes. (See the quicker alternative method below.) Then, remove the ribs and vegetables to a large bowl or plate."
     },
     {
       "@type": "HowToStep",
-      "text": "Using a spatula, lift one end of the egg (about 1-1/2 inches) and fold it over to the other side. Reduce the heat or raise the pan away from the heat for a little while if the bottom is browning."
+      "text": "Strain the braising liquid. You can skim off the fat or use a fat separator."
     },
     {
       "@type": "HowToStep",
-      "text": "Lift the folded part and fold it again. Pull the egg to the rolled side, making room on the round end for more egg mixture. Add 1/2 of the remaining egg and spread to cover the open space."
+      "text": "Put everything back to the Instant Pot. This will be a good point to add optional chestnuts, fresh vegetables such as potatoes, and/or even rice cake (tteokbokki tteok) if you want. Boil everything together on Saute for 10 to 15 minutes."
     },
     {
       "@type": "HowToStep",
-      "text": "When the egg addition is set, lift the folded part and fold it again. Pull the egg to the rolled side and repeat the process with the remaining egg to make an about 2-inch egg log."
+      "text": "Garnish with the optional scallions and sesame seeds."
     },
     {
       "@type": "HowToStep",
-      "text": "Remove from the pan and let cool for about 5 minutes. Slice the egg into thick, even pieces (3/4 to 1-inch thick)."
+      "text": "Press the \u201cManual\u201d function, 40 minutes (45 minutes if your meat is thick and you want extra tender meat), NPR 10 minutes. Strain the braising liquid if you want. You can skim off the fat or use a fat separator."
     }
   ],
-  "recipeYield": "2",
+  "recipeYield": "4",
   "prepTime": "10 Minutes",
-  "cookTime": "5 Minutes",
-  "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/04/DSC_1161-2-e1572196812457.jpg",
-  "description": "This rolled egg recipe is made with chopped carrot and scallion. It\u2019s a popular side dish, especially for a lunch box, that you can easily whip up in no Gyeran mari is Korean-style rolled omelette. It\u2019s a popular side dish, especially for a lunch box, that's easy to whip up in no time!",
+  "cookTime": "10 Minutes",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2020/03/DSC7900-2-e1640239830367.jpg",
+  "description": "This Instant Pot Galbijjim recipe show you how to best make these tender, juicy and flavorful Korean braised short ribs in your pressure cooker!",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null

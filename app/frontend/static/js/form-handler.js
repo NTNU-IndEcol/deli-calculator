@@ -621,7 +621,7 @@ export class FormHandler {
 
     // Add these helper methods
     formatNumber(value) {
-      return Number(value.toFixed(2));
+      return Number(value.toFixed(3));
     }
 
     convertToKilograms(amount, unit) {
