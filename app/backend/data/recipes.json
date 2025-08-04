@@ -2,105 +2,73 @@
   "@context": "https://schema.org",
   "@type": "Recipe",
   "id": 1,
-  "name": "Instant Pot Korean Braised Short Ribs",
+  "name": "Bibimbap",
   "author": "Korean Bapsang",
-  "datePublished": "2025-05-14",
+  "datePublished": "2025-05-19",
   "category": "Main Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Beef",
+      "mainIngredient": "Short grain rice",
       "details": {
-        "amount": 3.5,
-        "unit": "pounds",
-        "originalText": "beef short ribs"
+        "amount": 3.0,
+        "unit": "cups",
+        "originalText": "short grain rice"
       }
     },
     {
-      "mainIngredient": "Radish",
+      "mainIngredient": "Tender beef (rib eye, sirloin, etc. or Ground beef)",
       "details": {
         "amount": 8.0,
         "unit": "ounces",
-        "originalText": "Korean radish"
-      }
-    },
-    {
-      "mainIngredient": "Carrot",
-      "details": {
-        "amount": 1.0,
-        "unit": "",
-        "originalText": "medium carrot"
-      }
-    },
-    {
-      "mainIngredient": "Fresh or Shiitake mushroom",
-      "details": {
-        "amount": 3.5,
-        "unit": "",
-        "originalText": "fresh or dried shiitake mushrooms"
-      }
-    },
-    {
-      "mainIngredient": "Korean/asian pear or Apple",
-      "details": {
-        "amount": 0.5,
-        "unit": "",
-        "originalText": "medium Korean/Asian pear or 1 small apple"
-      }
-    },
-    {
-      "mainIngredient": "Onion",
-      "details": {
-        "amount": 0.5,
-        "unit": "",
-        "originalText": "medium onion"
-      }
-    },
-    {
-      "mainIngredient": "Garlic clove",
-      "details": {
-        "amount": 6.0,
-        "unit": "",
-        "originalText": "plump garlic cloves (about 2 TB minced)"
-      }
-    },
-    {
-      "mainIngredient": "Ginger or Teaspoon",
-      "details": {
-        "amount": 1.0,
-        "unit": "inch",
-        "originalText": "ginger piece (a thumb size) or 1 teaspoon minced"
+        "originalText": "thinly sliced tender beef (rib eye, sirloin, etc. or ground beef)"
       }
     },
     {
       "mainIngredient": "Soy sauce",
       "details": {
-        "amount": 0.5,
-        "unit": "cup",
+        "amount": 1.5,
+        "unit": "tablespoons",
         "originalText": "soy sauce"
-      }
-    },
-    {
-      "mainIngredient": "Rice wine (or mirin or White wine)",
-      "details": {
-        "amount": 0.5,
-        "unit": "cup",
-        "originalText": "rice wine (or mirin or dry white wine)"
       }
     },
     {
       "mainIngredient": "Sugar",
       "details": {
-        "amount": 4.0,
-        "unit": "tablespoons",
-        "originalText": "sugar (or 2 TB sugar and 2 TB honey)"
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "sugar"
       }
     },
     {
       "mainIngredient": "Sesame oil",
       "details": {
         "amount": 2.0,
-        "unit": "tablespoons",
+        "unit": "teaspoons",
         "originalText": "sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Cooking rice wine (mirin or Mirim)",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "cooking rice wine (Mirin or Mirim)"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "minced garlic"
+      }
+    },
+    {
+      "mainIngredient": "Scallion",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "chopped scallion"
       }
     },
     {
@@ -112,65 +80,205 @@
       }
     },
     {
-      "mainIngredient": "Chestnut",
+      "mainIngredient": "Mung bean sprout",
       "details": {
-        "amount": 5.5,
-        "unit": "",
-        "originalText": "chestnuts"
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "mung bean sprouts (sukju, \uc219\uc8fc)"
       }
     },
     {
-      "mainIngredient": "Scallion",
+      "mainIngredient": "Bunch spinach, about ounce",
+      "details": {
+        "amount": 1.0,
+        "unit": "",
+        "originalText": "bunch spinach, about 8 ounces"
+      }
+    },
+    {
+      "mainIngredient": "Cucumbers, about ounce",
       "details": {
         "amount": 2.0,
         "unit": "",
-        "originalText": "scallions"
+        "originalText": "small cucumbers, about 5 ounces"
+      }
+    },
+    {
+      "mainIngredient": "Mushroom",
+      "details": {
+        "amount": 4.0,
+        "unit": "ounces",
+        "originalText": "mushrooms (shiitake, white, cremini, etc.)"
+      }
+    },
+    {
+      "mainIngredient": "Carrots, about ounce",
+      "details": {
+        "amount": 2.0,
+        "unit": "",
+        "originalText": "medium carrots, about 5 ounces"
+      }
+    },
+    {
+      "mainIngredient": "Garlic,",
+      "details": {
+        "amount": 1.5,
+        "unit": "teaspoons",
+        "originalText": "minced garlic,"
+      }
+    },
+    {
+      "mainIngredient": "Tablespoons scallion,",
+      "details": {
+        "amount": 3.0,
+        "unit": "",
+        "originalText": "3 tablespoons chopped scallion,"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seed",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "sesame seeds"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "salt"
+      }
+    },
+    {
+      "mainIngredient": "Egg",
+      "details": {
+        "amount": 4.0,
+        "unit": "",
+        "originalText": "eggs - optional"
+      }
+    },
+    {
+      "mainIngredient": "Cooking oil",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "cooking oil"
+      }
+    },
+    {
+      "mainIngredient": "Kongnamul",
+      "details": {
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "Kongnamul (soybean sprouts)"
+      }
+    },
+    {
+      "mainIngredient": "Mu",
+      "details": {
+        "amount": 10.0,
+        "unit": "ounces",
+        "originalText": "mu (Korean radish)"
+      }
+    },
+    {
+      "mainIngredient": "Gochujang, \uace0\ucd94\uc7a5",
+      "details": {
+        "amount": 4.0,
+        "unit": "tablespoons",
+        "originalText": "gochujang, \uace0\ucd94\uc7a5"
+      }
+    },
+    {
+      "mainIngredient": "Sugar adjust , teaspoon",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "sugar - adjust to taste, 1-3 teaspoons"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Water",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "water"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Trim off any thick layer of surface fat. In the pot, rinse the ribs with cold water a couple of times to remove surface blood and bone dust."
+      "text": "Cook the rice, without soaking and using a little less water than the amount you normally use. The rice for bibimbap should be a little drier than usual for best results."
     },
     {
       "@type": "HowToStep",
-      "text": "Drain, and fill the pot with 4 cups of water to cover the ribs. Close the lid tightly. Press the \u201cManual\u201d function and High Pressure, and using the \u201c-\u201d button, adjust the time to 2 minutes. Make sure the pressure switch is turned to \u201csealing\u201d. When finished, carefully released the pressure."
+      "text": "Beef: Cut into thin 2-inch long strips. Mix in 1.5 tablespoons of soy sauce, 2 teaspoons of sugar, 2 teaspoons of sesame oil, 2 teaspoons of rice wine, 1 tablespoon of chopped scallion, 1 teaspoon minced garlic, 1/2 sesame seeds and a pinch of pepper. Marinate for 20 minutes. Saut\u00e9 in a skillet for 2-3 minutes over high heat."
     },
     {
       "@type": "HowToStep",
-      "text": "Discard the cooking liquid (or save to use it as a soup base later), and rinse the ribs and the pot. Return the ribs to the pot."
+      "text": "Bean sprouts: Bring 2 cups of water to a boil. Add the bean sprouts and briefly blanch, about 1 minute, flipping over once. Drain quickly and shock in cold water to stop cooking. Drain again. Toss with 1/2 teaspoon of minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds, and salt (about 1/2 teaspoon)."
     },
     {
       "@type": "HowToStep",
-      "text": "In a small blender, blend together the pear, onion, garlic, and ginger. You can separately grate them if you want. Transfer to a bowl. Mix well with the remaining braising liquid ingredients."
+      "text": "Spinach: Blanch the spinach in salted boiling water only until wilted, about 40 seconds.  Drain quickly and shock in cold water. Squeeze out water. Cut into 3-inch lengths. Toss with 1 tablespoon of chopped scallion, 1/2 teaspoon minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds and salt (about 1/2 teaspoon)."
     },
     {
       "@type": "HowToStep",
-      "text": "Add the radish, carrot, and mushrooms to the pot. If using fresh mushrooms, you can add them in step 7. Pour the braising liquid over to the ribs. Toss everything well to coat the ribs evenly. (You can prepare up to this point ahead of time.) Close the lid tightly. Pressure cook the ribs for 35 minutes, NPR (Natural release of Pressure) for 10 minutes. (See the quicker alternative method below.) Then, remove the ribs and vegetables to a large bowl or plate."
+      "text": "Cucumbers: Cut the cucumbers in half lengthwise and then thinly slice crosswise. Generously sprinkle salt (about 1/2 teaspoon) over sliced cucumbers and set aside for 10 - 15 minutes. Squeeze out excess liquid. Toss with 1 tablespoon of chopped scallion, 1/2 teaspoon minced garlic, 1 teaspoon sesame oil and 1/2 teaspoon of sesame seeds."
     },
     {
       "@type": "HowToStep",
-      "text": "Strain the braising liquid. You can skim off the fat or use a fat separator."
+      "text": "Mushrooms and carrots: Thinly slice the mushrooms and carrots. Saut\u00e9 each vegetable in a lightly oiled skillet for 1 - 2 minutes over medium-high heat, sprinkling with salt (about 1/4 teaspoon)."
     },
     {
       "@type": "HowToStep",
-      "text": "Put everything back to the Instant Pot. This will be a good point to add optional chestnuts, fresh vegetables such as potatoes, and/or even rice cake (tteokbokki tteok) if you want. Boil everything together on Saute for 10 to 15 minutes."
+      "text": "Kongnamul (Soybean sprouts):Bring 2 cups of water to a boil. Add the soy beansprouts and boil for 2-3 minutes. Drain quickly and shock in cold water to stop cooking. Drain again. Toss with 1/2 teaspoon of minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds, and salt (about 1/2 teaspoon) to taste."
     },
     {
       "@type": "HowToStep",
-      "text": "Garnish with the optional scallions and sesame seeds."
+      "text": "Musaengchae (spicy radish salad):Cut 10 ounces of Korean radish (mu) into matchsticks. Add 2 tablespoons of chopped scallion, 1 tablespoon of gochugaru, 1 teaspoon minced garlic, 1/2 teaspoon salt (or more to taste), 1 teaspoon sugar, and 1 teaspoon sesame seeds. Mix everything well."
     },
     {
       "@type": "HowToStep",
-      "text": "Press the \u201cManual\u201d function, 40 minutes (45 minutes if your meat is thick and you want extra tender meat), NPR 10 minutes. Strain the braising liquid if you want. You can skim off the fat or use a fat separator."
+      "text": "Fry the eggs sunny side up or to your preference."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Combine all of the sauce ingredients in a small bowl and mix thoroughly."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Place a serving of rice in a big bowl. Nicely arrange a small amount of each prepared vegetable and beef over the rice. Drizzle a little sesame oil over. Top with an optional fried egg and serve with the sauce."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "For dolsot bibimbap:Lightly oil a stone or earthenware bowl with a teaspoon of sesame oil over medium heat. Add a serving of cooked rice and arrange the toppings on top. Cook for several minutes until the rice sizzles."
     }
   ],
   "recipeYield": "4",
-  "prepTime": "10 Minutes",
-  "cookTime": "10 Minutes",
-  "image": "https://www.koreanbapsang.com/wp-content/uploads/2020/03/DSC7900-2-e1640239830367.jpg",
-  "description": "This Instant Pot Galbijjim recipe show you how to best make these tender, juicy and flavorful Korean braised short ribs in your pressure cooker!",
+  "prepTime": "25 Minutes",
+  "cookTime": "30 Minutes",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2018/09/DSC3899-4-e1644947571796.jpg",
+  "description": "A wholesome rice bowl of classic bibimbap vegetables, beef and a gochujang sauce! Enjoy it at home with this easy bibimbap recipe.",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null

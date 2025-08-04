@@ -10,6 +10,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <!---link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"--->
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    
 </head>
 <body>
     <header class="header">
@@ -184,6 +194,14 @@
     <!-- Results Display -->
     <section id="calculation-results">
         <!-- Results will be dynamically inserted here -->
+    </section>
+
+    <!-- Map Visualization Section -->
+    <section class="map-section">
+    <h2>Ingredient Sources Map</h2>
+    <div class="map-container">
+        <div id="ingredients-map"></div>
+    </div>
     </section>
 
     <footer class="footer">
