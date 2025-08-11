@@ -134,7 +134,7 @@ export class MapView {
         // Create country lookup map
         const countryLookup = new Map();
         this.geoJsonData.features.forEach(feature => {
-            const countryName = feature.properties.name;
+            const countryName = feature.properties.countryName;
             if (countryName) {
                 // Normalize country name for matching
                 const normalized = countryName.toLowerCase().trim();
@@ -164,7 +164,7 @@ export class MapView {
                 style: this.getCountryStyle(data),
                 onEachFeature: (feature, layer) => {
                     // Add country name label
-                    const countryName = feature.properties.name;
+                    const countryName = feature.properties.countryName;
                     layer.bindTooltip(countryName, {
                         permanent: true,
                         direction: 'center',

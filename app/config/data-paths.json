@@ -8,7 +8,7 @@
       "env_impacts": "backend/data/E_full_2020.csv",
       "conversion_factors": "backend/data/Conversion_factors.csv",
       "country_centroids": "backend/data/country-centroids.json",
-      "geojson": "backend/data/world.geo.json"
+      "geojson": "backend/data/world.geojson"
       
     }
   }
