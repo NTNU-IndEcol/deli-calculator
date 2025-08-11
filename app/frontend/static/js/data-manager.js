@@ -25,7 +25,9 @@ export class DataManager {
       categories: [],
       ingredients: [],
       importCountries: [],
-      selectedIngredients: []
+      selectedIngredients: [],
+      geoJsonData: null,
+      countryCentroids: []
     };
   
     static userLocation = {
@@ -46,6 +48,8 @@ export class DataManager {
         await this.loadImportData();
         await this.loadDatabase();
         await this.loadConversionFactors();
+        await this.loadGeoJsonData();
+       // await this.loadCountryCentroids();
         await Promise.all([this.loadRegions(), this.loadEnvImpacts()]);
         
         this.processCategories();
@@ -524,6 +528,57 @@ export class DataManager {
       }
       
     }
+
+
+    static async loadGeoJsonData() {
+        try {
+            const response = await fetch(this.config.datasets.geojson);
+            this.geoJsonData = await response.json();
+            return this.geoJsonData;
+         } catch (error) {
+            console.error('Failed to load GeoJSON data:', error);
+            throw error; // Add this line to propagate the error
+        }
+    }
+
+    
+  
+    //load country centroids
+    static getCountryCentroid(countryCode) {
+        if (!this.countryCentroids || !countryCode) {
+            console.warn("Missing country centroids data or country code");
+            return null;
+        }
+        
+        // Ensure we have features array
+        if (!this.countryCentroids.features || !Array.isArray(this.countryCentroids.features)) {
+            console.error("Invalid country centroids format - missing features array");
+            return null;
+        }
+        
+        // Find centroid by matching ISO3 code
+        const country = this.countryCentroids.features.find(feature => {
+            const props = feature.properties || {};
+            return props.ISO_A3 === countryCode;
+        });
+        
+        if (!country) {
+            console.warn(`Centroid not found for country code: ${countryCode}`);
+            return null;
+        }
+        
+        const props = country.properties || {};
+        const lat = parseFloat(props.latitude);
+        const lng = parseFloat(props.longitude);
+        
+        if (isNaN(lat) || isNaN(lng)) {
+            console.warn(`Invalid coordinates for ${countryCode}: ${props.latitude}, ${props.longitude}`);
+            return null;
+        }
+        
+        return [lat, lng];
+    }
+    
     // --- Data Processing ---
 
   

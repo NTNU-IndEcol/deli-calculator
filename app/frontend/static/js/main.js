@@ -3,7 +3,7 @@ import { DataManager } from './data-manager.js';
 import { FoodCalculatorApp } from './food-calculator-app.js';
 import { FormHandler } from './form-handler.js';
 import { ApiClient } from './api-client.js'; // Add proper import
-import { MapView } from './map-view.js';
+//import { MapView } from './map-view.js';
 //import { TopoJSONMap } from './topojson-map.js';
 
 // Singleton instance to prevent reinitialization
@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const app = new FoodCalculatorApp(formHandler);
     // Create map view
-    const mapView = new MapView('ingredients-map');
-  //    const map = new TopoJSONMap('topojson-map');
+   // const mapView = new MapView('map-container');
+   // const mapView = new MapView('ingredients-map');
+  //   const map = new TopoJSONMap('topojson-map');
   //  await formHandler.loadRecipe();
   
   /*  

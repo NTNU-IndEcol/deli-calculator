@@ -537,32 +537,41 @@ body {
     color: #2c3e50;
   }
   
-/* Map styling */
-.map-section {
+/* Map styling 
+.map-container {
   margin: 40px 0;
   padding: 20px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 1200px; /* Match your page width */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.map-section h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #2c3e50;
-  font-size: 1.8rem;
-}
-
-#ingredients-map {
   height: 500px;
   width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  z-index: 1;
+  max-width: 1200px; 
+  margin-left: auto;
+  margin-right: auto;
+}*/
+
+#map-container {
+    height: 500px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    z-index: 1;
+}
+
+.leaflet-container {
+    background: #f8f9fa !important;
+    transition: all 0.3s ease;
+}
+
+.leaflet-tile-container {
+    image-rendering: crisp-edges;
+}
+
+.leaflet-control-attribution {
+    background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
 /* Legend styling */
@@ -621,26 +630,43 @@ body {
   }
 }
 
-.map-container {
-    width: 100%;
-    height: 500px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
+.leaflet-container {
+    background-color: #ffffff !important; /* Keep your light blue */
 }
 
-#topojson-map {
-    width: 100%;
-    height: 100%;
+.leaflet-tile {
+    filter: grayscale(100%) brightness(0.9) contrast(1.2) !important;
+    opacity: 0.85 !important;
 }
 
-.country-boundary {
-    transition: fill 0.3s ease;
+.country-label {
+    background: none;
+    border: none;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 8px;
+    text-shadow: 
+        -1px -1px 0 white,  
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white;
+    color: #222; /* Darker text for better contrast */
+    pointer-events: none;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
 }
 
-.country-boundary:hover {
-    fill: #d1e7dd !important;
-    cursor: pointer;
+.country-border {
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke: #222; /* Darker borders for better contrast */
+}
+
+/* Add this to make land more distinct */
+.leaflet-layer {
+    background-color: #e0e0e0 !important; /* Grey land color */
+    mix-blend-mode: multiply;
 }
 
 .footer {

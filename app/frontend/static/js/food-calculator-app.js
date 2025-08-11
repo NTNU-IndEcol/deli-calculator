@@ -4,27 +4,23 @@ import { DataManager } from './data-manager.js';
 import { AutocompleteHandler } from './autocomplete.js';
 import { FormHandler } from './form-handler.js';
 import { ResultsView } from './results-view.js';
+import { MapView } from './map-view.js';
 
 export class FoodCalculatorApp {
     constructor(formHandler) {
       this.autocompleteInstances = {}; // Add this line
       this.formHandler = formHandler; //new FormHandler(); // Create FormHandler instance
       this.resultsView = new ResultsView(); // Add ResultsView instance
+      this.mapView = null;
       this.initializeApp();
-  //    this.selectedIngredients = [];
     }
-  
 
     initializeApp(){
-      
       DataManager.initialize().then(() => {
         this.setupAutocomplete();
         this.setupEventListeners();
-
         this.formHandler.loadRecipe(); 
-
-
-      })
+      });
 
     }
 
@@ -105,33 +101,17 @@ export class FoodCalculatorApp {
 
     
     
-    setupEventListeners() {
-    
-      /*
-      // Save correction handler (FIXED)
-      this.formHandler.elements.tableBody.addEventListener('click', (e) => {
-        if (e.target.classList.contains('save-correction-btn')) {
-          const index = e.target.dataset.index;
-          const row = this.formHandler.selectedIngredients[index];
-          
-          // Get updated values
-          row.name = document.querySelector(`[data-index="${index}"] .editable-name`).textContent;
-          row.category = document.querySelector(`[data-index="${index}"] .editable-category`).textContent;
-          row.amount = parseFloat(document.querySelector(`[data-index="${index}"] .amount-input`).value);
-          row.unit = document.querySelector(`[data-index="${index}"] .unit-input`).value;
-  
-          // Re-check against database
-          this.formHandler.validateAgainstDatabase(row);
-        }
-      });
-      */
+    setupEventListeners() {   
       // In the calculate button handler
       document.getElementById('calculate-selected').addEventListener('click', async (e) => {
-        e.preventDefault();
+        e.preventDefault();      
+        this.resultsView.clear();  // Clear previous results
 
-        // Clear previous results
-        this.resultsView.clear();
-
+        // Initialize map only when needed
+        if (!this.mapView) {
+            this.mapView = new MapView('map-container');
+        }
+        
         // Perfrom calculation
         const impact = this.formHandler.calculateImpact();
 
@@ -142,7 +122,9 @@ export class FoodCalculatorApp {
             land: impact.landUse.toFixed(2)
           });
   
-
+          // Update map with data from the impact by country
+          const impactByCountry = this.formHandler.getImpactByCountry();
+          this.mapView.updateMap(impactByCountry);
         }
 
       });  

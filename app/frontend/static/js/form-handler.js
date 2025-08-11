@@ -378,6 +378,7 @@ export class FormHandler {
       const newlyMatched = [];
       const stillUnmatched = [];
     
+      /** 
       newIngredients.forEach(ingredient => {
         const match = DataManager.database.find(item => 
           this.fuzzyMatch(item.Ingredient, ingredient.name)
@@ -392,7 +393,31 @@ export class FormHandler {
           stillUnmatched.push(ingredient);
         }
       });
-    
+      */
+
+        newIngredients.forEach(ingredient => {
+          const match = DataManager.database.find(item => 
+            this.fuzzyMatch(item.Ingredient, ingredient.name)
+          );
+          
+          if (match) {
+            const possibleSources = [
+              match.Top1, match.Top2, match.Top3, match.Top4, match.Top5
+            ].filter(Boolean);
+            
+            newlyMatched.push({ 
+              ...ingredient,
+              ...this.createMatchedIngredient(match),
+              comm_code: match.comm_code,
+              matched: true,
+              possibleSources: possibleSources,
+              // Set default source if missing
+              source: ingredient.source || possibleSources[0] || ''
+            });
+          } else {
+            stillUnmatched.push(ingredient);
+          }
+        });
       // Merge with existing ingredients instead of replacing
       this.selectedIngredients = [...this.selectedIngredients, ...newlyMatched];
       this.unmatchedIngredients = [...this.unmatchedIngredients, ...stillUnmatched];
@@ -557,10 +582,10 @@ export class FormHandler {
       
       // Process ALL ingredients (both matched and unmatched)
       const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
-      console.log("Processing ingredients:", allIngredients); // Debug log 
+      console.log("selectedIngredients: ", this.selectedIngredients); // Debug log 
     
       allIngredients.forEach(ingredient => {
-        console.log(`Processing: ${ingredient.name} (${ingredient.comm_code})`); // Debug
+      //  console.log(`Processing: ${ingredient.name} (${ingredient.comm_code})`); // Debug
 
         if (!ingredient.comm_code || ingredient.comm_code === 'UNKNOWN') {
           errors.push(`${ingredient.name}: Missing commodity code`);
@@ -569,14 +594,16 @@ export class FormHandler {
     
         const finalSource = ingredient.source || ingredient.possibleSources?.[0];
 
+
         const countryCode = DataManager.getCountryCode(finalSource);
         if (!countryCode) {
           errors.push(`${ingredient.name}: Invalid country '${ingredient.source}'`);
           return;
         }
+        console.log('finalSource:', `${ingredient.name}`, finalSource, countryCode)  //DEBUG
 
         const factors = DataManager.getEnvImpactFactors(countryCode, ingredient.comm_code);
-        console.log(`Factors for ${ingredient.name}:`, factors); // Debug
+      //  console.log(`Factors for ${ingredient.name}:`, factors); // Debug
 
         if (!factors) {
           errors.push(`${ingredient.name}: No impact data for ${ingredient.source} (${countryCode})`);
@@ -585,7 +612,7 @@ export class FormHandler {
     
  //       const kgAmount = this.convertToKilograms(ingredient.amount, ingredient.unit);
         const tonAmount = this.convertToTons(ingredient.amount, ingredient.unit);
-        console.log(`Converted amount for ${ingredient.name}: ${tonAmount} tons`); // Debug
+      //  console.log(`Converted amount for ${ingredient.name}: ${tonAmount} tons`); // Debug
 
 
         // Accumulate all metrics
@@ -617,6 +644,75 @@ export class FormHandler {
         waterUse: this.formatNumber(result.totals.blue_water),
         co2e: this.formatNumber(co2e)
       };
+    }
+
+    // Calculate environmental impact by country
+    getImpactByCountry() {
+        const countryMap = new Map(); // Use Map for better performance
+        
+      //  const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
+        const allIngredients = [...this.selectedIngredients];
+        console.log("allIngredients update: ", allIngredients)
+
+        console.log('allIngredients: ', allIngredients)  //DEBUG
+        allIngredients.forEach(ingredient => {
+            if (!ingredient.source) {
+                console.warn(`Missing source for: ${ingredient.name}`);
+                return;
+            }
+            
+            const impact = this.computeIngredientImpact(ingredient);
+            if (!impact) {
+                console.warn(`Couldn't compute impact for: ${ingredient.name} from ${ingredient.source}`);
+                return;
+            }
+            
+            const country = ingredient.source.trim();
+            const countryKey = country.toLowerCase();
+            
+            if (!countryMap.has(countryKey)) {
+                countryMap.set(countryKey, { 
+                    country: country,
+                    co2e: 0, 
+                    water: 0, 
+                    land: 0 
+                });
+            }
+            
+            const countryData = countryMap.get(countryKey);
+            countryData.co2e += impact.co2e;
+            countryData.water += impact.water;
+            countryData.land += impact.land;
+        });
+
+        return Array.from(countryMap.values());
+    }
+
+    computeIngredientImpact(ingredient) {
+        if (!ingredient.comm_code || ingredient.comm_code === 'UNKNOWN') {
+            return null;
+        }
+
+        const countryCode = DataManager.getCountryCode(ingredient.source);
+        if (!countryCode) {
+            return null;
+        }
+
+        const factors = DataManager.getEnvImpactFactors(countryCode, ingredient.comm_code);
+        if (!factors) {
+            return null;
+        }
+
+        const tonAmount = this.convertToTons(ingredient.amount, ingredient.unit);
+        if (tonAmount <= 0) {
+            return null;
+        }
+
+        return {
+            co2e: tonAmount * factors.CO2,
+            water: tonAmount * factors.blue_water,
+            land: tonAmount * factors.landuse
+        };
     }
 
     // Add these helper methods
