@@ -1,0 +1,33 @@
+<footer class="custom-footer">
+  <div class="container-fluid">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <a href="https://www.ntnu.no/" target="_blank">
+          <img src="{{ url_for('static', filename='img/ntnu.png') }}" alt="logo NTNU">
+        </a>
+      </div>
+      <div class="footer-text">
+        <p>
+          &#x24B8;
+          <a href="https://www.ntnu.edu/indecol" target="_blank" class="footer-link">
+            Industrial Ecology
+          </a>
+          2020
+        </p>
+        <p>
+          webmaster
+          <a href="https://iedl.no/" target="_blank" class="footer-link">
+            Industrial Ecology Digital Lab
+          </a>
+        </p>
+      </div>
+      <div class="footer-logo">
+        <a href="https://www.ntnu.edu/indecol/industrial-ecology-programme" target="_blank">
+          <img src="{{ url_for('static', filename='img/IEP.png') }}" alt="logo IndEcol">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Remove duplicate Bootstrap script if already included in head -->

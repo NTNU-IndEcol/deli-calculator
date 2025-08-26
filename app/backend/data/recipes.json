@@ -2,283 +2,135 @@
   "@context": "https://schema.org",
   "@type": "Recipe",
   "id": 1,
-  "name": "Bibimbap",
+  "name": "Jeyuk Bokkeum (Spicy Pork Bulgogi)",
   "author": "Korean Bapsang",
-  "datePublished": "2025-05-19",
+  "datePublished": "2025-08-25",
   "category": "Main Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Short grain rice",
+      "mainIngredient": "Pork or Butt (or a combination of pork shoulder or Butt and pork belly)",
       "details": {
-        "amount": 3.0,
-        "unit": "cups",
-        "originalText": "short grain rice"
+        "amount": 2.0,
+        "unit": "pounds",
+        "originalText": "thinly sliced pork shoulder or butt (or a combination of pork shoulder or butt and pork belly)"
       }
     },
     {
-      "mainIngredient": "Tender beef (rib eye, sirloin, etc. or Ground beef)",
+      "mainIngredient": "Onion,",
       "details": {
-        "amount": 8.0,
-        "unit": "ounces",
-        "originalText": "thinly sliced tender beef (rib eye, sirloin, etc. or ground beef)"
+        "amount": 0.5,
+        "unit": "",
+        "originalText": "medium onion, sliced"
+      }
+    },
+    {
+      "mainIngredient": "Scallions, cut into inch",
+      "details": {
+        "amount": 3.0,
+        "unit": "",
+        "originalText": "scallions, cut into 2-inch pieces"
+      }
+    },
+    {
+      "mainIngredient": "Gochujang",
+      "details": {
+        "amount": 6.0,
+        "unit": "tablespoons",
+        "originalText": "gochujang"
+      }
+    },
+    {
+      "mainIngredient": "Gochugaru",
+      "details": {
+        "amount": 1.0,
+        "unit": "or 2 tablespoons",
+        "originalText": "gochugaru"
       }
     },
     {
       "mainIngredient": "Soy sauce",
       "details": {
-        "amount": 1.5,
+        "amount": 3.0,
         "unit": "tablespoons",
         "originalText": "soy sauce"
+      }
+    },
+    {
+      "mainIngredient": "Cooking rice wine (mirim or Mirin)",
+      "details": {
+        "amount": 3.0,
+        "unit": "tablespoons",
+        "originalText": "cooking rice wine (Mirim or Mirin)"
       }
     },
     {
       "mainIngredient": "Sugar",
       "details": {
         "amount": 2.0,
-        "unit": "teaspoons",
-        "originalText": "sugar"
+        "unit": "tablespoons",
+        "originalText": "sugar (or brown sugar)"
+      }
+    },
+    {
+      "mainIngredient": "Honey",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "honey (or more sugar)"
       }
     },
     {
       "mainIngredient": "Sesame oil",
       "details": {
         "amount": 2.0,
-        "unit": "teaspoons",
+        "unit": "tablespoons",
         "originalText": "sesame oil"
-      }
-    },
-    {
-      "mainIngredient": "Cooking rice wine (mirin or Mirim)",
-      "details": {
-        "amount": 2.0,
-        "unit": "teaspoons",
-        "originalText": "cooking rice wine (Mirin or Mirim)"
       }
     },
     {
       "mainIngredient": "Garlic",
       "details": {
-        "amount": 1.0,
-        "unit": "teaspoon",
+        "amount": 2.0,
+        "unit": "tablespoons",
         "originalText": "minced garlic"
       }
     },
     {
-      "mainIngredient": "Scallion",
+      "mainIngredient": "Ginger",
       "details": {
         "amount": 1.0,
         "unit": "tablespoon",
-        "originalText": "chopped scallion"
+        "originalText": "grated ginger"
       }
     },
     {
-      "mainIngredient": "Pepper",
+      "mainIngredient": "Apple grated, tablespoon",
       "details": {
-        "amount": null,
+        "amount": 0.5,
         "unit": "",
-        "originalText": "pepper to taste"
-      }
-    },
-    {
-      "mainIngredient": "Mung bean sprout",
-      "details": {
-        "amount": 8.0,
-        "unit": "ounces",
-        "originalText": "mung bean sprouts (sukju, \uc219\uc8fc)"
-      }
-    },
-    {
-      "mainIngredient": "Bunch spinach, about ounce",
-      "details": {
-        "amount": 1.0,
-        "unit": "",
-        "originalText": "bunch spinach, about 8 ounces"
-      }
-    },
-    {
-      "mainIngredient": "Cucumbers, about ounce",
-      "details": {
-        "amount": 2.0,
-        "unit": "",
-        "originalText": "small cucumbers, about 5 ounces"
-      }
-    },
-    {
-      "mainIngredient": "Mushroom",
-      "details": {
-        "amount": 4.0,
-        "unit": "ounces",
-        "originalText": "mushrooms (shiitake, white, cremini, etc.)"
-      }
-    },
-    {
-      "mainIngredient": "Carrots, about ounce",
-      "details": {
-        "amount": 2.0,
-        "unit": "",
-        "originalText": "medium carrots, about 5 ounces"
-      }
-    },
-    {
-      "mainIngredient": "Garlic,",
-      "details": {
-        "amount": 1.5,
-        "unit": "teaspoons",
-        "originalText": "minced garlic,"
-      }
-    },
-    {
-      "mainIngredient": "Tablespoons scallion,",
-      "details": {
-        "amount": 3.0,
-        "unit": "",
-        "originalText": "3 tablespoons chopped scallion,"
-      }
-    },
-    {
-      "mainIngredient": "Sesame oil",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "sesame oil"
-      }
-    },
-    {
-      "mainIngredient": "Sesame seed",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "sesame seeds"
-      }
-    },
-    {
-      "mainIngredient": "Salt",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "salt"
-      }
-    },
-    {
-      "mainIngredient": "Egg",
-      "details": {
-        "amount": 4.0,
-        "unit": "",
-        "originalText": "eggs - optional"
-      }
-    },
-    {
-      "mainIngredient": "Cooking oil",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "cooking oil"
-      }
-    },
-    {
-      "mainIngredient": "Kongnamul",
-      "details": {
-        "amount": 8.0,
-        "unit": "ounces",
-        "originalText": "Kongnamul (soybean sprouts)"
-      }
-    },
-    {
-      "mainIngredient": "Mu",
-      "details": {
-        "amount": 10.0,
-        "unit": "ounces",
-        "originalText": "mu (Korean radish)"
-      }
-    },
-    {
-      "mainIngredient": "Gochujang, \uace0\ucd94\uc7a5",
-      "details": {
-        "amount": 4.0,
-        "unit": "tablespoons",
-        "originalText": "gochujang, \uace0\ucd94\uc7a5"
-      }
-    },
-    {
-      "mainIngredient": "Sugar adjust , teaspoon",
-      "details": {
-        "amount": 2.0,
-        "unit": "teaspoons",
-        "originalText": "sugar - adjust to taste, 1-3 teaspoons"
-      }
-    },
-    {
-      "mainIngredient": "Sesame oil",
-      "details": {
-        "amount": 1.0,
-        "unit": "tablespoon",
-        "originalText": "sesame oil"
-      }
-    },
-    {
-      "mainIngredient": "Water",
-      "details": {
-        "amount": 1.0,
-        "unit": "tablespoon",
-        "originalText": "water"
+        "originalText": "small apple grated, 3 - 4 tablespoons (or 2 T plum syrup, maesilcheong)"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Cook the rice, without soaking and using a little less water than the amount you normally use. The rice for bibimbap should be a little drier than usual for best results."
+      "text": "Thinly slice the meat, if not pre-sliced."
     },
     {
       "@type": "HowToStep",
-      "text": "Beef: Cut into thin 2-inch long strips. Mix in 1.5 tablespoons of soy sauce, 2 teaspoons of sugar, 2 teaspoons of sesame oil, 2 teaspoons of rice wine, 1 tablespoon of chopped scallion, 1 teaspoon minced garlic, 1/2 sesame seeds and a pinch of pepper. Marinate for 20 minutes. Saut\u00e9 in a skillet for 2-3 minutes over high heat."
+      "text": "Mix all marinade ingredients well in a large bowl. Add the meat and toss everything well to evenly coat the meat with the marinade. Add the onion and scallions and toss again. Let it sit for about 30 minutes."
     },
     {
       "@type": "HowToStep",
-      "text": "Bean sprouts: Bring 2 cups of water to a boil. Add the bean sprouts and briefly blanch, about 1 minute, flipping over once. Drain quickly and shock in cold water to stop cooking. Drain again. Toss with 1/2 teaspoon of minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds, and salt (about 1/2 teaspoon)."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Spinach: Blanch the spinach in salted boiling water only until wilted, about 40 seconds.  Drain quickly and shock in cold water. Squeeze out water. Cut into 3-inch lengths. Toss with 1 tablespoon of chopped scallion, 1/2 teaspoon minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds and salt (about 1/2 teaspoon)."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Cucumbers: Cut the cucumbers in half lengthwise and then thinly slice crosswise. Generously sprinkle salt (about 1/2 teaspoon) over sliced cucumbers and set aside for 10 - 15 minutes. Squeeze out excess liquid. Toss with 1 tablespoon of chopped scallion, 1/2 teaspoon minced garlic, 1 teaspoon sesame oil and 1/2 teaspoon of sesame seeds."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Mushrooms and carrots: Thinly slice the mushrooms and carrots. Saut\u00e9 each vegetable in a lightly oiled skillet for 1 - 2 minutes over medium-high heat, sprinkling with salt (about 1/4 teaspoon)."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Kongnamul (Soybean sprouts):Bring 2 cups of water to a boil. Add the soy beansprouts and boil for 2-3 minutes. Drain quickly and shock in cold water to stop cooking. Drain again. Toss with 1/2 teaspoon of minced garlic, 1 teaspoon of sesame oil, 1/2 teaspoon of sesame seeds, and salt (about 1/2 teaspoon) to taste."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Musaengchae (spicy radish salad):Cut 10 ounces of Korean radish (mu) into matchsticks. Add 2 tablespoons of chopped scallion, 1 tablespoon of gochugaru, 1 teaspoon minced garlic, 1/2 teaspoon salt (or more to taste), 1 teaspoon sugar, and 1 teaspoon sesame seeds. Mix everything well."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Fry the eggs sunny side up or to your preference."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Combine all of the sauce ingredients in a small bowl and mix thoroughly."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Place a serving of rice in a big bowl. Nicely arrange a small amount of each prepared vegetable and beef over the rice. Drizzle a little sesame oil over. Top with an optional fried egg and serve with the sauce."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "For dolsot bibimbap:Lightly oil a stone or earthenware bowl with a teaspoon of sesame oil over medium heat. Add a serving of cooked rice and arrange the toppings on top. Cook for several minutes until the rice sizzles."
+      "text": "Grill or pan fry in a skillet (in 2 batches) over medium high heat until slightly caramelized. Adjust the heat as necessary."
     }
   ],
   "recipeYield": "4",
-  "prepTime": "25 Minutes",
-  "cookTime": "30 Minutes",
-  "image": "https://www.koreanbapsang.com/wp-content/uploads/2018/09/DSC3899-4-e1644947571796.jpg",
-  "description": "A wholesome rice bowl of classic bibimbap vegetables, beef and a gochujang sauce! Enjoy it at home with this easy bibimbap recipe.",
+  "prepTime": "10 Minutes",
+  "cookTime": "10 Minutes",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2010/05/DSC5922.jpg",
+  "description": "This spicy pork bulgogi is a popular Korean BBQ. Thinly sliced pork is marinated in a gochujang based sauce with lots of fresh garlic and ginger.",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null

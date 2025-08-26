@@ -20,6 +20,7 @@ export class FoodCalculatorApp {
         this.setupAutocomplete();
         this.setupEventListeners();
         this.formHandler.loadRecipe(); 
+        this.mapView = new MapView('map-container');
       });
 
     }
@@ -108,9 +109,9 @@ export class FoodCalculatorApp {
         this.resultsView.clear();  // Clear previous results
 
         // Initialize map only when needed
-        if (!this.mapView) {
-            this.mapView = new MapView('map-container');
-        }
+      //  if (!this.mapView) {
+      //      this.mapView = new MapView('map-container');
+      //  }
         
         // Perfrom calculation
         const impact = this.formHandler.calculateImpact();
@@ -124,8 +125,15 @@ export class FoodCalculatorApp {
   
           // Update map with data from the impact by country
           const impactByCountry = this.formHandler.getImpactByCountry();
-          this.mapView.updateMap(impactByCountry);
-        }
+          console.log("Impact by country data:", impactByCountry); // DEBUG
+
+          // Verify we have valid data before updating map
+          if (impactByCountry && impactByCountry.length > 0) {
+              this.mapView.updateMap(impactByCountry);
+          } else {
+              console.warn("No country impact data to display on map");
+          }
+      }
 
       });  
         

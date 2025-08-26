@@ -31,50 +31,53 @@ export class MapView {
             container._leaflet_id = null;
             container.innerHTML = '';
         }
-        
-        // Apply custom map container styling
-        container.style.backgroundColor = '#a4d4f5'; // Light blue for oceans
 
+        // Adjust the map bounds to exclude extreme polar regions
+        const southBound = -56;  // Limit southern extent
+        const northBound = 73.5;   // Limit northern extent
+        
         // Initialize new map with proper constraints
         this.map = L.map(this.mapContainerId, {
-            minZoom: 2,
-            maxZoom: 8,
-            maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
+            minZoom: 1.5,
+            maxZoom: 6,
+            maxBounds: L.latLngBounds(L.latLng(southBound, -180), L.latLng(northBound, 180)),
             maxBoundsViscosity: 1.0,
-            worldCopyJump: true
+            worldCopyJump: true,
+            zoomControl: false, // Remove default zoom controls
+            attributionControl: false // Remove attribution
         }).setView([20, 0], 2);
-        /*
-        // Add clean basemap - CartoDB Positron (light, minimal style)
-        this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    /*
+        L.rectangle([[-90, -180], [90, 180]], {
+    //        color: '#87CEFA', // outline (not visible if fill covers it)
+            weight: 0,
+            fillColor: '#87CEFA', // ocean blue
+            fillOpacity: 1
+        }).addTo(this.map); 
+    */  
+        // Create custom basemap with blue oceans and grey land
+       this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
             detectRetina: true,
             updateWhenIdle: false,
             reuseTiles: true,
             unloadInvisibleTiles: true
         }).addTo(this.map);
-        
-        */
 
-        // Create custom basemap with light blue oceans and grey land
-        this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            detectRetina: true,
-            updateWhenIdle: false,
-            reuseTiles: true,
-            unloadInvisibleTiles: true
-        }).addTo(this.map);
-        
-        // Apply custom tile styling
+
+
+/*
+        // Apply custom styling to show only country borders
         setTimeout(() => {
             const tiles = document.querySelectorAll('.leaflet-tile');
             tiles.forEach(tile => {
-                tile.style.filter = 'grayscale(100%) brightness(1.1)';
+                // Convert to show only borders with grey land
+                tile.style.filter = 'invert(100%) brightness(1.8) contrast(0.4) saturate(0)';
             });
         }, 500);
-
+        
+*/
         // Initialize layer group
         this.layerGroup = L.layerGroup().addTo(this.map);
-        this.addLegend();
+        //this.addLegend();
         
         // Load GeoJSON data
         try {
@@ -95,18 +98,18 @@ export class MapView {
     // Define the event handler methods
     handleMapMove() {
         // Can be implemented later if needed
-        console.log('Map moved');
+       // console.log('Map moved');
     }
 
     handleMapZoom() {
         // Can be implemented later if needed
-        console.log('Map zoomed');
+      //  console.log('Map zoomed');
     }
 
     handleResize() {
         // Handle window resize
         this.map.invalidateSize();
-        console.log('Window resized, map updated');
+       // console.log('Window resized, map updated');
     }
 
 
@@ -131,6 +134,8 @@ export class MapView {
                 return;
             }
         }
+
+        
         // Create country lookup map
         const countryLookup = new Map();
         this.geoJsonData.features.forEach(feature => {
@@ -151,8 +156,20 @@ export class MapView {
         // Process impact data and add to map
         const layersAdded = [];
         impactData.forEach(data => {
-            const normalizedCountry = data.country.toLowerCase().trim();
-            const geoJsonFeature = countryLookup.get(normalizedCountry);
+            //const normalizedCountry = data.country.toLowerCase().trim();
+            const normalizedCountry = this.normalizeCountryName(data.country);
+
+            //const geoJsonFeature = countryLookup.get(normalizedCountry);
+                // Try to find a match
+            let geoJsonFeature = countryLookup.get(normalizedCountry);
+            
+            // If not found, try common variations
+            if (!geoJsonFeature) {
+                if (normalizedCountry.includes("china")) {
+                    geoJsonFeature = countryLookup.get("china");
+                }
+                // Add other special cases here as needed
+            }
             
             if (!geoJsonFeature) {
                 console.warn(`GeoJSON feature not found for: ${data.country}`);
@@ -165,13 +182,14 @@ export class MapView {
                 onEachFeature: (feature, layer) => {
                     // Add country name label
                     const countryName = feature.properties.countryName;
+                /* 
                     layer.bindTooltip(countryName, {
                         permanent: true,
                         direction: 'center',
                         className: 'country-label',
                         offset: [0, 0] // Center the label
                     });
-                    
+                  */  
                     // Add popup with impact data
                     layer.bindPopup(this.createPopupContent(data));
                 }
@@ -182,6 +200,22 @@ export class MapView {
             layersAdded.push(polygonLayer);
         });
         
+        // Fit map to the layer group bounds with padding
+        if (layersAdded.length > 0) {
+            const group = new L.featureGroup(layersAdded);
+            
+            // Constrain bounds to our map limits
+            const constrainedBounds = group.getBounds().pad(0.1);
+            constrainedBounds.getSouthWest().lat = Math.max(constrainedBounds.getSouthWest().lat, -60);
+            constrainedBounds.getNorthEast().lat = Math.min(constrainedBounds.getNorthEast().lat, 85);
+            
+            this.map.fitBounds(constrainedBounds, {
+                padding: [50, 50],
+                maxZoom: 5
+            });
+        }
+        
+        /*
         // Fit map to the layer group bounds
         if (layersAdded.length > 0) {
             const group = new L.featureGroup(layersAdded);
@@ -190,7 +224,8 @@ export class MapView {
                 maxZoom: 5
             });
         }
-        
+        */
+
         console.log(`${layersAdded.length} countries added to map`);
     }
 
@@ -199,9 +234,9 @@ export class MapView {
         let color = '#2ecc71'; // Default to land color
         
         if (data.co2e > data.water && data.co2e > data.land) {
-            color = '#e74c3c'; // CO2 dominant - red
+            color = '#0026ff'; // CO2 dominant - red
         } else if (data.water > data.co2e && data.water > data.land) {
-            color = '#3498db'; // Water dominant - blue
+            color = '#00ff62'; // Water dominant - blue
         }
         
         // Calculate opacity based on total impact
@@ -211,13 +246,47 @@ export class MapView {
         // Clean border-only style
         return {
             fillColor: color,
-            weight: 2, // Thicker borders
-            opacity: 0.9,
-            color: '#333', // Dark border color
+            weight: 1, // No borders
             fillOpacity: opacity,
-            className: 'country-border' // Add class for custom styling
+            className: 'country-fill'
         };
     }
+
+    // Add a country aliases mapping to the MapView class
+    countryAliases = {
+        "united states of america": "united states",
+        "usa": "united states",
+        "us": "united states",
+        "america": "united states",
+        "russia": "russian federation",
+        "uk": "united kingdom",
+        "great britain": "united kingdom",
+        "england": "united kingdom",
+        "vietnam": "viet nam",
+        "bolivia": "bolivia (plurinational state of)",
+        "venezuela": "venezuela (bolivarian republic of)",
+        "iran": "iran (islamic republic of)",
+        "taiwan": "taiwan, province of china",
+        "macedonia": "north macedonia",
+        "congo": "congo (the democratic republic of the)",
+        "republic of congo": "congo"
+    };
+
+    // Add this helper method to the MapView class
+    normalizeCountryName(name) {
+        let normalized = name.toLowerCase()
+            .replace(/[^a-z\s]/g, '')  // Remove special characters
+            .replace(/\s+/g, ' ')       // Collapse multiple spaces
+            .trim();
+
+                // Apply aliases
+        if (this.countryAliases[normalized]) {
+            return this.countryAliases[normalized];
+        }
+        
+        return normalized;
+    }
+
 
     createPopupContent(data) {
         return `

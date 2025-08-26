@@ -146,7 +146,7 @@ export class FormHandler {
       // Process immediately without adding to unmatched first
       this.processNewIngredient(newIngredient);
       this.updateTable();
-      //this.clearForm();
+      this.clearForm();
     }
   
     // Process new ingredient
@@ -635,9 +635,9 @@ export class FormHandler {
       }
 
       // Convert GHG emissions to CO2 equivalents
-      const co2e = result.totals.CO2 //+ 
-            //      (result.totals.CH4 * 25) //+ // GWP100 for CH4
-            //      (result.totals.N2O * 298); // GWP100 for N2O
+      const co2e = result.totals.CO2 + 
+                  (result.totals.CH4 * 25) + // GWP100 for CH4
+                  (result.totals.N2O * 298); // GWP100 for N2O
 
       return {
         landUse: this.formatNumber(result.totals.landuse),
@@ -652,7 +652,7 @@ export class FormHandler {
         
       //  const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
         const allIngredients = [...this.selectedIngredients];
-        console.log("allIngredients update: ", allIngredients)
+  
 
         console.log('allIngredients: ', allIngredients)  //DEBUG
         allIngredients.forEach(ingredient => {
