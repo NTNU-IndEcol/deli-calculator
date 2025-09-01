@@ -19,9 +19,14 @@ app.register_blueprint(api_bp, url_prefix='/api')
 
 # Main route serving the frontend
 @app.route('/')
-def home():
+def index():
     """Serve the main interface"""
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')  # You'll need to create this template
+
 def list_routes():
     return jsonify([str(rule) for rule in app.url_map.iter_rules()])
 

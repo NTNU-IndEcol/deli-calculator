@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - DELI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* Additional styles specific to the about page */
+        .about-hero {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: rgb(231, 179, 106);/*rgba(230, 179, 12, 0.59); /* 41% transparent */
+            color:  rgb(145, 41, 10);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .about-section {
+            margin-bottom: 50px 0;
+            max-width: 1200px;
+        }
+        
+        .about-section h2 {
+            color: rgb(145, 41, 10);
+            border-bottom: 2px solid rgb(231, 179, 106);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color:  rgb(145, 41, 10);
+            margin-top: 0;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: rgb(145, 41, 10);
+            margin-bottom: 15px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid rgb(231, 179, 106);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color:  rgb(145, 41, 10);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: #302e2e;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            background: rgb(231, 179, 106);
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 50px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo"></div>
+        <span class="header-title">DELI Calculator</span>
+        <nav class="nav-menu">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}" class="active">About</a>
+            <a href="feeback.html">Feedback</a>
+            <a></a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search in site">
+            <button id="search-btn">🔍</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-container">
+            <h1>About DELI Calculator</h1>
+            <p class="lead">Discover how our tool helps you calculate the environmental impact of food recipes</p>
+        </div>
+    </section>
+
+    <main class="about-container">
+        <!-- What is DELI Section -->
+        <section class="about-section">
+            <h2>What is DELI Calculator?</h2>
+            <p>DELI ("fooD rEcipe environmentaL Impact") Calculator is a web application designed to provide comprehensive, quantitative sustainability assessment of food recipes. Our mission is to empower individuals, chefs, and food businesses to make informed decisions about their food choices by understanding their environmental footprint.</p>
+            
+            <p>Developed by researchers at the Norwegian University of Science and Technology (NTNU), DELI Calculator uses scientifically robust data to estimate the carbon emissions, water usage, and land use associated with food ingredients and recipes.</p>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="about-section">
+            <h2>How DELI Calculator Works</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Recipe Analysis</h3>
+                    <p>Paste a recipe URL or manually input ingredients to analyze the environmental impact of any dish.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Data Sources</h3>
+                    <p>Our calculations are based on the Poore and Nemecke, and FABIO datasets, ensuring scientifically accurate results.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Impact Metrics</h3>
+                    <p>Get detailed breakdowns of CO2 emissions, water usage, and land use for each ingredient and the entire recipe.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why It Matters Section -->
+        <section class="about-section">
+            <h2>Why Food Environmental Impact Matters</h2>
+            <p>The food system is responsible for approximately 26% of global greenhouse gas emissions, 70% of freshwater use, and 50% of habitable land use. By understanding the environmental impact of our food choices, we can collectively make a significant difference in reducing our ecological footprint.</p>
+            
+            <p>DELI Calculator helps bridge the gap between scientific knowledge and everyday cooking decisions, making sustainability accessible to everyone.</p>
+        </section>
+
+        <!-- Team Section -->
+        <section class="about-section">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://placehold.co/150x150/f7b65a/white?text=DR" alt="Team Member">
+                    <h3>Dr. Researcher</h3>
+                    <p>Lead Scientist</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://placehold.co/150x150/f7b65a/white?text=PD" alt="Team Member">
+                    <h3>Prof. Developer</h3>
+                    <p>Technical Lead</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://placehold.co/150x150/f7b65a/white?text=ES" alt="Team Member">
+                    <h3>Eco Specialist</h3>
+                    <p>Sustainability Expert</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="about-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How accurate are the environmental impact calculations?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our calculations are based on the comprehensive Poore and Nemecke FABIO datasets, which are among the most complete and scientifically robust databases for food environmental impact. However, it's important to note that these are estimates based on average values, and actual impacts can vary based on specific farming practices, transportation methods, and other factors.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use DELI Calculator for commercial purposes?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, DELI Calculator can be used by restaurants, food businesses, and other commercial entities. We offer enterprise solutions with additional features and support. Please contact us for more information.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How often is the data updated?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We continuously work to improve our database and update it annually with the latest available scientific research. Our team monitors emerging studies to ensure our calculations reflect current understanding of food environmental impacts.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is my recipe data stored?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We value your privacy. Recipe data analyzed through our public tool is not stored permanently. For registered users who wish to save their recipes, we implement strict data protection measures in compliance with GDPR regulations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <h2>Start Calculating Your Recipe's Impact Today</h2>
+            <p>Join thousands of environmentally conscious cooks and food businesses using DELI Calculator to make sustainable food choices.</p>
+            <a href="{{ url_for('index') }}" class="button button-primary">Calculate Now</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isVisible = answer.style.display === 'block';
+                
+                answer.style.display = isVisible ? 'none' : 'block';
+                question.querySelector('span:last-child').textContent = isVisible ? '+' : '-';
+            });
+        });
+        
+        // Initially hide all answers
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   
-    <style>
+    <!--style>
         .legend {
             background: white;
             padding: 10px;
@@ -37,7 +37,7 @@
             border-radius: 50%;
             margin-right: 8px;
         }
-    </style>
+    </style-->
 </head>
 <body>
     <header class="header">
@@ -45,7 +45,8 @@
         <span class="header-title">DELI Calculator</span>
         <nav class="nav-menu">
             <!--a href="recipes.html">Recipes</a-->
-            <a href="about.html">About</a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
             <a href="feeback.html">Feeback</a>
             <a></a>
         </nav>
