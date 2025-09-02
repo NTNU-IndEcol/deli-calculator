@@ -3,6 +3,8 @@ from flask import Flask, request, render_template, jsonify, send_file, send_from
 from backend.routes import api_bp  # Import API Blueprint
 from flask_cors import CORS
 import os, json, csv
+import os
+import shutil
 
 # Initialize Flask app with custom folders
 app = Flask(__name__,
@@ -46,6 +48,41 @@ def get_saved_recipes():
 def serve_backend_data(filename):
     return send_from_directory('backend/data', filename)
 
+@app.route('/api/load-recipe', methods=['POST'])
+def load_recipe():
+    try:
+        data = request.get_json()
+        recipe_name = data.get('recipe')
+        
+        if not recipe_name:
+            return jsonify({'success': False, 'message': 'No recipe specified'})
+        
+        # Path to the recipe files - using absolute paths for clarity
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        recipe_file = os.path.join(base_dir, 'backend', 'data', 'recipes', f"{recipe_name}.json")
+        target_file = os.path.join(base_dir, 'backend', 'data', 'recipes.json')
+        
+        # Debugging: Print paths to check
+        #print(f"Looking for recipe file: {recipe_file}")
+        #print(f"Target file: {target_file}")
+        
+        # Check if the recipe file exists
+        if not os.path.exists(recipe_file):
+            print(f"Recipe file not found: {recipe_file}")
+            return jsonify({'success': False, 'message': 'Recipe not found'})
+        
+        # Copy the file
+        shutil.copyfile(recipe_file, target_file)
+        print(f"Successfully copied {recipe_file} to {target_file}")
+        
+        return jsonify({
+            'success': True, 
+            'message': 'Recipe loaded successfully'
+        })
+        
+    except Exception as e:
+        print(f"Error in load_recipe: {str(e)}")
+        return jsonify({'success': False, 'message': str(e)})
 
 
 '''

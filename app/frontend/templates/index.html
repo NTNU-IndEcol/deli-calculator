@@ -14,30 +14,7 @@
     <!-- Leaflet CSS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  
-    <!--style>
-        .legend {
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-        .legend h4 {
-            margin: 0 0 10px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .circle {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-    </style-->
+
 </head>
 <body>
     <header class="header">
@@ -59,40 +36,32 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Calculate Recipe Environmental Impact</h1>
-        <p>Paste a recipe URL to analyze its environmental footprint</p>
-        <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
-        <p></p>
-        <button class="button button-primary" id="extract-btn">Extract Recipe</button>
+        <p>Paste a recipe URL or load a preferred recipe to analyze its environmental footprint</p>
+        
+        <div class="hero-actions-container">
+            <div class="hero-input-group">
+                <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
+                <button class="button button-primary" id="extract-btn">Extract Recipe</button>
+            </div>
+            
+            <div class="divider">OR</div>
+            
+            <div class="recipe-select-group">
+                <select id="recipe-select" class="recipe-select">
+                    <option value="" disabled selected>Select a preferred recipe</option>
+                    <option value="vegetable_lasagna">Vegetable Lasagna</option>
+                    <option value="chicken_curry">Chicken Curry</option>
+                    <option value="bean_salad">Bean Salad</option>
+                    <option value="vegan_buddha_bowl">Vegan Buddha Bowl</option>
+                    <option value="beef_stroganoff">Beef Stroganoff</option>
+                </select>
+                <button class="button button-secondary" id="loading-btn">Load Recipe</button>
+            </div>
+        </div>
     </section>
 
     <!-- User add the ingredient -->
-    <!---div>
-        <h3>User add ingredient</h3>
-        <label>Category:</label>
-        <select id="category-dropdown"></select>
-    
-        <label>Ingredient:</label>
-        <select id="ingredient-dropdown"></select>
-    
-        <label>Amount:</label>
-        <input type="number" id="amount-input" min="0" />
-    
-        <label>Unit:</label>
-        <select id="unit-dropdown">
-            <option value="g">g</option>
-            <option value="kg">kg</option>
-            <option value="ml">ml</option>
-            <option value="l">l</option>
-        </select>
-    
-        <label>Source:</label>
-        <select id="source-dropdown">
-            <option value="Local">Local</option>
-            <option value="Imported">Imported</option>
-        </select>
-    
-        <button id="add-ingredient-btn">➕ Add</button>
-    </div--->
+
     <div class="form-group">
         <h3 class="section-heading">
             User add ingredient
@@ -125,10 +94,6 @@
         </datalist>
 
    
-        <!--label class="source-label">
-                <span class="label-text">Source</span>
-                <button class="inline-help-icon" aria-label="Help">?</button>:
-        </label-->
         <label class="source-label">
             <span class="label-text">
                 Source
@@ -142,16 +107,6 @@
         <input type="text" id="source-input" placeholder="Select country...">
         
 
-        
-        <!--label>Source:</label>
-          <input type="text" id="source-input" placeholder="Select country...">
-        <div class="input-help-container">
-            <input type="text" id="source-input" placeholder="Select country...">
-            <button type="button" class="help-icon" onclick="toggleSourceHelp()" aria-label="Help">?</button>
-            <div id="source-help" class="help-tooltip">
-                The source is from the top import country for the ingredient
-            </div>
-        </div-->
    
         <button id="add-ingredient-btn">➕ Add</button>
     </div>
@@ -190,21 +145,7 @@
         </button>
     </section>
 
-    
-    <!--div class="results-panel">
-        <div class="metric">
-          <h3>Total CO2 emission</h3>
-          <div id="co2-result" class="value">--</div>
-        </div>
-        <div class="metric">
-          <h3>Water Usage</h3>
-          <div id="water-result" class="value">--</div>
-        </div>
-        <div class="metric">
-          <h3>Land Use</h3>
-          <div id="land-result" class="value">--</div>
-        </div>
-      </div -->
+
 
 
     <!-- Map with Results Overlay -->
@@ -239,11 +180,9 @@
     <!--div id="map-container" style="height: 500px; width: 85%;"></div -->
 
 
-    <!--footer class="footer">
-        <p>© 2025 DELI Calculator. All rights reserved. Privacy Policy | Terms of Use</p>
-    </footer --->
     {% include 'footer.html' %}
 
     <script  type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/selected-recipe-load.js') }}"></script>
 </body>
 </html>
