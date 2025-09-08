@@ -266,6 +266,7 @@ export class FormHandler {
     }
  
     // Create table row
+    /*
     createTableRow(ingredient, index) {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -305,7 +306,47 @@ export class FormHandler {
       `;
       return row;
     }
-  
+  */
+
+    createTableRow(ingredient, index) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
+            ${ingredient.matched ? 
+                `<span class="editable-category">${ingredient.category}</span>` :
+                `<input type="text" class="category-input" value="${ingredient.category}">`
+            }
+        </td>
+        <td data-label="Ingredient" class="${!ingredient.matched ? 'unmatched' : ''}">
+            ${ingredient.matched ? 
+                `<span class="editable-name">${ingredient.name}</span>` :
+                `<input type="text" class="name-input" value="${ingredient.name}">`
+            }
+        </td>
+        <td data-label="Amount">
+            <input type="number" class="amount-input" 
+                   value="${ingredient.amount}" min="0" step="0.1"
+                    data-id="${ingredient.id}">
+        </td>
+        <td data-label="Unit">
+            <select class="unit-input" data-index="${index}">
+                ${['g', 'kg', 'ounce', 'lb', 'cup', 'tbsp', 'tsp', 'unit'].map(unit => `
+                    <option value="${unit}" ${unit === ingredient.unit ? 'selected' : ''}>
+                        ${unit}
+                    </option>
+                `).join('')}
+            </select>
+        </td>
+        <td data-label="Source" class="source-cell" style="text-align: center;">
+            ${this.createSourceInput(ingredient)}
+        </td>
+        <td data-label="Action">
+            <button class="remove-btn" data-id="${ingredient.id}">🗑️</button>
+        </td>
+    `;
+    return row;
+    }
+
     // Create source input
     createSourceInput(ingredient) {
       let sources = ingredient.matched 

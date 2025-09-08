@@ -24,6 +24,7 @@
             <!--a href="recipes.html">Recipes</a-->
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('recipes_list') }}">Recipes</a>
             <a href="feeback.html">Feeback</a>
             <a></a>
         </nav>
@@ -47,7 +48,7 @@
             <div class="divider">OR</div>
             
             <div class="recipe-select-group">
-                <select id="recipe-select" class="recipe-select">
+                <select id="recipe-select" class="recipe-select" autocomplete="off">
                     <option value="" disabled selected>Select a preferred recipe</option>
                     <option value="vegetable_lasagna">Vegetable Lasagna</option>
                     <option value="chicken_curry">Chicken Curry</option>
@@ -119,23 +120,32 @@
   
 
     <!-- Selected Ingredients Table -->
-    <section class="Ingredients">
-        <h3>Ingredients list</h3>
-        <table id="ingredients-table" border="1">
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Ingredient</th>
-                    <th>Amount</th>
-                    <th>Unit</th>
-                    <th>Source</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="ingredients-table-body">
-                <!-- Ingredients will be dynamically added here -->
-            </tbody>
-        </table>
+    <section class="ingredients-list-section">
+        <h3 class="section-heading">
+            Ingredients List
+            <button class="inline-help-icon section-help" 
+                    aria-label="Help"
+                    data-tooltip-text="All ingredients added to your recipe will appear here.">?
+            </button>
+        </h3>
+        
+        <div class="table-container">
+            <table id="ingredients-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Ingredient</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Source</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="ingredients-table-body">
+                    <!-- Ingredients will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <!-- Calculation Controls -->

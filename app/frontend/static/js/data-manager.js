@@ -291,6 +291,55 @@ export class DataManager {
 
     
     // load environmental impacts
+
+    static async loadEnvImpacts() {
+      try {
+        const response = await fetch(this.config.datasets.env_impacts);
+        const csvData = await response.text();
+        const rows = csvData.split('\n').filter(row => row.trim() !== '');
+
+        // Extract headers
+        const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+        // Initialize impact map
+        this.envImpactMap = new Map();
+
+        // Process each row
+        for (let i = 1; i < rows.length; i++) {
+          const cells = rows[i].split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
+          const id = cells[0];
+          const [countryCode, commCode] = id.split('_');
+          const key = `${countryCode}-${commCode}`.toLowerCase();
+
+          // Create impact entry with all columns including biodiversity data
+          const entry = {
+            landuse: parseFloat(cells[1]) || 0,
+            blue_water: parseFloat(cells[2]) || 0,
+            green_water: parseFloat(cells[3]) || 0,
+            p_application: parseFloat(cells[4]) || 0,
+            n_application: parseFloat(cells[5]) || 0,
+            CH4: parseFloat(cells[6]) || 0,
+            CO2: parseFloat(cells[7]) || 0,
+            N2O: parseFloat(cells[8]) || 0,
+            landuse_bd: parseFloat(cells[9]) || 0,
+            water_bd: parseFloat(cells[10]) || 0,
+            P_bd: parseFloat(cells[11]) || 0,
+            N_bd: parseFloat(cells[12]) || 0,
+            CH4_bd: parseFloat(cells[13]) || 0,
+            CO2_bd: parseFloat(cells[14]) || 0,
+            N2O_bd: parseFloat(cells[15]) || 0
+          };
+
+          this.envImpactMap.set(key, entry);
+        }
+
+        console.log("✅ Environmental data loaded:", this.envImpactMap.size, "entries");
+        console.log(this.envImpactMap)
+      } catch (error) {
+        console.error("🚨 Failed to load environmental data:", error);
+      }
+    }
+    /*
     static async loadEnvImpacts() {
       try {
         const response = await fetch(this.config.datasets.env_impacts);
@@ -300,6 +349,7 @@ export class DataManager {
         // Extract headers (metric names)
         const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
     
+        console.log(headers)
         // Initialize impact map
         this.envImpactMap = new Map();
     
@@ -365,145 +415,8 @@ export class DataManager {
         console.error("🚨 Failed to load environmental data:", error);
       }
     }
-    /*
-    static async loadEnvImpacts() {
-      try {
-        const response = await fetch(this.config.datasets.env_impacts);
-        const csvData = await response.text();
-        const rows = csvData.split('\n').filter(row => row.trim() !== '');
-    
-        // Extract headers (countryCode_commCode pairs)
-        const headers = rows[0].split(',').slice(1); // ["1_c001", "1_c002", ...]
-    
-        // Initialize impact map
-        this.envImpactMap = new Map();
-    
-        // Process each metric row
-      // Process each metric row
-      for (let i = 1; i < rows.length; i++) {
-        const cells = rows[i].split(',');
-        const rawMetric = cells[0].trim();
-        const metric = rawMetric.toLowerCase().replace(/[()]/g, '').trim();
-  
-        headers.forEach((header, colIndex) => {
-          const cleanHeader = header.replace(/"/g, '');
-          const [countryCode, commCode] = cleanHeader.split('_');
-          const key = `${countryCode}-${commCode}`.toLowerCase();
-  
-          const rawValue = cells[colIndex + 1]?.trim() || '';
-          const value = parseFloat(rawValue) || 0;
-  
-          if (!this.envImpactMap.has(key)) {
-            this.envImpactMap.set(key, {
-              landuse: 0,
-              blue_water: 0,
-              green_water: 0,
-              CO2: 0,
-              CH4: 0,    // Will aggregate all CH4 types
-              N2O: 0,    // Will aggregate all N2O types
-              p_application: 0,
-              n_application: 0
-            });
-          }
-  
-          const entry = this.envImpactMap.get(key);
-  
-          // Handle metric mapping with better pattern matching
-          if (metric.startsWith('land use')) {
-            entry.landuse = value;
-          } else if (metric.includes('blue')) {
-            entry.blue_water = value;
-          } else if (metric.includes('green')) {
-            entry.green_water = value;
-          } else if (metric.includes('co2')) {
-            entry.CO2 += value;
-          } else if (metric.includes('ch4')) {
-            entry.CH4 += value;  // Aggregate all CH4 sources
-          } else if (metric.includes('n2o')) {
-            entry.N2O += value;  // Aggregate all N2O sources
-          } else if (metric.includes('p_application')) {
-            entry.p_application = value;
-          } else if (metric.includes('n_application')) {
-            entry.n_application = value;
-          } else {
-            console.warn(`Unhandled metric: ${rawMetric}`);
-          }
-        });
-      }
-    
-        console.log("✅ Environmental data loaded:", this.envImpactMap.size, "entries");
-        console.log(this.envImpactMap)
 
-      } catch (error) {
-        console.error("🚨 Failed to load environmental data:", error);
-      }
-    }
-    */  
-    /*
-    static async loadEnvImpacts() {
-      try {
-        const response = await fetch(this.config.datasets.env_impacts);
-        const csvData = await response.text();
-        this.datasets.envImpacts = this.parseCSV(csvData);
-        
-        this.envImpactMap = new Map(
-          this.datasets.envImpacts.map(impact => {
-            // Land Use and Blue Water (direct values)
-            const landuse = parseFloat(impact.landuse) || 0;
-            const blue_water = parseFloat(impact.blue) || 0;
-    
-            // CO₂ Emissions (sum all CO2-related columns)
-            const CO2 = [
-              "Emissions (CO2) (Drained organic soils (CO2))",
-              "Direct emissions (CO2) (On farm - Energy use)",
-              "Direct emissions (CO2) (Food - Energy use)"
-            ].reduce((sum, col) => sum + parseFloat(impact[col] || 0), 0);
-    
-            // CH₄ Emissions (sum all CH4-related columns)
-            const CH4 = [
-              "Emissions (CH4) (Enteric)",
-              "Emissions (CH4) (Rice cultivation)",
-              "Emissions (CH4) (Burning crop residues)",
-              "Emissions (CH4) (Manure management)",
-              "Direct emissions (CH4) (On farm - Energy use)",
-              "Direct emissions (CH4) (Food - Energy use)",
-              "Emissions (CH4) (Savanna fires)"
-            ].reduce((sum, col) => sum + parseFloat(impact[col] || 0), 0);
-    
-            // N₂O Emissions (sum all N2O-related columns)
-            const N2O = [
-              "Direct emissions (N2O) (On farm - Energy use)",
-              "Direct emissions (N2O) (Food - Energy use)",
-              "Direct emissions (N2O) (Manure management)",
-              "Indirect emissions (N2O) (Manure management)",
-              "Emissions (N2O) (Savanna fires)",
-              "Direct emissions (N2O) (Crop residues)",
-              "Indirect emissions (N2O) (Crop residues)",
-              "Emissions (N2O) (Burning crop residues)",
-              "Direct emissions (N2O) (Manure on pasture)",
-              "Indirect emissions (N2O that leaches) (Manure on pasture)",
-              "Indirect emissions (N2O that volatilises) (Manure on pasture)",
-              "Emissions (N2O) (Drained organic soils (N2O))",
-              "Direct emissions (N2O) (Manure applied)",
-              "Indirect emissions (N2O) (Manure applied)",
-              "Direct emissions (N2O) (Synthetic fertilizers)",
-              "Indirect emissions (N2O that leaches) (Synthetic fertilizers)"
-            ].reduce((sum, col) => sum + parseFloat(impact[col] || 0), 0);
-    
-            return [
-              `${impact.CountryCode}-${impact.CommCode}`.toLowerCase(),
-              { landuse, blue_water, CO2, CH4, N2O }
-            ];
-          })
-        );
-    
-        console.log("✅ Loaded environmental impacts with", 
-                  this.envImpactMap.size, "entries");
-      } catch (error) {
-        console.error("⚠️ Environmental impacts load failed:", error.message);
-      }
-    }
-    */
+   */
     //load saved recipe
     static async loadSavedRecipe() {
       try {

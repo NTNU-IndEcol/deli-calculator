@@ -293,8 +293,8 @@ export class MapView {
             <div class="impact-popup">
                 <h4>${data.country}</h4>
                 <p>CO₂eq: ${data.co2e.toFixed(2)} kg</p>
-                <p>Water: ${data.water.toFixed(2)} L</p>
-                <p>Land: ${data.land.toFixed(2)} m²</p>
+                <p>Water: ${data.water.toFixed(2)} m3</p>
+                <p>Land: ${data.land.toFixed(2)} hectare</p>
             </div>
         `;
     }

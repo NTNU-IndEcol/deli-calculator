@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadButton = document.getElementById('loading-btn');
     const recipeSelect = document.getElementById('recipe-select');
     
+    // Check if there's a recipe selected from the recipes page
+    const selectedRecipe = localStorage.getItem('selectedRecipe');
+    if (selectedRecipe && recipeSelect) {
+        recipeSelect.value = selectedRecipe;
+        localStorage.removeItem('selectedRecipe');
+    }
+    
     if (loadButton && recipeSelect) {
         loadButton.addEventListener('click', function() {
             const selectedRecipe = recipeSelect.value;

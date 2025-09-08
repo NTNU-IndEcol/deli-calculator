@@ -45,7 +45,7 @@ export class ApiClient {
 
   /**
    * Get saved recipe data
-   */
+*/
   static async getSavedRecipes() {
     const response = await fetch(`${this.baseURL}/saved-recipes`);
     return response.json();
