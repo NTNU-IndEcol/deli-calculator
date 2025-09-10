@@ -10,6 +10,7 @@ export class MapView {
         this.tileLayer = null;
         this.geoJsonData = null; // Store GeoJSON data
         this.maxTotalImpact = 1; // Initialize with 1 to prevent division by zero
+        this.maxBiodiversity = 1; // Initialize with 1 for biodiversity normalization
 
         // Bind event handlers to ensure proper 'this' context
         this.handleMapMove = this.handleMapMove.bind(this);
@@ -77,7 +78,7 @@ export class MapView {
 */
         // Initialize layer group
         this.layerGroup = L.layerGroup().addTo(this.map);
-        //this.addLegend();
+        this.addLegend();
         
         // Load GeoJSON data
         try {
@@ -152,6 +153,15 @@ export class MapView {
             1, // Ensure we don't divide by zero
             ...impactData.map(data => data.co2e + data.water + data.land)
         );
+        
+        // Calculate max biodiversity for normalization
+        this.maxBiodiversity = Math.max(
+            1e-14, // Set a minimum threshold to handle very small values
+            ...impactData.map(data => data.total_bd)
+        );
+
+        // Update the legend with the new max value
+        this.updateLegend();
 
         // Process impact data and add to map
         const layersAdded = [];
@@ -229,30 +239,113 @@ export class MapView {
         console.log(`${layersAdded.length} countries added to map`);
     }
 
-    getCountryStyle(data) {
-        // Determine color based on dominant impact type
-        let color = '#2ecc71'; // Default to land color
-        
-        if (data.co2e > data.water && data.co2e > data.land) {
-            color = '#0026ff'; // CO2 dominant - red
-        } else if (data.water > data.co2e && data.water > data.land) {
-            color = '#00ff62'; // Water dominant - blue
+   getCountryStyle(data) {
+        // Handle zero or very small biodiversity values
+        if (data.total_bd <= 0) {
+            return {
+                fillColor: '#f0f0f0', // Light gray for no impact
+                weight: 1,
+                fillOpacity: 0.5,
+                className: 'country-fill'
+            };
         }
+        
+        // Use a consistent scale for both countries and legend
+        // Calculate normalized value (0 to 1) based on biodiversity impact
+        const normalizedBd = data.total_bd / this.maxBiodiversity;
+        
+        // Calculate color based on normalized biodiversity value
+        // Use HSL color model for consistent gradient
+        const hue = 120; // Green hue
+        const saturation = 80; // 80% saturation
+        const lightness = 70 - (normalizedBd * 40); // 70% to 30% lightness
+        
+        const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
         
         // Calculate opacity based on total impact
         const totalImpact = data.co2e + data.water + data.land;
         const opacity = Math.min(0.8, 0.3 + (totalImpact / this.maxTotalImpact) * 0.5);
         
-        // Clean border-only style
         return {
             fillColor: color,
-            weight: 1, // No borders
+            weight: 1,
             fillOpacity: opacity,
             className: 'country-fill'
         };
     }
 
-    // Add a country aliases mapping to the MapView class
+    updateLegend() {
+        // Remove existing legend if it exists
+        if (this.legend) {
+            this.map.removeControl(this.legend);
+        }
+        
+        this.legend = L.control({ position: 'bottomright' });
+        
+        this.legend.onAdd = () => {
+            const div = L.DomUtil.create('div', 'info legend');
+            
+            // Add CSS styles
+            div.style.backgroundColor = 'white';
+            div.style.padding = '10px';
+            div.style.borderRadius = '5px';
+            div.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+            div.style.width = '180px';
+            div.style.margin = '0'; // Remove any margin
+            
+            // Format the biodiversity values for display
+            let maxBdDisplay;
+            if (this.maxBiodiversity < 0.001) {
+                maxBdDisplay = this.maxBiodiversity.toExponential(2);
+            } else {
+                maxBdDisplay = this.maxBiodiversity.toFixed(4);
+            }
+            
+            // Create gradient stops for the legend
+            const gradientStops = [];
+            for (let i = 0; i <= 10; i++) {
+                const value = i / 10;
+                const lightness = 70 - (value * 40);
+                gradientStops.push(`hsl(120, 80%, ${lightness}%) ${value * 100}%`);
+            }
+            
+            div.innerHTML = `
+                <h4 style="margin: 0 0 10px 0; font-size: 14px; text-align: center;">Biodiversity Impact (PDF)</h4>
+                <div style="height: 20px; background: linear-gradient(to right, ${gradientStops.join(', ')}); margin-bottom: 5px;"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="font-size: 11px;">0</span>
+                    <span style="font-size: 11px;">${maxBdDisplay}</span>
+                </div>
+            `;
+            return div;
+        };
+        
+        // Add the legend to the map with no margin
+        this.legend.addTo(this.map);
+        
+        // Position the legend at the bottom right with no gap
+        const legendContainer = this.legend.getContainer();
+        legendContainer.style.position = 'absolute';
+        legendContainer.style.bottom = '10px';
+        legendContainer.style.right = '10px';
+        legendContainer.style.margin = '0';
+    }
+
+    // Replace the addLegend method with this simpler version
+    addLegend() {
+        // Just create a placeholder legend, will be updated when data is loaded
+        this.legend = L.control({ position: 'bottomright' });
+        
+        this.legend.onAdd = () => {
+            const div = L.DomUtil.create('div', 'info legend');
+            div.innerHTML = `<h4>Biodiversity Impact</h4><p>Loading data...</p>`;
+            return div;
+        };
+        
+        this.legend.addTo(this.map);
+    }
+
+        // Add a country aliases mapping to the MapView class
     countryAliases = {
         "united states of america": "united states",
         "usa": "united states",
@@ -289,36 +382,23 @@ export class MapView {
 
 
     createPopupContent(data) {
+        // Format biodiversity with scientific notation for very small values
+        let bdDisplay;
+        if (data.total_bd < 0.001) {
+            bdDisplay = data.total_bd.toExponential(2);
+        } else {
+            bdDisplay = data.total_bd.toFixed(4);
+        }
+        
         return `
             <div class="impact-popup">
                 <h4>${data.country}</h4>
+                <p>Biodiversity: ${bdDisplay} PDF</p>
                 <p>CO₂eq: ${data.co2e.toFixed(2)} kg</p>
                 <p>Water: ${data.water.toFixed(2)} m3</p>
                 <p>Land: ${data.land.toFixed(2)} hectare</p>
             </div>
         `;
-    }
-
-    addLegend() {
-        const legend = L.control({ position: 'bottomright' });
-        legend.onAdd = () => {
-            const div = L.DomUtil.create('div', 'info legend');
-            div.innerHTML = `
-                <h4>Environmental Impact</h4>
-                <div class="legend-item">
-                    <i class="box" style="background:#e74c3c"></i> CO₂e Emissions
-                </div>
-                <div class="legend-item">
-                    <i class="box" style="background:#3498db"></i> Water Usage
-                </div>
-                <div class="legend-item">
-                    <i class="box" style="background:#2ecc71"></i> Land Use
-                </div>
-                <p>Darker = Higher Impact</p>
-            `;
-            return div;
-        };
-    //    legend.addTo(this.map);
     }
 
     // Helper to get impact data (if needed)

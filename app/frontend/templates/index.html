@@ -25,7 +25,7 @@
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('about') }}">About</a>
             <a href="{{ url_for('recipes_list') }}">Recipes</a>
-            <a href="feeback.html">Feeback</a>
+            <a href="{{ url_for('feedback') }}">Feeback</a>
             <a></a>
         </nav>
         <div class="search-bar">
@@ -165,7 +165,11 @@
         <!-- Results Panel (overlay on map) -->
         <div class="results-overlay">
             <div class="metric">
-                <h3>Total CO2 emission</h3>
+                <h3>Biodiversity</h3>
+                <div id="total_bd-result" class="value">--</div>
+            </div>
+            <div class="metric">
+                <h3>CO2 emission</h3>
                 <div id="co2-result" class="value">--</div>
             </div>
             <div class="metric">

@@ -617,7 +617,8 @@ export class FormHandler {
         blue_water: 0,
         CO2: 0,
         CH4: 0,
-        N2O: 0
+        N2O: 0,
+        total_bd:0
       };
       const errors = [];
       
@@ -662,6 +663,7 @@ export class FormHandler {
         totals.CO2 += tonAmount * factors.CO2;
         totals.CH4 += tonAmount * factors.CH4;
         totals.N2O += tonAmount * factors.N2O;
+        totals.total_bd  += tonAmount * factors.total_bd;
       });
     
       return { totals, errors };
@@ -683,7 +685,9 @@ export class FormHandler {
       return {
         landUse: this.formatNumber(result.totals.landuse),
         waterUse: this.formatNumber(result.totals.blue_water),
-        co2e: this.formatNumber(co2e)
+        co2e: this.formatNumber(co2e),
+        //total_bd: this.formatNumber(result.totals.total_bd)
+        total_bd: result.totals.total_bd.toExponential(2)
       };
     }
 
@@ -716,7 +720,8 @@ export class FormHandler {
                     country: country,
                     co2e: 0, 
                     water: 0, 
-                    land: 0 
+                    land: 0,
+                    total_bd: 0
                 });
             }
             
@@ -724,6 +729,7 @@ export class FormHandler {
             countryData.co2e += impact.co2e;
             countryData.water += impact.water;
             countryData.land += impact.land;
+            countryData.total_bd += impact.total_bd;
         });
 
         return Array.from(countryMap.values());
@@ -749,10 +755,14 @@ export class FormHandler {
             return null;
         }
 
+        // Calculate CO2 equivalents including CH4 and N2O
+        const co2e = tonAmount * (factors.CO2 + (factors.CH4 * 25) + (factors.N2O * 298));
+
         return {
-            co2e: tonAmount * factors.CO2,
+            co2e: co2e, // Now includes all greenhouse gases as CO2 equivalents
             water: tonAmount * factors.blue_water,
-            land: tonAmount * factors.landuse
+            land: tonAmount * factors.landuse,
+            total_bd: tonAmount * factors.total_bd,
         };
     }
 

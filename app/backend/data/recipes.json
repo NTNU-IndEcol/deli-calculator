@@ -2,81 +2,17 @@
   "@context": "https://schema.org",
   "@type": "Recipe",
   "id": 1,
-  "name": "Chicken Curry",
+  "name": "Vegetable Lasagna",
   "author": "Korean Bapsang",
-  "datePublished": "2025-09-02",
-  "category": "Main Dishes",
+  "datePublished": "2025-09-01",
+  "category": "Side Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Onion",
+      "mainIngredient": "Potatoe",
       "details": {
-        "amount": 0.5,
-        "unit": "",
-        "originalText": "small onion"
-      }
-    },
-    {
-      "mainIngredient": "Radish",
-      "details": {
-        "amount": 3.0,
-        "unit": "ounces",
-        "originalText": "Korean radish"
-      }
-    },
-    {
-      "mainIngredient": "Kelp , dashima",
-      "details": {
-        "amount": 1.0,
-        "unit": "piece",
-        "originalText": "dried kelp (about 3 inch square), dashima"
-      }
-    },
-    {
-      "mainIngredient": "A few mushroom stem",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "a few mushroom stems"
-      }
-    },
-    {
-      "mainIngredient": "Soy sauce",
-      "details": {
-        "amount": 1.0,
-        "unit": "tablespoon",
-        "originalText": "soup soy sauce"
-      }
-    },
-    {
-      "mainIngredient": "Salt and pepper",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "salt and pepper to taste"
-      }
-    },
-    {
-      "mainIngredient": "Assorted mushroom",
-      "details": {
-        "amount": 12.0,
-        "unit": "ounces",
-        "originalText": "assorted mushrooms (button, shiitake, oyster, crimini, enoki, king, etc.)"
-      }
-    },
-    {
-      "mainIngredient": "Napa cabbage leaves (or green cabbage or Bok choy)",
-      "details": {
-        "amount": 2.0,
-        "unit": "",
-        "originalText": "large napa cabbage leaves (or green cabbage or bok choy)"
-      }
-    },
-    {
-      "mainIngredient": "Onion",
-      "details": {
-        "amount": 0.5,
-        "unit": "",
-        "originalText": "medium onion"
+        "amount": 1.5,
+        "unit": "pounds",
+        "originalText": "potatoes (about 3 medium size)"
       }
     },
     {
@@ -84,23 +20,63 @@
       "details": {
         "amount": 1.0,
         "unit": "",
-        "originalText": "small carrot"
+        "originalText": "carrot (about 3 ounces)"
       }
     },
     {
-      "mainIngredient": "Scallion",
+      "mainIngredient": "Green chili pepper",
       "details": {
-        "amount": 2.0,
+        "amount": 2.5,
         "unit": "",
-        "originalText": "scallions"
+        "originalText": "green chili peppers (or 1/2 green bell pepper)"
       }
     },
     {
-      "mainIngredient": "Ssukgat , watercress, or Minari",
+      "mainIngredient": "Onion",
       "details": {
-        "amount": 2.0,
-        "unit": "ounces",
-        "originalText": "ssukgat (\uc465\uac13, crown daisies), watercress, or minari (\ubbf8\ub098\ub9ac, water dropwort)"
+        "amount": 0.25,
+        "unit": "",
+        "originalText": "medium onion"
+      }
+    },
+    {
+      "mainIngredient": "Cooking oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "cooking oil"
+      }
+    },
+    {
+      "mainIngredient": "Soy sauce",
+      "details": {
+        "amount": 3.0,
+        "unit": "tablespoons",
+        "originalText": "soy sauce"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "sugar"
+      }
+    },
+    {
+      "mainIngredient": "Rice wine",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "rice wine (or mirin)"
+      }
+    },
+    {
+      "mainIngredient": "Corn syrup",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "corn syrup (or oilgodang)"
       }
     },
     {
@@ -112,41 +88,65 @@
       }
     },
     {
-      "mainIngredient": "Tofu",
+      "mainIngredient": "Black pepper",
       "details": {
-        "amount": 0.5,
-        "unit": "package",
-        "originalText": "tofu (about 8 ounces)"
+        "amount": null,
+        "unit": "pinch",
+        "originalText": "black pepper"
       }
     },
     {
-      "mainIngredient": "Dangmyeon",
+      "mainIngredient": "Water",
       "details": {
-        "amount": 2.0,
-        "unit": "ounces",
-        "originalText": "dangmyeon (\ub2f9\uba74, sweet potato starch noodles)"
+        "amount": 0.75,
+        "unit": "cup",
+        "originalText": "water"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Roasted sesame seed",
+      "details": {
+        "amount": 0.5,
+        "unit": "teaspoon",
+        "originalText": "roasted sesame seeds"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Add 5 cups water and the broth vegetables to a medium size pot. Bring it to a boil over high heat. Reduce the heat to medium and simmer for about 15 minutes. Discard the vegetables. Season with the soup soy sauce, salt and pepper to taste. Yields 3 to 4 cups."
+      "text": "Peel and cut potatoes into about 1-inch cubes. Cut the carrot, peppers, and onion into big chunks."
     },
     {
       "@type": "HowToStep",
-      "text": "Cut the mushrooms into bite size slices (about 1/4-inch thick). Mushrooms cook down quite a bit, so don\u2019t cut too thin. If using oyster mushrooms, split lengthwise into bite size pieces."
+      "text": "In a small bowl, combine all the braising liquid ingredients except the sesame oil and seeds. Stir well."
     },
     {
       "@type": "HowToStep",
-      "text": "Neatly arrange the mushrooms and scallions in clusters along with other vegetables, if using, in a shallow pot. Add 2 cups of broth. Boil over medium to medium high heat until mushrooms are softened, 4 \u2013 5 minutes. You can add more broth and any remaining ingredients while eating if you\u2019re cooking at the table."
+      "text": "In a non-stick pan (or a small pot), saut\u00e9 the potatoes in cooking oil over medium heat for 4 - 5 minutes, stirring occasionally so the potatoes don't stick to the pan."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the sauce mix and bring it to a boil over high heat. Drop the carrot pieces in. Cover, and reduce the heat to medium and cook until the potatoes are almost cooked through (about 5 to 6 minutes, depending on the type or size of potatoes). The potatoes should be firm and not mushy."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Stir in the green peppers and onion, and continue to boil (uncover this time) until\u00a0the sauce is reduced and slightly thickened, about 3 minutes. The potatoes will continue to soak up the sauce even after being cooked. Stir in the sesame oil and sprinkle with sesame seeds."
     }
   ],
-  "recipeYield": "2",
+  "recipeYield": "4",
   "prepTime": "10 Minutes",
-  "cookTime": "20 Minutes",
-  "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/12/DSC7585-2-e1673293249539.jpg",
-  "description": "A healthy, warming Korean hot pot made with mushrooms! It's a great way to enjoy the deep earthy flavors of mushrooms.\u00a0",
+  "cookTime": "15 Minutes",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2009/11/DSC3017.jpg",
+  "description": "Gamja jorim is an easy Korean side dish made with potatoes and a few basic ingredients! What is gamja jorim? Gamja jorim (\uac10\uc790\uc870\ub9bc) is a braised potato dish.",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null

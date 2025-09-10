@@ -159,9 +159,20 @@
         <!-- What is DELI Section -->
         <section class="about-section">
             <h2>What is DELI Calculator?</h2>
-            <p>DELI ("fooD rEcipe environmentaL Impact") Calculator is a web application designed to provide comprehensive, quantitative sustainability assessment of food recipes. Our mission is to empower individuals, chefs, and food businesses to make informed decisions about their food choices by understanding their environmental footprint.</p>
+            <p>DELI ("fooD rEcipe environmentaL Impact") Calculator is a web application designed to provide comprehensive, 
+                quantitative sustainability assessment of food recipes. Our mission is to empower individuals, chefs, and 
+                food businesses to make informed decisions about their food choices by understanding their environmental footprint.</p>
             
-            <p>Developed by researchers at the Norwegian University of Science and Technology (NTNU), DELI Calculator uses scientifically robust data to estimate the carbon emissions, water usage, and land use associated with food ingredients and recipes.</p>
+            <p>Developed by researchers at the Norwegian University of Science and Technology (NTNU), 
+                DELI Calculator uses scientifically robust data to estimate the carbon emissions, water usage, 
+                and land use associated with food ingredients and recipes.</p>
+        
+            <p>More information about the app architecture and development can be found via our GitHub repository:
+            
+                <a href="https://github.com/NTNU-IndEcol/deli-calculator" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i> DELI Calculator GitHub Repository
+                </a>  
+            </p>
         </section>
 
         <!-- How it Works Section -->
@@ -201,20 +212,26 @@
             <h2>Our Team</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="https://placehold.co/150x150/f7b65a/white?text=DR" alt="Team Member">
-                    <h3>Dr. Researcher</h3>
+                    <a href="https://www.ntnu.edu/employees/bo.huang" target="_blank">
+                        <img src="{{ url_for('static', filename='img/BoHuang.jpg') }}" alt="Team Member">
+                    </a>
+                    <h3>Dr. Bo Huang</h3>
                     <p>Lead Scientist</p>
                 </div>
                 
                 <div class="team-member">
-                    <img src="https://placehold.co/150x150/f7b65a/white?text=PD" alt="Team Member">
-                    <h3>Prof. Developer</h3>
-                    <p>Technical Lead</p>
+                    <a href="https://www.ntnu.no/ansatte/konstantin.stadler" target="_blank">
+                         <img src="{{ url_for('static', filename='img/KonstantinStadler.jpg') }}" alt="Team Member">
+                    </a>
+                    <h3>Dr. Konstantin Stadler</h3>
+                    <p>Lead Scientist</p>
                 </div>
                 
                 <div class="team-member">
-                    <img src="https://placehold.co/150x150/f7b65a/white?text=ES" alt="Team Member">
-                    <h3>Eco Specialist</h3>
+                     <a href="https://www.ntnu.no/ansatte/francesca.verones" target="_blank">
+                        <img src="{{ url_for('static', filename='img/FrancescaVerones.jpg') }}" alt="Team Member">
+                    </a>
+                    <h3>Prof. Francesca Verones</h3>
                     <p>Sustainability Expert</p>
                 </div>
             </div>

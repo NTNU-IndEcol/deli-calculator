@@ -75,17 +75,6 @@ export class FoodCalculatorApp {
         }
       });
       
-      /*
-      this.autocompleteInstances.source = new AutocompleteHandler({
-        input: '#source-input',
-        dataset: DataManager.importCountries,
-        onSelect: (selectedCountry) => {
-          const input = document.getElementById('source-input');
-          input.value = selectedCountry;
-          input.dispatchEvent(new Event('input'));
-        }
-      }); 
-      */
   
       // Store the source autocomplete instance
       this.autocompleteInstances.source = new AutocompleteHandler({
@@ -116,8 +105,10 @@ export class FoodCalculatorApp {
         // Perfrom calculation
         const impact = this.formHandler.calculateImpact();
 
+        console.log("impact:", impact)
         if(impact) {
           this.resultsView.showResults({
+            total_bd: impact.total_bd,
             co2e: impact.co2e.toFixed(2),
             water: impact.waterUse.toFixed(2),
             land: impact.landUse.toFixed(2)
@@ -139,15 +130,6 @@ export class FoodCalculatorApp {
         
     }
     
-    /*
-    updateIngredientAutocomplete(ingredients) {
-      this.autocompleteInstances.ingredient.updateDataset(ingredients);
-      
-      // Force show dropdown
-      document.getElementById('ingredient-input').focus();
-      this.autocompleteInstances.ingredient.showSuggestions();
-    }
-    */
 
  
   }

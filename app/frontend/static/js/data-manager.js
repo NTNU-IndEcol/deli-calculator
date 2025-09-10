@@ -311,6 +311,11 @@ export class DataManager {
           const [countryCode, commCode] = id.split('_');
           const key = `${countryCode}-${commCode}`.toLowerCase();
 
+          // Parse values first
+          const CH4Value = parseFloat(cells[6]) || 0;
+          const CO2Value = parseFloat(cells[7]) || 0;
+          const N2OValue = parseFloat(cells[8]) || 0;
+
           // Create impact entry with all columns including biodiversity data
           const entry = {
             landuse: parseFloat(cells[1]) || 0,
@@ -318,9 +323,9 @@ export class DataManager {
             green_water: parseFloat(cells[3]) || 0,
             p_application: parseFloat(cells[4]) || 0,
             n_application: parseFloat(cells[5]) || 0,
-            CH4: parseFloat(cells[6]) || 0,
-            CO2: parseFloat(cells[7]) || 0,
-            N2O: parseFloat(cells[8]) || 0,
+            CH4: CH4Value / 1000,  // Correctly divided by 1000
+            CO2: CO2Value / 1000,  // Correctly divided by 1000
+            N2O: N2OValue / 1000,  // Correctly divided by 1000
             landuse_bd: parseFloat(cells[9]) || 0,
             water_bd: parseFloat(cells[10]) || 0,
             P_bd: parseFloat(cells[11]) || 0,
@@ -330,11 +335,18 @@ export class DataManager {
             N2O_bd: parseFloat(cells[15]) || 0
           };
 
+          // Calculate total biodiversity impact
+          entry.total_bd = entry.landuse_bd + 
+                          entry.water_bd + 
+                          entry.CH4_bd + 
+                          entry.CO2_bd + 
+                          entry.N2O_bd;
+
           this.envImpactMap.set(key, entry);
         }
 
         console.log("✅ Environmental data loaded:", this.envImpactMap.size, "entries");
-        console.log(this.envImpactMap)
+        console.log("Sample entry:", Array.from(this.envImpactMap.values())[0]);
       } catch (error) {
         console.error("🚨 Failed to load environmental data:", error);
       }

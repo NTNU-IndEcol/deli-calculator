@@ -28,6 +28,11 @@ def index():
 def about():
     return render_template('about.html')  # You'll need to create this template
 
+@app.route('/feeback')
+def feedback():
+    """Serve the recipes gallery page"""
+    return render_template('feeback.html')
+
 @app.route('/recipes')
 def recipes():
     """Serve the recipes gallery page"""

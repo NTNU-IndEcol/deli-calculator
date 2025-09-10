@@ -764,6 +764,44 @@ body {
     border-radius: 3px;
 }
 
+/* Style for the legend */
+.info.legend {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    line-height: 1.5;
+    margin: 0;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: 1000;
+}
+
+.info.legend h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.legend-gradient {
+    height: 20px;
+    background: linear-gradient(to right, hsl(120, 80%, 70%), hsl(120, 80%, 30%));
+    margin-bottom: 5px;
+}
+
+.legend-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+
+.info.legend p {
+    margin: 5px 0 0 0;
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+}
 /* Footer styles */
 .custom-footer {
     background-color: rgb(231, 179, 106);
