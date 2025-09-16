@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // After successful loading, reload the page
                     setTimeout(() => {
                         window.location.reload();
-                    }, 2000);
+                    }, 500);
                 } else {
                     alert('Error: ' + data.message);
                     loadButton.textContent = 'Load Recipe';

@@ -323,9 +323,9 @@ export class DataManager {
             green_water: parseFloat(cells[3]) || 0,
             p_application: parseFloat(cells[4]) || 0,
             n_application: parseFloat(cells[5]) || 0,
-            CH4: CH4Value / 1000,  // Correctly divided by 1000
-            CO2: CO2Value / 1000,  // Correctly divided by 1000
-            N2O: N2OValue / 1000,  // Correctly divided by 1000
+            CH4: CH4Value, /// 1000,  // Correctly divided by 1000
+            CO2: CO2Value, // / 1000,  // Correctly divided by 1000
+            N2O: N2OValue ,// / 1000,  // Correctly divided by 1000
             landuse_bd: parseFloat(cells[9]) || 0,
             water_bd: parseFloat(cells[10]) || 0,
             P_bd: parseFloat(cells[11]) || 0,

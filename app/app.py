@@ -131,7 +131,7 @@ def recipes_list():
                         # Set default values if they don't exist
                         recipe_data.setdefault('category', 'all')
                         recipe_data.setdefault('servings', 4)
-                        recipe_data.setdefault('time', 30)
+                        recipe_data.setdefault('prepTime', 30)
                         
                         # Check if image exists
                         image_name = recipe_data.get('image', f"{recipe_data['id']}.jpg")

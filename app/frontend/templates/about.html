@@ -123,11 +123,92 @@
             margin: 50px 0;
         }
         
-        @media (max-width: 768px) {
-            .feature-grid, .team-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+/* Team Carousel Styles */
+.team-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.team-carousel {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.team-carousel .team-member {
+    flex: 0 0 calc(100% / 3);
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.carousel-control {
+    background: rgb(231, 179, 106);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    color: rgb(145, 41, 10);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+.carousel-control:hover {
+    background: rgb(210, 160, 90);
+}
+
+.carousel-control:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carousel-dot.active {
+    background: rgb(145, 41, 10);
+}
+
+@media (max-width: 900px) {
+    .team-carousel .team-member {
+        flex: 0 0 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .team-carousel .team-member {
+        flex: 0 0 100%;
+    }
+    
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+    }
+}
     </style>
 </head>
 <body>
@@ -138,7 +219,7 @@
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('about') }}" class="active">About</a>
             <a href="{{ url_for('recipes_list') }}">Recipes</a>
-            <a href="feeback.html">Feedback</a>
+            <a href="{{ url_for('feedback') }}">Feedback</a>
             <a></a>
         </nav>
         <div class="search-bar">
@@ -210,30 +291,55 @@
         <!-- Team Section -->
         <section class="about-section">
             <h2>Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <a href="https://www.ntnu.edu/employees/bo.huang" target="_blank">
-                        <img src="{{ url_for('static', filename='img/BoHuang.jpg') }}" alt="Team Member">
-                    </a>
-                    <h3>Dr. Bo Huang</h3>
-                    <p>Lead Scientist</p>
+            <div class="team-carousel-container">
+                <button class="carousel-control prev" aria-label="Previous team members">❮</button>
+                <div class="team-carousel">
+                    <div class="carousel-track">
+                        <div class="team-member">
+                            <a href="https://www.ntnu.edu/employees/bo.huang" target="_blank">
+                                <img src="{{ url_for('static', filename='img/BoHuang.jpg') }}" alt="Dr. Bo Huang">
+                            </a>
+                            <h3>Dr. Bo Huang</h3>
+                            <p>Lead Scientist</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/konstantin.stadler" target="_blank">
+                                <img src="{{ url_for('static', filename='img/KonstantinStadler.jpg') }}" alt="Dr. Konstantin Stadler">
+                            </a>
+                            <h3>Dr. Konstantin Stadler</h3>
+                            <p>Lead Scientist</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/francesca.verones" target="_blank">
+                                <img src="{{ url_for('static', filename='img/FrancescaVerones.jpg') }}" alt="Prof. Francesca Verones">
+                            </a>
+                            <h3>Prof. Francesca Verones</h3>
+                            <p>Sustainability Expert</p>
+                        </div>
+
+                        <div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/elisha.wilson" target="_blank">
+                                <img src="{{ url_for('static', filename='img/ElishaJamesWilson.jpg') }}" alt="Elisha James Wilson">
+                            </a>
+                            <h3>Team Member 4</h3>
+                            <p>Sustainability Expert</p>
+                        </div>
+
+                        <div class="team-member">
+                            <a href="#" target="_blank">
+                                <img src="{{ url_for('static', filename='img/placeholder.jpg') }}" alt="Team Member 5">
+                            </a>
+                            <h3>Team Member 5</h3>
+                            <p>Role Description</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="team-member">
-                    <a href="https://www.ntnu.no/ansatte/konstantin.stadler" target="_blank">
-                         <img src="{{ url_for('static', filename='img/KonstantinStadler.jpg') }}" alt="Team Member">
-                    </a>
-                    <h3>Dr. Konstantin Stadler</h3>
-                    <p>Lead Scientist</p>
-                </div>
-                
-                <div class="team-member">
-                     <a href="https://www.ntnu.no/ansatte/francesca.verones" target="_blank">
-                        <img src="{{ url_for('static', filename='img/FrancescaVerones.jpg') }}" alt="Team Member">
-                    </a>
-                    <h3>Prof. Francesca Verones</h3>
-                    <p>Sustainability Expert</p>
-                </div>
+                <button class="carousel-control next" aria-label="Next team members">❯</button>
+            </div>
+            <div class="carousel-dots">
+                <!-- Dots will be added dynamically via JavaScript -->
             </div>
         </section>
 
@@ -309,6 +415,78 @@
         document.querySelectorAll('.faq-answer').forEach(answer => {
             answer.style.display = 'none';
         });
+
+        // Team Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const members = document.querySelectorAll('.team-member');
+            const nextButton = document.querySelector('.carousel-control.next');
+            const prevButton = document.querySelector('.carousel-control.prev');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            
+            let currentIndex = 0;
+            const membersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 2) : 3);
+            const totalSlides = Math.ceil(members.length / membersPerView);
+            
+            // Create dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            function updateCarousel() {
+                const slideWidth = (100 / membersPerView);
+                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                
+                // Update button states
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex >= totalSlides - 1;
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const newMembersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 2) : 3);
+                
+                if (newMembersPerView !== membersPerView) {
+                    // Reset carousel on significant width change
+                    currentIndex = 0;
+                    updateCarousel();
+                }
+            });
+            
+            // Initialize carousel
+            updateCarousel();
+        });
     </script>
+
 </body>
 </html>

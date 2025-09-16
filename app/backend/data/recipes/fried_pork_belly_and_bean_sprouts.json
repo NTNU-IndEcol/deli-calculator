@@ -1,0 +1,116 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "id": 1,
+  "name": "Fried pork and bean sprouts",
+  "author": "Korean Bapsang",
+  "datePublished": "2025-09-15",
+  "category": "Main Dishes",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Sliced/shaved pork belly or Pork or Beef",
+      "details": {
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "thinly sliced/shaved pork belly (\ub300\ud328 \uc0bc\uacb9\uc0b4) or other thinly sliced pork or beef"
+      }
+    },
+    {
+      "mainIngredient": "Bean sprout",
+      "details": {
+        "amount": 10.0,
+        "unit": "ounces",
+        "originalText": "bean sprouts (sukju, \uc219\uc8fc)"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 0.25,
+        "unit": "",
+        "originalText": "medium onion"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "minced garlic"
+      }
+    },
+    {
+      "mainIngredient": "Or scallion",
+      "details": {
+        "amount": 2.0,
+        "unit": "",
+        "originalText": "or 3 scallions"
+      }
+    },
+    {
+      "mainIngredient": "Soy sauce or Oyster sauce",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "soy sauce or oyster sauce (or 1 T each)"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "sugar - optional"
+      }
+    },
+    {
+      "mainIngredient": "Pepper",
+      "details": {
+        "amount": null,
+        "unit": "",
+        "originalText": "pepper to taste"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seed",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "sesame seeds - optional"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cut the meat into bite size pieces (about 2 to 3 inches long)."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Give the bean sprouts a quick rinse, and drain. Thinly slice the onion, and cut the scallions (or garlic chives) into 2-inch pieces."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Heat a large pan over high heat until very hot. Add the pork, and stir-fry quickly until no longer pink. You don't need cooking oil if using pork belly, but use a tablespoon if needed. A non-stick pan helps with no additional oil as well,"
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the bean sprouts, garlic, and onion, and continue to stir fry until the bean sprouts have wilted slightly."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the soy sauce and/or oyster sauce, optional sugar and pepper to taste. Stir-fry quickly. Stir in the scallion (or garlic chives). Sprinkle with optional sesame seeds to serve."
+    }
+  ],
+  "recipeYield": "2",
+  "prepTime": "5 Minutes",
+  "cookTime": "10 Minutes",
+  "servings": 1,
+  "time": 15,
+  "image": "Fried_pork_belly_and_bean_sprouts.jpg",
+  "description": "Stir-fried pork belly with bean sprouts from Korean Drama Itaewon Class. It's quick, easy and delicious! In my first Korean drama series post, we took a",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "id": 1,
+  "name": "Ham cheese sandwich",
+  "author": "Korean Bapsang",
+  "datePublished": "2025-09-05",
+  "category": "Main Dishes",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Cheese",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "norvegia cheese 26% large slice 550 g"
+      }
+    },
+    {
+      "mainIngredient": "Ham",
+      "details": {
+        "amount": 40,
+        "unit": "g",
+        "originalText": "cooked ham sliced gilde 0.5kg"
+      }
+    },
+    {
+      "mainIngredient": "Butter",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "soft flora original butter"
+      }
+    },
+    {
+      "mainIngredient": "Paprika",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "red paprika"
+      }
+    },
+    {
+      "mainIngredient": "Salad",
+      "details": {
+        "amount": 10,
+        "unit": "g",
+        "originalText": "Crispi salad"
+      }
+    },
+    {
+      "mainIngredient": "Baguette",
+      "details": {
+        "amount": 90,
+        "unit": "g",
+        "originalText": "sandwich baguette 90g molin"
+      }
+    }
+    
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Let the sliced brie sit out at room temperature whlle you prepare everything."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add butter, herbs, dijon, and garlic to a small bowl. Mix to combine. Season to taste with salt and pepper. "
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add arugula to a bowl. Toss with lemon juice. Season with salt and pepper. "
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Spread butter generously on one side of the baguette for a thick layer of butter or two sides for two thin layers. Layer the prosciutto on the bottom piece of baguette. Top with three pieces of brie. Season with salt and pepper. Top with a handful of arugula. Cover with remaining half of baguette. Secure with toothpics or if eating later, wrap tightly in plastic wrap. "
+    }
+
+  ],
+  "recipeYield": "1",
+  "servings": "1",
+  "prepTime": "15 Minutes",
+  "cookTime": " ",
+  "time": "15",
+  "image": "ham_cheese_sandwich.avif",
+  "description": "This classic French Baguette Sandwich, also known as a Jambon Beurre Sandwich is such a nice departure from a classic deli sandwich.  ",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  }
+}

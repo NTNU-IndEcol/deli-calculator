@@ -190,7 +190,7 @@
                             <span>🍽️ {{ recipe.servings | default('4') }} servings</span>
                             <span>⏱️ {{ recipe.time | default('30') }} min</span>
                         </div>
-                        <button class="recipe-button load-recipe-btn" data-recipe="{{ recipe.id }}">Load Recipe</button>
+                        <button class="recipe-button" data-recipe="{{ recipe.id }}" id="loading-btn">Load Recipe</button>
                     </div>
                 </div>
                 {% endfor %}
@@ -237,43 +237,24 @@
             });
             
             // Load recipe functionality
-            const recipeButtons = document.querySelectorAll('.load-recipe-btn');
+            const recipeButtons = document.querySelectorAll('.recipe-button');
             recipeButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const recipeId = this.getAttribute('data-recipe');
-                    const button = this;
                     
-                    // Show loading state
-                    button.textContent = 'Loading...';
-                    button.disabled = true;
+                    // Store the recipe ID in localStorage
+                    localStorage.setItem('selectedRecipe', recipeId);
+                    localStorage.setItem('shouldLoadRecipe', 'true');
                     
-                    // Send request to server to load the recipe
-                    fetch('/api/load-recipe', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ recipe: recipeId })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Redirect to home page after successful load
-                            window.location.href = "{{ url_for('index') }}";
-                        } else {
-                            alert('Error: ' + data.message);
-                            button.textContent = 'Load Recipe';
-                            button.disabled = false;
-                        }
-                    })
-                    .catch(error => {
-                        alert('Network error: ' + error);
-                        button.textContent = 'Load Recipe';
-                        button.disabled = false;
-                    });
+                    // Redirect to home page
+                    window.location.href = "{{ url_for('index') }}";
                 });
             });
         });
+
     </script>
+    
+    <script src="{{ url_for('static', filename='js/selected-recipe-load.js') }}"></script>
+
 </body>
 </html>
