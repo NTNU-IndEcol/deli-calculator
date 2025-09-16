@@ -10,7 +10,7 @@
     {
       "mainIngredient": "Cheese",
       "details": {
-        "amount": 20,
+        "amount": 60,
         "unit": "g",
         "originalText": "norvegia cheese 26% large slice 550 g"
       }
@@ -24,7 +24,7 @@
       }
     },
     {
-      "mainIngredient": "Paprika",
+      "mainIngredient": "Sweet pepper",
       "details": {
         "amount": 20,
         "unit": "g",
@@ -32,7 +32,7 @@
       }
     },
     {
-      "mainIngredient": "Salad",
+      "mainIngredient": "Crispi Salad ",
       "details": {
         "amount": 10,
         "unit": "g",

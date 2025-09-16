@@ -396,7 +396,7 @@ export class MapView {
                 <p>Biodiversity: ${bdDisplay} PDF</p>
                 <p>CO₂eq: ${data.co2e.toFixed(2)} kg</p>
                 <p>Water: ${data.water.toFixed(2)} m3</p>
-                <p>Land: ${data.land.toFixed(2)} hectare</p>
+                <p>Land: ${data.land.toFixed(2)} m2</p>
             </div>
         `;
     }

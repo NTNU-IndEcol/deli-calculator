@@ -24,7 +24,7 @@ export class ResultsView {
       this.elements.total_bdDisplay.textContent = `${data.total_bd} PDF`;
       this.elements.co2Display.textContent = `${data.co2e} kg CO₂ eq`;
       this.elements.waterDisplay.textContent = `${data.water} m3`;
-      this.elements.landDisplay.textContent = `${data.land} hectare`;
+      this.elements.landDisplay.textContent = `${data.land} m2`;
 
 
     }
