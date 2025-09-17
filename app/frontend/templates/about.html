@@ -139,6 +139,7 @@
 
 .carousel-track {
     display: flex;
+    width: calc(100% * totalSlides); /* make track wide enough */
     transition: transform 0.5s ease-in-out;
 }
 
@@ -327,13 +328,16 @@
                             <p>Sustainability Expert</p>
                         </div>
 
+
                         <div class="team-member">
                             <a href="https://www.ntnu.no/ansatte/ruslan.zhuravchak" target="_blank">
-                                <img src="{{ url_for('static', filename='img/placeholder.jpg') }}" alt="Team Member 5">
+                                <img src="{{ url_for('static', filename='img/RuslanZhuravchak.png') }}" alt="Ruslan Zhuravchak">
                             </a>
                             <h3>Ruslan Zhuravchak</h3>
                             <p>Technical</p>
                         </div>
+
+
                     </div>
                 </div>
                 <button class="carousel-control next" aria-label="Next team members">❯</button>
@@ -425,7 +429,7 @@
             const dotsContainer = document.querySelector('.carousel-dots');
             
             let currentIndex = 0;
-            const membersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 2) : 3);
+            const membersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 3) : 5);
             const totalSlides = Math.ceil(members.length / membersPerView);
             
             // Create dots
@@ -440,7 +444,7 @@
             const dots = document.querySelectorAll('.carousel-dot');
             
             function updateCarousel() {
-                const slideWidth = (100 / membersPerView);
+                const slideWidth = 100 // (100 / membersPerView);
                 track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
                 
                 // Update button states
@@ -474,7 +478,7 @@
             
             // Handle window resize
             window.addEventListener('resize', function() {
-                const newMembersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 2) : 3);
+                const newMembersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 3) : 5);
                 
                 if (newMembersPerView !== membersPerView) {
                     // Reset carousel on significant width change

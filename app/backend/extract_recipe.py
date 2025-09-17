@@ -5,7 +5,7 @@ from datetime import datetime
 from fractions import Fraction
 import os
 import re
-ALLOWED_DOMAINS = ['koreanbapsang.com', 'your-recipesite.com']
+ALLOWED_DOMAINS = ['koreanbapsang.com', 'your-recipesite.com', 'simplehomeedit.com']
 
 RECIPE_FILE = "backend/data/recipes.json"
 
