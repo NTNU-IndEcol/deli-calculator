@@ -109,49 +109,69 @@ export class DataManager {
     }
   
     // --- Data Loading ---
-    static async loadImportData() {
+   static async loadImportData() {
       try {
         let importPath;
         
         if (this.userLocation.success) {
           importPath = this.config.datasets.import_data
-            .replace('{country}', this.userLocation.countryName);
+            .replace('{country}', this.userLocation.countryCodeISO3);
         } else {
           importPath = this.config.datasets.default_import;
         }
-  
+
+        console.log('📥 Loading import data from:', importPath);
         const response = await fetch(importPath);
         if (!response.ok) throw new Error(`Import data not found at ${importPath}`);
         
         const csvData = await response.text();
-        this.datasets.importData = this.processImportData(this.parseCSV(csvData));
+      //  console.log('📄 Raw CSV data (first 500 chars):', csvData.substring(0, 500));
+        
+        const parsedData = this.parseCSV(csvData);
+      //  console.log('📊 Parsed data sample:', parsedData.slice(0, 3));
+      //  console.log('🔑 Available columns:', Object.keys(parsedData[0] || {}));
+        
+        this.datasets.importData = this.processImportData(parsedData);
         console.log("✅ Loaded import data from:", importPath);
       } catch (error) {
         console.warn(`⚠️ Falling back to default import data: ${error.message}`);
         const response = await fetch(this.config.datasets.default_import);
         const csvData = await response.text();
-        this.datasets.importData = this.processImportData(this.parseCSV(csvData));
+        const parsedData = this.parseCSV(csvData);
+        
+        console.log('📄 Fallback CSV data sample:', parsedData.slice(0, 3));
+        this.datasets.importData = this.processImportData(parsedData);
       }
     }
+
 
     static processImportData(rawData) {
       const commodityMap = new Map();
       
       rawData.forEach(item => {
-        // Normalize commodity code to lowercase for consistency
-        const code = item.Commodity.trim().toLowerCase();
+        // Use the actual column names from your CSV
+        const code = item.Commodity?.trim().toLowerCase();
+        const country = item.Country?.trim();
+        const value = Number(item.Export_Value);
+        const rank = Number(item.Rank);
+        
+        // Skip if essential data is missing
+        if (!code || !country || isNaN(value)) {
+          console.warn('Skipping invalid import data item:', item);
+          return;
+        }
         
         if (!commodityMap.has(code)) {
           commodityMap.set(code, []);
         }
         
         commodityMap.get(code).push({
-          country: item.Country.trim(),
-          value: Number(item.Export_Value),
-          originalRank: Number(item.Rank) // Keep original rank for reference
+          country: country,
+          value: value,
+          originalRank: rank
         });
       });
-    
+
       // Sort by highest export value first, then original rank
       for (const [code, entries] of commodityMap) {
         entries.sort((a, b) => {
@@ -163,13 +183,10 @@ export class DataManager {
         
         // Store only top 5 entries
         commodityMap.set(code, entries.slice(0, 5));
-
-          // Debug: Show sample commodity data
-      console.log('Processed importData for c002:', commodityMap.get('c002'));
-      return commodityMap;
-
-      } 
+      }
       
+      // Debug: Show sample commodity data
+      console.log('Processed importData for c002:', commodityMap.get('c002'));
       return commodityMap;
     }
 
@@ -351,84 +368,7 @@ export class DataManager {
         console.error("🚨 Failed to load environmental data:", error);
       }
     }
-    /*
-    static async loadEnvImpacts() {
-      try {
-        const response = await fetch(this.config.datasets.env_impacts);
-        const csvData = await response.text();
-        const rows = csvData.split('\n').filter(row => row.trim() !== '');
-    
-        // Extract headers (metric names)
-        const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-    
-        console.log(headers)
-        // Initialize impact map
-        this.envImpactMap = new Map();
-    
-        // Process each countryCode_commCode row
-        for (let i = 1; i < rows.length; i++) {
-          const cells = rows[i].split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
-          const id = cells[0]; // Format: "countryCode_commCode" (e.g., "1_c001")
-          const [countryCode, commCode] = id.split('_');
-          const key = `${countryCode}-${commCode}`.toLowerCase();
-    
-          // Create or get impact entry
-          if (!this.envImpactMap.has(key)) {
-            this.envImpactMap.set(key, {
-              landuse: 0,
-              blue_water: 0,
-              green_water: 0,
-              CO2: 0,
-              CH4: 0,
-              N2O: 0,
-              p_application: 0,
-              n_application: 0
-            });
-          }
-          const entry = this.envImpactMap.get(key);
-    
-          // Map metric columns to their values
-          for (let col = 1; col < headers.length; col++) {
-            const metric = headers[col];
-            const value = parseFloat(cells[col]) || 0;
-    
-            // Assign values based on metric type
-            switch (true) {
-              case metric === 'landuse':
-                entry.landuse = value;
-                break;
-              case metric === 'blue':
-                entry.blue_water = value;
-                break;
-              case metric === 'green':
-                entry.green_water = value;
-                break;
-              case metric === 'p_application':
-                entry.p_application = value;
-                break;
-              case metric === 'n_application':
-                entry.n_application = value;
-                break;
-              case metric.includes('CH4'):
-                entry.CH4 += value;
-                break;
-              case metric.includes('CO2'):
-                entry.CO2 += value;
-                break;
-              case metric.includes('N2O'):
-                entry.N2O += value;
-                break;
-            }
-          }
-        }
-    
-        console.log("✅ Environmental data loaded:", this.envImpactMap.size, "entries");
-      } catch (error) {
-        console.error("🚨 Failed to load environmental data:", error);
-      }
-    }
-
-   */
+   
     //load saved recipe
     static async loadSavedRecipe() {
       try {
@@ -512,42 +452,41 @@ export class DataManager {
     }
   
     // ParseCSV
-
     static parseCSV(csvText) {
-      const rows = csvText.split(/\r?\n/); // Split rows
-      const headers = rows[0].split(',').map(h => h.trim()); // Extract headers
-    
+      const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== '');
+      if (rows.length < 1) return [];
+      
+      const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+      
       return rows.slice(1).map(row => {
-        // Split row into columns while respecting quoted commas
-        const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-        const obj = {};
+        // Handle quoted fields that may contain commas
+        const values = [];
+        let inQuotes = false;
+        let currentValue = '';
         
-        headers.forEach((header, i) => {
-          let value = cols[i]?.trim() || '';
-          // Remove surrounding quotes if present
-          value = value.replace(/^"(.*)"$/, '$1');
-          obj[header] = value;
-        });
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(currentValue.trim().replace(/^"|"$/g, ''));
+            currentValue = '';
+          } else {
+            currentValue += char;
+          }
+        }
         
-        return obj;
-      });
-    }
-    /*
-    static parseCSV(csvText) {
-      const lines = csvText.split('\n').filter(line => line.trim());
-      if (lines.length < 1) return [];
-      
-      const headers = lines.shift().split(',').map(h => h.trim());
-      
-      return lines.map(line => {
-        const values = line.split(',').map(v => v.trim());
+        // Push the last value
+        values.push(currentValue.trim().replace(/^"|"$/g, ''));
+        
         return headers.reduce((obj, header, index) => {
           obj[header] = values[index] || '';
           return obj;
         }, {});
       });
     }
-   */
+
     // --- Derived Data ---
     static processCategories() {
       this.datasets.categories = [
@@ -602,23 +541,6 @@ export class DataManager {
       return match?.comm_code;
     }
     
-    /*
-    static findCommCode(ingredientName) {
-      const match = this.database.find(item => 
-        this.fuzzyMatch(item.Ingredient, ingredientName)
-      );
-      return match?.comm_code;
-    }
-
-    fuzzyMatch(dbName, inputName) {
-      const cleanDb = dbName.toLowerCase().replace(/[^a-z]/g, '');
-      const cleanInput = inputName.toLowerCase().replace(/[^a-z]/g, '');
-      
-      // Split into words and check partial matches
-      const inputWords = cleanInput.split(' ');
-      return inputWords.some(word => cleanDb.includes(word));
-    }
-  */
 
     static getEnvImpactFactors(countryCode, commCode) {
       const key = `${countryCode}-${commCode}`.toLowerCase();

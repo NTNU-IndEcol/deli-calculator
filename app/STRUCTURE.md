@@ -6,38 +6,59 @@ foodCalculator/
 ├── app.py                      # Flask backend (keep in root for easy deployment)
 │
 ├── backend/
-│   ├── carbon_calculator.py    # Core calculation logic
-│   ├── data_loader.py          # CSV/data processing
+│   ├── extract_recipe.py       # Recipe extraction logic
 │   ├── routes.py               # API endpoint definitions
+│   ├── pycache/                # Python cache files (generated)
+│   │
 │   └── data/
-│       ├── food_items.csv
-│       ├── conversion_factors.csv
-│       └── regions.csv
+│       ├── Conversion_factors.csv
+│       ├── regions.csv
+│       ├── food_item_poore_and_nemecek_fabio.csv
+│       ├── recipes.json
+│       ├── top_exporters_to_Norway.csv
+│       ├── world.geojson
+│       ├── E_2020_biodiversity.csv
+│       ├── E_full_2020.csv
+│       ├── EL_2020_biodiversity.csv
+│       │
+|       ├── import/             # import country rank for each commodity
+|       |
+│       └── recipes/            # Individual recipe files
+|           |    
+│           └── images/
 │
 ├── frontend/
 │   ├── static/
 │   │   ├── js/
-│   │   │   ├── core/
-│   │   │   │   ├── data-manager.js    # Data initialization
-│   │   │   │   └── api-client.js      # HTTP communication
-│   │   │   ├── ui/
-│   │   │   │   ├── autocomplete.js    # Search components
-│   │   │   │   ├── form-handler.js     # Ingredient form
-│   │   │   │   └── results-view.js     # Calculation display
-│   │   │   └── main.js                 # Entry point
+│   │   │   ├── api-client.js   # HTTP communication
+│   │   │   ├── autocomplete.js # Search components
+│   │   │   ├── data-manager.js # Data initialization
+│   │   │   ├── food-calculator-app.js # Main application logic
+│   │   │   ├── form-handler.js # Ingredient form
+│   │   │   ├── main.js         # Entry point
+│   │   │   ├── map-view.js     # Map visualization
+│   │   │   ├── results-view.js # Calculation display
+│   │   │   └── selected-recipe-load.js # Recipe loading
 │   │   │
 │   │   └── css/
-│   │       └── style.css
+│   │   │   └── style.css
+│   │   │
+│   │   └── img/                # Image assets
 │   │
 │   └── templates/
-│       └── index.html
+│       ├── index.html          # Main calculator page
+│       ├── about.html          # About page
+│       ├── recipes.html        # Recipes page
+│       ├── feeback.html        # Feedback page
+│       └── footer.html         # Footer partial
 │
-├── tests/                      # Test directory
+├── tests/ # Test directory
 │   ├── unit/
 │   └── integration/
 │
-├── config.py                  # Configuration settings
-├── requirements.txt           # Python dependencies
-├── README.md
-└── setup.sh
+├── config/                      # Configuration settings
+|   └── data-paths.json  
+|
+├── requirements.txt # Python dependencies
+└── README.md
 ```

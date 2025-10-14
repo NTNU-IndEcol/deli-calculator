@@ -20,7 +20,12 @@ export class ApiClient {
           const response = await fetch(url, config);
           
           if (!response.ok) {
-              const errorData = await response.json();
+              let errorData;
+              try {
+                  errorData = await response.json();
+              } catch {
+                  errorData = { error: `HTTP ${response.status}: ${response.statusText}` };
+              }
               throw new ApiError(response.status, errorData?.error || 'API request failed');
           }
 
@@ -45,12 +50,10 @@ export class ApiClient {
 
   /**
    * Get saved recipe data
-*/
+   */
   static async getSavedRecipes() {
-    const response = await fetch(`${this.baseURL}/saved-recipes`);
-    return response.json();
+      return this._request('/saved-recipes');
   }
-
 
   // --------------------------
   // Calculation Endpoints
