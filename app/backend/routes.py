@@ -31,53 +31,28 @@ def save_recipe(recipe_data):
 def process_recipe():
     try:
         data = request.get_json()
-        if not data or 'url' not in data:
-            return jsonify({'error': 'Missing URL parameter'}), 400
+        url = data.get('url')
         
-        url = data['url']
+        if not url:
+            return jsonify({'success': False, 'error': 'No URL provided'})
         
-        # Validate URL format
-        try:
-            from urllib.parse import urlparse
-            parsed = urlparse(url)
-            if not parsed.scheme or not parsed.netloc:
-                return jsonify({'error': 'Invalid URL format'}), 400
-        except:
-            return jsonify({'error': 'Invalid URL format'}), 400
-        
-        # Validate and extract recipe
         recipe = extract_recipe_data(url)
-        if not recipe:
-            return jsonify({'error': 'Failed to extract recipe from URL. The site might use an unsupported format.'}), 400
         
-        # Check if we got meaningful data
-        if not recipe.get('recipeIngredient') or len(recipe['recipeIngredient']) == 0:
-            return jsonify({'error': 'No ingredients found in the recipe'}), 400
-        
-        # Save the recipe
-        save_recipe(recipe)
-        
-        # Format ingredients for frontend
-        formatted_ingredients = []
-        for ingredient in recipe.get('recipeIngredient', []):
-            formatted_ingredients.append({
-                'id': f"ing_{len(formatted_ingredients)}",
-                'name': ingredient.get('mainIngredient', ''),
-                'amount': ingredient.get('details', {}).get('amount'),
-                'unit': ingredient.get('details', {}).get('unit'),
-                'original_text': ingredient.get('details', {}).get('originalText', ''),
-                'matched': False
+        if recipe:
+            save_recipe(recipe)
+            return jsonify({
+                'success': True, 
+                'recipe': recipe,
+                'ingredients': recipe.get('recipeIngredient', [])
             })
-        
-        return jsonify({
-            'success': True,
-            'recipe': recipe,
-            'ingredients': formatted_ingredients
-        })
-        
+        else:
+            return jsonify({
+                'success': False, 
+                'error': 'Failed to extract recipe from URL. The site might use an unsupported format.'
+            })
+            
     except Exception as e:
-        print(f"Error processing recipe: {e}")
-        return jsonify({'error': f'Recipe extraction failed: {str(e)}'}), 400
+        return jsonify({'success': False, 'error': str(e)})
 
 @api_bp.route('/saved-recipes', methods=['GET'])
 def get_saved_recipes():

@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Recipe extraction handler
     document.getElementById('extract-btn').addEventListener('click', async () => {
-      const url = document.getElementById('recipe-url').value.trim();
+      const urlInput = document.getElementById('recipe-url');
+      const url = urlInput.value.trim();
       
       if (!url) {
         alert('Please enter a recipe URL');
@@ -56,6 +57,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Reset button state
         extractBtn.textContent = originalText;
         extractBtn.disabled = false;
+
+        // Reset the URL input to show placeholder
+        urlInput.value = '';
       }
 
       // Simulate extraction process (replace with actual API call)

@@ -151,7 +151,16 @@ export class FormHandler {
   
     // Process new ingredient
     processNewIngredient(ingredient) {
-      const cleanInputName = ingredient.name.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+
+      // Handle both name and mainIngredient fields
+      const ingredientName = ingredient.name || ingredient.mainIngredient;
+      
+      if (!ingredientName) {
+        console.error('Ingredient missing name:', ingredient);
+        return;
+      }
+
+      const cleanInputName = ingredientName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
     
       // 1. Try partial match
       const match = DataManager.database.find(item => {
@@ -164,6 +173,7 @@ export class FormHandler {
         const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
         this.selectedIngredients.push({
           ...ingredient,
+          name: ingredientName, //Ensure name is set
           comm_code: match.comm_code,
           matched: true,
           possibleSources: possibleSources,
@@ -173,6 +183,7 @@ export class FormHandler {
         // Handle unmatched ingredient
         this.unmatchedIngredients.push({
           ...ingredient,
+          name: ingredientName,
           comm_code: 'UNKNOWN',
           matched: false,
           possibleSources: DataManager.getAllCountries() || [''],
@@ -419,25 +430,17 @@ export class FormHandler {
       const newlyMatched = [];
       const stillUnmatched = [];
     
-      /** 
       newIngredients.forEach(ingredient => {
-        const match = DataManager.database.find(item => 
-          this.fuzzyMatch(item.Ingredient, ingredient.name)
-        );
-        
-        if (match) {
-          newlyMatched.push({ 
-            ...ingredient,
-            ...this.createMatchedIngredient(match)
-          });
-        } else {
-          stillUnmatched.push(ingredient);
-        }
-      });
-      */
-
-        newIngredients.forEach(ingredient => {
-          const match = DataManager.database.find(item => 
+            
+            const ingredientName = ingredient.name || ingredient.mainIngredient;
+    
+            if (!ingredientName) {
+              console.warn('Skipping ingredient without name:', ingredient);
+              stillUnmatched.push(ingredient);
+              return;
+            }
+            
+            const match = DataManager.database.find(item => 
             this.fuzzyMatch(item.Ingredient, ingredient.name)
           );
           
@@ -448,6 +451,7 @@ export class FormHandler {
             
             newlyMatched.push({ 
               ...ingredient,
+              name: ingredientName, // Ensure name is set
               ...this.createMatchedIngredient(match),
               comm_code: match.comm_code,
               matched: true,
@@ -456,7 +460,11 @@ export class FormHandler {
               source: ingredient.source || possibleSources[0] || ''
             });
           } else {
-            stillUnmatched.push(ingredient);
+            stillUnmatched.push({
+              ...ingredient,
+              name: ingredientName // Ensure name is set
+            });
+                    
           }
         });
       // Merge with existing ingredients instead of replacing
@@ -598,8 +606,8 @@ export class FormHandler {
     clearForm() {
       this.elements.categoryInput.value = '';
       this.elements.ingredientInput.value = '';
-      this.elements.amountInput.value = '';
-      this.elements.unitInput.value = '';
+    //  this.elements.amountInput.value = '';
+    //  this.elements.unitInput.value = '';
       this.elements.sourceInput.value = ''; // Only clear source input
     }
   

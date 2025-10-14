@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from datetime import datetime
-from fractions import Fraction
+import time
 import os
 import re
 from urllib.parse import urlparse
@@ -17,643 +16,652 @@ ALLOWED_DOMAINS = [
 
 RECIPE_FILE = "backend/data/recipes.json"
 
-def validate_url(url):
-    """Ensure URL is from allowed domains"""
-    from urllib.parse import urlparse
-    parsed = urlparse(url)
-    domain = parsed.netloc.replace('www.', '')
-    base_domains = [domain.replace('www.', '') for domain in ALLOWED_DOMAINS]
-    
-    if domain not in base_domains:
-        raise ValueError(f"Domain {domain} not allowed")
-    return True
 
-def detect_recipe_format(soup, url):
-    """Detect which recipe format the site uses."""
-    domain = urlparse(url).netloc.lower()
+class RecipeExtractor:
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        })
     
-    # Domain-specific detection first
-    if 'allrecipes.com' in domain:
-        return 'allrecipes'
-    elif 'howtocook.recipes' in domain:
-        return 'howtocook'
-    elif 'koreanbapsang.com' in domain:
-        return 'koreanbapsang'
-    elif 'simplehomeedit.com' in domain:
-        return 'simplehomeedit'
-    
-    # Check for Schema.org/JSON-LD
-    script_tag = soup.find('script', type='application/ld+json')
-    if script_tag:
+    def extract_recipe_from_url(self, url):
+        """Extract recipe information from a given URL"""
         try:
-            data = json.loads(script_tag.string)
-            if isinstance(data, list):
-                for item in data:
-                    if item.get('@type') == 'Recipe':
-                        return 'schema'
-            elif data.get('@type') == 'Recipe':
-                return 'schema'
-        except:
-            pass
-    
-    # Check for different recipe plugins and formats
-    if soup.select('li.wprm-recipe-ingredient'):
-        return 'wprm'
-    elif soup.select('div.tasty-recipes-ingredients li'):
-        return 'tasty'
-    elif soup.select('li.ingredients-item'):
-        return 'allrecipes_fallback'
-    elif soup.select('div.recipe-ingredients li'):
-        return 'generic'
-    elif soup.select('[itemprop="recipeIngredient"]'):
-        return 'microdata'
-    
-    return 'generic'
-
-def parse_amount(amount_text):
-    """Convert amount text to a float value."""
-    if not amount_text:
-        return None
-
-    # Handle 'to taste' cases with an optional amount
-    taste_match = re.match(r"(.+?)\s*(to taste)", amount_text, re.IGNORECASE)
-    if taste_match:
-        fixed_amount = parse_amount(taste_match.group(1))
-        return fixed_amount if fixed_amount else "to taste"
-
-    # Handle ranges (e.g., "5 to 6")
-    range_match = re.match(r"(\d+)\s*(to|-)\s*(\d+)", amount_text)
-    if range_match:
-        low = float(range_match.group(1))
-        high = float(range_match.group(3))
-        return (low + high) / 2  # Average of range
-
-    # Handle fractions (e.g., "1/4")
-    try:
-        return float(sum(Fraction(s) for s in amount_text.split()))
-    except ValueError:
-        return None
-
-def extract_main_ingredient(name):
-    """Extract the main component from ingredient name."""
-    if not name:
-        return ""
-        
-    descriptors = {
-        'size': ['medium', 'small', 'large', 'jumbo', 'baby', 'piece', 'pieces'],
-        'state': ['fresh', 'dried', 'dry', 'minced', 'chopped', 'sliced', 
-                 'thinly', 'shaved', 'divided', 'optional', 'to taste', 'marinated'],
-        'type': ['korean', 'asian', 'plump', 'thumb-sized', 'soup', 'other'],
-        'preparation': ['thinly sliced', 'shaved', 'sliced', 'minced', 'grated', 'crushed']
-    }
-    
-    # Split into alternatives separated by 'or'
-    alternatives = re.split(r'\s+or\s+', name, flags=re.IGNORECASE)
-    main_ingredients = []
-    
-    for alt in alternatives:
-        # Clean the alternative
-        clean_alt = re.sub(
-            r'\([^)]*\)|[\d%]+|-\s*|(\b(?:optional|to taste)\b)',
-            '', 
-            alt, 
-            flags=re.IGNORECASE
-        ).strip(' -')
-        
-        # Remove preparation terms from the start
-        prep_pattern = r'^\s*(?:' + '|'.join(descriptors['preparation']) + r')\s+'
-        clean_alt = re.sub(prep_pattern, '', clean_alt, flags=re.IGNORECASE)
-        
-        # Split into words and filter descriptors
-        words = [
-            word.lower() for word in clean_alt.split() 
-            if word.lower() not in [item for sublist in descriptors.values() for item in sublist]
-        ]
-        
-        # Join remaining words to form the main ingredient
-        main_ingredient = ' '.join(words) if words else clean_alt
-        
-        # Handle compound terms
-        if ' ' in main_ingredient:
-            parts = main_ingredient.split()
-            if parts[0] in ['pork', 'beef', 'chicken', 'lamb']:
-                main_ingredient = parts[0]
-        
-        # Singularize
-        if main_ingredient.endswith('s'):
-            main_ingredient = main_ingredient.rstrip('s')
+            print(f"Extracting recipe from: {url}")
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
             
-        main_ingredients.append(main_ingredient.capitalize())
-    
-    return ' or '.join(main_ingredients)
-
-def extract_ingredients(soup, format_type, url):
-    """Extract ingredients based on detected format."""
-    ingredients = []
-    
-    if format_type == 'schema':
-        script_tag = soup.find('script', type='application/ld+json')
-        if script_tag:
-            try:
-                data = json.loads(script_tag.string)
-                if isinstance(data, list):
-                    for item in data:
-                        if item.get('@type') == 'Recipe':
-                            ingredients_list = item.get('recipeIngredient', [])
-                            for ingredient in ingredients_list:
-                                ingredients.append({
-                                    "name": extract_main_ingredient(ingredient),
-                                    "amount": None,
-                                    "unit": None,
-                                    "original_text": ingredient
-                                })
-                elif data.get('@type') == 'Recipe':
-                    ingredients_list = data.get('recipeIngredient', [])
-                    for ingredient in ingredients_list:
-                        ingredients.append({
-                            "name": extract_main_ingredient(ingredient),
-                            "amount": None,
-                            "unit": None,
-                            "original_text": ingredient
-                        })
-            except Exception as e:
-                print(f"Schema extraction error: {e}")
-    
-    elif format_type == 'allrecipes':
-        # AllRecipes specific selectors
-        for ingredient in soup.select('li.ingredients-item'):
-            # Try multiple selectors for amount/unit/name
-            amount_elem = (ingredient.select_one('[data-ingredient-quantity="true"]') or 
-                          ingredient.select_one('.ingredient-amount'))
-            unit_elem = (ingredient.select_one('[data-ingredient-unit="true"]') or 
-                        ingredient.select_one('.ingredient-unit'))
-            name_elem = (ingredient.select_one('[data-ingredient="true"]') or 
-                        ingredient.select_one('.ingredient-name') or
-                        ingredient.select_one('.ingredient-description'))
+            soup = BeautifulSoup(response.content, 'html.parser')
             
-            raw_amount = parse_amount(amount_elem.get_text(strip=True)) if amount_elem else None
-            raw_unit = unit_elem.get_text(strip=True) if unit_elem else ''
-            raw_name = name_elem.get_text(strip=True) if name_elem else ingredient.get_text(strip=True)
+            # Try to find JSON-LD structured data first
+            recipe_data = self._extract_json_ld(soup)
             
-            # Clean up the name
-            raw_name = re.sub(r'^\d+\s*\w*\s*', '', raw_name).strip()
+            if not recipe_data:
+                # Fall back to meta tags and HTML parsing
+                recipe_data = self._extract_from_meta(soup, url)
             
-            ingredients.append({
-                "name": extract_main_ingredient(raw_name),
-                "amount": raw_amount,
-                "unit": raw_unit,
-                "original_text": raw_name
-            })
-    
-    elif format_type == 'howtocook':
-        # HowToCook.recipes specific selectors
-        for ingredient in soup.select('li.wprm-recipe-ingredient'):
-            amount_elem = ingredient.select_one('.wprm-recipe-ingredient-amount')
-            unit_elem = ingredient.select_one('.wprm-recipe-ingredient-unit')
-            name_elem = ingredient.select_one('.wprm-recipe-ingredient-name')
+            # If still no data, try site-specific parsing
+            if not recipe_data or not recipe_data.get('recipeIngredient'):
+                recipe_data = self._extract_site_specific(soup, url)
             
-            raw_amount = parse_amount(amount_elem.get_text(strip=True)) if amount_elem else None
-            raw_unit = unit_elem.get_text(strip=True) if unit_elem else ''
-            raw_name = name_elem.get_text(strip=True) if name_elem else ''
+            if not recipe_data or not recipe_data.get('recipeIngredient'):
+                raise ValueError("No recipe data found on the page")
             
-            ingredients.append({
-                "name": extract_main_ingredient(raw_name),
-                "amount": raw_amount,
-                "unit": raw_unit,
-                "original_text": f"{raw_amount} {raw_unit} {raw_name}".strip() if raw_amount else raw_name
-            })
-    
-    elif format_type == 'koreanbapsang':
-        for ingredient in soup.select('li.wprm-recipe-ingredient'):
-            amount_elem = ingredient.select_one('.wprm-recipe-ingredient-amount')
-            unit_elem = ingredient.select_one('.wprm-recipe-ingredient-unit')
-            name_elem = ingredient.select_one('.wprm-recipe-ingredient-name')
+            # Add URL information
+            recipe_data['sourceUrl'] = url
+            recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
             
-            raw_amount = parse_amount(amount_elem.get_text(strip=True)) if amount_elem else None
-            raw_unit = unit_elem.get_text(strip=True) if unit_elem else ''
-            raw_name = name_elem.get_text(strip=True) if name_elem else ''
+            return recipe_data
             
-            ingredients.append({
-                "name": extract_main_ingredient(raw_name),
-                "amount": raw_amount,
-                "unit": raw_unit,
-                "original_text": f"{raw_amount} {raw_unit} {raw_name}".strip() if raw_amount else raw_name
-            })
-    
-    elif format_type == 'simplehomeedit':
-        for ingredient in soup.select('li.recipe-ingredient'):
-            amount_elem = ingredient.select_one('.ingredient-amount')
-            unit_elem = ingredient.select_one('.ingredient-unit')
-            name_elem = ingredient.select_one('.ingredient-name')
-            
-            raw_amount = parse_amount(amount_elem.get_text(strip=True)) if amount_elem else None
-            raw_unit = unit_elem.get_text(strip=True) if unit_elem else ''
-            raw_name = name_elem.get_text(strip=True) if name_elem else ''
-            
-            ingredients.append({
-                "name": extract_main_ingredient(raw_name),
-                "amount": raw_amount,
-                "unit": raw_unit,
-                "original_text": f"{raw_name}".strip()
-            })
-    
-    elif format_type == 'wprm':
-        for ingredient in soup.select('li.wprm-recipe-ingredient'):
-            amount_elem = ingredient.select_one('.wprm-recipe-ingredient-amount')
-            unit_elem = ingredient.select_one('.wprm-recipe-ingredient-unit')
-            name_elem = ingredient.select_one('.wprm-recipe-ingredient-name')
-            
-            raw_amount = parse_amount(amount_elem.get_text(strip=True)) if amount_elem else None
-            raw_unit = unit_elem.get_text(strip=True) if unit_elem else ''
-            raw_name = name_elem.get_text(strip=True) if name_elem else ''
-            
-            ingredients.append({
-                "name": extract_main_ingredient(raw_name),
-                "amount": raw_amount,
-                "unit": raw_unit,
-                "original_text": f"{raw_amount} {raw_unit} {raw_name}".strip() if raw_amount else raw_name
-            })
-    
-    # Fallback: try generic ingredient detection
-    if not ingredients:
-        generic_selectors = [
-            'li.ingredient',
-            '.ingredients li',
-            '[itemprop="recipeIngredient"]',
-            '.recipe-ingredients li'
-        ]
-        for selector in generic_selectors:
-            elements = soup.select(selector)
-            if elements:
-                for element in elements:
-                    raw_text = element.get_text(strip=True)
-                    ingredients.append({
-                        "name": extract_main_ingredient(raw_text),
-                        "amount": None,
-                        "unit": None,
-                        "original_text": raw_text
-                    })
-                break
-    
-    return ingredients
-
-def extract_instructions(soup, format_type, url):
-    """Extract instructions based on detected format."""
-    instructions = []
-    
-    if format_type == 'schema':
-        script_tag = soup.find('script', type='application/ld+json')
-        if script_tag:
-            try:
-                data = json.loads(script_tag.string)
-                instructions_data = []
-                
-                if isinstance(data, list):
-                    for item in data:
-                        if item.get('@type') == 'Recipe':
-                            instructions_data = item.get('recipeInstructions', [])
-                            break
-                elif data.get('@type') == 'Recipe':
-                    instructions_data = data.get('recipeInstructions', [])
-                
-                if isinstance(instructions_data, list):
-                    for step in instructions_data:
-                        if isinstance(step, dict):
-                            instructions.append(step.get('text', ''))
-                        else:
-                            instructions.append(str(step))
-            except Exception as e:
-                print(f"Schema instructions error: {e}")
-    
-    elif format_type == 'allrecipes':
-        instructions = [instruction.get_text(strip=True) 
-                       for instruction in soup.select('li.instructions-item')]
-    
-    elif format_type == 'howtocook':
-        instructions = [instruction.get_text(strip=True) 
-                       for instruction in soup.select('div.wprm-recipe-instruction-text')]
-    
-    elif format_type == 'koreanbapsang':
-        instructions = [instruction.get_text(strip=True) 
-                       for instruction in soup.select('div.wprm-recipe-instruction-text')]
-    
-    elif format_type == 'simplehomeedit':
-        instructions = [instruction.get_text(strip=True) 
-                       for instruction in soup.select('div.recipe-instruction-text')]
-    
-    elif format_type == 'wprm':
-        instructions = [instruction.get_text(strip=True) 
-                       for instruction in soup.select('div.wprm-recipe-instruction-text')]
-    
-    # Fallback: try generic instruction detection
-    if not instructions:
-        generic_selectors = [
-            'li.instruction',
-            '.instructions li',
-            '[itemprop="recipeInstructions"]',
-            '.recipe-steps li',
-            '.direction'
-        ]
-        for selector in generic_selectors:
-            elements = soup.select(selector)
-            if elements:
-                instructions = [elem.get_text(strip=True) for elem in elements]
-                break
-    
-    return instructions
-
-def clean_time_text(time_text):
-    """Clean and standardize time text."""
-    if not time_text:
-        return None
-    
-    # Handle ISO duration format
-    if time_text.startswith('PT'):
-        hours = re.search(r'(\d+)H', time_text)
-        minutes = re.search(r'(\d+)M', time_text)
-        total_minutes = 0
-        if hours:
-            total_minutes += int(hours.group(1)) * 60
-        if minutes:
-            total_minutes += int(minutes.group(1))
-        
-        if total_minutes >= 60:
-            hours = total_minutes // 60
-            mins = total_minutes % 60
-            if mins > 0:
-                return f"{hours} Hours {mins} Minutes"
-            else:
-                return f"{hours} Hours"
-        else:
-            return f"{total_minutes} Minutes"
-    
-    # Handle regular time text
-    match = re.search(r'(\d+)\s*(minutes|hours|seconds|days)', time_text, re.IGNORECASE)
-    if match:
-        quantity = match.group(1)
-        unit = match.group(2).lower()
-        if "minute" in unit:
-            return f"{quantity} Minutes"
-        elif "hour" in unit:
-            return f"{quantity} Hours"
-        elif "second" in unit:
-            return f"{quantity} Seconds"
-        elif "day" in unit:
-            return f"{quantity} Days"
-    
-    return time_text
-
-def extract_title(soup, format_type, url):
-    """Extract recipe title."""
-    # Try domain-specific selectors first
-    domain_specific_selectors = {
-        'allrecipes.com': ['h1.heading-content'],
-        'howtocook.recipes': ['h1.entry-title'],
-        'koreanbapsang.com': ['h1.entry-title'],
-        'simplehomeedit.com': ['h1.entry-title']
-    }
-    
-    domain = urlparse(url).netloc.lower()
-    for site, selectors in domain_specific_selectors.items():
-        if site in domain:
-            for selector in selectors:
-                element = soup.select_one(selector)
-                if element:
-                    return element.get_text(strip=True)
-    
-    # Generic selectors
-    generic_selectors = [
-        'h1.entry-title',
-        'h1.recipe-title',
-        '[itemprop="name"]',
-        'h1',
-        '.title',
-        'h1.heading'
-    ]
-    
-    for selector in generic_selectors:
-        element = soup.select_one(selector)
-        if element:
-            return element.get_text(strip=True)
-    
-    return "Untitled Recipe"
-
-def extract_category(soup, url):
-    """Extract recipe category."""
-    selectors = [
-        'ul.sub-menu .current-menu-parent a span',
-        '.breadcrumb a:last-child',
-        '.category',
-        '[itemprop="recipeCategory"]',
-        '.recipe-category'
-    ]
-    
-    for selector in selectors:
-        element = soup.select_one(selector)
-        if element:
-            return element.get_text(strip=True)
-    
-    return ""
-
-def extract_servings(soup):
-    """Extract servings information."""
-    selectors = [
-        'div.wprm-recipe-servings-container',
-        '[itemprop="recipeYield"]',
-        '.servings',
-        '.recipe-yield'
-    ]
-    
-    for selector in selectors:
-        element = soup.select_one(selector)
-        if element:
-            text = element.get_text(strip=True)
-            match = re.search(r'\d+', text)
-            if match:
-                return match.group(0)
-    
-    return None
-
-def extract_times(soup):
-    """Extract prep and cook times."""
-    times = {'prep': None, 'cook': None}
-    
-    # Try WPRM format
-    prep_elem = soup.select_one('div.wprm-recipe-prep-time-container')
-    cook_elem = soup.select_one('div.wprm-recipe-cook-time-container')
-    
-    if prep_elem:
-        times['prep'] = clean_time_text(prep_elem.get_text(strip=True))
-    if cook_elem:
-        times['cook'] = clean_time_text(cook_elem.get_text(strip=True))
-    
-    # Try Schema.org format
-    if not times['prep'] or not times['cook']:
-        script_tag = soup.find('script', type='application/ld+json')
-        if script_tag:
-            try:
-                data = json.loads(script_tag.string)
-                if isinstance(data, list):
-                    for item in data:
-                        if item.get('@type') == 'Recipe':
-                            if not times['prep'] and 'prepTime' in item:
-                                times['prep'] = clean_time_text(item['prepTime'])
-                            if not times['cook'] and 'cookTime' in item:
-                                times['cook'] = clean_time_text(item['cookTime'])
-                elif data.get('@type') == 'Recipe':
-                    if not times['prep'] and 'prepTime' in data:
-                        times['prep'] = clean_time_text(data['prepTime'])
-                    if not times['cook'] and 'cookTime' in data:
-                        times['cook'] = clean_time_text(data['cookTime'])
-            except:
-                pass
-    
-    return times
-
-def extract_image(soup):
-    """Extract recipe image URL."""
-    selectors = [
-        'meta[property="og:image"]',
-        '[itemprop="image"]',
-        '.recipe-image img',
-        '.featured-image img'
-    ]
-    
-    for selector in selectors:
-        element = soup.select_one(selector)
-        if element:
-            if element.name == 'meta':
-                return element.get('content', '')
-            else:
-                src = element.get('src', '')
-                if src.startswith('//'):
-                    src = 'https:' + src
-                return src
-    
-    return None
-
-def extract_description(soup):
-    """Extract recipe description."""
-    selectors = [
-        'meta[name="description"]',
-        '[itemprop="description"]',
-        '.recipe-description',
-        '.entry-content p'
-    ]
-    
-    for selector in selectors:
-        element = soup.select_one(selector)
-        if element:
-            if element.name == 'meta':
-                return element.get('content', '')
-            else:
-                return element.get_text(strip=True)
-    
-    return ""
-
-def extract_author(soup, url):
-    """Extract recipe author."""
-    selectors = [
-        '[itemprop="author"]',
-        '.author',
-        '.recipe-author',
-        '.entry-author'
-    ]
-    
-    for selector in selectors:
-        element = soup.select_one(selector)
-        if element:
-            return element.get_text(strip=True)
-    
-    # Fallback to domain-based author
-    domain = urlparse(url).netloc.lower()
-    if 'allrecipes.com' in domain:
-        return "AllRecipes"
-    elif 'howtocook.recipes' in domain:
-        return "HowToCook.Recipes"
-    elif 'koreanbapsang.com' in domain:
-        return "Korean Bapsang"
-    elif 'simplehomeedit.com' in domain:
-        return "Simple Home Edit"
-    
-    return "Unknown"
-
-def extract_recipe_details(url, recipe_id):
-    """Extract recipe details from a given URL."""
-    try:
-        from urllib.parse import urlparse
-        
-        response = requests.get(url, timeout=10)
-        if response.status_code != 200:
-            print(f"Failed to retrieve the URL: {url} - Status: {response.status_code}")
+        except Exception as e:
+            print(f"Error extracting from {url}: {str(e)}")
             return None
+    
+    def _extract_site_specific(self, soup, url):
+        """Site-specific extraction for problematic sites"""
+        parsed_url = urlparse(url)
+        domain = parsed_url.netloc.replace('www.', '')
         
-        soup = BeautifulSoup(response.content, 'html.parser')
+        if domain == 'koreanbapsang.com':
+            return self._extract_korean_bapsang(soup)
         
-        # Detect recipe format
-        format_type = detect_recipe_format(soup, url)
-        print(f"Detected recipe format: {format_type} for {url}")
+        return None
+    
+    def _extract_korean_bapsang(self, soup):
+        """Specific extraction for Korean Bapsang website"""
+        print("Using Korean Bapsang specific extractor")
         
-        if not format_type:
-            print("No recognized recipe format found")
-            return None
-        
-        # Extract recipe components
-        title = extract_title(soup, format_type, url)
-        category = extract_category(soup, url)
-        ingredients = extract_ingredients(soup, format_type, url)
-        instructions = extract_instructions(soup, format_type, url)
-        times = extract_times(soup)
-        servings = extract_servings(soup)
-        image_url = extract_image(soup)
-        description = extract_description(soup)
-        author = extract_author(soup, url)
-        
-        print(f"Extracted {len(ingredients)} ingredients and {len(instructions)} instructions")
-        
-        schema_recipe = {
+        recipe = {
             "@context": "https://schema.org",
             "@type": "Recipe",
-            "id": recipe_id,
-            "name": title,
-            "author": author,
-            "datePublished": datetime.now().strftime('%Y-%m-%d'),
-            "category": category,
-            "recipeIngredient": [{
-                "mainIngredient": ingredient["name"],
-                "details": {
-                    "amount": ingredient["amount"],
-                    "unit": ingredient["unit"],
-                    "originalText": ingredient["original_text"]
-                }
-            } for ingredient in ingredients],    
-            "recipeInstructions": [{"@type": "HowToStep", "text": instruction} for instruction in instructions],
-            "recipeYield": servings,
-            "prepTime": times['prep'],
-            "cookTime": times['cook'],
-            "image": image_url,
-            "description": description,
+            "name": "",
+            "author": "",
+            "description": "",
+            "recipeIngredient": [],
+            "recipeInstructions": [],
             "environmentalImpact": {
                 "co2Emissions": None,
                 "waterUse": None
             }
         }
-
-        return schema_recipe
         
-    except Exception as e:
-        print(f"Error extracting recipe from {url}: {e}")
+        # Extract title
+        title_selectors = [
+            'h1.entry-title',
+            '.entry-title',
+            'h1.post-title',
+            'h1.title',
+            'h1'
+        ]
+        
+        for selector in title_selectors:
+            title_elem = soup.select_one(selector)
+            if title_elem:
+                recipe['name'] = title_elem.get_text().strip()
+                break
+        
+        # Extract ingredients - Korean Bapsang specific
+        ingredient_selectors = [
+            '.entry-content ul li',
+            '.wprm-recipe-ingredient',
+            '.ingredients li',
+            '[class*="ingredient"] li'
+        ]
+        
+        ingredients = []
+        for selector in ingredient_selectors:
+            elements = soup.select(selector)
+            if elements:
+                for elem in elements:
+                    text = elem.get_text().strip()
+                    # Filter out non-ingredient items
+                    if text and len(text) > 3 and not any(word in text.lower() for word in ['instruction', 'method', 'step', 'note']):
+                        ingredients.append(text)
+                if ingredients:
+                    break
+        
+        recipe['recipeIngredient'] = [self._parse_ingredient_string(ing) for ing in ingredients]
+        
+        # Extract instructions
+        instruction_selectors = [
+            '.entry-content ol li',
+            '.wprm-recipe-instruction',
+            '.instructions li',
+            '[class*="instruction"] li'
+        ]
+        
+        instructions = []
+        for selector in instruction_selectors:
+            elements = soup.select(selector)
+            if elements:
+                for i, elem in enumerate(elements, 1):
+                    text = elem.get_text().strip()
+                    if text:
+                        instructions.append({
+                            "@type": "HowToStep",
+                            "text": text
+                        })
+                if instructions:
+                    break
+        
+        recipe['recipeInstructions'] = instructions
+        
+        # Extract description
+        desc_selectors = [
+            '.entry-content p',
+            '.post-content p',
+            '[class*="description"]'
+        ]
+        
+        for selector in desc_selectors:
+            elem = soup.select_one(selector)
+            if elem:
+                text = elem.get_text().strip()
+                if text and len(text) > 50:  # Reasonable description length
+                    recipe['description'] = text
+                    break
+        
+        return recipe if recipe['recipeIngredient'] else None
+
+    def _extract_json_ld(self, soup):
+        """Extract recipe data from JSON-LD structured data"""
+        script_tags = soup.find_all('script', type='application/ld+json')
+        
+        for script in script_tags:
+            try:
+                # Clean the script content
+                script_content = script.string
+                if not script_content:
+                    continue
+                    
+                # Remove CDATA if present
+                if script_content.strip().startswith('/*<![CDATA[*/') or script_content.strip().startswith('//<![CDATA['):
+                    script_content = re.sub(r'/\*<!\[CDATA\[\*/(.*?)/\*\]\]>\*/', r'\1', script_content, flags=re.DOTALL)
+                
+                data = json.loads(script_content)
+                recipe = self._find_recipe_in_json(data)
+                if recipe:
+                    parsed_recipe = self._parse_structured_recipe(recipe)
+                    if parsed_recipe.get('recipeIngredient'):
+                        return parsed_recipe
+            except json.JSONDecodeError as e:
+                print(f"JSON decode error: {e}")
+                continue
+            except Exception as e:
+                print(f"Error parsing JSON-LD: {e}")
+                continue
+        
         return None
+    
+    def _find_recipe_in_json(self, data):
+        """Recursively find recipe data in JSON-LD"""
+        if isinstance(data, dict):
+            if data.get('@type') == 'Recipe' or 'recipeIngredient' in data:
+                return data
+            # Check for graph array
+            if data.get('@graph'):
+                for item in data['@graph']:
+                    if isinstance(item, dict) and (item.get('@type') == 'Recipe' or 'recipeIngredient' in item):
+                        return item
+            for key, value in data.items():
+                if isinstance(value, (dict, list)):
+                    result = self._find_recipe_in_json(value)
+                    if result:
+                        return result
+        elif isinstance(data, list):
+            for item in data:
+                result = self._find_recipe_in_json(item)
+                if result:
+                    return result
+        return None
+    
+    def _parse_structured_recipe(self, recipe_data):
+        """Parse structured recipe data into our format"""
+        # Handle author field which can be string, dict, or list
+        author = recipe_data.get('author', '')
+        if isinstance(author, dict):
+            author = author.get('name', '')
+        elif isinstance(author, list):
+            author = ', '.join([a.get('name', '') if isinstance(a, dict) else str(a) for a in author])
+        
+        # Handle image field
+        image = recipe_data.get('image', '')
+        if isinstance(image, dict):
+            image = image.get('url', '')
+        elif isinstance(image, list):
+            image = image[0] if image else ''
+            if isinstance(image, dict):
+                image = image.get('url', '')
+        
+        recipe = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": recipe_data.get('name', ''),
+            "author": author,
+            "datePublished": recipe_data.get('datePublished', ''),
+            "category": recipe_data.get('recipeCategory', ''),
+            "recipeIngredient": self._parse_ingredients(recipe_data.get('recipeIngredient', [])),
+            "recipeInstructions": self._parse_instructions(recipe_data.get('recipeInstructions', [])),
+            "recipeYield": recipe_data.get('recipeYield', ''),
+            "prepTime": recipe_data.get('prepTime', ''),
+            "cookTime": recipe_data.get('cookTime', ''),
+            "totalTime": recipe_data.get('totalTime', ''),
+            "image": image,
+            "description": recipe_data.get('description', ''),
+            "environmentalImpact": {
+                "co2Emissions": None,
+                "waterUse": None
+            }
+        }
+        
+        # Clean up empty values
+        return {k: v for k, v in recipe.items() if v}
+    
+    def _parse_ingredients(self, ingredients):
+        """Parse ingredients into structured format"""
+        structured_ingredients = []
+        
+        for ingredient in ingredients:
+            if isinstance(ingredient, str):
+                # Parse ingredient string into components
+                parsed = self._parse_ingredient_string(ingredient)
+                structured_ingredients.append(parsed)
+        
+        return structured_ingredients
+        
+    def _parse_ingredient_string(self, ingredient_text):
+        """Parse a single ingredient string into structured format"""
+        # Common units and patterns
+        units = ['teaspoon', 'tsp', 'tablespoon', 'tbsp', 'cup', 'cups', 'ounce', 'oz', 'ounces', 
+                'pound', 'lb', 'pounds', 'gram', 'g', 'grams', 'kg', 'kilogram', 'milliliter', 
+                'ml', 'liter', 'l', 'pinch', 'dash', 'can', 'package', 'pkg', 'bunch', 'clove',
+                'cloves', 'piece', 'pieces', 'slice', 'slices', 'package', 'pack', 'large',
+                'medium', 'small', 'whole', 'fresh', 'dried', 'chopped', 'minced', 'sliced',
+                'tablespoons', 'teaspoons', 'lbs']
+        
+        # Improved pattern to match amount and unit
+        amount_pattern = r'^([\d\/\.\s-]+)\s*([a-zA-Z]*)\s*(.*)$'
+        
+        # First, extract the original ingredient components
+        original_ingredient = ingredient_text.strip()
+        match = re.match(amount_pattern, original_ingredient)
+        
+        if match:
+            amount = match.group(1).strip()
+            unit = match.group(2).strip()
+            ingredient = match.group(3).strip()
+            
+            # Clean up unit
+            unit_lower = unit.lower()
+            if unit and unit_lower in [u.lower() for u in units]:
+                unit = unit_lower
+            else:
+                # If the "unit" doesn't match known units, it's probably part of the ingredient
+                ingredient = f"{unit} {ingredient}".strip()
+                unit = ""
+            
+            # Convert fraction amounts to decimal
+            amount = self._convert_fraction_to_decimal(amount)
+            
+            # Extract main ingredient by cleaning the ingredient string
+            main_ingredient = self._extract_main_ingredient(ingredient)
+            
+            return {
+                "mainIngredient": main_ingredient,
+                "details": {
+                    "amount": float(amount) if amount and self._is_convertible_to_float(amount) else amount,
+                    "unit": unit if unit else None,
+                    "originalText": original_ingredient
+                }
+            }
+        else:
+            # No amount/unit found, use the whole string as ingredient
+            main_ingredient = self._extract_main_ingredient(original_ingredient)
+            return {
+                "mainIngredient": main_ingredient,
+                "details": {
+                    "amount": None,
+                    "unit": None,
+                    "originalText": original_ingredient
+                }
+            }
+
+    def _extract_main_ingredient(self, ingredient_text):
+        """Extract only the main ingredient name by removing explanations, measurements, etc."""
+        if not ingredient_text:
+            return ""
+        
+        # Remove content within parentheses (including Korean text and explanations)
+        cleaned = re.sub(r'\([^)]*\)', '', ingredient_text).strip()
+        
+        # Remove content within brackets
+        cleaned = re.sub(r'\[[^\]]*\]', '', cleaned).strip()
+        
+        # Remove common measurement words and preparation terms that might be left
+        preparation_terms = [
+            'to taste', 'for serving', 'for garnish', 'garnish', 'optional',
+            'divided', 'warm', 'cold', 'hot', 'room temperature'
+        ]
+        
+        # Remove preparation terms
+        for term in preparation_terms:
+            cleaned = re.sub(r'\b' + re.escape(term) + r'\b', '', cleaned, flags=re.IGNORECASE)
+        
+        # Remove common quantity indicators
+        quantity_patterns = [
+            r'\b\d+\s*-\s*\d+\b',  # "6 to 8"
+            r'\b\d+\s*to\s*\d+\b',  # "6 to 8"
+            r'\bdepending on the size\b',
+            r'\babout\b',
+            r'\bapproximately\b',
+            r'\broughly\b',
+            r'\bplus more\b',
+            r'\badditional\b',
+            r'\bextra\b',
+        ]
+        
+        for pattern in quantity_patterns:
+            cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
+        
+        # Remove extra spaces and commas at beginning/end
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        cleaned = re.sub(r'^,\s*|\s*,$', '', cleaned)
+        
+        # If the cleaned text is empty, fall back to the original (without parentheses)
+        if not cleaned:
+            # Remove just the parenthetical content but keep the rest
+            cleaned = re.sub(r'\([^)]*\)', '', ingredient_text).strip()
+        
+        # Final cleanup - remove any remaining non-ingredient words at the start
+        # Common prefixes to remove
+        prefixes_to_remove = [
+            r'^of\s+',
+            r'^and\s+',
+            r'^or\s+',
+            r'^plus\s+',
+            r'^about\s+',
+            r'^approximately\s+',
+        ]
+        
+        for prefix in prefixes_to_remove:
+            cleaned = re.sub(prefix, '', cleaned, flags=re.IGNORECASE)
+        
+        # Remove any remaining leading/trailing punctuation
+        cleaned = re.sub(r'^[,\s.-]+|[,\s.-]+$', '', cleaned)
+        
+        # Capitalize first letter for consistency
+        if cleaned:
+            cleaned = cleaned[0].upper() + cleaned[1:]
+        
+        return cleaned.strip()
+
+    def _is_convertible_to_float(self, s):
+        """Check if string can be converted to float"""
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
+    
+    def _convert_fraction_to_decimal(self, amount_str):
+        """Convert fraction strings to decimal"""
+        if '/' in amount_str:
+            try:
+                # Handle mixed numbers like "1 1/2"
+                parts = amount_str.split()
+                total = 0.0
+                for part in parts:
+                    if '/' in part:
+                        num, denom = part.split('/')
+                        total += float(num) / float(denom)
+                    else:
+                        total += float(part)
+                return str(total)
+            except:
+                return amount_str
+        return amount_str
+    
+    def _parse_instructions(self, instructions):
+        """Parse cooking instructions"""
+        structured_instructions = []
+        
+        if isinstance(instructions, str):
+            # Split by newlines or numbers
+            steps = re.split(r'\n+|\d+\.', instructions)
+            steps = [step.strip() for step in steps if step.strip()]
+            for i, step in enumerate(steps, 1):
+                structured_instructions.append({
+                    "@type": "HowToStep",
+                    "text": step
+                })
+        elif isinstance(instructions, list):
+            for i, step in enumerate(instructions, 1):
+                if isinstance(step, dict):
+                    text = step.get('text', '') or step.get('name', '') or str(step)
+                    structured_instructions.append({
+                        "@type": "HowToStep",
+                        "text": text
+                    })
+                else:
+                    structured_instructions.append({
+                        "@type": "HowToStep",
+                        "text": str(step)
+                    })
+        
+        return structured_instructions
+    
+    def _extract_from_meta(self, soup, url):
+        """Fallback method to extract recipe data from meta tags and HTML structure"""
+        recipe = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": self._extract_title(soup),
+            "author": self._extract_author(soup),
+            "description": self._extract_description(soup),
+            "image": self._extract_image(soup),
+            "recipeIngredient": self._extract_ingredients_from_html(soup),
+            "recipeInstructions": self._extract_instructions_from_html(soup),
+            "prepTime": self._extract_prep_time(soup),
+            "cookTime": self._extract_cook_time(soup),
+            "recipeYield": self._extract_yield(soup),
+            "environmentalImpact": {
+                "co2Emissions": None,
+                "waterUse": None
+            }
+        }
+        
+        return {k: v for k, v in recipe.items() if v}
+    
+    def _extract_title(self, soup):
+        """Extract recipe title"""
+        # Try multiple selectors
+        selectors = [
+            'h1[class*="recipe"]', 
+            '[class*="recipe-title"]',
+            'h1.entry-title',
+            'h1',
+            'title'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                return element.get_text().strip()
+        
+        return ""
+    
+    def _extract_author(self, soup):
+        """Extract recipe author"""
+        selectors = [
+            '[class*="author"]',
+            '[class*="byline"]',
+            '.author',
+            'meta[name="author"]'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                if element.name == 'meta':
+                    return element.get('content', '').strip()
+                return element.get_text().strip()
+        
+        return ""
+    
+    def _extract_description(self, soup):
+        """Extract recipe description"""
+        selectors = [
+            'meta[name="description"]',
+            '[class*="description"]',
+            '[class*="summary"]',
+            '.entry-content p'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                if element.name == 'meta':
+                    return element.get('content', '').strip()
+                text = element.get_text().strip()
+                if text and len(text) > 20:  # Only return substantial descriptions
+                    return text
+        
+        return ""
+    
+    def _extract_image(self, soup):
+        """Extract recipe image"""
+        selectors = [
+            'meta[property="og:image"]',
+            'img[class*="recipe"]',
+            '.recipe-image img',
+            '.entry-content img',
+            '.wp-post-image'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                if element.name == 'meta':
+                    return element.get('content', '').strip()
+                src = element.get('src', '').strip()
+                if src:
+                    return src
+        
+        return ""
+    
+    def _extract_ingredients_from_html(self, soup):
+        """Extract ingredients from HTML structure"""
+        ingredients = []
+        selectors = [
+            '[class*="ingredient"]',
+            '[class*="ingredients"] li',
+            '.ingredients li',
+            '.wprm-recipe-ingredient',
+            '.entry-content ul li'
+        ]
+        
+        for selector in selectors:
+            elements = soup.select(selector)
+            if elements:
+                for element in elements:
+                    text = element.get_text().strip()
+                    # Filter out very short texts and obvious non-ingredients
+                    if (text and len(text) > 2 and 
+                        not any(word in text.lower() for word in ['instruction', 'method', 'step', 'note:', 'tips:'])):
+                        ingredients.append(text)
+                if ingredients:
+                    break
+        
+        return [self._parse_ingredient_string(ing) for ing in ingredients] if ingredients else []
+    
+    def _extract_instructions_from_html(self, soup):
+        """Extract instructions from HTML structure"""
+        instructions = []
+        selectors = [
+            '[class*="instruction"]',
+            '[class*="step"]',
+            '[class*="direction"]',
+            '.instructions li',
+            '.wprm-recipe-instruction',
+            '.entry-content ol li'
+        ]
+        
+        for selector in selectors:
+            elements = soup.select(selector)
+            if elements:
+                for i, element in enumerate(elements, 1):
+                    text = element.get_text().strip()
+                    if text and len(text) > 2:
+                        instructions.append({
+                            "@type": "HowToStep",
+                            "text": text
+                        })
+                if instructions:
+                    break
+        
+        return instructions
+    
+    def _extract_prep_time(self, soup):
+        """Extract preparation time"""
+        return self._extract_time(soup, 'prep')
+    
+    def _extract_cook_time(self, soup):
+        """Extract cooking time"""
+        return self._extract_time(soup, 'cook')
+    
+    def _extract_time(self, soup, time_type):
+        """Extract time information"""
+        selectors = [
+            f'[class*="{time_type}-time"]',
+            f'[class*="{time_type}time"]',
+            f'.{time_type}-time'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                return element.get_text().strip()
+        
+        return ""
+    
+    def _extract_yield(self, soup):
+        """Extract recipe yield/servings"""
+        selectors = [
+            '[class*="yield"]',
+            '[class*="serving"]',
+            '[class*="portion"]'
+        ]
+        
+        for selector in selectors:
+            element = soup.select_one(selector)
+            if element:
+                return element.get_text().strip()
+        
+        return ""
+
+def validate_url(url):
+    """Ensure URL is from allowed domains"""
+    parsed = urlparse(url)
+    domain = parsed.netloc.replace('www.', '')
+    base_domains = [d.replace('www.', '') for d in ALLOWED_DOMAINS]
+    
+    if domain not in base_domains:
+        raise ValueError(f"Domain {domain} not allowed")
+    return True
 
 def extract_recipe_data(url):
     """Extract recipe data from a given URL."""
     try:
         print(f"Fetching URL: {url}")
         validate_url(url)
-        recipe = extract_recipe_details(url, recipe_id=1)
+        extractor = RecipeExtractor()
+        recipe = extractor.extract_recipe_from_url(url)
+        
         if not recipe:
             print("Error: No recipe data found.")
             return None
+        
+        print(f"Successfully extracted recipe: {recipe.get('name', 'Unknown')}")
         return recipe
     except Exception as e:
         print(f"Error extracting recipe: {e}")
@@ -679,4 +687,3 @@ def save_recipe(recipe):
         print(f"✅ Recipe saved successfully: {recipe['name']}")
     except Exception as e:
         print(f"❌ Error saving recipe: {e}")
-
