@@ -1,6 +1,6 @@
 # backend/routes.py
 from flask import Blueprint, jsonify, request, send_file, Flask
-import os, json, sys
+import os, json
 from .extract_recipe import extract_recipe_data, save_recipe
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')

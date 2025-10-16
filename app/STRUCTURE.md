@@ -1,7 +1,7 @@
 # Project Structure
 
 ```
-foodCalculator/
+app/
 │
 ├── app.py                      # Flask backend (keep in root for easy deployment)
 │

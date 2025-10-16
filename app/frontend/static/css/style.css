@@ -852,52 +852,258 @@ body {
     color: #cce5ff;
 }
 
-/* Responsive adjustments */
+/* Mobile Responsive Fixes */
 @media (max-width: 768px) {
-    .hero-input-group,
-    .recipe-select-group {
-        flex-direction: column;
-        align-items: center;
+    body {
+        width: 100%;
+        min-width: 320px;
+        overflow-x: hidden;
     }
     
-    .hero-input-group .input-box,
-    .recipe-select-group .recipe-select {
-        width: 95%;
+    .header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+        margin-left: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero {
+        padding: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
+    }
+    
+    .hero-actions-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hero-input-group,
+    .recipe-select-group {
+        min-width: 100%;
         max-width: 100%;
-        margin-bottom: 10px;
+        flex-direction: column;
+    }
+    
+    .input-box, 
+    .recipe-select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .divider {
+        padding: 10px 0;
+        transform: rotate(90deg);
+    }
+    
+    .form-group {
+        padding: 15px 20px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-field {
+        width: 100%;
+    }
+    
+    .ingredients-list-section {
+        padding: 15px 20px;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    #ingredients-table {
+        min-width: 600px; /* Force horizontal scroll on small screens */
     }
     
     .map-overlay-container {
-        height: 600px;
+    position: relative;
+    height: 500px;
+    padding: 0 15px;
     }
     
     .results-overlay {
-        position: relative;
-        width: calc(100% - 40px);
-        top: 0;
-        left: 0;
-        margin: 0 auto 20px;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 300px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .results-overlay .metric {
+        flex: 1;
+        min-width: 120px;
+        margin-bottom: 0;
+        padding: 10px 5px;
+        border-bottom: none;
+        border-right: 1px solid #eee;
+    }
+    
+    .results-overlay .metric:last-child {
+        border-right: none;
     }
     
     .results-overlay .metric h3 {
-        font-size: 13px;
+        font-size: 12px;
+        margin-bottom: 5px;
     }
     
     .results-overlay .value {
         font-size: 14px;
     }
     
-    .footer-content {
-        flex-direction: column;
-        gap: 20px;
+    /* Ensure map container stays behind */
+    #map-container {
+        height: 100%;
+        position: relative;
+        z-index: 1;
     }
     
-    .footer-text {
-        order: 3;
-        width: 100%;
+/* Mobile adjustments for footer */
+    @media (max-width: 768px) {
+        .custom-footer {
+        padding: 10px 0;
+        min-height: 60px;
+    }
+    
+    .footer-content {
+        padding: 0 10px;
+        gap: 10px;
     }
     
     .footer-logo {
-        margin: 10px 0;
+        min-width: 60px;
+        max-width: 80px;
+        padding: 5px;
+        margin: 0 2px;
+    }
+    
+    .footer-text {
+        font-size: 14px;
+        padding: 0 5px;
+    }
+    
+    /* Ensure single row even on very small screens */
+    @media (max-width: 480px) {
+        .footer-content {
+            transform: scale(0.9);
+            transform-origin: center;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+        }
+        
+        .footer-logo {
+            min-width: 50px;
+            max-width: 70px;
+        }
+    }
+    }
+    }
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 24px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .nav-menu {
+        gap: 15px;
+        font-size: 14px;
+    }
+    
+    .search-bar input {
+        width: 120px;
+    }
+    
+    .map-overlay-container {
+        height: 350px;
+    }
+    
+    .results-overlay {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Prevent zoom on input focus for iOS */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Touch-friendly button sizes */
+@media (max-width: 768px) {
+    .button, #add-ingredient-btn {
+        min-height: 44px; /* Minimum touch target size */
+        padding: 12px 20px;
+    }
+    
+    .remove-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Extra small device fixes */
+@media (max-width: 360px) {
+    .footer-content {
+        gap: 5px;
+    }
+    
+    .footer-text {
+        font-size: 11px;
+    }
+    
+    .footer-logo {
+        min-width: 40px;
+        max-width: 60px;
+        padding: 3px;
+    }
+    
+    .results-overlay {
+        width: 95%;
+        max-width: 280px;
+    }
+    
+    .results-overlay .metric {
+        min-width: 100px;
+        padding: 8px 3px;
+    }
+    
+    .results-overlay .metric h3 {
+        font-size: 11px;
+    }
+    
+    .results-overlay .value {
+        font-size: 12px;
     }
 }

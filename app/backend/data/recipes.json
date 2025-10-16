@@ -1,212 +1,189 @@
 {
   "@context": "https://schema.org",
   "@type": "Recipe",
-  "name": "The Best Classic Meatloaf Recipe",
-  "datePublished": "2020-08-13T16:37:39+00:00",
+  "name": "Instant Pot Spicy Galbijjim (Braised Beef Short Ribs)",
+  "author": "Hyosun",
+  "datePublished": "2018-07-15T23:58:21+00:00",
   "category": [
-    "Main Course"
+    "Main"
   ],
   "recipeIngredient": [
     {
-      "mainIngredient": "Ground beef",
+      "mainIngredient": "To 4 pounds English cut beef short ribs, galbi",
       "details": {
-        "amount": 2.0,
-        "unit": "lbs",
-        "originalText": "2 lbs ground beef (90% lean)"
-      }
-    },
-    {
-      "mainIngredient": "White onion",
-      "details": {
-        "amount": 1.0,
-        "unit": "large",
-        "originalText": "1  large white onion (diced)"
-      }
-    },
-    {
-      "mainIngredient": "Eggs",
-      "details": {
-        "amount": 2.0,
+        "amount": 3.5,
         "unit": null,
-        "originalText": "2  eggs"
+        "originalText": "3.5 to 4 pounds English cut beef short ribs, galbi (\uac08\ube44)"
       }
     },
     {
-      "mainIngredient": "Garlic cloves",
+      "mainIngredient": "Korean radish, mu",
       "details": {
-        "amount": 2.0,
-        "unit": "tbsp",
-        "originalText": "2 tbsp garlic cloves (minced)"
+        "amount": 8.0,
+        "unit": "ounces",
+        "originalText": "8 ounces Korean radish, mu (\ubb34) (cut into large chunks )"
       }
     },
     {
-      "mainIngredient": "Ketchup",
-      "details": {
-        "amount": 4.0,
-        "unit": "tbsp",
-        "originalText": "4 tbsp ketchup"
-      }
-    },
-    {
-      "mainIngredient": "Worcestershire sauce",
+      "mainIngredient": "Carrot",
       "details": {
         "amount": 1.0,
-        "unit": "tbsp",
-        "originalText": "1 tbsp Worcestershire sauce"
+        "unit": "medium",
+        "originalText": "1  medium carrot (cut into large chunks)"
       }
     },
     {
-      "mainIngredient": "Fresh parsley",
+      "mainIngredient": "To 4 dried shiitake mushrooms",
       "details": {
-        "amount": 4.0,
-        "unit": "tbsp",
-        "originalText": "4 tbsp fresh parsley (finely chopped)"
+        "amount": 3.0,
+        "unit": null,
+        "originalText": "3 to 4  dried shiitake mushrooms (briefly soaked and quartered)"
       }
     },
     {
-      "mainIngredient": "Panko breadcrumbs",
-      "details": {
-        "amount": 0.75,
-        "unit": "cup",
-        "originalText": "3/4 cup panko breadcrumbs"
-      }
-    },
-    {
-      "mainIngredient": "Milk",
+      "mainIngredient": "Korean/Asian pear",
       "details": {
         "amount": 0.5,
-        "unit": "cup",
-        "originalText": "1/2 cup milk"
+        "unit": "medium",
+        "originalText": "1/2  medium Korean/Asian pear"
       }
     },
     {
-      "mainIngredient": "Italian seasoning",
-      "details": {
-        "amount": 2.0,
-        "unit": "tsp",
-        "originalText": "2 tsp Italian seasoning"
-      }
-    },
-    {
-      "mainIngredient": "Smoked paprika",
+      "mainIngredient": "Onion",
       "details": {
         "amount": 0.5,
-        "unit": "tsp",
-        "originalText": "1/2 tsp smoked paprika"
+        "unit": "medium",
+        "originalText": "1/2  medium onion"
       }
     },
     {
-      "mainIngredient": "Salt",
+      "mainIngredient": "Plump garlic cloves",
       "details": {
-        "amount": 2.0,
-        "unit": "tsp",
-        "originalText": "2 tsp salt"
+        "amount": 8.0,
+        "unit": null,
+        "originalText": "8  plump garlic cloves"
       }
     },
     {
-      "mainIngredient": "Black pepper",
-      "details": {
-        "amount": 0.5,
-        "unit": "tsp",
-        "originalText": "1/2 tsp black pepper"
-      }
-    },
-    {
-      "mainIngredient": "Ketchup",
+      "mainIngredient": "Inch long ginger piece",
       "details": {
         "amount": 1.0,
-        "unit": "cup",
-        "originalText": "1 cup ketchup"
+        "unit": null,
+        "originalText": "1 inch long ginger piece"
       }
     },
     {
-      "mainIngredient": "White vinegar",
-      "details": {
-        "amount": 2.0,
-        "unit": "tsp",
-        "originalText": "2 tsp white vinegar"
-      }
-    },
-    {
-      "mainIngredient": "Brown sugar",
-      "details": {
-        "amount": 2.0,
-        "unit": "tbsp",
-        "originalText": "2 tbsp brown sugar"
-      }
-    },
-    {
-      "mainIngredient": "Garlic powder",
-      "details": {
-        "amount": 2.0,
-        "unit": "tsp",
-        "originalText": "2 tsp garlic powder"
-      }
-    },
-    {
-      "mainIngredient": "Onion powder",
-      "details": {
-        "amount": 1.5,
-        "unit": "tsp",
-        "originalText": "1 1/2 tsp onion powder"
-      }
-    },
-    {
-      "mainIngredient": "Salt",
+      "mainIngredient": "Soy sauce",
       "details": {
         "amount": 0.5,
-        "unit": "tsp",
-        "originalText": "1/2 tsp salt (to taste)"
+        "unit": "cup",
+        "originalText": "1/2 cup soy sauce"
+      }
+    },
+    {
+      "mainIngredient": "Rice wine )",
+      "details": {
+        "amount": 4.0,
+        "unit": "tablespoons",
+        "originalText": "4 tablespoons rice wine ((or mirin or dry white wine))"
+      }
+    },
+    {
+      "mainIngredient": "To 4 tablespoons gochugaru",
+      "details": {
+        "amount": 3.0,
+        "unit": null,
+        "originalText": "3 to 4 tablespoons gochugaru (\uace0\ucd94\uac00\ub8e8)"
+      }
+    },
+    {
+      "mainIngredient": "Gochujang",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons gochujang (\uace0\ucd94\uc7a5)"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons sugar"
+      }
+    },
+    {
+      "mainIngredient": "Honey",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons honey (or sugar)  (Use 1 TB more if you like it sweeter)"
       }
     },
     {
       "mainIngredient": "Pepper",
       "details": {
-        "amount": 0.5,
-        "unit": "tsp",
-        "originalText": "1/2 tsp pepper (to taste)"
+        "amount": null,
+        "unit": null,
+        "originalText": "pepper to taste"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "1 tablespoon sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Scallions )",
+      "details": {
+        "amount": 2.0,
+        "unit": null,
+        "originalText": "2  scallions (roughly chopped (and some finely sliced for optional garnish))"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seeds",
+      "details": {
+        "amount": null,
+        "unit": null,
+        "originalText": "sesame seeds - optional"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Preheat oven to 375 F."
+      "text": "Trim off any thick layer of surface fat. Place the ribs in a large bowl with enough water to cover all the ribs. Add a couple of tablespoons of sugar and stir until dissolved. Let the ribs soak for about 30 minutes. Drain and rinse the ribs. Drain well while preparing the other ingredients."
     },
     {
       "@type": "HowToStep",
-      "text": "Spray a loaf plan with nonstick spray and set aside."
+      "text": "In a small blender, blend the pear, onion, garlic, and ginger well. You can separately grate them if you want. Transfer to a bowl. Mix it with the remaining braising liquid ingredients.&nbsp;"
     },
     {
       "@type": "HowToStep",
-      "text": "In a large mixing bowl, combine ground beef, onion, eggs, garlic, ketchup, Worchestershire sauce, parsley, breadcrumbs, milk, Italian seasoning, smoked paprika, salt and black pepper. Mix until well combined."
+      "text": "Place the short ribs in the pot, and add the vegetables."
     },
     {
       "@type": "HowToStep",
-      "text": "Place meatloaf mixture into prepared loaf pan. Bake at 375 F for 40 minutes."
+      "text": "Pour the braising liquid over. Toss everything well to coat the ribs evenly. Close the lid tightly. Press the \u201cMeat\u201d function, and using the \u201c+\u201d button, set the time to 35 minutes (or 40 minutes for fall off the bone tender meat). Make sure the pressure switch is turned to \u201csealing\u201d. When finished, the Instant Pot will automatically turn to the \u201cKeep Warm\u201d mode. Leave the pressure cooker alone for 10 to 15 minutes before releasing the remaining pressure and opening the lid. You can leave it longer if you want."
     },
     {
       "@type": "HowToStep",
-      "text": "Start preparing the meatloaf sauce. In a small mixing bowl, mix ketchup, white vinegar, brown sugar, garlic powder, onion powder, salt, and black pepper. Whisk until ingredients are well combined. Spread the meatloaf glaze on top when it has 15 minutes left to bake."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Let the meatloaf rest for 5 minutes. Top with fresh parsley and enjoy!"
+      "text": "Stir in the scallion and the sesame oil. Remove the meat and vegetables from the pressure cooker. Spoon off the fat. Pour the sauce over the ribs to serve. You can also cool it in the fridge or freezer until the fat solidifies to spoon off, and then reheat the sauce. Garnish with the optional scallions and sesame seeds."
     }
   ],
   "recipeYield": [
-    "8",
-    "8 servings"
+    "4"
   ],
-  "prepTime": "PT20M",
-  "cookTime": "PT55M",
-  "totalTime": "PT70M",
-  "image": "https://www.howtocook.recipes/wp-content/uploads/2021/09/meatloaf-recipe.jpg",
-  "description": "This traditional meatloaf recipe always comes out juicy and packed with flavor! The sweet and tangy sauce on top adds the perfect element of flavor in every bite!",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2018/07/DSC_1297.jpg",
+  "description": "Succulent, spicy, and fork-tender Korean beef short ribs pressure cooked in the Instant Pot! Fast and delicious!&nbsp;",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null
   },
-  "sourceUrl": "https://www.howtocook.recipes/best-classic-meatloaf-recipe/",
-  "extractedAt": "2025-10-14"
+  "sourceUrl": "https://www.koreanbapsang.com/instant-pot-spicy-galbijjim-braised-short-ribs/",
+  "extractedAt": "2025-10-16"
 }

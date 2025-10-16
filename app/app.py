@@ -2,9 +2,8 @@
 from flask import Flask, request, render_template, jsonify, send_file, send_from_directory
 from backend.routes import api_bp  # Import API Blueprint
 from flask_cors import CORS
-import os, json, csv
+import os, json
 import shutil
-import sys
 
 # Initialize Flask app with custom folders
 app = Flask(__name__,
