@@ -169,33 +169,22 @@ def recipe_image(filename):
         return send_from_directory('static', 'images/recipe-placeholder.jpg')
         images_dir = os.path.join(base_dir, 'backend', 'data', 'recipes', 'images')
 
-'''
-@app.route("/api/load-dataset", methods=["GET"])
-def load_dataset():
+@app.route('/submit-feedback', methods=['POST'])
+def submit_feedback():
     try:
-        key = request.args.get("key")
-        country = request.args.get("country", None)
-
-        if key not in DATA_PATHS:
-            return jsonify({"error": f"Invalid dataset key: {key}"}), 400
-
-        path_template = DATA_PATHS[key]
-        path = path_template.replace("{country}", country.replace(" ", "_")) if "{country}" in path_template else path_template
-
-        if not os.path.isfile(path):
-            return jsonify({"error": f"File not found: {path}"}), 404
-
-        # Load CSV
-        with open(path, newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            data = list(reader)
-
-        return jsonify({key: data})
-
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        issue_type = request.form.get('issue_type')
+        message = request.form.get('message')
+        
+        # TODO: Add your feedback processing logic here
+        # Save to database, send email, etc.
+        
+        return jsonify({'success': True, 'message': 'Feedback submitted successfully'})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-'''
+        return jsonify({'success': False, 'message': str(e)}), 500
     
 
     
