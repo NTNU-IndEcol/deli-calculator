@@ -175,7 +175,7 @@
             <i class="fas fa-exclamation-circle"></i> There was an error sending your message. Please try again.
         </div>
         
-        <form id="feedback-form" class="feedback-form" method="POST" action="process_form.php">
+        <form id="feedback-form" class="feedback-form" method="POST" action="{{ url_for('submit_feedback') }}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Your Name <span class="required">*</span></label>

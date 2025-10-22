@@ -148,7 +148,7 @@
         <nav class="nav-menu">
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('about') }}">About</a>
-            <a href="{{ url_for('recipes_list') }}">Recipes</a>
+            <a href="{{ url_for('recipes.recipes_list') }}">Recipes</a>
             <a href="{{ url_for('feedback') }}">Feedback</a>
             <a></a>
         </nav>
@@ -178,7 +178,7 @@
                 <div class="recipe-card" data-category="{{ recipe.category | default('all') | lower }}">
                     <div class="recipe-image">
                         {% if recipe.image %}
-                        <img src="{{ url_for('recipe_image', filename=recipe.image) }}" alt="{{ recipe.name }}">
+                        <img src="{{ url_for('recipes.recipe_image', filename=recipe.image) }}" alt="{{ recipe.name }}">
                         {% else %}
                         <div class="placeholder">{{ recipe.name }} Image</div>
                         {% endif %}

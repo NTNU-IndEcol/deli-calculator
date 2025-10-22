@@ -1,9 +1,14 @@
-# app.py - Flask entry point
-from flask import Flask, request, render_template, jsonify, send_file, send_from_directory
-from backend.routes import api_bp  # Import API Blueprint
-from flask_cors import CORS
-import os, json
+# app.py - Flask entry point (Simplified)
+from flask import Flask, request, render_template, jsonify, send_file, send_from_directory # type: ignore
+from flask_cors import CORS # type: ignore
+import os
 import shutil
+
+
+# Import Blueprints
+from backend.routes import api_bp
+from backend.feedback import feedback_bp
+from backend.recipes import recipes_bp
 
 # Initialize Flask app with custom folders
 app = Flask(__name__,
@@ -11,12 +16,14 @@ app = Flask(__name__,
             template_folder='frontend/templates')
 CORS(app)
 
-# Register API Blueprint with URL prefix
+# Register all Blueprints
 app.register_blueprint(api_bp, url_prefix='/api')
+app.register_blueprint(feedback_bp)
+app.register_blueprint(recipes_bp)
 
-# Load dataset paths config once
-#with open("config/data-paths.json", "r") as f:
-#    DATA_PATHS = json.load(f)["datasets"]
+# Cloudflare Turnstile Configuration only
+app.config['TURNSTILE_SITEKEY'] = os.environ.get('TURNSTILE_SITEKEY')
+app.config['TURNSTILE_SECRET'] = os.environ.get('TURNSTILE_SECRET')
 
 # Main route serving the frontend
 @app.route('/')
@@ -26,25 +33,16 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')  # You'll need to create this template
+    return render_template('about.html')
 
-@app.route('/feeback')
+@app.route('/feedback')
 def feedback():
-    """Serve the recipes gallery page"""
-    return render_template('feeback.html')
-
-@app.route('/recipes')
-def recipes():
-    """Serve the recipes gallery page"""
-    return render_template('recipes.html')
-
-def list_routes():
-    return jsonify([str(rule) for rule in app.url_map.iter_rules()])
+    """Serve the feedback page"""
+    return render_template('feedback.html', sitekey=app.config['TURNSTILE_SITEKEY'])
 
 @app.route('/config/data-paths.json')
 def serve_config():
     return send_file('config/data-paths.json')
-
 
 @app.route("/api/saved-recipes", methods=["GET"])
 def get_saved_recipes():
@@ -66,23 +64,19 @@ def load_recipe():
         if not recipe_name:
             return jsonify({'success': False, 'message': 'No recipe specified'})
         
-        # Path to the recipe files - using absolute paths for clarity
+        # Path to the recipe files
         base_dir = os.path.dirname(os.path.abspath(__file__))
         recipe_file = os.path.join(base_dir, 'backend', 'data', 'recipes', f"{recipe_name}.json")
         target_file = os.path.join(base_dir, 'backend', 'data', 'recipes.json')
         
-        # Debugging: Print paths to check
-        #print(f"Looking for recipe file: {recipe_file}")
-        #print(f"Target file: {target_file}")
-        
         # Check if the recipe file exists
         if not os.path.exists(recipe_file):
-            print(f"Recipe file not found: {recipe_file}")
+            app.logger.error(f"Recipe file not found: {recipe_file}")
             return jsonify({'success': False, 'message': 'Recipe not found'})
         
         # Copy the file
         shutil.copyfile(recipe_file, target_file)
-        print(f"Successfully copied {recipe_file} to {target_file}")
+        app.logger.info(f"Successfully copied {recipe_file} to {target_file}")
         
         return jsonify({
             'success': True, 
@@ -90,103 +84,9 @@ def load_recipe():
         })
         
     except Exception as e:
-        print(f"Error in load_recipe: {str(e)}")
+        app.logger.error(f"Error in load_recipe: {str(e)}")
         return jsonify({'success': False, 'message': str(e)})
 
-# The saved recipes in the backend
-@app.route('/recipes_list')
-def recipes_list():
-    """Serve the recipes gallery page with dynamic recipe data"""
-    try:
-        # Use absolute path to ensure we're looking in the right location
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        recipes_dir = os.path.join(base_dir, 'backend', 'data', 'recipes')
-        images_dir = os.path.join(base_dir, 'backend', 'data', 'recipes', 'images')
-        
-        # Debug output - check if directories exist
-        print(f"Looking for recipes in: {recipes_dir}")
-        print(f"Directory exists: {os.path.exists(recipes_dir)}")
-        
-        if os.path.exists(recipes_dir):
-            print(f"Files in recipes directory: {os.listdir(recipes_dir)}")
-        
-        recipes_data = []
-        
-        # Create images directory if it doesn't exist
-        os.makedirs(images_dir, exist_ok=True)
-        
-        # Check if recipes directory exists
-        if not os.path.exists(recipes_dir):
-            return render_template('recipes.html', recipes=[])
-        
-        # Read all recipe files
-        for filename in os.listdir(recipes_dir):
-            if filename.endswith('.json') and filename != 'recipes.json':
-                try:
-                    filepath = os.path.join(recipes_dir, filename)
-                    with open(filepath, 'r', encoding='utf-8') as f:
-                        recipe_data = json.load(f)
-                        recipe_data['id'] = filename.replace('.json', '')
-                        
-                        # Set default values if they don't exist
-                        recipe_data.setdefault('category', 'all')
-                        recipe_data.setdefault('servings', 4)
-                        recipe_data.setdefault('prepTime', 30)
-                        
-                        # Check if image exists
-                        image_name = recipe_data.get('image', f"{recipe_data['id']}.jpg")
-                        image_path = os.path.join(images_dir, image_name)
-                        if os.path.exists(image_path):
-                            recipe_data['image'] = image_name
-                        else:
-                            recipe_data['image'] = None
-                            
-                        recipes_data.append(recipe_data)
-                except Exception as e:
-                    print(f"Error reading recipe file {filename}: {e}")
-        
-        print(f"Found {len(recipes_data)} recipes")
-        return render_template('recipes.html', recipes=recipes_data)
-        
-    except Exception as e:
-        print(f"Error in recipes route: {e}")
-        return render_template('recipes.html', recipes=[])
-# Add this route to serve recipe images
-@app.route('/recipe-image/<filename>')
-def recipe_image(filename):
-    try:
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        images_dir = os.path.join(base_dir, 'backend', 'data', 'recipes', 'images')
-        
-        # Check if file exists
-        if not os.path.exists(os.path.join(images_dir, filename)):
-            # Return a default image or 404
-            return send_from_directory('static', 'images/recipe-placeholder.jpg')
-            
-        return send_from_directory(images_dir, filename)
-    except Exception as e:
-        print(f"Error serving image {filename}: {e}")
-        return send_from_directory('static', 'images/recipe-placeholder.jpg')
-        images_dir = os.path.join(base_dir, 'backend', 'data', 'recipes', 'images')
-
-@app.route('/submit-feedback', methods=['POST'])
-def submit_feedback():
-    try:
-        # Get form data
-        name = request.form.get('name')
-        email = request.form.get('email')
-        subject = request.form.get('subject')
-        issue_type = request.form.get('issue_type')
-        message = request.form.get('message')
-        
-        # TODO: Add your feedback processing logic here
-        # Save to database, send email, etc.
-        
-        return jsonify({'success': True, 'message': 'Feedback submitted successfully'})
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
-    
-
-    
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9000, debug=True)
+    

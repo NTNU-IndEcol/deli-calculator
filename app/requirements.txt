@@ -13,6 +13,7 @@ shapely
 rioxarray
 gunicorn
 fuzzywuzzy
-python-levenshtein
 bs4
 flask-cors
+flask-wtf
+WTForms
