@@ -35,10 +35,24 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/feedback')
+@app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-    """Serve the feedback page"""
-    return render_template('feedback.html', sitekey=app.config['TURNSTILE_SITEKEY'])
+    if request.method == 'POST':
+        # Process the form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        issue_type = request.form.get('issue_type')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+        
+        # TODO: Add your form processing logic here
+        # Save to database, send email, etc.
+        
+        # Return JSON response for AJAX
+        return jsonify({'success': True, 'message': 'Feedback submitted successfully!'})
+    
+    # If GET request, just render the form
+    return render_template('feedback.html')
 
 @app.route('/config/data-paths.json')
 def serve_config():
