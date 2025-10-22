@@ -107,6 +107,30 @@
         .btn:hover {
             background-color: var(--secondary-color);
         }
+
+        .btn-submit {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
         
         .alert {
             padding: 12px 16px;
@@ -140,12 +164,23 @@
         .form-row .form-group {
             flex: 1;
         }
+
+        .turnstile-container {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
         
         @media (max-width: 768px) {
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -160,10 +195,6 @@
             <a href="{{ url_for('feedback') }}">Feedback</a>
             <a></a>
         </nav>
-        <!--div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search in site">
-            <button id="search-btn">🔍</button>
-        </div -->
     </header>
 
     <div class="container">
@@ -178,7 +209,7 @@
                 There was an error submitting your feedback. Please try again.
             </div>
             
-            <form id="feedback-form">
+            <form id="feedback-form" action="{{ url_for('feedback') }}" method="POST">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name" class="required">Name</label>
@@ -216,7 +247,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit" id="submitButton" disabled>
-                    <i class="fas fa-paper-plane"></i> Send Feedback
+                    Send Feedback
                 </button>
             </form>
         </div>
@@ -225,14 +256,14 @@
     {% include 'footer.html' %}
 
     <script>
-         function onSubmitTurnstile(token) {
+        function onSubmitTurnstile(token) {
             document.getElementById('submitButton').disabled = false;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('feedback-form');
-            const alertSuccess = document.getElementById('alert-success');
-            const alertError = document.getElementById('alert-error');
+            const alertSuccess = document.getElementById('success-alert');
+            const alertError = document.getElementById('error-alert');
             const submitButton = document.getElementById('submitButton');
             
             form.addEventListener('submit', function(e) {
@@ -240,6 +271,7 @@
                 
                 // Show loading state
                 submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
                 form.classList.add('loading');
                 
                 // Basic validation
@@ -262,6 +294,7 @@
                     
                     // Reset loading state
                     submitButton.disabled = false;
+                    submitButton.textContent = 'Send Feedback';
                     form.classList.remove('loading');
                     
                     // Hide error after 5 seconds
@@ -302,6 +335,7 @@
                             turnstile.reset();
                         }
                         submitButton.disabled = true;
+                        submitButton.textContent = 'Send Feedback';
                         
                         // Hide success message after 5 seconds
                         setTimeout(() => {
@@ -326,6 +360,7 @@
                     // Reset loading state
                     form.classList.remove('loading');
                     submitButton.disabled = false;
+                    submitButton.textContent = 'Send Feedback';
                 });
             });
         });
