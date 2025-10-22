@@ -3,7 +3,9 @@ from flask import Flask, request, render_template, jsonify, send_file, send_from
 from flask_cors import CORS # type: ignore
 import os
 import shutil
+from dotenv import load_dotenv
 
+load_dotenv()  # This loads variables from .env file
 
 # Import Blueprints
 from backend.routes import api_bp

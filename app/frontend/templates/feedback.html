@@ -270,8 +270,12 @@
                 
                 // Show loading state
                 submitButton.disabled = true;
-                submitButton.textContent = 'Sending...';
+                submitButton.textContent = 'Sending Feedback...';
                 form.classList.add('loading');
+                
+                // Hide previous alerts
+                alertSuccess.style.display = 'none';
+                alertError.style.display = 'none';
                 
                 // Basic validation
                 let isValid = true;
@@ -286,10 +290,16 @@
                     }
                 });
                 
+                // Email validation
+                const emailField = document.getElementById('email');
+                if (emailField.value.trim() !== '' && !emailField.value.includes('@')) {
+                    isValid = false;
+                    emailField.style.borderColor = '#e74c3c';
+                }
+                
                 if (!isValid) {
-                    alertError.textContent = 'Please fill in all required fields.';
+                    alertError.textContent = 'Please fill in all required fields correctly.';
                     alertError.style.display = 'block';
-                    alertSuccess.style.display = 'none';
                     
                     // Reset loading state
                     submitButton.disabled = false;
@@ -315,17 +325,22 @@
                     }
                 })
                 .then(response => {
-                    if (response.status === 405) {
-                        throw new Error('Server configuration error: POST method not allowed');
-                    }
                     if (!response.ok) {
-                        throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                        // Handle HTTP errors
+                        if (response.status === 400) {
+                            throw new Error('Validation error: Please check your input.');
+                        } else if (response.status === 500) {
+                            throw new Error('Server error: Please try again later.');
+                        } else {
+                            throw new Error(`Network error: ${response.status} ${response.statusText}`);
+                        }
                     }
                     return response.json();
                 })
                 .then(data => {
                     if (data.success) {
                         // Show success message
+                        alertSuccess.textContent = data.message;
                         alertSuccess.style.display = 'block';
                         alertError.style.display = 'none';
                         
@@ -339,10 +354,10 @@
                         submitButton.disabled = true;
                         submitButton.textContent = 'Send Feedback';
                         
-                        // Hide success message after 5 seconds
+                        // Hide success message after 8 seconds
                         setTimeout(() => {
                             alertSuccess.style.display = 'none';
-                        }, 5000);
+                        }, 8000);
                     } else {
                         throw new Error(data.message || 'Submission failed');
                     }
@@ -350,17 +365,12 @@
                 .catch(error => {
                     console.error('Error:', error);
                     
-                    // Specific error message for 405
-                    if (error.message.includes('405')) {
-                        alertError.textContent = 'Form submission error: Please contact the website administrator. The feedback form is not properly configured.';
-                    } else {
-                        alertError.textContent = error.message || 'There was an error sending your message. Please try again.';
-                    }
-                    
+                    // Show appropriate error message
+                    alertError.textContent = error.message || 'There was an error sending your message. Please try again.';
                     alertError.style.display = 'block';
                     alertSuccess.style.display = 'none';
                     
-                    // Hide error after 8 seconds (longer for admin messages)
+                    // Hide error after 8 seconds
                     setTimeout(() => {
                         alertError.style.display = 'none';
                     }, 8000);
@@ -370,6 +380,16 @@
                     form.classList.remove('loading');
                     submitButton.disabled = false;
                     submitButton.textContent = 'Send Feedback';
+                });
+            });
+            
+            // Real-time validation
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value.trim() !== '') {
+                        this.style.borderColor = '#ddd';
+                    }
                 });
             });
         });

@@ -1,152 +1,144 @@
-# backend/feedback.py
-import os
-import datetime
 import requests
-import subprocess
-from flask import Blueprint, request, jsonify, current_app # type: ignore
+import os
+from flask import Blueprint, request, jsonify, render_template, current_app # type: ignore
+import logging
 
 feedback_bp = Blueprint('feedback', __name__)
 
-def verify_turnstile(token):
-    """Verify Cloudflare Turnstile token"""
+def create_github_issue(name, user_email, issue_type, subject, message):
+    """Create a GitHub issue from feedback form data"""
+    
+    # Get environment variables
+    token = os.environ.get('GITHUB_TOKEN')
+    repo_owner = os.environ.get('GITHUB_REPO_OWNER', 'indecol')
+    repo_name = os.environ.get('GITHUB_REPO_NAME', 'deli-calculator')
+    
     if not token:
+        current_app.logger.error("GITHUB_TOKEN environment variable is not set")
         return False
-        
+    
+    # GitHub API URL
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues"
+    
+    # Headers
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+    
+    # Create labels based on issue type
+    labels = ["feedback"]
+    if issue_type == "bug":
+        labels.append("bug")
+    elif issue_type == "feature":
+        labels.append("enhancement")
+    elif issue_type == "suggestion":
+        labels.append("suggestion")
+    else:
+        labels.append("question")
+    
+    # Create issue body
+    issue_body = f"""
+## Feedback Details
+
+**From:** {name}  
+**Email:** {user_email}  
+**Type:** {issue_type}  
+**Subject:** {subject}
+
+---
+
+### Message:
+{message}
+
+---
+
+*This issue was created automatically from the DELI Calculator feedback form.*
+"""
+    
+    # Data payload
     data = {
-        'secret': current_app.config.get('TURNSTILE_SECRET'),
-        'response': token
+        "title": f"Feedback: {subject}",
+        "body": issue_body,
+        "labels": labels
     }
     
     try:
-        response = requests.post(
-            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-            data=data,
-            timeout=10
-        )
-        result = response.json()
-        current_app.logger.info(f"Turnstile verification result: {result}")
-        return result.get('success', False)
-    except requests.RequestException as e:
-        current_app.logger.error(f"Turnstile verification failed: {e}")
-        return False
-
-def send_feedback_email(form_data):
-    """Send feedback email using system's sendmail command"""
-    try:
-        # Create email content
-        subject = f"Feedback from Deli Calculator: {form_data['subject']}"
+        response = requests.post(url, json=data, headers=headers, timeout=30)
         
-        email_body = f"""From: Deli Calculator <noreply@deli-calculator.indecol.no>
-To: bo.huang@ntnu.no
-Subject: {subject}
-Content-Type: text/html; charset=utf-8
-
-<html>
-<body>
-    <h2>New Feedback Received</h2>
-    <p><strong>Name:</strong> {form_data['name']}</p>
-    <p><strong>Email:</strong> {form_data['email']}</p>
-    <p><strong>Issue Type:</strong> {form_data['issue_type']}</p>
-    <p><strong>Subject:</strong> {form_data['subject']}</p>
-    <p><strong>Message:</strong></p>
-    <div style="background: #f5f5f5; padding: 15px; border-left: 4px solid #007cba;">
-        {form_data['message'].replace(chr(10), '<br>')}
-    </div>
-    <hr>
-    <p><small>Sent from deli-calculator.indecol.no</small></p>
-</body>
-</html>
-"""
-        
-        # Use system's sendmail command
-        process = subprocess.Popen(
-            ['/usr/sbin/sendmail', '-t'], 
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        
-        # Send the email
-        stdout, stderr = process.communicate(input=email_body)
-        
-        # Check if sendmail was successful
-        if process.returncode == 0:
-            current_app.logger.info("Feedback email sent successfully via sendmail")
-            return True
+        if response.status_code == 201:
+            issue_data = response.json()
+            current_app.logger.info(f"Successfully created GitHub issue: {issue_data.get('html_url')}")
+            return {
+                'success': True,
+                'issue_url': issue_data.get('html_url'),
+                'issue_number': issue_data.get('number')
+            }
         else:
-            current_app.logger.error(f"Sendmail failed with return code: {process.returncode}, stderr: {stderr}")
-            return False
+            current_app.logger.error(f"GitHub API error: {response.status_code} - {response.text}")
+            return {
+                'success': False,
+                'error': f"GitHub API returned status {response.status_code}"
+            }
             
-    except Exception as e:
-        current_app.logger.error(f"Failed to send email: {e}")
-        return False
-
-def log_feedback(form_data):
-    """Log feedback to a file"""
-    try:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        log_entry = f"""
-        [{timestamp}] NEW FEEDBACK:
-        Name: {form_data['name']}
-        Email: {form_data['email']}
-        Issue Type: {form_data['issue_type']}
-        Subject: {form_data['subject']}
-        Message: {form_data['message']}
-        {'='*50}
-        """
-        log_file = "feedback_log.txt"
-        with open(log_file, "a", encoding='utf-8') as f:
-            f.write(log_entry)
-        return True
-    except Exception as e:
-        current_app.logger.error(f"Failed to log feedback: {e}")
-        return False
-
-@feedback_bp.route('/submit_feedback', methods=['POST'])
+    except requests.exceptions.RequestException as e:
+        current_app.logger.error(f"Request error creating GitHub issue: {e}")
+        return {
+            'success': False,
+            'error': str(e)
+        }
+@feedback_bp.route('/submit_feedback', methods=['GET','POST'])
 def submit_feedback():
-    try:
-        # Verify Turnstile token first
-        turnstile_token = request.form.get('cf-turnstile-response')
-        current_app.logger.info(f"Received Turnstile token: {turnstile_token}")
-        
-        if not turnstile_token:
-            return jsonify({'success': False, 'message': 'Human verification required. Please complete the challenge.'}), 400
-            
-        if not verify_turnstile(turnstile_token):
-            return jsonify({'success': False, 'message': 'Human verification failed. Please try again.'}), 400
-
-        # Collect form data
+    if request.method == 'POST':
+        # Get form data
         name = request.form.get('name', '').strip()
         email = request.form.get('email', '').strip()
+        issue_type = request.form.get('issue_type', 'other')
         subject = request.form.get('subject', '').strip()
         message = request.form.get('message', '').strip()
-        issue_type = request.form.get('issue_type', 'general')
-
+        
         # Basic validation
         if not all([name, email, subject, message]):
-            return jsonify({'success': False, 'message': 'All fields are required'}), 400
-        if '@' not in email or '.' not in email:
-            return jsonify({'success': False, 'message': 'Invalid email format'}), 400
-
-        form_data = {
-            'name': name,
-            'email': email,
-            'subject': subject,
-            'message': message,
-            'issue_type': issue_type
-        }
-
-        # Send email using system sendmail
-        if not send_feedback_email(form_data):
-            return jsonify({'success': False, 'message': 'Error sending email. Please try again later.'}), 500
-
-        # Log feedback
-        log_feedback(form_data)
-
-        current_app.logger.info(f"Feedback received and email sent for {name}")
-        return jsonify({'success': True, 'message': 'Thank you for your feedback!'})
-
-    except Exception as e:
-        current_app.logger.error(f"Error processing feedback: {e}")
-        return jsonify({'success': False, 'message': 'Error processing your message. Please try again.'}), 500
+            return jsonify({
+                'success': False, 
+                'message': 'Please fill in all required fields.'
+            }), 400
+        
+        # Validate email format
+        if '@' not in email:
+            return jsonify({
+                'success': False,
+                'message': 'Please enter a valid email address.'
+            }), 400
+        
+        try:
+            # Create GitHub issue
+            result = create_github_issue(name, email, issue_type, subject, message)
+            
+            if result.get('success'):
+                response_data = {
+                    'success': True,
+                    'message': 'Thank you for your feedback! We have received it and will review it soon.'
+                }
+                # Include issue URL if available (for debugging)
+                if result.get('issue_url'):
+                    response_data['issue_url'] = result.get('issue_url')
+                
+                return jsonify(response_data)
+            else:
+                current_app.logger.error(f"Failed to create GitHub issue: {result.get('error')}")
+                return jsonify({
+                    'success': False, 
+                    'message': 'Sorry, we encountered an error while submitting your feedback. Please try again later.'
+                }), 500
+                
+        except Exception as e:
+            current_app.logger.error(f"Unexpected error in feedback route: {e}")
+            return jsonify({
+                'success': False, 
+                'message': 'An unexpected error occurred. Please try again later.'
+            }), 500
+    
+    # GET request - render the form
+    return render_template('feedback.html')
