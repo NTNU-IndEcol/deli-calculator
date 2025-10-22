@@ -224,39 +224,109 @@
 
     {% include 'footer.html' %}
 
-
     <script>
-        document.getElementById('feedback-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+         function onSubmitTurnstile(token) {
+            document.getElementById('submitButton').disabled = false;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedback-form');
+            const alertSuccess = document.getElementById('alert-success');
+            const alertError = document.getElementById('alert-error');
+            const submitButton = document.getElementById('submitButton');
             
-            // Hide previous alerts
-            document.getElementById('success-alert').style.display = 'none';
-            document.getElementById('error-alert').style.display = 'none';
-            
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Submit form via AJAX
-            fetch('/submit_feedback', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    document.getElementById('success-alert').style.display = 'block';
-                    document.getElementById('feedback-form').reset();
-                } else {
-                    // Show error message
-                    document.getElementById('error-alert').textContent = data.message;
-                    document.getElementById('error-alert').style.display = 'block';
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitButton.disabled = true;
+                form.classList.add('loading');
+                
+                // Basic validation
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (field.value.trim() === '') {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (!isValid) {
+                    alertError.textContent = 'Please fill in all required fields.';
+                    alertError.style.display = 'block';
+                    alertSuccess.style.display = 'none';
+                    
+                    // Reset loading state
+                    submitButton.disabled = false;
+                    form.classList.remove('loading');
+                    
+                    // Hide error after 5 seconds
+                    setTimeout(() => {
+                        alertError.style.display = 'none';
+                    }, 5000);
+                    return;
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('error-alert').textContent = 'Error processing your message. Please try again.';
-                document.getElementById('error-alert').style.display = 'block';
+                
+                // Get form data
+                const formData = new FormData(form);
+                
+                // Send to server
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        alertSuccess.style.display = 'block';
+                        alertError.style.display = 'none';
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Reset Turnstile and disable button
+                        if (typeof turnstile !== 'undefined') {
+                            turnstile.reset();
+                        }
+                        submitButton.disabled = true;
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            alertSuccess.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        throw new Error(data.message || 'Submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alertError.textContent = 'There was an error sending your message. Please try again.';
+                    alertError.style.display = 'block';
+                    alertSuccess.style.display = 'none';
+                    
+                    // Hide error after 5 seconds
+                    setTimeout(() => {
+                        alertError.style.display = 'none';
+                    }, 5000);
+                })
+                .finally(() => {
+                    // Reset loading state
+                    form.classList.remove('loading');
+                    submitButton.disabled = false;
+                });
             });
         });
     </script>
