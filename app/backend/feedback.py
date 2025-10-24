@@ -19,7 +19,7 @@ def create_github_issue(name, user_email, issue_type, subject, message):
     
     # Get environment variables
     token = os.environ.get('GITHUB_TOKEN')
-    repo_owner = os.environ.get('GITHUB_REPO_OWNER', 'indecol')
+    repo_owner = os.environ.get('GITHUB_REPO_OWNER', 'NTNU-indecol')
     repo_name = os.environ.get('GITHUB_REPO_NAME', 'deli-calculator')
     
     if not token:
