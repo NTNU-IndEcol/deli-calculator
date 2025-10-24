@@ -1,9 +1,18 @@
 import requests
 import os
-from flask import Blueprint, request, jsonify, render_template, current_app # type: ignore
-import logging
+import random
+import string
+from flask import Blueprint, request, jsonify, render_template, current_app # type: ignore 
 
 feedback_bp = Blueprint('feedback', __name__)
+
+
+def generate_verification_code(length=6):
+    """Generate a random verification code (letters and numbers)"""
+    chars = string.ascii_uppercase + string.digits
+    # Remove similar looking characters to avoid confusion
+    chars = chars.replace('O', '').replace('0', '').replace('I', '').replace('1', '').replace('S', '').replace('5', '')
+    return ''.join(random.choice(chars) for _ in range(length))
 
 def create_github_issue(name, user_email, issue_type, subject, message):
     """Create a GitHub issue from feedback form data"""
@@ -15,7 +24,10 @@ def create_github_issue(name, user_email, issue_type, subject, message):
     
     if not token:
         current_app.logger.error("GITHUB_TOKEN environment variable is not set")
-        return False
+        return {
+            'success': False,
+            'error': 'GitHub token not configured'
+        }
     
     # GitHub API URL
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues"
@@ -79,17 +91,24 @@ def create_github_issue(name, user_email, issue_type, subject, message):
             current_app.logger.error(f"GitHub API error: {response.status_code} - {response.text}")
             return {
                 'success': False,
-                'error': f"GitHub API returned status {response.status_code}"
+                'error': f"GitHub API returned status {response.status_code}: {response.text}"
             }
             
     except requests.exceptions.RequestException as e:
         current_app.logger.error(f"Request error creating GitHub issue: {e}")
         return {
             'success': False,
-            'error': str(e)
+            'error': f"Request failed: {str(e)}"
         }
-@feedback_bp.route('/submit_feedback', methods=['GET','POST'])
-def submit_feedback():
+    except Exception as e:
+        current_app.logger.error(f"Unexpected error creating GitHub issue: {e}")
+        return {
+            'success': False,
+            'error': f"Unexpected error: {str(e)}"
+        }
+
+@feedback_bp.route('/feedback', methods=['GET', 'POST'])
+def feedback():
     if request.method == 'POST':
         # Get form data
         name = request.form.get('name', '').strip()
@@ -97,9 +116,10 @@ def submit_feedback():
         issue_type = request.form.get('issue_type', 'other')
         subject = request.form.get('subject', '').strip()
         message = request.form.get('message', '').strip()
+        human_input = request.form.get('human_input', '').strip()
         
         # Basic validation
-        if not all([name, email, subject, message]):
+        if not all([name, email, subject, message, human_input]):
             return jsonify({
                 'success': False, 
                 'message': 'Please fill in all required fields.'
@@ -116,6 +136,7 @@ def submit_feedback():
             # Create GitHub issue
             result = create_github_issue(name, email, issue_type, subject, message)
             
+            # Now result is always a dictionary, so we can safely use .get()
             if result.get('success'):
                 response_data = {
                     'success': True,
@@ -124,10 +145,12 @@ def submit_feedback():
                 # Include issue URL if available (for debugging)
                 if result.get('issue_url'):
                     response_data['issue_url'] = result.get('issue_url')
+                    current_app.logger.info(f"Created GitHub issue: {result.get('issue_url')}")
                 
                 return jsonify(response_data)
             else:
-                current_app.logger.error(f"Failed to create GitHub issue: {result.get('error')}")
+                error_msg = result.get('error', 'Unknown error occurred')
+                current_app.logger.error(f"Failed to create GitHub issue: {error_msg}")
                 return jsonify({
                     'success': False, 
                     'message': 'Sorry, we encountered an error while submitting your feedback. Please try again later.'
