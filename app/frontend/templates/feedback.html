@@ -8,8 +8,8 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6b8cbc;
+            --primary-color: #5294f7;
+            --secondary-color: #67a4ff;
             --success-color: #28a745;
             --error-color: #dc3545;
             --light-color: #f8f9fa;
@@ -148,11 +148,13 @@
             border-radius: 8px;
             padding: 1.5rem;
             margin: 1.5rem 0;
+            text-align: center; /* Center all text */
         }
 
         .verification-code {
             display: flex;
             align-items: center;
+            justify-content: center; /* Center horizontally */
             gap: 1rem;
             margin-bottom: 1rem;
         }
@@ -161,7 +163,7 @@
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #4a6fa5, #6b8cbc);
+            background: linear-gradient(45deg, #38eed0, #3fd8d0);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -270,7 +272,7 @@
 
                 <!-- Human Verification Section -->
                 <div class="human-verification">
-                    <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Human Verification</h3>
+                    <!--h3 style="margin-bottom: 1rem; color: var(--primary-color);">Human Verification</h3-->
                     <p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
                         Please enter the code below to verify you're human:
                     </p>
