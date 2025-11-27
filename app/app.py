@@ -9,6 +9,8 @@ import shutil
 from backend.routes import api_bp
 from backend.feedback import feedback_bp
 from backend.recipes import recipes_bp
+#from backend.get_env_impacts import env_bp  # type: ignore # Add environment impact routes
+from backend.env_data_loader import env_data_bp, load_env_impact_files
 
 # Initialize Flask app with custom folders
 app = Flask(__name__,
@@ -16,10 +18,17 @@ app = Flask(__name__,
             template_folder='frontend/templates')
 CORS(app)
 
+# NEW: Load data at startup (after Flask app creation)
+print("\n🚀 Loading environmental impact data...")
+load_env_impact_files()
+print("✅ Environmental data ready!\n")
+
 # Register all Blueprints
 app.register_blueprint(api_bp, url_prefix='/api')
 app.register_blueprint(feedback_bp)
 app.register_blueprint(recipes_bp)
+#app.register_blueprint(env_bp)  # Register environment impact routes
+app.register_blueprint(env_data_bp) # NEW: Register the blueprint
 
 # Cloudflare Turnstile Configuration only
 app.config['TURNSTILE_SITEKEY'] = os.environ.get('TURNSTILE_SITEKEY')
@@ -68,6 +77,10 @@ def get_saved_recipes():
 @app.route('/backend/data/<path:filename>')
 def serve_backend_data(filename):
     return send_from_directory('backend/data', filename)
+
+@app.route('/backend/data/FABIO_DELI/<path:filename>')
+def serve_fabio_deli_data(filename):
+    return send_from_directory('backend/data/FABIO_DELI', filename)
 
 @app.route('/api/load-recipe', methods=['POST'])
 def load_recipe():

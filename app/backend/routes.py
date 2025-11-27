@@ -1,7 +1,7 @@
 # backend/routes.py
-from flask import Blueprint, jsonify, request, send_file, Flask
+from flask import Blueprint, jsonify, request, send_file, Flask # type: ignore
 import os, json
-from .extract_recipe import extract_recipe_data, save_recipe
+from .extract_recipe import extract_recipe_data, save_recipe # type: ignore
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 

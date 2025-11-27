@@ -229,8 +229,6 @@ export class FormHandler {
     }
     
 
-  
-    //  Updated loadSavedRecipe method
     // Updated loadRecipe method
     async loadRecipe() {
       if (this.recipeLoaded) return; // Prevent duplicate loads
@@ -276,49 +274,8 @@ export class FormHandler {
       this.setupRowInteractions();
     }
  
-    // Create table row
-    /*
-    createTableRow(ingredient, index) {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td class="${!ingredient.matched ? 'unmatched' : ''}">
-          ${ingredient.matched ? 
-            `<span class="editable-category">${ingredient.category}</span>` :
-            `<input type="text" class="category-input" value="${ingredient.category}">`
-          }
-        </td>
-        <td class="${!ingredient.matched ? 'unmatched' : ''}">
-          ${ingredient.matched ? 
-            `<span class="editable-name">${ingredient.name}</span>` :
-            `<input type="text" class="name-input" value="${ingredient.name}">`
-          }
-        </td>
-        <td>
-          <input type="number" class="amount-input" 
-                 value="${ingredient.amount}" min="0" step="0.1"
-                  data-id="${ingredient.id}">
-        </td>
-        <td>
-          <select class="unit-input" data-index="${index}">
-            ${['g', 'kg', 'ounce', 'lb', 'cup', 'tbsp', 'tsp', 'unit'].map(unit => `
-              <option value="${unit}" ${unit === ingredient.unit ? 'selected' : ''}>
-                ${unit}
-              </option>
-            `).join('')}
-          </select>
-        </td>
-          <td class="source-cell" style="text-align: center;">
-            ${this.createSourceInput(ingredient)}
-          </td>
-        
-        <td>
-           <button class="remove-btn" data-id="${ingredient.id}">🗑️</button>
-        </td>
-      `;
-      return row;
-    }
-  */
-
+    
+    // create table row
     createTableRow(ingredient, index) {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -677,102 +634,329 @@ export class FormHandler {
       return { totals, errors };
     }
 
-    calculateImpact() {
-      const result = this.calculateEnvironmentalImpact();
+    // ============================================================================
+    // Calculate total environmental impact for all ingredients
+    // ============================================================================
+
+    async calculateImpact() {
+      const ingredients = this.selectedIngredients;
       
-      if (result.hasErrors) {
-        this.showErrors(result.errors);
+      if (ingredients.length === 0) {
+        console.warn('No ingredients selected');
         return null;
       }
-
-      // Convert GHG emissions to CO2 equivalents
-      const co2e = result.totals.CO2 + 
-                  (result.totals.CH4 * 25) + // GWP100 for CH4
-                  (result.totals.N2O * 298); // GWP100 for N2O
-
+      
+      console.log('🧮 Calculating environmental impact for', ingredients.length, 'ingredients...');
+      
+      // Prepare batch lookup items
+      const lookupItems = [];
+      const ingredientMeta = []; // Keep track of amounts and names
+      
+      for (const ing of ingredients) {
+          // Get FABIO code for import country (where we're importing FROM)
+          const importCountryCode = DataManager.getFabioCountryCode(ing.source);
+          
+          if (!importCountryCode) {
+            console.warn(`⚠️ No FABIO country code found for: ${ing.source}`);
+            continue;
+          }
+          
+          // Get base commodity code from ingredient
+          const commodityCode = ing.comm_code || this.getCommCode(ing);
+          
+          if (!commodityCode) {
+            console.warn(`⚠️ No commodity code found for: ${ing.name}`);
+            continue;
+          }
+          
+          // Convert amount to tons
+          const amountInTons = this.convertToTons(ing.amount || 0, ing.unit);
+          
+          lookupItems.push({
+            importCountryCode: importCountryCode,  // e.g., "33" for Canada
+            commodityCode: commodityCode           // e.g., "c002" for wheat
+          });
+          
+          ingredientMeta.push({
+            name: ing.name,
+            source: ing.source,
+            amount: amountInTons,  // Store amount in tons
+            unit: ing.unit,        // Keep original unit for logging
+            originalAmount: ing.amount || 0,  // Keep original for reference
+            importCountryCode: importCountryCode,
+            commodityCode: commodityCode
+          });
+          
+        //  console.log(`  📦 ${ing.name} from ${ing.source}: ${importCountryCode}_${commodityCode}, ${ing.amount}${ing.unit} (${amountInTons.toFixed(6)} tons)`);
+        }
+      
+      if (lookupItems.length === 0) {
+        console.warn('No valid ingredients to calculate');
+        return null;
+      }
+      
+      console.log(`📊 Looking up impacts for ${lookupItems.length} items...`);
+      
+      // Batch lookup all impacts at once
+      const results = await DataManager.batchGetEnvImpacts(lookupItems);
+      
+      // Calculate totals
+      let totals = {
+        biodiv: 0,
+        co2e: 0,
+        landUse: 0,
+        waterUse: 0
+      };
+      
+      // Store individual ingredient impacts for detailed view
+      const ingredientImpacts = [];
+      
+      // Calculate impact for each ingredient
+      results.forEach((result, index) => {
+        const meta = ingredientMeta[index];
+        const amount = meta.amount;
+        const impacts = result.impacts;
+        
+        // Calculate impact for this ingredient
+        const ingredientImpact = {
+          name: meta.name,
+          source: meta.source,
+          amount: amount,
+          biodiv: impacts.biodiv * amount,
+          co2e: impacts.gwp100 * amount,
+          landUse: impacts.landuse * amount,
+          waterUse: impacts.water * amount
+        };
+        
+        ingredientImpacts.push(ingredientImpact);
+        
+        // Add to totals
+        totals.biodiv += ingredientImpact.biodiv;
+        totals.co2e += ingredientImpact.co2e;
+        totals.landUse += ingredientImpact.landUse;
+        totals.waterUse += ingredientImpact.waterUse;
+        
+        console.log(`  ✓ ${meta.name} (${meta.source}): biodiv=${ingredientImpact.biodiv.toFixed(3)}, co2e=${ingredientImpact.co2e.toFixed(2)}`);
+      });
+      
+      console.log('✅ Total impact calculated:', {
+        biodiv: totals.biodiv.toFixed(3),
+        co2e: totals.co2e.toFixed(2),
+        landUse: totals.landUse.toFixed(2),
+        waterUse: totals.waterUse.toFixed(2)
+      });
+      
+      // Store for later use
+      this._ingredientImpacts = ingredientImpacts;
+      
       return {
-        landUse: this.formatNumber(result.totals.landuse),
-        waterUse: this.formatNumber(result.totals.blue_water),
-        co2e: this.formatNumber(co2e),
-        //total_bd: this.formatNumber(result.totals.total_bd)
-        total_bd: result.totals.total_bd.toExponential(2)
+        ...totals,
+        total_bd: totals.biodiv,
+        ingredientCount: results.length,
+        details: ingredientImpacts
       };
     }
 
-    // Calculate environmental impact by country
-    getImpactByCountry() {
-        const countryMap = new Map(); // Use Map for better performance
+
+    // ============================================================================
+    // Calculate impact by PRODUCING country (for map visualization)
+    // Shows which countries PRODUCE the commodities in your recipe
+    // Each producing country's contribution is shown individually
+    // ============================================================================
+
+    async getImpactByCountry() {
+      const ingredients = this.selectedIngredients;
+      
+      if (ingredients.length === 0) {
+        console.warn('No ingredients selected');
+        return [];
+      }
+      
+      console.log('🗺️ Calculating impact by PRODUCING country for map...');
+      console.log('   (Breaking down each commodity by producer)');
+      
+      const allProducers = [];
+      
+      // For each ingredient, get breakdown by producing country
+      for (const ing of ingredients) {
+        // Get FABIO code for import country
+        const importCountryCode = DataManager.getFabioCountryCode(ing.source);
         
-      //  const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
-        const allIngredients = [...this.selectedIngredients];
-  
-
-        console.log('allIngredients: ', allIngredients)  //DEBUG
-        allIngredients.forEach(ingredient => {
-            if (!ingredient.source) {
-                console.warn(`Missing source for: ${ingredient.name}`);
-                return;
-            }
+        if (!importCountryCode) {
+          console.warn(`⚠️ No FABIO code for: ${ing.source}`);
+          continue;
+        }
+        
+        const commodityCode = ing.comm_code || this.getCommCode(ing);
+        
+        if (!commodityCode) {
+          console.warn(`⚠️ No commodity code for: ${ing.name}`);
+          continue;
+        }
+        
+        // Convert amount to tons
+        const amountInTons = this.convertToTons(ing.amount || 0, ing.unit);
+        
+        console.log(`  📦 ${ing.name} from ${ing.source} (${importCountryCode}_${commodityCode}), ${ing.amount}${ing.unit} (${amountInTons.toFixed(6)} tons)`);
+        
+        // Fetch breakdown by producing country from backend
+        try {
+          const response = await fetch('/api/env-impacts/breakdown', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              import_country_code: importCountryCode,
+              commodity_code: commodityCode
+            })
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error(`Backend error for ${ing.name}:`, errorData);
+            continue;
+          }
+          
+          const breakdown = await response.json();
+          
+          if (!breakdown.success) {
+            console.warn(`No breakdown data for ${ing.name}`);
+            continue;
+          }
+          
+          console.log(`     Found ${breakdown.total_producers} producing countries`);
+          
+          // Scale by ingredient amount (already in tons) and add to results
+          breakdown.producing_countries.forEach(producer => {
+            // Debug: Log the producer area_code type and value
+          //  console.log(`     Producer area_code: ${producer.area_code} (type: ${typeof producer.area_code})`);
             
-            const impact = this.computeIngredientImpact(ingredient);
-            if (!impact) {
-                console.warn(`Couldn't compute impact for: ${ingredient.name} from ${ingredient.source}`);
-                return;
-            }
-            
-            const country = ingredient.source.trim();
-            const countryKey = country.toLowerCase();
-            
-            if (!countryMap.has(countryKey)) {
-                countryMap.set(countryKey, { 
-                    country: country,
-                    co2e: 0, 
-                    water: 0, 
-                    land: 0,
-                    total_bd: 0
-                });
-            }
-            
-            const countryData = countryMap.get(countryKey);
-            countryData.co2e += impact.co2e;
-            countryData.water += impact.water;
-            countryData.land += impact.land;
-            countryData.total_bd += impact.total_bd;
+            allProducers.push({
+              producingCountryCode: String(producer.area_code),  // Ensure it's a string
+              importFrom: ing.source,
+              commodity: ing.name,
+              amount: amountInTons,
+              biodiv: producer.biodiv * amountInTons,
+              co2e: producer.gwp100 * amountInTons,
+              landUse: producer.landuse * amountInTons,
+              waterUse: producer.water * amountInTons
+            });
+          });
+          
+        } catch (error) {
+          console.error(`Failed to get breakdown for ${ing.name}:`, error);
+        }
+      }
+      
+      if (allProducers.length === 0) {
+        console.warn('No producer data found');
+        return [];
+      }
+      
+      // Group by producing country (sum all impacts for each producer)
+      const countryTotals = new Map();
+      
+      allProducers.forEach(item => {
+        const producerCode = item.producingCountryCode;
+        
+        if (!countryTotals.has(producerCode)) {
+          countryTotals.set(producerCode, {
+            producerCode: producerCode,
+            biodiv: 0,
+            co2e: 0,
+            landUse: 0,
+            waterUse: 0,
+            commodities: []
+          });
+        }
+        
+        const totals = countryTotals.get(producerCode);
+        totals.biodiv += item.biodiv;
+        totals.co2e += item.co2e;
+        totals.landUse += item.landUse;
+        totals.waterUse += item.waterUse;
+        totals.commodities.push(`${item.commodity} (for ${item.importFrom})`);
+      });
+      
+      // Convert to array and add country names and ISO3 codes for map
+    const mapData = Array.from(countryTotals.values()).map(data => {
+        // Debug: Show what we're looking for and what's available
+      //  console.log(`🔍 Looking for FABIO code: ${data.producerCode} (type: ${typeof data.producerCode})`);
+      /*  
+        if (DataManager.datasets.regions) {
+          console.log(`   Available region codes (first 5):`, 
+            DataManager.datasets.regions.slice(0, 5).map(r => 
+              `${r.CountryCode} (${typeof r.CountryCode})`
+            ).join(', ')
+          );
+        }
+        */
+        // Get country info from regions dataset using FABIO code (area_code)
+        // Normalize both codes to integers for comparison
+        const region = DataManager.datasets.regions.find(r => {
+          const regionCode = parseInt(String(r.CountryCode).trim());
+          const producerCode = parseInt(String(data.producerCode).trim());
+          
+          if (isNaN(regionCode) || isNaN(producerCode)) {
+            console.warn(`   Invalid code comparison: regionCode=${regionCode}, producerCode=${producerCode}`);
+            return false;
+          }
+          
+          return regionCode === producerCode;
         });
-
-        return Array.from(countryMap.values());
-    }
-
-    computeIngredientImpact(ingredient) {
-        if (!ingredient.comm_code || ingredient.comm_code === 'UNKNOWN') {
-            return null;
+        
+        if (!region) {
+          console.warn(`❌ No region found for FABIO code ${data.producerCode}`);
+          return null;
         }
-
-        const countryCode = DataManager.getCountryCode(ingredient.source);
-        if (!countryCode) {
-            return null;
-        }
-
-        const factors = DataManager.getEnvImpactFactors(countryCode, ingredient.comm_code);
-        if (!factors) {
-            return null;
-        }
-
-        const tonAmount = this.convertToTons(ingredient.amount, ingredient.unit);
-        if (tonAmount <= 0) {
-            return null;
-        }
-
-        // Calculate CO2 equivalents including CH4 and N2O
-        const co2e = tonAmount * (factors.CO2 + (factors.CH4 * 25) + (factors.N2O * 298));
-
+        
+      //  console.log(`✅ Found region: ${region.CountryName} (${region.iso3c})`);
+        
         return {
-            co2e: co2e, // Now includes all greenhouse gases as CO2 equivalents
-            water: tonAmount * factors.blue_water,
-            land: tonAmount * factors.landuse,
-            total_bd: tonAmount * factors.total_bd,
+          country: region.CountryName,
+          countryCode: region.iso3c,
+          fabioCode: data.producerCode,
+          biodiv: data.biodiv,
+          co2e: data.co2e,
+          land: data.landUse,
+          water: data.waterUse,
+          waterUse: data.waterUse,
+          total_bd: data.biodiv,
+          commodities: [...new Set(data.commodities)]
         };
+      }).filter(Boolean);
+      
+      // Sort by biodiversity impact (highest first)
+      mapData.sort((a, b) => b.biodiv - a.biodiv);
+      
+      /* Debug logging
+
+      console.log(`✅ Impact breakdown by ${mapData.length} producing countries:`);
+      mapData.forEach(country => {
+        console.log(`  🏭 ${country.country} (FABIO ${country.fabioCode}): biodiv=${country.biodiv.toFixed(3)}`);
+        console.log(`     Produces: ${country.commodities.join(', ')}`);
+      });
+      */
+      return mapData;
     }
+
+    // ============================================================================
+    // Helper method to get commodity code
+    // ============================================================================
+
+    getCommCode(ingredient) {
+      // If comm_code is already stored in the ingredient
+      if (ingredient.comm_code) {
+        return ingredient.comm_code;
+      }
+      
+      // Otherwise look it up in database
+      const dbEntry = DataManager.database.find(item => 
+        item.Ingredient?.trim().toLowerCase() === ingredient.name?.trim().toLowerCase()
+      );
+      
+      return dbEntry?.comm_code || null;
+    }
+
 
     // Add these helper methods
     formatNumber(value) {

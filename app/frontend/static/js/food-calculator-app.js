@@ -8,9 +8,9 @@ import { MapView } from './map-view.js';
 
 export class FoodCalculatorApp {
     constructor(formHandler) {
-      this.autocompleteInstances = {}; // Add this line
-      this.formHandler = formHandler; //new FormHandler(); // Create FormHandler instance
-      this.resultsView = new ResultsView(); // Add ResultsView instance
+      this.autocompleteInstances = {};
+      this.formHandler = formHandler;
+      this.resultsView = new ResultsView();
       this.mapView = null;
       this.initializeApp();
     }
@@ -22,32 +22,22 @@ export class FoodCalculatorApp {
         this.formHandler.loadRecipe(); 
         this.mapView = new MapView('map-container');
       });
-
     }
 
     setupAutocomplete() {
-      const app = this; // Capture 'this' reference
+      const app = this;
   
-      // Single category autocomplete handler
-      
       new AutocompleteHandler({
         input: '#category-input',
         dataset: DataManager.categories,
         onSelect: (selectedCategory) => {
-          // Clear previous selections
           document.getElementById('ingredient-input').value = '';
-          
-          // Update category display
           FormHandler.updateCategory(selectedCategory);
-          
-          // Update ingredient list
           const ingredients = DataManager.getIngredientsByCategory(selectedCategory);
           app.updateIngredientAutocomplete(ingredients);
         }
       });
   
-      // Ingredient autocomplete
-       
       this.autocompleteInstances.ingredient = new AutocompleteHandler({
         input: '#ingredient-input',
         dataset: DataManager.ingredients,
@@ -57,10 +47,8 @@ export class FoodCalculatorApp {
           );
           
           if (ingredient) {
-            // Store comm_code in the input's dataset
             const ingredientInput = document.getElementById('ingredient-input');
-            ingredientInput.dataset.commCode = ingredient.comm_code; // Add this line
-       //     FormHandler.updateCategory(ingredient["Food group"].trim());
+            ingredientInput.dataset.commCode = ingredient.comm_code;
             document.getElementById('category-input').value = ingredient["Food group"];
 
             const countries = [
@@ -75,62 +63,70 @@ export class FoodCalculatorApp {
         }
       });
       
-  
-      // Store the source autocomplete instance
       this.autocompleteInstances.source = new AutocompleteHandler({
         input: '#source-input',
         dataset: DataManager.importCountries,
         onSelect: (selectedCountry) => {
-          // Directly store the selected country
           document.getElementById('source-input').value = selectedCountry;
         }
       });
-  
-  
     }
 
-    
-    
     setupEventListeners() {   
-      // In the calculate button handler
+
+        this.resultsView.onMetricChange = (metric) => {
+          console.log(`🎯 User selected metric: ${metric}`);
+          this.mapView.setMetric(metric);
+        };
+
       document.getElementById('calculate-selected').addEventListener('click', async (e) => {
         e.preventDefault();      
-        this.resultsView.clear();  // Clear previous results
-
-        // Initialize map only when needed
-      //  if (!this.mapView) {
-      //      this.mapView = new MapView('map-container');
-      //  }
+        this.resultsView.clear();
         
-        // Perfrom calculation
-        const impact = this.formHandler.calculateImpact();
-
-        console.log("impact:", impact)
-        if(impact) {
-          this.resultsView.showResults({
-            total_bd: impact.total_bd,
-            co2e: impact.co2e.toFixed(2),
-            water: impact.waterUse.toFixed(2),
-            land: impact.landUse.toFixed(2)
-          });
-  
-          // Update map with data from the impact by country
-          const impactByCountry = this.formHandler.getImpactByCountry();
-          console.log("Impact by country data:", impactByCountry); // DEBUG
-
-          // Verify we have valid data before updating map
+        // Show loading state
+        const calculateBtn = e.target;
+        const originalText = calculateBtn.textContent;
+        calculateBtn.textContent = 'Calculating...';
+        calculateBtn.disabled = true;
+        
+        try {
+          console.log('🚀 Starting environmental impact calculation...');
+          
+          // Get country-level impacts first (this is where the real data is)
+          console.log('🗺️ Calculating country-level impacts...');
+          const impactByCountry = await this.formHandler.getImpactByCountry();
+          
+          console.log("Impact by country:", impactByCountry);
+          
           if (impactByCountry && impactByCountry.length > 0) {
-              this.mapView.updateMap(impactByCountry);
+            // Calculate totals from country data using MapView's method
+            const totals = this.mapView.calculateTotals(impactByCountry);
+            
+            console.log("📊 Calculated totals:", totals);
+            
+            // Display totals in results panel
+            this.resultsView.showResults(totals);
+            
+            // Update map visualization
+            this.mapView.updateMap(impactByCountry);
+            
+            console.log(`✅ Calculation complete: ${impactByCountry.length} countries processed`);
           } else {
-              console.warn("No country impact data to display on map");
+            console.warn("No country impact data available");
+            alert('Please add ingredients to calculate environmental impact.');
           }
-      }
-
-      });  
-        
+          
+        } catch (error) {
+          console.error('❌ Calculation error:', error);
+          console.error('Error stack:', error.stack);
+          this.resultsView.showError(`Failed to calculate: ${error.message}`);
+        } finally {
+          // Reset button state
+          calculateBtn.textContent = originalText;
+          calculateBtn.disabled = false;
+        }
+      });
     }
-    
 
- 
-  }
-  
+
+}

@@ -26,13 +26,14 @@ export class DataManager {
       ingredients: [],
       importCountries: [],
       selectedIngredients: [],
-      geoJsonData: null,
-      countryCentroids: []
+      geoJsonData: null
+
     };
   
     static userLocation = {
       countryName: 'Norway',
       countryCodeISO3: 'NOR',
+      countryCode: null, // Add this to store the FABIO country code
       success: false
     };
   
@@ -45,12 +46,16 @@ export class DataManager {
       try {
         await this.loadConfig();
         await this.detectUserLocation();
+        
         await this.loadImportData();
         await this.loadDatabase();
         await this.loadConversionFactors();
         await this.loadGeoJsonData();
-       // await this.loadCountryCentroids();
-        await Promise.all([this.loadRegions(), this.loadEnvImpacts()]);
+
+      //  await Promise.all([this.loadRegions(), this.loadEnvImpacts()]);
+        // Load regions FIRST, then env impacts
+        await this.loadRegions(); // This creates countryCodeMap
+        await this.loadEnvImpacts(); // This now just fetches from backend
         
         this.processCategories();
         this.processIngredients();
@@ -87,15 +92,19 @@ export class DataManager {
         this.userLocation = {
           countryName: sanitizedName || 'Norway',
           countryCodeISO3: data.country_code_iso3 || 'NOR',
+          countryCode: null, // Will be filled after regions load
           success: !!data.country_name
         };
         
         console.log(`🌍 Detected location: ${this.userLocation.countryName}`);
+
+        
       } catch (error) {
         console.error('Location detection failed:', error);
         this.userLocation = {
           countryName: 'Norway',
           countryCodeISO3: 'NOR',
+          countryCode: null,
           success: false
         };
       }
@@ -107,9 +116,11 @@ export class DataManager {
         ?.replace(/[^a-zA-Z0-9_]/g, '')
         ?.trim() || 'Norway';
     }
-  
+
+    // ======================================
     // --- Data Loading ---
-   static async loadImportData() {
+    // ======================================
+    static async loadImportData() {
       try {
         let importPath;
         
@@ -146,49 +157,49 @@ export class DataManager {
 
 
     static processImportData(rawData) {
-      const commodityMap = new Map();
-      
-      rawData.forEach(item => {
-        // Use the actual column names from your CSV
-        const code = item.Commodity?.trim().toLowerCase();
-        const country = item.Country?.trim();
-        const value = Number(item.Export_Value);
-        const rank = Number(item.Rank);
+        const commodityMap = new Map();
         
-        // Skip if essential data is missing
-        if (!code || !country || isNaN(value)) {
-          console.warn('Skipping invalid import data item:', item);
-          return;
-        }
-        
-        if (!commodityMap.has(code)) {
-          commodityMap.set(code, []);
-        }
-        
-        commodityMap.get(code).push({
-          country: country,
-          value: value,
-          originalRank: rank
+        rawData.forEach(item => {
+          // Use the actual column names from your CSV
+          const code = item.Commodity?.trim().toLowerCase();
+          const country = item.Country?.trim();
+          const value = Number(item.Export_Value);
+          const rank = Number(item.Rank);
+          
+          // Skip if essential data is missing
+          if (!code || !country || isNaN(value)) {
+            console.warn('Skipping invalid import data item:', item);
+            return;
+          }
+          
+          if (!commodityMap.has(code)) {
+            commodityMap.set(code, []);
+          }
+          
+          commodityMap.get(code).push({
+            country: country,
+            value: value,
+            originalRank: rank
+          });
         });
-      });
 
-      // Sort by highest export value first, then original rank
-      for (const [code, entries] of commodityMap) {
-        entries.sort((a, b) => {
-          // First priority: Higher export value
-          if (b.value !== a.value) return b.value - a.value;
-          // Second priority: Lower original rank if values are equal
-          return a.originalRank - b.originalRank;
-        });
+        // Sort by highest export value first, then original rank
+        for (const [code, entries] of commodityMap) {
+          entries.sort((a, b) => {
+            // First priority: Higher export value
+            if (b.value !== a.value) return b.value - a.value;
+            // Second priority: Lower original rank if values are equal
+            return a.originalRank - b.originalRank;
+          });
+          
+          // Store only top 5 entries
+          commodityMap.set(code, entries.slice(0, 5));
+        }
         
-        // Store only top 5 entries
-        commodityMap.set(code, entries.slice(0, 5));
+        // Debug: Show sample commodity data
+        console.log('Processed importData for c002:', commodityMap.get('c002'));
+        return commodityMap;
       }
-      
-      // Debug: Show sample commodity data
-      console.log('Processed importData for c002:', commodityMap.get('c002'));
-      return commodityMap;
-    }
 
 
     static getTopImportCountries(commCode) {
@@ -216,7 +227,7 @@ export class DataManager {
     }
 
      // load database
-     static async loadDatabase() {
+    static async loadDatabase() {
       try {
         const response = await fetch(this.config.datasets.database);
         if (!response.ok) throw new Error('Database not found');
@@ -271,6 +282,8 @@ export class DataManager {
         );
         
         console.log("✅ Loaded regions data with", this.countryCodeMap.size, "countries");
+ 
+        
       } catch (error) {
         console.error("⚠️ Region data load failed:", error.message);
       }
@@ -308,68 +321,233 @@ export class DataManager {
 
     
     // load environmental impacts
+    // 1. Remove the old loadEnvImpacts() completely and replace with this:
 
     static async loadEnvImpacts() {
       try {
-        const response = await fetch(this.config.datasets.env_impacts);
-        const csvData = await response.text();
-        const rows = csvData.split('\n').filter(row => row.trim() !== '');
-
-        // Extract headers
-        const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-
-        // Initialize impact map
+        console.log('📄 Environmental impact data will be fetched from backend on-demand');
+        console.log('✅ Backend has pre-loaded all Parquet files at startup');
+        
+        // Initialize empty map - we'll populate it on-demand via API calls
         this.envImpactMap = new Map();
-
-        // Process each row
-        for (let i = 1; i < rows.length; i++) {
-          const cells = rows[i].split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
-          const id = cells[0];
-          const [countryCode, commCode] = id.split('_');
-          const key = `${countryCode}-${commCode}`.toLowerCase();
-
-          // Parse values first
-          const CH4Value = parseFloat(cells[6]) || 0;
-          const CO2Value = parseFloat(cells[7]) || 0;
-          const N2OValue = parseFloat(cells[8]) || 0;
-
-          // Create impact entry with all columns including biodiversity data
-          const entry = {
-            landuse: parseFloat(cells[1]) || 0,
-            blue_water: parseFloat(cells[2]) || 0,
-            green_water: parseFloat(cells[3]) || 0,
-            p_application: parseFloat(cells[4]) || 0,
-            n_application: parseFloat(cells[5]) || 0,
-            CH4: CH4Value, /// 1000,  // Correctly divided by 1000
-            CO2: CO2Value, // / 1000,  // Correctly divided by 1000
-            N2O: N2OValue ,// / 1000,  // Correctly divided by 1000
-            landuse_bd: parseFloat(cells[9]) || 0,
-            water_bd: parseFloat(cells[10]) || 0,
-            P_bd: parseFloat(cells[11]) || 0,
-            N_bd: parseFloat(cells[12]) || 0,
-            CH4_bd: parseFloat(cells[13]) || 0,
-            CO2_bd: parseFloat(cells[14]) || 0,
-            N2O_bd: parseFloat(cells[15]) || 0
-          };
-
-          // Calculate total biodiversity impact
-          entry.total_bd = entry.landuse_bd + 
-                          entry.water_bd + 
-                          entry.CH4_bd + 
-                          entry.CO2_bd + 
-                          entry.N2O_bd;
-
-          this.envImpactMap.set(key, entry);
+        
+        // Test the backend connection with better error handling
+        const healthCheck = await fetch('/api/health');
+        
+        // Check if response is OK before parsing
+        if (!healthCheck.ok) {
+          console.warn(`⚠️ Backend health check failed: ${healthCheck.status} ${healthCheck.statusText}`);
+          const text = await healthCheck.text();
+          console.warn('Response body:', text.substring(0, 200));
+          return;
         }
-
-        console.log("✅ Environmental data loaded:", this.envImpactMap.size, "entries");
-        console.log("Sample entry:", Array.from(this.envImpactMap.values())[0]);
+        
+        // Check content type before parsing JSON
+        const contentType = healthCheck.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          console.warn(`⚠️ Backend returned non-JSON response: ${contentType}`);
+          const text = await healthCheck.text();
+          console.warn('Response body:', text.substring(0, 200));
+          return;
+        }
+        
+        const health = await healthCheck.json();
+        
+        if (health.ready) {
+          console.log(`✅ Backend ready with ${health.cache_entries} cached impact entries`);
+        } else {
+          console.warn('⚠️ Backend is still loading data...');
+        }
+        
       } catch (error) {
-        console.error("🚨 Failed to load environmental data:", error);
+        console.error("🚨 Failed to check backend status:", error);
+        console.error("Stack trace:", error.stack);
+        this.envImpactMap = new Map();
       }
     }
-   
-    //load saved recipe
+
+
+    // 2. Add this NEW method for looking up impacts (single or batch)
+
+    /**
+     * Look up environmental impacts for a specific country/commodity
+     * @param {string|number} countryCode - Country code (e.g., "1", "2", 1, 2)
+     * @param {string} commodityCode - Commodity code (e.g., "c001", "c002")
+     * @returns {Promise<Object>} Object with biodiv, gwp100, landuse, water values
+     */
+    static async getEnvImpact(countryCode, commodityCode) {
+      try {
+        // Check cache first
+        const cacheKey = `${countryCode}_${commodityCode}`.toLowerCase();
+        
+        if (this.envImpactMap.has(cacheKey)) {
+          return this.envImpactMap.get(cacheKey);
+        }
+        
+        // Fetch from backend
+        const response = await fetch('/api/env-impacts/lookup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            country_code: String(countryCode),
+            commodity_code: String(commodityCode)
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Backend returned ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Cache the result
+        const impacts = result.impacts || {
+          biodiv: 0,
+          gwp100: 0,
+          landuse: 0,
+          water: 0
+        };
+        
+        this.envImpactMap.set(cacheKey, impacts);
+        
+        return impacts;
+        
+      } catch (error) {
+        console.error(`❌ Failed to get env impact for ${countryCode}_${commodityCode}:`, error);
+        return { biodiv: 0, gwp100: 0, landuse: 0, water: 0 };
+      }
+    }
+
+
+    // 3. Add this NEW method for batch lookups (more efficient for multiple items)
+
+    /**
+     * Batch lookup for multiple country/commodity pairs
+     * More efficient than individual lookups
+     * @param {Array} items - Array of {countryCode, commodityCode} objects
+     * @returns {Promise<Array>} Array of impact objects
+     */
+    static async batchGetEnvImpacts(items) {
+      try {
+        // Filter out items we already have cached
+        const uncachedItems = [];
+        const results = [];
+        
+        for (const item of items) {
+          const cacheKey = `${item.countryCode}_${item.commodityCode}`.toLowerCase();
+          
+          if (this.envImpactMap.has(cacheKey)) {
+            results.push({
+              countryCode: item.countryCode,
+              commodityCode: item.commodityCode,
+              impacts: this.envImpactMap.get(cacheKey)
+            });
+          } else {
+            uncachedItems.push({
+              country_code: String(item.countryCode),
+              commodity_code: String(item.commodityCode)
+            });
+          }
+        }
+        
+        // Fetch uncached items in batch
+        if (uncachedItems.length > 0) {
+          const response = await fetch('/api/env-impacts/batch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: uncachedItems })
+          });
+          
+          if (!response.ok) {
+            throw new Error(`Batch lookup failed: ${response.status}`);
+          }
+          
+          const batchResult = await response.json();
+          
+          // Cache and add to results
+          for (const item of batchResult.results) {
+            const cacheKey = `${item.country_code}_${item.commodity_code}`.toLowerCase();
+            this.envImpactMap.set(cacheKey, item.impacts);
+            
+            results.push({
+              countryCode: item.country_code,
+              commodityCode: item.commodity_code,
+              impacts: item.impacts
+            });
+          }
+        }
+        
+        console.log(`✅ Batch lookup completed: ${results.length} items (${uncachedItems.length} from API)`);
+        return results;
+            
+          } catch (error) {
+            console.error('❌ Batch lookup failed:', error);
+            return items.map(item => ({
+              countryCode: item.countryCode,
+              commodityCode: item.commodityCode,
+              impacts: { biodiv: 0, gwp100: 0, landuse: 0, water: 0 }
+            }));
+          }
+        }
+
+
+  // 4. REMOVE or UPDATE the old getEnvImpactFactors method - replace with this:
+
+  /**
+   * Get environmental impact factors (backward compatible wrapper)
+   * Now uses the new async API
+   * @param {string} countryCode - Country code
+   * @param {string} commCode - Commodity code
+   * @returns {Object|null} Impact factors or null
+   */
+  static getEnvImpactFactors(countryCode, commCode) {
+    // For backward compatibility, check cache synchronously
+    const cacheKey = `${countryCode}_${commCode}`.toLowerCase();
+    return this.envImpactMap.get(cacheKey) || null;
+  }
+
+
+  // 5. Get FABIO country code from country name (uses existing regions data)
+
+  /**
+   * Get FABIO country code (numeric) from country name
+   * Uses the existing regions.csv data loaded in loadRegions()
+   * @param {string} countryName - Country name
+   * @returns {string|null} FABIO country code (e.g., "1", "2", "3")
+   */
+  static getFabioCountryCode(countryName) {
+    if (!countryName || !this.datasets.regions) return null;
+    
+    const cleanName = countryName.toLowerCase().trim();
+    
+    // Search in regions dataset for matching country name
+    const country = this.datasets.regions.find(region => 
+      region.CountryName.toLowerCase().trim() === cleanName
+    );
+    
+    return country ? String(country.CountryCode) : null;
+  }
+
+    //==================================
+    // load geojson data
+    //==================================
+
+    static async loadGeoJsonData() {
+        try {
+            const response = await fetch(this.config.datasets.geojson);
+            this.geoJsonData = await response.json();
+            return this.geoJsonData;
+         } catch (error) {
+            console.error('Failed to load GeoJSON data:', error);
+            throw error; // Add this line to propagate the error
+        }
+        
+    }
+
+
+    // ===========================
+    // load saved recipe
+    // ===========================
     static async loadSavedRecipe() {
       try {
         const recipe = await ApiClient.getSavedRecipes();
@@ -394,58 +572,10 @@ export class DataManager {
       
     }
 
-
-    static async loadGeoJsonData() {
-        try {
-            const response = await fetch(this.config.datasets.geojson);
-            this.geoJsonData = await response.json();
-            return this.geoJsonData;
-         } catch (error) {
-            console.error('Failed to load GeoJSON data:', error);
-            throw error; // Add this line to propagate the error
-        }
-    }
-
     
-  
-    //load country centroids
-    static getCountryCentroid(countryCode) {
-        if (!this.countryCentroids || !countryCode) {
-            console.warn("Missing country centroids data or country code");
-            return null;
-        }
-        
-        // Ensure we have features array
-        if (!this.countryCentroids.features || !Array.isArray(this.countryCentroids.features)) {
-            console.error("Invalid country centroids format - missing features array");
-            return null;
-        }
-        
-        // Find centroid by matching ISO3 code
-        const country = this.countryCentroids.features.find(feature => {
-            const props = feature.properties || {};
-            return props.ISO_A3 === countryCode;
-        });
-        
-        if (!country) {
-            console.warn(`Centroid not found for country code: ${countryCode}`);
-            return null;
-        }
-        
-        const props = country.properties || {};
-        const lat = parseFloat(props.latitude);
-        const lng = parseFloat(props.longitude);
-        
-        if (isNaN(lat) || isNaN(lng)) {
-            console.warn(`Invalid coordinates for ${countryCode}: ${props.latitude}, ${props.longitude}`);
-            return null;
-        }
-        
-        return [lat, lng];
-    }
-    
+    // ================================
     // --- Data Processing ---
-
+    // ================================
   
     static getTopImporters(commCode) {
       return this.datasets.importData?.get(commCode) || [];

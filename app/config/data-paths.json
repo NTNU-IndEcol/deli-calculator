@@ -5,10 +5,9 @@
       "import_data": "backend/data/import/top_exporters_to_{country}.csv",
       "default_import": "backend/data/import/top_exporters_to_NOR.csv",
       "regions": "backend/data/regions.csv",
-      "env_impacts": "backend/data/EL_2020_biodiversity.csv",
+      "env_impacts": "backend/data/env_impacts_{country}.csv",
       "conversion_factors": "backend/data/Conversion_factors.csv",
-      "country_centroids": "backend/data/country-centroids.json",
       "geojson": "backend/data/world.geojson"
-      
+
     }
   }

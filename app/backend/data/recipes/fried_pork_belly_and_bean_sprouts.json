@@ -40,14 +40,6 @@
       }
     },
     {
-      "mainIngredient": "Or scallion",
-      "details": {
-        "amount": 2.0,
-        "unit": "",
-        "originalText": "or 3 scallions"
-      }
-    },
-    {
       "mainIngredient": "Soy sauce or Oyster sauce",
       "details": {
         "amount": 2.0,
@@ -69,14 +61,6 @@
         "amount": null,
         "unit": "",
         "originalText": "pepper to taste"
-      }
-    },
-    {
-      "mainIngredient": "Sesame seed",
-      "details": {
-        "amount": 1.0,
-        "unit": "teaspoon",
-        "originalText": "sesame seeds - optional"
       }
     }
   ],

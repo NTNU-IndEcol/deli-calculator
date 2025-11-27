@@ -16,14 +16,6 @@
       }
     },
     {
-      "mainIngredient": "Cooking oil",
-      "details": {
-        "amount": null,
-        "unit": "",
-        "originalText": "cooking oil"
-      }
-    },
-    {
       "mainIngredient": "Uncooked short grain rice",
       "details": {
         "amount": 1.5,
@@ -42,13 +34,13 @@
     {
       "mainIngredient": "Salt",
       "details": {
-        "amount": null,
-        "unit": "",
+        "amount": 1,
+        "unit": "teaspoon",
         "originalText": "salt to taste (about 1/2 teaspoon)"
       }
     },
     {
-      "mainIngredient": "Lean tender beef, cut into thin strip",
+      "mainIngredient": "Lean tender beef",
       "details": {
         "amount": 8.0,
         "unit": "ounces",
@@ -96,10 +88,10 @@
       }
     },
     {
-      "mainIngredient": "Bunch spinach, about ounce",
+      "mainIngredient": "Bunch spinach",
       "details": {
-        "amount": 1.0,
-        "unit": "",
+        "amount": 8.0,
+        "unit": "ounces",
         "originalText": "bunch spinach, about 8 ounces"
       }
     },
@@ -112,18 +104,18 @@
       }
     },
     {
-      "mainIngredient": "Salt about / teaspoon",
+      "mainIngredient": "Salt",
       "details": {
-        "amount": null,
-        "unit": "",
+        "amount": 0.25,
+        "unit": "teaspoon",
         "originalText": "salt to taste - about 1/4 teaspoon"
       }
     },
     {
-      "mainIngredient": "Carrots, julienned",
+      "mainIngredient": "Carrots",
       "details": {
         "amount": 2.0,
-        "unit": "",
+        "unit": "unit",
         "originalText": "medium carrots, julienned (or 1/2-inch thick long strips)"
       }
     },
@@ -147,18 +139,11 @@
       "mainIngredient": "Egg",
       "details": {
         "amount": 2.0,
-        "unit": "",
+        "unit": "unit",
         "originalText": "large eggs"
       }
     },
-    {
-      "mainIngredient": "Or sheets fish cake eomuk",
-      "details": {
-        "amount": 1.0,
-        "unit": "",
-        "originalText": "or 2 (if small) sheets fish cake - eomuk (\uc5b4\ubb35)"
-      }
-    },
+
     {
       "mainIngredient": "Soy sauce",
       "details": {
