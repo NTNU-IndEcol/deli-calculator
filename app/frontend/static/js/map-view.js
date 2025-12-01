@@ -37,7 +37,7 @@ export class MapView {
         }
 
         const southBound = -56;
-        const northBound = 73.5;
+        const northBound = 80;
         
         this.map = L.map(this.mapContainerId, {
             minZoom: 1.5,
@@ -68,7 +68,7 @@ export class MapView {
         
         this.map.on('moveend', this.handleMapMove);
         this.map.on('zoomend', this.handleMapZoom);
-        window.addEventListener('resize', this.handleResize);
+    //    window.addEventListener('resize', this.handleResize);
         
         console.log("Map initialized successfully");
     }
@@ -230,18 +230,34 @@ export class MapView {
         console.log(`🔄 Map re-rendered with ${layersAdded.length} countries for metric: ${this.currentMetric}`);
     }
 
-    // Calculate max values for normalization
+    // Updated calculateMaxValues method to also calculate minimums
     calculateMaxValues(impactData) {
-        this.maxTotalImpact = Math.max(
-            1,
-            ...impactData.map(data => (data.gwp100 || data.co2e || 0) + (data.waterUse || data.water || 0) + (data.landUse || data.land || 0))
-        );
+        // Filter out zero/null values to get actual data range
+        const biodivValues = impactData.map(d => d.biodiv || d.total_bd || 0).filter(v => v > 0);
+        const gwpValues = impactData.map(d => d.gwp100 || d.co2e || 0).filter(v => v > 0);
+        const waterValues = impactData.map(d => d.waterUse || d.water || 0).filter(v => v > 0);
+        const landValues = impactData.map(d => d.landUse || d.land || 0).filter(v => v > 0);
         
-        this.maxBiodiversity = Math.max(1e-14, ...impactData.map(d => d.biodiv || d.total_bd || 0));
-        this.maxGWP = Math.max(1, ...impactData.map(d => d.gwp100 || d.co2e || 0));
-        this.maxWater = Math.max(1, ...impactData.map(d => d.waterUse || d.water || 0));
-        this.maxLand = Math.max(1, ...impactData.map(d => d.landUse || d.land || 0));
+        // Set max values
+        this.maxBiodiversity = biodivValues.length > 0 ? Math.max(...biodivValues) : 1e-14;
+        this.maxGWP = gwpValues.length > 0 ? Math.max(...gwpValues) : 1;
+        this.maxWater = waterValues.length > 0 ? Math.max(...waterValues) : 1;
+        this.maxLand = landValues.length > 0 ? Math.max(...landValues) : 1;
+        
+        // Set min values (excluding zeros)
+        this.minBiodiversity = biodivValues.length > 0 ? Math.min(...biodivValues) : 0;
+        this.minGWP = gwpValues.length > 0 ? Math.min(...gwpValues) : 0;
+        this.minWater = waterValues.length > 0 ? Math.min(...waterValues) : 0;
+        this.minLand = landValues.length > 0 ? Math.min(...landValues) : 0;
+        
+        console.log('📊 Value ranges:', {
+            biodiv: `${this.minBiodiversity.toExponential(2)} - ${this.maxBiodiversity.toExponential(2)}`,
+            gwp: `${this.minGWP.toFixed(2)} - ${this.maxGWP.toFixed(2)}`,
+            water: `${this.minWater.toFixed(2)} - ${this.maxWater.toFixed(2)}`,
+            land: `${this.minLand.toFixed(2)} - ${this.maxLand.toFixed(2)}`
+        });
     }
+
 
     calculateTotals(impactData) {
         console.log('📊 Calculating totals from impact data:', impactData);
@@ -262,32 +278,39 @@ export class MapView {
         return totals;
     }
 
+
+    // Updated getCountryStyle method
     getCountryStyle(data) {
-        // Get value based on current metric
+        // Get value and range based on current metric
         let value = 0;
+        let minValue = 0;
         let maxValue = 1;
         
         switch(this.currentMetric) {
             case 'biodiv':
                 value = data.biodiv || data.total_bd || 0;
+                minValue = this.minBiodiversity;
                 maxValue = this.maxBiodiversity;
                 break;
             case 'gwp100':
                 value = data.gwp100 || data.co2e || 0;
+                minValue = this.minGWP;
                 maxValue = this.maxGWP;
                 break;
             case 'water':
                 value = data.waterUse || data.water || 0;
+                minValue = this.minWater;
                 maxValue = this.maxWater;
                 break;
             case 'land':
                 value = data.landUse || data.land || 0;
+                minValue = this.minLand;
                 maxValue = this.maxLand;
                 break;
         }
         
-        // White for zero values
-        if (value === 0) {
+        // White for zero or missing values
+        if (value === 0 || !value || isNaN(value)) {
             return {
                 fillColor: '#ffffff',
                 weight: 1,
@@ -297,32 +320,54 @@ export class MapView {
             };
         }
         
-        // Calculate normalized value
-        const normalized = value / maxValue;
+        // Calculate normalized value using min-max scaling
+        const range = maxValue - minValue;
+        const normalized = range > 0 ? (value - minValue) / range : 0;
         
-        // Color based on metric
-        let hue;
+        // Color based on metric with more spread
+        let hue, saturationMin, saturationMax;
         switch(this.currentMetric) {
-            case 'biodiv': hue = 120; break; // Green
-            case 'gwp100': hue = 80; break;   // Red
-            case 'water': hue = 200; break;  // Blue
-            case 'land': hue = 30; break;    // Orange
-            default: hue = 120;
+            case 'biodiv': 
+                hue = 120; // Green
+                saturationMin = 30;
+                saturationMax = 90;
+                break;
+            case 'gwp100': 
+                hue = 0; // Red
+                saturationMin = 30;
+                saturationMax = 90;
+                break;
+            case 'water': 
+                hue = 200; // Blue
+                saturationMin = 30;
+                saturationMax = 90;
+                break;
+            case 'land': 
+                hue = 30; // Orange
+                saturationMin = 30;
+                saturationMax = 90;
+                break;
+            default: 
+                hue = 120;
+                saturationMin = 30;
+                saturationMax = 90;
         }
         
-        const saturation = 80;
-        const lightness = 70 - (normalized * 40);
+        // More spread: light colors for low values, intense for high values
+        const saturation = saturationMin + (normalized * (saturationMax - saturationMin));
+        const lightness = 85 - (normalized * 55); // Range from 85% (very light) to 30% (dark)
         const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
         
         return {
             fillColor: color,
             weight: 1,
             color: '#666',
-            fillOpacity: 0.8,
+            fillOpacity: 0.85,
             className: 'country-fill'
         };
     }
 
+    // Updated updateLegend method
     updateLegend() {
         if (this.legend) {
             this.map.removeControl(this.legend);
@@ -340,59 +385,87 @@ export class MapView {
             div.style.width = '180px';
             div.style.margin = '0';
             
-            // Get title and max value based on metric
-            let title, maxDisplay, unit, maxValue;
+            // Get title, min, max, and unit based on metric
+            let title, minDisplay, maxDisplay, unit, minValue, maxValue;
             
             switch(this.currentMetric) {
                 case 'biodiv':
                     title = 'Biodiversity Impact';
                     unit = 'PDF·yr';
+                    minValue = this.minBiodiversity;
                     maxValue = this.maxBiodiversity;
-                    maxDisplay = maxValue < 0.001 ? maxValue.toExponential(2) : maxValue.toFixed(4);
+                    minDisplay = minValue > 0 ? minValue.toExponential(2) : '0';
+                    maxDisplay = maxValue.toExponential(2);
                     break;
                 case 'gwp100':
                     title = 'GWP100';
                     unit = 'CO₂eq';
+                    minValue = this.minGWP;
                     maxValue = this.maxGWP;
+                    minDisplay = minValue >= 1000 ? (minValue/1000).toFixed(2) + ' t' : minValue.toFixed(2);
                     maxDisplay = maxValue >= 1000 ? (maxValue/1000).toFixed(2) + ' t' : maxValue.toFixed(2);
                     break;
                 case 'water':
                     title = 'Water Use';
                     unit = 'm³';
+                    minValue = this.minWater;
                     maxValue = this.maxWater;
+                    minDisplay = minValue.toFixed(2);
                     maxDisplay = maxValue.toFixed(2);
                     break;
                 case 'land':
                     title = 'Land Use';
                     unit = 'm²';
+                    minValue = this.minLand;
                     maxValue = this.maxLand;
+                    minDisplay = minValue >= 10000 ? (minValue/10000).toFixed(2) + ' ha' : minValue.toFixed(2);
                     maxDisplay = maxValue >= 10000 ? (maxValue/10000).toFixed(2) + ' ha' : maxValue.toFixed(2);
                     break;
             }
             
-            // Color gradient based on metric
-            let hue;
+            // Color gradient with more spread based on metric
+            let hue, saturationMin, saturationMax;
             switch(this.currentMetric) {
-                case 'biodiv': hue = 120; break;
-                case 'gwp100': hue = 80; break;
-                case 'water': hue = 200; break;
-                case 'land': hue = 30; break;
-                default: hue = 120;
+                case 'biodiv': 
+                    hue = 120; 
+                    saturationMin = 30;
+                    saturationMax = 90;
+                    break;
+                case 'gwp100': 
+                    hue = 0; 
+                    saturationMin = 30;
+                    saturationMax = 90;
+                    break;
+                case 'water': 
+                    hue = 200; 
+                    saturationMin = 30;
+                    saturationMax = 90;
+                    break;
+                case 'land': 
+                    hue = 30; 
+                    saturationMin = 30;
+                    saturationMax = 90;
+                    break;
+                default: 
+                    hue = 120;
+                    saturationMin = 30;
+                    saturationMax = 90;
             }
             
             const gradientStops = [];
             for (let i = 0; i <= 10; i++) {
                 const value = i / 10;
-                const lightness = 70 - (value * 40);
-                gradientStops.push(`hsl(${hue}, 80%, ${lightness}%) ${value * 100}%`);
+                const saturation = saturationMin + (value * (saturationMax - saturationMin));
+                const lightness = 85 - (value * 55);
+                gradientStops.push(`hsl(${hue}, ${saturation}%, ${lightness}%) ${value * 100}%`);
             }
             
             div.innerHTML = `
                 <h4 style="margin: 0 0 10px 0; font-size: 14px; text-align: center;">${title}</h4>
                 <div style="font-size: 11px; text-align: center; margin-bottom: 5px; color: #666;">${unit}</div>
-                <div style="height: 20px; background: linear-gradient(to right, ${gradientStops.join(', ')}); margin-bottom: 5px;"></div>
+                <div style="height: 20px; background: linear-gradient(to right, ${gradientStops.join(', ')}); margin-bottom: 5px; border: 1px solid #ddd;"></div>
                 <div style="display: flex; justify-content: space-between;">
-                    <span style="font-size: 11px;">0</span>
+                    <span style="font-size: 11px;">${minDisplay}</span>
                     <span style="font-size: 11px;">${maxDisplay}</span>
                 </div>
             `;
@@ -464,26 +537,56 @@ export class MapView {
         return normalized;
     }
 
+    // Add this new method to your MapView class:
+    getPopupOptions() {
+        return {
+            maxWidth: 300,
+            offset: [0, -10], // Adjust popup position
+            autoPanPadding: [50, 50], // Add padding when auto-panning
+            keepInView: true
+        };
+    }
+
+
     createPopupContent(data) {
         const biodiv = data.biodiv || data.total_bd || 0;
         const co2 = data.gwp100 || data.co2e || 0;
         const water = data.waterUse || data.water || 0;
         const land = data.landUse || data.land || 0;
         
+        // Use exponential notation for very small values
         let bdDisplay = biodiv < 0.001 ? biodiv.toExponential(2) : biodiv.toFixed(4);
-        let co2Display = co2 >= 1000 ? (co2 / 1000).toFixed(2) + ' t' : co2.toFixed(2);
-        let waterDisplay = water >= 1000 ? water.toFixed(0) : water.toFixed(2);
-        let landDisplay = land >= 10000 ? (land / 10000).toFixed(2) + ' ha' : land.toFixed(2);
+        let co2Display = co2 < 0.01 ? co2.toExponential(2) : 
+                        (co2 >= 1000 ? (co2 / 1000).toFixed(2) + ' t' : co2.toFixed(2));
+        let waterDisplay = water < 0.01 ? water.toExponential(2) : 
+                        (water >= 1000 ? water.toFixed(0) : water.toFixed(2));
+        let landDisplay = land < 0.01 ? land.toExponential(2) : 
+                        (land >= 10000 ? (land / 10000).toFixed(2) + ' ha' : land.toFixed(2));
+
         
         return `
             <div class="impact-popup">
                 <h4>${data.country}</h4>
                 <p><strong>Biodiversity:</strong> ${bdDisplay} PDF·yr</p>
-                <p><strong>GWP100:</strong> ${co2Display} CO₂eq</p>
-                <p><strong>Water:</strong> ${waterDisplay} m³</p>
-                <p><strong>Land:</strong> ${landDisplay}</p>
+                <p><strong>GWP100:</strong> ${co2Display} kg CO₂eq</p>
+                <p><strong>Water:</strong> ${waterDisplay} m<sup>3 </p>
+                <p><strong>Land:</strong> ${landDisplay} m<sup>2 </p>
             </div>
         `;
+
+
+
+    }
+
+    getPopupOptions() {
+        return {
+            maxWidth: 300,
+            offset: [0, 25], // Increased from -10 to 25 (moves popup down)
+            autoPanPadding: [100, 50], // Increased top padding
+            autoPanPaddingTopLeft: [100, 50], // Explicit top-left padding
+            keepInView: true,
+            autoPan: true
+        };
     }
 
     getImpactData() {

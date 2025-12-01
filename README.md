@@ -1,7 +1,10 @@
 # DELI (“fooD rEcipe environmentaL Impact”) Calculator 😋🍀🧮
 [https://deli-calculator.indecol.no](https://deli-calculator.indecol.no) - a web-application for comprehensive, quantitative sustainability assessment of food recipies.
 
-Based on a research work of
+Main developer
+* Bo Huang
+
+based on a research work of
 * Paula Alejandra Barco Alzate
 * Jeongmin Kim
 

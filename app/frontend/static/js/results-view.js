@@ -73,7 +73,7 @@ export class ResultsView {
         
         // Update displays
         this.elements.biodivDisplay.textContent = `${biodivDisplay} PDF·yr`;
-        this.elements.co2Display.textContent = `${co2Display}${data.gwp100 >= 1000 ? '' : ' '} CO₂eq`;
+        this.elements.co2Display.textContent = `${co2Display}${data.gwp100 >= 1000 ? '' : ' '} kg CO₂eq`;
         this.elements.waterDisplay.textContent = `${waterDisplay}${data.waterUse >= 0.01 ? ' m³' : ''}`;
         this.elements.landDisplay.textContent = `${landDisplay}${data.landUse >= 10000 ? '' : (data.landUse >= 0.01 ? ' m²' : '')}`;
         

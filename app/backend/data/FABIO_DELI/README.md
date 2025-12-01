@@ -2,6 +2,9 @@
 
 Data files are full supply chain multipliers
 
+run on 2025-12-01 (excluding water biodiversity)
+
+
 ## Data format:
 
 Row index: area code (see 
