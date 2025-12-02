@@ -122,37 +122,37 @@ export class DataManager {
     // ======================================
     static async loadImportData() {
       try {
-        let importPath;
-        
-        if (this.userLocation.success) {
-          importPath = this.config.datasets.import_data
-            .replace('{country}', this.userLocation.countryCodeISO3);
-        } else {
-          importPath = this.config.datasets.default_import;
-        }
+          let importPath;
+          
+          if (this.userLocation.success) {
+            importPath = this.config.datasets.import_data
+              .replace('{country}', this.userLocation.countryCodeISO3);
+          } else {
+            importPath = this.config.datasets.default_import;
+          }
 
-        console.log('📥 Loading import data from:', importPath);
-        const response = await fetch(importPath);
-        if (!response.ok) throw new Error(`Import data not found at ${importPath}`);
-        
-        const csvData = await response.text();
-      //  console.log('📄 Raw CSV data (first 500 chars):', csvData.substring(0, 500));
-        
-        const parsedData = this.parseCSV(csvData);
-      //  console.log('📊 Parsed data sample:', parsedData.slice(0, 3));
-      //  console.log('🔑 Available columns:', Object.keys(parsedData[0] || {}));
-        
-        this.datasets.importData = this.processImportData(parsedData);
-        console.log("✅ Loaded import data from:", importPath);
-      } catch (error) {
-        console.warn(`⚠️ Falling back to default import data: ${error.message}`);
-        const response = await fetch(this.config.datasets.default_import);
-        const csvData = await response.text();
-        const parsedData = this.parseCSV(csvData);
-        
-        console.log('📄 Fallback CSV data sample:', parsedData.slice(0, 3));
-        this.datasets.importData = this.processImportData(parsedData);
-      }
+         // console.log('📥 Loading import data from:', importPath);
+          const response = await fetch(importPath);
+          if (!response.ok) throw new Error(`Import data not found at ${importPath}`);
+          
+          const csvData = await response.text();
+        //  console.log('📄 Raw CSV data (first 500 chars):', csvData.substring(0, 500));
+          
+          const parsedData = this.parseCSV(csvData);
+        //  console.log('📊 Parsed data sample:', parsedData.slice(0, 3));
+        //  console.log('🔑 Available columns:', Object.keys(parsedData[0] || {}));
+          
+          this.datasets.importData = this.processImportData(parsedData);
+          console.log("✅ Loaded import data from:", importPath);
+        } catch (error) {
+          console.warn(`⚠️ Falling back to default import data: ${error.message}`);
+          const response = await fetch(this.config.datasets.default_import);
+          const csvData = await response.text();
+          const parsedData = this.parseCSV(csvData);
+          
+          console.log('📄 Fallback CSV data sample:', parsedData.slice(0, 3));
+          this.datasets.importData = this.processImportData(parsedData);
+        }
     }
 
 

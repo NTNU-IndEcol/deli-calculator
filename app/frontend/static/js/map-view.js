@@ -16,6 +16,7 @@ export class MapView {
         this.maxLand = 1;
         this.currentMetric = 'biodiv'; // Track which metric to display
         this.cachedImpactData = null; // Store impact data for re-rendering
+        this.selectedLayer = null; // Track currently selected/highlighted country
 
         this.handleMapMove = this.handleMapMove.bind(this);
         this.handleMapZoom = this.handleMapZoom.bind(this);
@@ -45,9 +46,14 @@ export class MapView {
             maxBounds: L.latLngBounds(L.latLng(southBound, -180), L.latLng(northBound, 180)),
             maxBoundsViscosity: 1.0,
             worldCopyJump: true,
-            zoomControl: false,
+            zoomControl: false, // Disable default zoom control
             attributionControl: false
         }).setView([20, 0], 2);
+    
+        // Add custom zoom control in top-right
+        L.control.zoom({
+            position: 'topright'
+        }).addTo(this.map);
     
         this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
             detectRetina: true,
@@ -90,6 +96,7 @@ export class MapView {
         }
     }
 
+    
     async updateMap(impactData) {
         console.log("Updating map with impact data:", impactData);
         
@@ -152,7 +159,86 @@ export class MapView {
             const polygonLayer = L.geoJSON(geoJsonFeature, {
                 style: this.getCountryStyle(data),
                 onEachFeature: (feature, layer) => {
-                    layer.bindPopup(this.createPopupContent(data));
+                    // Store original style for restoring later
+                    const originalStyle = this.getCountryStyle(data);
+                    
+                    // Add click handler for highlighting and positioning popup
+                    layer.on('click', (e) => {
+                        // Remove highlight from previously selected country
+                        if (this.selectedLayer && this.selectedLayer !== layer) {
+                            this.selectedLayer.setStyle(this.selectedLayer.originalStyle);
+                        }
+                        
+                        // Highlight this country
+                        layer.setStyle({
+                            weight: 3,
+                            color: '#ff6600',
+                            fillOpacity: 0.9
+                        });
+                        
+                        // Store reference to this layer
+                        this.selectedLayer = layer;
+                        layer.originalStyle = originalStyle;
+                        
+                        // Get click position in screen coordinates
+                        const clickPoint = e.containerPoint;
+                        const mapHeight = this.map.getContainer().clientHeight;
+                        
+                        // Calculate latitude of click
+                        const clickLat = e.latlng.lat;
+                        
+                        // For very northern clicks (lat > 65), zoom in and center
+                        if (clickLat > 60) {
+                            // Zoom in one level and pan to click location
+                            this.map.setView(e.latlng, Math.min(this.map.getZoom() + 1, 3), {
+                                animate: true,
+                                duration: 0.5
+                            });
+                            
+                            // Show popup after zoom animation
+                            setTimeout(() => {
+                                const popup = L.popup({
+                                    maxWidth: 300,
+                                    maxHeight: 180,
+                                 //   offset: [0, 50], // Show below for north
+                                    autoPan: true,
+                                    closeButton: true,
+                                    autoClose: true,
+                                    closeOnClick: false
+                                })
+                                .setLatLng(e.latlng)
+                                .setContent(this.createPopupContent(data))
+                                .openOn(this.map);
+                            }, 500);
+                        } else {
+                            // Normal behavior for other areas
+                            // If clicked in upper 30% of screen, show popup below
+                            const isTopArea = clickPoint.y < (mapHeight * 0.3);
+                            
+                            const popupOptions = {
+                                maxWidth: 300,
+                                offset: isTopArea ? [0, 10] : [0, -10],
+                                autoPan: false,
+                                closeButton: true,
+                                autoClose: true,
+                                closeOnClick: false
+                            };
+                            
+                            // Open popup at click location
+                            const popup = L.popup(popupOptions)
+                                .setLatLng(e.latlng)
+                                .setContent(this.createPopupContent(data))
+                                .openOn(this.map);
+                        }
+                    });
+                    
+                    // Reset style when popup closes
+                    layer.on('popupclose', () => {
+                        if (layer === this.selectedLayer) {
+                            layer.setStyle(originalStyle);
+                            this.selectedLayer = null;
+                        }
+                    });
                 }
             }).addTo(this.layerGroup);
             
@@ -219,7 +305,58 @@ export class MapView {
             const polygonLayer = L.geoJSON(geoJsonFeature, {
                 style: this.getCountryStyle(data),
                 onEachFeature: (feature, layer) => {
-                    layer.bindPopup(this.createPopupContent(data));
+                    // Store original style for restoring later
+                    const originalStyle = this.getCountryStyle(data);
+                    
+                    // Add click handler for highlighting and centering popup
+                    layer.on('click', (e) => {
+                        // Remove highlight from previously selected country
+                        if (this.selectedLayer && this.selectedLayer !== layer) {
+                            this.selectedLayer.setStyle(this.selectedLayer.originalStyle);
+                        }
+                        
+                        // Highlight this country
+                        layer.setStyle({
+                            weight: 3,
+                            color: '#ff6600',
+                            fillOpacity: 0.9
+                        });
+                        
+                        // Store reference to this layer
+                        this.selectedLayer = layer;
+                        layer.originalStyle = originalStyle;
+                        
+                        // Calculate center of the country
+                        const bounds = layer.getBounds();
+                        const center = bounds.getCenter();
+                    /*    
+                        // Open popup at center
+                        const popup = L.popup(this.getPopupOptions(feature))
+                            .setLatLng(center)
+                            .setContent(this.createPopupContent(data))
+                            .openOn(this.map);
+                        */
+                        // Open popup at click location
+                        const popup = L.popup({
+                            maxWidth: 300,
+                            offset: [0, -10],
+                            autoPan: true,
+                            closeButton: true,
+                            autoClose: true,
+                            closeOnClick: false
+                        })
+                        .setLatLng(e.latlng)
+                        .setContent(this.createPopupContent(data))
+                        .openOn(this.map);
+                    });
+                    
+                    // Reset style when popup closes
+                    layer.on('popupclose', () => {
+                        if (layer === this.selectedLayer) {
+                            layer.setStyle(originalStyle);
+                            this.selectedLayer = null;
+                        }
+                    });
                 }
             }).addTo(this.layerGroup);
             
@@ -274,7 +411,7 @@ export class MapView {
             return acc;
         }, { biodiv: 0, gwp100: 0, waterUse: 0, landUse: 0 });
         
-        console.log('✅ Calculated totals:', totals);
+//        console.log('✅ Calculated totals:', totals);
         return totals;
     }
 
@@ -537,15 +674,6 @@ export class MapView {
         return normalized;
     }
 
-    // Add this new method to your MapView class:
-    getPopupOptions() {
-        return {
-            maxWidth: 300,
-            offset: [0, -10], // Adjust popup position
-            autoPanPadding: [50, 50], // Add padding when auto-panning
-            keepInView: true
-        };
-    }
 
 
     createPopupContent(data) {
@@ -569,24 +697,10 @@ export class MapView {
                 <h4>${data.country}</h4>
                 <p><strong>Biodiversity:</strong> ${bdDisplay} PDF·yr</p>
                 <p><strong>GWP100:</strong> ${co2Display} kg CO₂eq</p>
-                <p><strong>Water:</strong> ${waterDisplay} m<sup>3 </p>
-                <p><strong>Land:</strong> ${landDisplay} m<sup>2 </p>
+                <p><strong>Water:</strong> ${waterDisplay} m<sup>3</sup></p>
+                <p><strong>Land:</strong> ${landDisplay} m<sup>2</sup></p>
             </div>
         `;
-
-
-
-    }
-
-    getPopupOptions() {
-        return {
-            maxWidth: 300,
-            offset: [0, 25], // Increased from -10 to 25 (moves popup down)
-            autoPanPadding: [100, 50], // Increased top padding
-            autoPanPaddingTopLeft: [100, 50], // Explicit top-left padding
-            keepInView: true,
-            autoPan: true
-        };
     }
 
     getImpactData() {

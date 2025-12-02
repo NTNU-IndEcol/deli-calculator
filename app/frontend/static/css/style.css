@@ -1,33 +1,34 @@
 /* General Page Layout */
 body {
     width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: #ffffff;
     font-family: Arial, sans-serif;
     text-align: center;
+    min-height: 100vh;
 }
 
 /* Header */
 .header {
     width: 100%;
-    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px; 
+    padding: 15px 20px;
     background-color: rgb(145, 41, 10);
     border-bottom: 2px solid #ccc;
     color: white;
+    box-sizing: border-box;
 }
 
 .nav-menu {
     display: flex;
-    gap: 40px;
+    gap: 30px;
     font-size: 16px;
     color: white;
     cursor: pointer;
@@ -73,7 +74,7 @@ body {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 20px 40px;
+    padding: 20px;
     background-color: rgb(231, 179, 106);
     color: white;
     display: flex;
@@ -81,18 +82,18 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 1200px;
+    box-sizing: border-box;
 }
 
 .hero h1 {
-    font-size: 40px;
+    font-size: clamp(24px, 5vw, 40px);
     font-weight: bold;
     margin-bottom: 10px;
     color: rgb(145, 41, 10);
 }
 
 .hero p {
-    font-size: 18px;
+    font-size: clamp(16px, 3vw, 18px);
     margin-bottom: 20px;
 }
 
@@ -110,13 +111,14 @@ body {
     background-color: rgba(8, 100, 0, 1);
 }
 
-/* Hero Input and Select Groups - UPDATED */
+/* Hero Input and Select Groups */
 .hero-actions-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
     flex-wrap: wrap;
+    width: 100%;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -125,7 +127,7 @@ body {
     display: flex;
     gap: 10px;
     flex: 1;
-    min-width: 450px;
+    min-width: 280px;
     max-width: 450px;
 }
 
@@ -133,7 +135,7 @@ body {
     display: flex;
     gap: 10px;
     flex: 1;
-    min-width: 450px;
+    min-width: 280px;
     max-width: 450px;
 }
 
@@ -180,7 +182,6 @@ body {
     background-color: #218838;
 }
 
-
 /* Loading indicator */
 .loading {
     display: none;
@@ -219,20 +220,21 @@ body {
 
 /* Compact User Add Ingredient Section */
 .form-group {
-    max-width: 1200px; /* Wider to accommodate inline layout */
     width: 100%;
-    margin: 20px auto; 
-    padding: 20px 40px;
+    max-width: 95%;
+    margin: 15px auto;
+    padding: 15px 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .form-group h3 {
     text-align: center;
     color: rgb(145, 41, 10);
     margin-bottom: 15px;
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
 }
 
 /* Inline form layout */
@@ -247,15 +249,41 @@ body {
 .form-field {
     display: flex;
     flex-direction: column;
-    min-width: 120px;
+    min-width: 80px;
     flex: 1;
+}
+
+/* Specific width controls for form fields */
+.form-field:has(#ingredient-input) {
+    flex: 0 1 100px;
+    max-width: 100px;
+}
+
+.form-field:has(#category-input) {
+    flex: 0 1 100px;
+    max-width: 100px;
+}
+
+.form-field:has(#amount-input) {
+    flex: 0 1 60px;
+    max-width: 60px;
+}
+
+.form-field:has(#unit-input) {
+    flex: 0 1 80px;
+    max-width: 80px;
+}
+
+.source-field {
+    flex: 0 1 90px;
+    max-width: 90px;
 }
 
 .form-field label {
     margin-bottom: 5px;
     font-weight: bold;
     color: #333;
-    font-size: 1rem;
+    font-size: 0.9rem;
     white-space: nowrap;
 }
 
@@ -266,7 +294,6 @@ body {
     border-radius: 4px;
     font-size: 14px;
     width: 100%;
-
     box-sizing: border-box;
 }
 
@@ -297,8 +324,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     white-space: nowrap;
-    height: 30px; /* Match input field height */
-    margin-top: 23px; /* Align with inputs */
+    height: 38px;
+    align-self: flex-end;
+    margin-bottom: 0;
 }
 
 #add-ingredient-btn:hover {
@@ -340,6 +368,7 @@ body {
     background: white;
     width: 150px;
     display: none;
+    z-index: 100;
 }
 
 .autocomplete-list li {
@@ -353,20 +382,21 @@ body {
 
 /* Ingredients List Section */
 .ingredients-list-section {
-    max-width: 1200px; /* Match header and form width */
     width: 100%;
-    margin: 20px auto; 
-    padding: 20px 40px;
+    max-width: 95%;
+    margin: 15px auto;
+    padding: 15px 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .ingredients-list-section h3 {
     text-align: center;
     color: rgb(145, 41, 10);
     margin-bottom: 20px;
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
 }
 
 .table-container {
@@ -378,14 +408,14 @@ body {
 #ingredients-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
 }
 
 #ingredients-table th {
     background-color: rgb(145, 41, 10);
     color: white;
     padding: 12px 15px;
-    text-align: center; /*Center align header text*/
+    text-align: center;
     font-weight: bold;
 }
 
@@ -412,15 +442,14 @@ body {
     font-size: 16px;
     padding: 5px;
     display: block;
-    margin: 0 auto; /* Center the remove button */
+    margin: 0 auto;
 }
 
 .remove-btn:hover {
     color: #cc0000;
 }
 
-
-/*Calculate button*/
+/* Calculate button */
 #calculate-btn {
     padding: 15px 30px;
     background-color: #4CAF50;
@@ -428,14 +457,17 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px auto;
+    display: block;
 }
 
 .recipe-selector {
-    max-width: 500px;
-    margin: 20px auto;
+    max-width: 95%;
+    margin: 15px auto;
     padding: 20px;
     background: #f8f8f8;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 #recipe-ingredient-select {
@@ -446,7 +478,7 @@ body {
 
 .ingredient-details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -458,7 +490,7 @@ body {
 }
 
 #add-to-list {
-    grid-column: span 3;
+    grid-column: 1 / -1;
     padding: 10px;
     background: #4CAF50;
     color: white;
@@ -507,12 +539,11 @@ body {
 #recipe-ingredients table {
     width: 100%;
     border-collapse: collapse;
-    max-width: 1200px;
 }
 
 #recipe-ingredients th, 
 #recipe-ingredients td {
-    padding: 10px 10px;
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
@@ -544,6 +575,7 @@ body {
     gap: 1.5rem;
     color: #666;
     font-size: 0.9em;
+    flex-wrap: wrap;
 }
 
 .amount-input {
@@ -587,7 +619,7 @@ body {
 }
 
 .calculation-result {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 15px;
     background: #e8f4ff;
     border-radius: 8px;
@@ -649,17 +681,20 @@ body {
 .results-panel {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    margin: 20px 0;
+    gap: 15px;
+    margin: 15px auto;
     padding: 15px;
     background: #f5f5f5;
     border-radius: 8px;
+    max-width: 95%;
+    flex-wrap: wrap;
 }
 
 .metric {
     flex: 1;
+    min-width: 150px;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     background: white;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -677,18 +712,19 @@ body {
     color: #2c3e50;
 }
 
-/* Map styling */
+/* Map styling - OPTIMIZED */
 .map-overlay-container {
     position: relative;
-    max-width: 1200px;
     width: 100%;
+    max-width: 95%;
     height: 500px;
-  /*  padding: 20px 40px;*/
-    margin: 20px auto;
+    margin: 15px auto;
+    box-sizing: border-box;
 }
 
 #map-container {
     height: 100%;
+    width: 100%;
     border-radius: 8px;
     overflow: hidden;
     z-index: 1;
@@ -696,21 +732,25 @@ body {
 
 .results-overlay {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 150px;
-    background: rgba(255, 255, 255, 0.95);
+    top: 10px;
+    left: 10px;
+    width: auto;
+    min-width: 160px;
+    max-width: 200px;
+    background: rgba(255, 255, 255, 0.96);
     border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 2;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .results-overlay .metric {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ffffff;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    min-width: 0;
+    box-shadow: none;
 }
 
 .results-overlay .metric:last-child {
@@ -720,8 +760,8 @@ body {
 }
 
 .results-overlay .metric h3 {
-    margin: 0 0 8px 0;
-    font-size: 14px;
+    margin: 0 0 6px 0;
+    font-size: 13px;
     font-weight: 600;
     color: #333;
 }
@@ -733,61 +773,31 @@ body {
 }
 
 /* Legend styling */
-.legend {
-    background: white;
-    padding: 12px 16px;
+.info.legend {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 12px;
     border-radius: 5px;
-    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     line-height: 1.5;
     position: absolute;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-}
-
-.legend h4 {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.legend-color {
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    border-radius: 3px;
-}
-
-/* Style for the legend */
-.info.legend {
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    line-height: 1.5;
-    margin: 0;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    z-index: 1000;
+    font-size: 13px;
 }
 
 .info.legend h4 {
     margin: 0 0 10px 0;
     font-size: 14px;
     text-align: center;
+    font-weight: 600;
 }
 
 .legend-gradient {
     height: 20px;
     background: linear-gradient(to right, hsl(120, 80%, 70%), hsl(120, 80%, 30%));
     margin-bottom: 5px;
+    border-radius: 3px;
 }
 
 .legend-scale {
@@ -802,15 +812,15 @@ body {
     color: #666;
     text-align: center;
 }
-/* Footer styles */
+
+/* Footer styles - FIXED */
 .custom-footer {
     background-color: rgb(231, 179, 106);
-    padding: 15px 0;
-    margin-top: 10px;
+    padding: 15px 20px;
+    margin-top: 20px;
     color: white;
     width: 100%;
-    height: 75%;
-    max-width: 1200px;
+    box-sizing: border-box;
 }
 
 .footer-content {
@@ -818,17 +828,18 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0 20px;
+    gap: 15px;
+    max-width: 100%;
 }
 
 .footer-logo {
-    flex: 1;
+    flex: 0 1 auto;
     text-align: center;
     min-width: 80px;
-    padding: 10px;
+    max-width: 120px;
+    padding: 8px;
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    margin: 0 10px;
 }
 
 .footer-logo img {
@@ -838,9 +849,10 @@ body {
 }
 
 .footer-text {
-    flex: 2;
+    flex: 1 1 auto;
     text-align: center;
     padding: 0 15px;
+    font-size: 14px;
 }
 
 .footer-link {
@@ -852,33 +864,43 @@ body {
     color: #cce5ff;
 }
 
-/* Mobile Responsive Fixes */
-@media (max-width: 768px) {
-    body {
-        width: 100%;
-        min-width: 320px;
-        overflow-x: hidden;
+/* Tablet Responsive (768px - 1024px) */
+@media (max-width: 1024px) {
+    .map-overlay-container {
+        height: 500px;
     }
     
+    .form-group,
+    .ingredients-list-section,
+    .recipe-selector {
+        max-width: 98%;
+        padding: 15px;
+    }
+    
+    .hero-input-group,
+    .recipe-select-group {
+        min-width: 250px;
+    }
+}
+
+/* Mobile Responsive (max-width: 768px) */
+@media (max-width: 768px) {
     .header {
-        padding: 15px 20px;
+        padding: 12px 15px;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
     
     .nav-menu {
-        gap: 20px;
+        gap: 15px;
         margin-left: 0;
         flex-wrap: wrap;
         justify-content: center;
+        font-size: 14px;
     }
     
     .hero {
-        padding: 20px;
-    }
-    
-    .hero h1 {
-        font-size: 28px;
+        padding: 15px;
     }
     
     .hero-actions-container {
@@ -893,32 +915,22 @@ body {
         flex-direction: column;
     }
     
-    .input-box, 
-    .recipe-select {
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
     .divider {
-        padding: 10px 0;
-        transform: rotate(90deg);
-    }
-    
-    .form-group {
-        padding: 15px 20px;
+        padding: 8px 0;
     }
     
     .form-row {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
     }
     
     .form-field {
         width: 100%;
     }
     
-    .ingredients-list-section {
-        padding: 15px 20px;
+    #add-ingredient-btn {
+        width: 100%;
+        margin-top: 10px;
     }
     
     .table-container {
@@ -927,143 +939,156 @@ body {
     }
     
     #ingredients-table {
-        min-width: 600px; /* Force horizontal scroll on small screens */
+        min-width: 600px;
     }
     
+    /* Map adjustments for mobile */
     .map-overlay-container {
-    position: relative;
-    height: 500px;
-    padding: 0 15px;
+        height: 450px;
+        max-width: 100%;
+        margin: 10px auto;
     }
     
     .results-overlay {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 300px;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 10px;
-        z-index: 1000;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        top: 10px;
+        left: 10px;
+        right: auto;
+        transform: none;
+        width: auto;
+        min-width: 140px;
+        max-width: 160px;
+        padding: 8px;
     }
     
     .results-overlay .metric {
-        flex: 1;
-        min-width: 120px;
-        margin-bottom: 0;
-        padding: 10px 5px;
-        border-bottom: none;
-        border-right: 1px solid #eee;
-    }
-    
-    .results-overlay .metric:last-child {
-        border-right: none;
+        padding: 8px 5px;
+        margin-bottom: 8px;
     }
     
     .results-overlay .metric h3 {
-        font-size: 12px;
-        margin-bottom: 5px;
+        font-size: 11px;
+        margin-bottom: 4px;
     }
     
     .results-overlay .value {
-        font-size: 14px;
+        font-size: 13px;
     }
     
-    /* Ensure map container stays behind */
-    #map-container {
-        height: 100%;
-        position: relative;
-        z-index: 1;
+    .info.legend {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px;
+        font-size: 11px;
     }
     
-/* Mobile adjustments for footer */
-    @media (max-width: 768px) {
-        .custom-footer {
-        padding: 10px 0;
-        min-height: 60px;
+    .info.legend h4 {
+        font-size: 12px;
+    }
+    
+    /* Footer mobile */
+    .custom-footer {
+        padding: 12px 15px;
     }
     
     .footer-content {
-        padding: 0 10px;
         gap: 10px;
     }
     
     .footer-logo {
         min-width: 60px;
-        max-width: 80px;
+        max-width: 90px;
         padding: 5px;
-        margin: 0 2px;
     }
     
     .footer-text {
-        font-size: 14px;
-        padding: 0 5px;
+        font-size: 13px;
     }
-    
-    /* Ensure single row even on very small screens */
-    @media (max-width: 480px) {
-        .footer-content {
-            transform: scale(0.9);
-            transform-origin: center;
-        }
-        
-        .footer-text {
-            font-size: 12px;
-        }
-        
-        .footer-logo {
-            min-width: 50px;
-            max-width: 70px;
-        }
-    }
-    }
-    }
+}
 
+/* Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
-    .hero h1 {
-        font-size: 24px;
-    }
-    
-    .hero p {
-        font-size: 16px;
+    .search-bar input {
+        width: 100px;
     }
     
     .nav-menu {
-        gap: 15px;
-        font-size: 14px;
-    }
-    
-    .search-bar input {
-        width: 120px;
+        gap: 10px;
+        font-size: 13px;
     }
     
     .map-overlay-container {
-        height: 350px;
+        height: 400px;
     }
     
     .results-overlay {
-        position: relative;
-        width: 100%;
-        margin-bottom: 10px;
+        min-width: 120px;
+        max-width: 140px;
+        padding: 6px;
+    }
+    
+    .results-overlay .metric {
+        padding: 6px 4px;
+        margin-bottom: 6px;
+    }
+    
+    .results-overlay .metric h3 {
+        font-size: 10px;
+    }
+    
+    .results-overlay .value {
+        font-size: 12px;
+    }
+    
+    .info.legend {
+        padding: 6px;
+        font-size: 10px;
+    }
+    
+    .footer-text {
+        font-size: 12px;
+    }
+    
+    .footer-logo {
+        min-width: 50px;
+        max-width: 75px;
+    }
+}
+
+/* Extra Small Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+    .results-overlay {
+        min-width: 100px;
+        max-width: 120px;
+    }
+    
+    .results-overlay .metric h3 {
+        font-size: 9px;
+    }
+    
+    .results-overlay .value {
+        font-size: 11px;
+    }
+    
+    .footer-content {
+        gap: 5px;
+    }
+    
+    .footer-text {
+        font-size: 11px;
+        padding: 0 5px;
     }
 }
 
 /* Prevent zoom on input focus for iOS */
-@media (max-width: 768px) {
-    input, select, textarea {
-        font-size: 16px; /* Prevents zoom on iOS */
-    }
+input, select, textarea {
+    font-size: 16px;
 }
 
 /* Touch-friendly button sizes */
 @media (max-width: 768px) {
-    .button, #add-ingredient-btn {
-        min-height: 44px; /* Minimum touch target size */
+    .button, 
+    .hero .button {
+        min-height: 44px;
         padding: 12px 20px;
     }
     
@@ -1073,37 +1098,13 @@ body {
     }
 }
 
-/* Extra small device fixes */
-@media (max-width: 360px) {
-    .footer-content {
-        gap: 5px;
+/* Print styles */
+@media print {
+    .header, .nav-menu, .search-bar, .hero, .form-group, .custom-footer {
+        display: none;
     }
     
-    .footer-text {
-        font-size: 11px;
-    }
-    
-    .footer-logo {
-        min-width: 40px;
-        max-width: 60px;
-        padding: 3px;
-    }
-    
-    .results-overlay {
-        width: 95%;
-        max-width: 280px;
-    }
-    
-    .results-overlay .metric {
-        min-width: 100px;
-        padding: 8px 3px;
-    }
-    
-    .results-overlay .metric h3 {
-        font-size: 11px;
-    }
-    
-    .results-overlay .value {
-        font-size: 12px;
+    .map-overlay-container {
+        page-break-inside: avoid;
     }
 }

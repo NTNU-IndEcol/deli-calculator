@@ -88,6 +88,13 @@ export class FormHandler {
         }
       });
   
+      // Add this to setupEventListeners()
+      this.elements.tableBody.addEventListener('change', (e) => {
+        if (e.target.classList.contains('unit-input')) {
+          this.handleUnitChange(e);
+        }
+      });
+
       this.elements.tableBody.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove-btn')) {
           this.handleRemoveIngredient(e);
@@ -516,13 +523,31 @@ export class FormHandler {
     }
   }
   
+    handleUnitChange(event) {
+      const index = Number(event.target.dataset.index);
+      const newUnit = event.target.value;
+      
+      // Check both arrays since index might refer to combined array
+      const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
+      const ingredient = allIngredients[index];
+      
+      if (ingredient) {
+        ingredient.unit = newUnit;
+        console.log('Unit updated:', ingredient);
+      }
+    }
+
     handleAmountChange(event) {
-      const id = Number(event.target.dataset.id); // Convert to number
+      const id = Number(event.target.dataset.id);
       const newValue = parseFloat(event.target.value);
       
-      const ingredient = this.selectedIngredients.find(item => item.id === id);
+      // Search in BOTH arrays (you currently only check selectedIngredients)
+      const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
+      const ingredient = allIngredients.find(item => item.id === id);
+      
       if (ingredient && !isNaN(newValue)) {
         ingredient.amount = newValue;
+        console.log('Amount updated:', ingredient);
       }
     }
     
@@ -574,7 +599,7 @@ export class FormHandler {
         // Add any necessary transformations here
       }));
     }
-    
+    /*
     // Calculate environmental impact
     calculateEnvironmentalImpact() {
       const totals = {
@@ -633,7 +658,7 @@ export class FormHandler {
     
       return { totals, errors };
     }
-
+*/
     // ============================================================================
     // Calculate total environmental impact for all ingredients
     // ============================================================================
@@ -671,7 +696,8 @@ export class FormHandler {
           
           // Convert amount to tons
           const amountInTons = this.convertToTons(ing.amount || 0, ing.unit);
-          
+          console("ing.amount || 0, ing.unit", ing.amount, ing.unit)
+
           lookupItems.push({
             importCountryCode: importCountryCode,  // e.g., "33" for Canada
             commodityCode: commodityCode           // e.g., "c002" for wheat
@@ -751,7 +777,6 @@ export class FormHandler {
       
       return {
         ...totals,
-        total_bd: totals.biodiv,
         ingredientCount: results.length,
         details: ingredientImpacts
       };
@@ -919,8 +944,6 @@ export class FormHandler {
           co2e: data.co2e,
           land: data.landUse,
           water: data.waterUse,
-          waterUse: data.waterUse,
-          total_bd: data.biodiv,
           commodities: [...new Set(data.commodities)]
         };
       }).filter(Boolean);

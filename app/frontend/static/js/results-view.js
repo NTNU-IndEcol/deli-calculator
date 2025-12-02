@@ -4,7 +4,7 @@ export class ResultsView {
     constructor() {
         this.elements = {
             container: document.getElementById('calculation-results'),
-            biodivDisplay: document.getElementById('total_bd-result'),
+            biodivDisplay: document.getElementById('biodiv-result'),
             co2Display: document.getElementById('co2-result'),
             waterDisplay: document.getElementById('water-result'),
             landDisplay: document.getElementById('land-result')

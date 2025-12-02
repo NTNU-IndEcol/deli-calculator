@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
 
     // Quick backend diagnostic
-    console.log('🔍 Checking backend availability...');
+    // console.log('🔍 Checking backend availability...');
     try {
       const testResponse = await fetch('/api/health');
-      console.log('Backend response status:', testResponse.status);
-      console.log('Backend response headers:', Object.fromEntries(testResponse.headers.entries()));
+    //  console.log('Backend response status:', testResponse.status);
+    //  console.log('Backend response headers:', Object.fromEntries(testResponse.headers.entries()));
       const testText = await testResponse.text();
-      console.log('Backend response (first 500 chars):', testText.substring(0, 500));
+    //  console.log('Backend response (first 500 chars):', testText.substring(0, 500));
     } catch (diagError) {
       console.error('Backend diagnostic failed:', diagError);
     }
