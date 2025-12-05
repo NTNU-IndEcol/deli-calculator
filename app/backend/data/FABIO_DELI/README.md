@@ -2,7 +2,7 @@
 
 Data files are full supply chain multipliers
 
-run on 2025-12-01 (excluding water biodiversity)
+run on 2025-12-04 (with fixed water S factors for fodder crops)
 
 
 ## Data format:

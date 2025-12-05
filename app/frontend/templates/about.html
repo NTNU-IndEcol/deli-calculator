@@ -270,13 +270,19 @@
                 <div class="feature-card">
                     <div class="feature-icon">🌍</div>
                     <h3>Data Sources</h3>
-                    <p>Our calculations are based on the Poore and Nemecke, and FABIO datasets, ensuring scientifically accurate results.</p>
+                    <p>Our calculations are based on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a>, 
+                        and the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer"> Poore and Nemecke ingredient classfication</a>, 
+                        ensuring scientifically accurate results.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3>Impact Metrics</h3>
-                    <p>Get detailed breakdowns of CO2 emissions, water usage, and land use for each ingredient and the entire recipe.</p>
+                    <p>
+                        Get detailed breakdowns of biodiversity impacts, 
+                        CO₂ emissions, water usage, and land use for the entire recipe, 
+                        including how these impacts are distributed across countries worldwide.
+                    </p>
                 </div>
             </div>
         </section>
@@ -317,25 +323,25 @@
                                 <img src="{{ url_for('static', filename='img/FrancescaVerones.jpg') }}" alt="Prof. Francesca Verones">
                             </a>
                             <h3>Prof. Francesca Verones</h3>
-                            <p>Sustainability Expert</p>
+                            <p>Project lead</p>
                         </div>
 
                         <div class="team-member">
-                            <a href="https://www.ntnu.no/ansatte/elisha.wilson" target="_blank">
-                                <img src="{{ url_for('static', filename='img/ElishaJamesWilson.jpg') }}" alt="Elisha James Wilson">
+                            <a href="https://www.ntnu.no/ansatte/martin.dorber" target="_blank">
+                                <img src="{{ url_for('static', filename='img/MartinDorber.jpg') }}" alt="Martin Dorber">
                             </a>
-                            <h3>Elisha James Wilson</h3>
+                            <h3>Martin Dorber</h3>
                             <p>Sustainability Expert</p>
                         </div>
 
 
-                        <div class="team-member">
+                        <!--div class="team-member">
                             <a href="https://www.ntnu.no/ansatte/ruslan.zhuravchak" target="_blank">
                                 <img src="{{ url_for('static', filename='img/RuslanZhuravchak.png') }}" alt="Ruslan Zhuravchak">
                             </a>
                             <h3>Ruslan Zhuravchak</h3>
                             <p>Technical</p>
-                        </div>
+                        </div-->
 
 
                     </div>
@@ -357,7 +363,14 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Our calculations are based on the comprehensive Poore and Nemecke FABIO datasets, which are among the most complete and scientifically robust databases for food environmental impact. However, it's important to note that these are estimates based on average values, and actual impacts can vary based on specific farming practices, transportation methods, and other factors.</p>
+                    <p>Our calculations are based on two comprehensive datasets: 
+                        the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> (<a href="https://github.com/fineprint-global/fabio/tree/data-2010-current" target="_blank" rel="noopener noreferrer">GitHub</a>)
+                         and the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore & Nemecek ingredient classfication</a>, 
+                        which are among the most scientifically robust databases for food environmental impact. 
+                        However, it's important to note that these are estimates based on average values,
+                        and actual impacts can vary based on specific farming practices, transportation methods,
+                        and other factors.
+                    </p>
                 </div>
             </div>
             
@@ -367,7 +380,9 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Yes, DELI Calculator can be used by restaurants, food businesses, and other commercial entities. We offer enterprise solutions with additional features and support. Please contact us for more information.</p>
+                    <p>Yes, DELI Calculator can be used by restaurants, food businesses, and other commercial entities.
+                        Please contact us for any further information.
+                    </p>
                 </div>
             </div>
             
@@ -377,7 +392,9 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>We continuously work to improve our database and update it annually with the latest available scientific research. Our team monitors emerging studies to ensure our calculations reflect current understanding of food environmental impacts.</p>
+                    <p>The app is currently in beta testing and receives frequent updates based on user feedback. 
+                        We continuously work to improve our database and update it regularly with the latest available scientific research.
+                    </p>
                 </div>
             </div>
             
@@ -387,7 +404,9 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>We value your privacy. Recipe data analyzed through our public tool is not stored permanently. For registered users who wish to save their recipes, we implement strict data protection measures in compliance with GDPR regulations.</p>
+                    <p>
+                        We value your privacy. Recipe data analyzed through our public tool (as well as any other personal data) is not stored permanently.
+                   </p>
                 </div>
             </div>
         </section>
