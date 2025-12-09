@@ -357,27 +357,43 @@ body {
 }
 
 /* Autocomplete-list */
-.autocomplete-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    background: white;
-    width: 150px;
-    display: none;
-    z-index: 100;
+.autocomplete-wrapper {
+    position: relative !important;
+    width: 100% !important;
 }
 
-.autocomplete-list li {
-    padding: 5px;
-    cursor: pointer;
+.autocomplete-dropdown-list {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+    background: white !important;
+    border: 2px solid #4CAF50 !important;
+    border-top: none !important;
+    border-radius: 0 0 4px 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    max-height: 250px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
 }
 
-.autocomplete-list li:hover {
-    background: #f0f0f0;
+.autocomplete-dropdown-list li {
+    padding: 10px !important;
+    cursor: pointer !important;
+    border-bottom: 1px solid #eee !important;
+    transition: background-color 0.2s !important;
+}
+
+.autocomplete-dropdown-list li:hover,
+.autocomplete-dropdown-list li.selected {
+    background-color: #e3f2fd !important;
+}
+
+.autocomplete-dropdown-list li:last-child {
+    border-bottom: none !important;
 }
 
 /* Ingredients List Section */
@@ -864,6 +880,157 @@ body {
     color: #cce5ff;
 }
 
+
+/* Location Selector Styles */
+.location-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    margin-left: auto;
+}
+
+.location-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+}
+
+.location-input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#location-input {
+    padding: 8px 40px 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 200px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#location-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.reset-location-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.reset-location-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.reset-location-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#location-suggestions {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+#location-suggestions.active {
+    display: block;
+}
+
+#location-suggestions .suggestion-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    list-style: none;
+}
+
+#location-suggestions .suggestion-item:hover {
+    background: #f0f7f0;
+}
+
+#location-suggestions .no-results {
+    padding: 10px 12px;
+    color: #999;
+    list-style: none;
+}
+
+/* Inline help icon */
+.inline-help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    position: relative;
+}
+
+.inline-help-icon:hover::after {
+    content: attr(data-tooltip-text);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: normal;
+    width: 200px;
+    text-align: center;
+    z-index: 1001;
+    font-weight: normal;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .location-selector {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    #location-input {
+        width: 100%;
+    }
+}
+
 /* Tablet Responsive (768px - 1024px) */
 @media (max-width: 1024px) {
     .map-overlay-container {
@@ -873,7 +1040,7 @@ body {
     .form-group,
     .ingredients-list-section,
     .recipe-selector {
-        max-width: 98%;
+        max-width: 100%;
         padding: 15px;
     }
     
@@ -1106,5 +1273,171 @@ input, select, textarea {
     
     .map-overlay-container {
         page-break-inside: avoid;
+    }
+}
+
+/* Horizontal Form Layout */
+.ingredient-form-horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+   
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin-top: 10px;
+}
+
+.form-field-group {
+    display: flex;
+    align-items: center;
+    min-width: 0; /* Prevents flex items from overflowing */
+    flex-shrink: 0;
+}
+
+.field-with-label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.field-label {
+    font-weight: 500;
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Specific field widths for better distribution */
+.ingredient-form-horizontal .form-field-group:nth-child(1) {
+    flex: 2; /* Ingredient - wider */
+    min-width: 180px;
+}
+
+.ingredient-form-horizontal .form-field-group:nth-child(2) {
+    flex: 1.5; /* Category */
+    min-width: 140px;
+}
+
+.ingredient-form-horizontal .form-field-group:nth-child(3) {
+    flex: 0.8; /* Amount */
+    min-width: 100px;
+}
+
+.ingredient-form-horizontal .form-field-group:nth-child(4) {
+    flex: 0.8; /* Unit */
+    min-width: 100px;
+}
+
+.ingredient-form-horizontal .form-field-group:nth-child(5) {
+    flex: 1.5; /* Source */
+    min-width: 140px;
+}
+
+.ingredient-form-horizontal .form-field-group:nth-child(6) {
+    flex: 0.5; /* Add button */
+    min-width: 80px;
+}
+
+/* Input styling */
+.ingredient-form-horizontal input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.ingredient-form-horizontal #amount-input {
+    width: 100%;
+}
+
+/* Unit field special styling */
+.unit-field {
+    position: relative;
+    width: 100%;
+}
+
+/* Add button */
+.add-button {
+    height: 36px;
+    padding: 0 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-top: 18px; /* Align with inputs */
+}
+
+.add-button:hover {
+    background: #45a049;
+}
+
+/* Tiny help button */
+.inline-help-icon.tiny {
+    width: 16px;
+    height: 16px;
+    font-size: 11px;
+    padding: 0;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+/* Ensure autocomplete dropdowns work */
+.autocomplete-wrapper {
+    position: relative !important;
+}
+
+.autocomplete-dropdown-list {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+    background: white !important;
+    border: 1px solid #ced4da !important;
+    border-top: none !important;
+    border-radius: 0 0 4px 4px !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .ingredient-form-horizontal {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .form-field-group {
+        flex: 1 1 calc(33.333% - 10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .ingredient-form-horizontal {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-field-group {
+        width: 100%;
+    }
+    
+    .add-button {
+        margin-top: 10px;
     }
 }

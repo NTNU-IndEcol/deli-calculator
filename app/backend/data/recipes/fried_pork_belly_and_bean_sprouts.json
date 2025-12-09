@@ -8,11 +8,11 @@
   "category": "Main Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Sliced/shaved pork belly or Pork or Beef",
+      "mainIngredient": "Pork or Beef",
       "details": {
         "amount": 8.0,
         "unit": "ounces",
-        "originalText": "thinly sliced/shaved pork belly (\ub300\ud328 \uc0bc\uacb9\uc0b4) or other thinly sliced pork or beef"
+        "originalText": "thinly sliced/shaved pork belly or other thinly sliced pork or beef"
       }
     },
     {
@@ -20,7 +20,7 @@
       "details": {
         "amount": 10.0,
         "unit": "ounces",
-        "originalText": "bean sprouts (sukju, \uc219\uc8fc)"
+        "originalText": "bean sprouts (sukju)"
       }
     },
     {

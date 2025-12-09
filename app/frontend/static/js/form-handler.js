@@ -1,14 +1,18 @@
-// frontend/static/js/ui/form-handler.js
+// frontend/static/js/form-handler.js
 import { DataManager } from './data-manager.js';
 import { ApiClient } from './api-client.js';
+import { AutocompleteHandler } from './autocomplete.js';
 
 export class FormHandler {
     constructor() {
       this.selectedIngredients = [];
       this.unmatchedIngredients = [];
       this.recipeLoaded = false;
+      this.currentIngredientData = null; // Store current ingredient database matches
+      
       this.initializeElements();
       this.setupEventListeners();
+      this.setupAutocomplete(); // NEW: Initialize autocomplete
     }
   
     initializeElements() {
@@ -29,42 +33,269 @@ export class FormHandler {
         this.elements.tableBody = document.createElement('tbody');
       }
     }
-  
-    createDummyInput() {
-      const dummy = document.createElement('input');
-      dummy.type = 'text';
-      return dummy;
+
+    // 🆕 NEW: Setup autocomplete for ingredient, category, and source
+    setupAutocomplete() {
+      // Get unique ingredients from database
+      const database = DataManager.database || [];
+      const uniqueIngredients = [...new Set(database.map(item => item.Ingredient))].sort();
+      
+      console.log(`🔧 Setting up autocomplete with ${uniqueIngredients.length} ingredients`);
+      
+      // Ingredient autocomplete
+      this.ingredientAutocomplete = new AutocompleteHandler({
+        input: '#ingredient-input',
+        dataset: uniqueIngredients,
+        maxSuggestions: 10,
+        onSelect: (ingredient) => {
+          console.log('✅ Ingredient selected:', ingredient);
+          this.handleIngredientSelection(ingredient);
+        }
+      });
+      
+      // Category autocomplete (will be populated when ingredient is selected)
+      this.categoryAutocomplete = new AutocompleteHandler({
+        input: '#category-input',
+        dataset: [],
+        maxSuggestions: 5,
+        onSelect: (category) => {
+          console.log('✅ Category selected:', category);
+          this.handleCategorySelection(category);
+        }
+      });
+      
+      // Source autocomplete (will be populated when ingredient is selected)
+      this.sourceAutocomplete = new AutocompleteHandler({
+        input: '#source-input',
+        dataset: [],
+        maxSuggestions: 5,
+        onSelect: (source) => {
+          console.log('✅ Source selected:', source);
+        }
+      });
     }
 
-    createErrorContainer() {
-      const container = document.createElement('div');
-      container.id = 'form-errors';
-      document.querySelector('form').prepend(container);
-      return container;
-    }
-   
-    static updateCategory(selectedCategory) {
-      const categoryInput = document.getElementById('category-input');
-      if (categoryInput) {
-        categoryInput.value = selectedCategory || '';
+    // 🆕 NEW: Handle ingredient selection from autocomplete
+    handleIngredientSelection(ingredientName) {
+      const database = DataManager.database || [];
+      
+      // Find all database entries for this ingredient
+      const matches = database.filter(
+        item => item.Ingredient === ingredientName
+      );
+      
+      if (matches.length === 0) {
+        console.warn('No data found for ingredient:', ingredientName);
+        return;
+      }
+      
+      console.log(`📊 Found ${matches.length} entries for ${ingredientName}`);
+      
+      // Get unique categories for this ingredient
+      const categories = [...new Set(matches.map(item => item["Food group"]))].filter(Boolean).sort();
+      
+      // Auto-fill category with the first one
+      if (categories.length > 0) {
+        this.elements.categoryInput.value = categories[0];
+        console.log('🏷️ Auto-filled category:', categories[0]);
+      }
+      
+      // Update category autocomplete with all available categories
+      this.categoryAutocomplete.updateDataset(categories);
+      
+      // Store current ingredient data for later use
+      this.currentIngredientData = matches;
+      
+      // Update source options based on first category
+      if (categories.length > 0) {
+        this.updateSourceOptions(ingredientName, categories[0]);
       }
     }
-    
-    static updateSourceCountries(commCode) {
-      const countries = DataManager.getTopImportCountries(commCode);
-      FoodCalculatorApp.autocompleteInstances.source.updateDataset(countries);
-    }
-    
-    static updateImportCountries(countries) {
-      const sourceDropdown = document.getElementById("source-input");
-      if (sourceDropdown) {
-        sourceDropdown.innerHTML = `
-          ${countries.map(c => `<option>${c}</option>`).join('')}
-        `;
+
+    // 🆕 NEW: Handle category selection from autocomplete
+    handleCategorySelection(category) {
+      const ingredientName = this.elements.ingredientInput.value;
+      
+      if (!ingredientName) {
+        console.warn('No ingredient selected');
+        return;
       }
+      
+      // Update source options when category changes
+      this.updateSourceOptions(ingredientName, category);
     }
-    
+
+    // 🆕 NEW: Update source options based on ingredient and category
+    updateSourceOptions(ingredientName, category) {
+      if (!this.currentIngredientData) return;
+      
+      // Filter by selected category
+      const categoryMatches = this.currentIngredientData.filter(
+        item => item["Food group"] === category
+      );
+      
+      if (categoryMatches.length === 0) {
+        console.warn('No data for category:', category);
+        return;
+      }
+      
+      // Get top 5 import countries from the database entry
+      const match = categoryMatches[0];
+      const topCountries = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5]
+        .filter(Boolean);
+      
+      console.log('🌍 Top import countries:', topCountries);
+      
+      // Auto-fill source with top country
+      if (topCountries.length > 0) {
+        this.elements.sourceInput.value = topCountries[0];
+        console.log('📍 Auto-filled source:', topCountries[0]);
+      }
+      
+      // Update source autocomplete
+      this.sourceAutocomplete.updateDataset(topCountries);
+    }
+
+    // 🔥 IMPROVED: Parse amount from various formats
+    parseAmount(amount) {
+      // Handle null/undefined
+      if (amount === null || amount === undefined) {
+        console.warn('  ⚠️ Amount is null/undefined, defaulting to 1');
+        return 1;
+      }
+      
+      // Already a number
+      if (typeof amount === 'number') {
+        return amount;
+      }
+      
+      // String parsing
+      if (typeof amount === 'string') {
+        // Remove all non-numeric except dots, dashes, and slashes
+        let cleaned = amount.trim();
+        
+        // Handle ranges like "3 - 4" → take average
+        if (cleaned.includes('-')) {
+          const parts = cleaned.split('-').map(p => parseFloat(p.trim())).filter(n => !isNaN(n));
+          if (parts.length === 2) {
+            const avg = (parts[0] + parts[1]) / 2;
+            console.log(`  → Range "${cleaned}" → Average: ${avg}`);
+            return avg;
+          }
+        }
+        
+        // Handle fractions like "1/2" or "1 1/2"
+        if (cleaned.includes('/')) {
+          // Split on spaces to handle mixed fractions
+          const parts = cleaned.split(/\s+/);
+          let total = 0;
+          
+          for (const part of parts) {
+            if (part.includes('/')) {
+              const [num, denom] = part.split('/').map(n => parseFloat(n));
+              if (!isNaN(num) && !isNaN(denom) && denom !== 0) {
+                total += num / denom;
+              }
+            } else {
+              const num = parseFloat(part);
+              if (!isNaN(num)) {
+                total += num;
+              }
+            }
+          }
+          
+          if (total > 0) {
+            console.log(`  → Fraction "${cleaned}" → ${total}`);
+            return total;
+          }
+        }
+        
+        // Handle special characters (½, ⅓, ¼, etc.)
+        const fractionMap = {
+          '½': 0.5, '⅓': 0.333, '⅔': 0.667, '¼': 0.25, '¾': 0.75,
+          '⅕': 0.2, '⅖': 0.4, '⅗': 0.6, '⅘': 0.8, '⅙': 0.167, '⅚': 0.833,
+          '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875
+        };
+        
+        for (const [symbol, value] of Object.entries(fractionMap)) {
+          if (cleaned.includes(symbol)) {
+            // Handle mixed fractions like "1½"
+            const beforeFraction = cleaned.split(symbol)[0].trim();
+            const whole = beforeFraction ? parseFloat(beforeFraction) : 0;
+            const result = (isNaN(whole) ? 0 : whole) + value;
+            console.log(`  → Special char "${cleaned}" → ${result}`);
+            return result;
+          }
+        }
+        
+        // Simple float parse
+        const simple = parseFloat(cleaned.replace(/[^\d.]/g, ''));
+        if (!isNaN(simple)) {
+          return simple;
+        }
+      }
+      
+      // Fallback
+      console.warn(`  ⚠️ Could not parse amount "${amount}", defaulting to 1`);
+      return 1;
+    }
+
+    // 🔥 IMPROVED: Normalize unit names
+    normalizeUnit(unit) {
+      if (!unit || unit === null || unit === 'null') {
+        return 'unit';
+      }
+      
+      const unitStr = String(unit).toLowerCase().trim();
+      
+      const unitAliases = {
+        // Weight
+        'oz': 'ounce', 'ounces': 'ounce', 'ounce': 'ounce',
+        'pound': 'lb', 'pounds': 'lb', 'lbs': 'lb', 'lb': 'lb',
+        'gram': 'g', 'grams': 'g', 'g': 'g',
+        'kilogram': 'kg', 'kilograms': 'kg', 'kg': 'kg',
+        
+        // Volume
+        'teaspoon': 'tsp', 'teaspoons': 'tsp', 'tsp': 'tsp',
+        'tablespoon': 'tbsp', 'tablespoons': 'tbsp', 'tbsp': 'tbsp',
+        'cup': 'cup', 'cups': 'cup',
+        'milliliter': 'ml', 'milliliters': 'ml', 'ml': 'ml',
+        'liter': 'l', 'liters': 'l', 'l': 'l',
+        
+        // Count
+        'piece': 'unit', 'pieces': 'unit', 'item': 'unit', 'items': 'unit',
+        'medium': 'unit', 'large': 'unit', 'small': 'unit',
+        'whole': 'unit', 'clove': 'unit', 'cloves': 'unit'
+      };
+      
+      // Check if it's in the map
+      if (unitAliases[unitStr]) {
+        return unitAliases[unitStr];
+      }
+      
+      // Return valid units as-is
+      const validUnits = ['g', 'kg', 'cup', 'tbsp', 'tsp', 'ounce', 'lb', 'ml', 'l', 'unit'];
+      if (validUnits.includes(unitStr)) {
+        return unitStr;
+      }
+      
+      // Default to 'unit' for unknown
+      return 'unit';
+    }
+  
     setupEventListeners() {
+      // 🆕 UPDATED: Clear category and source when ingredient is manually cleared
+      this.elements.ingredientInput.addEventListener('input', (e) => {
+        if (e.target.value.trim() === '') {
+          this.elements.categoryInput.value = '';
+          this.elements.sourceInput.value = '';
+          this.currentIngredientData = null;
+          this.categoryAutocomplete.updateDataset([]);
+          this.sourceAutocomplete.updateDataset([]);
+        }
+        this.clearErrors();
+      });
+
       this.elements.addButton.addEventListener('click', (e) => {
         e.preventDefault();
         this.handleAddIngredient();
@@ -93,6 +324,22 @@ export class FormHandler {
           this.handleRemoveIngredient(e);
         }
       });
+
+      // 🆕 NEW: Add Enter key support for all input fields
+      [this.elements.ingredientInput, this.elements.categoryInput, 
+       this.elements.amountInput, this.elements.unitInput, 
+       this.elements.sourceInput].forEach(input => {
+        if (input) {
+          input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              this.handleAddIngredient();
+            }
+          });
+          input.addEventListener('input', () => this.clearErrors());
+          input.addEventListener('change', () => this.clearErrors());
+        }
+      });
     }
   
     validateInputs() {
@@ -107,7 +354,8 @@ export class FormHandler {
 
       if (!currentInputs.category) errors.push('Category is required');
       if (!currentInputs.ingredient) errors.push('Ingredient is required');
-      if (isNaN(currentInputs.amount)) errors.push('Valid amount is required');
+      if (isNaN(currentInputs.amount) || currentInputs.amount <= 0) errors.push('Valid amount is required');
+      if (!currentInputs.unit) errors.push('Unit is required');
       if (!currentInputs.source) errors.push('Country source is required');
 
       return {
@@ -124,17 +372,20 @@ export class FormHandler {
         return;
       }
     
-      const commCode = document.getElementById('ingredient-input').dataset.commCode;
-  
+      this.clearErrors();
+    
+      // Try to find the database match for the selected ingredient
+      const match = this.findBestMatch(validation.data.ingredient);
+
       const newIngredient = {
-        id: Date.now()+ Math.random(),
+        id: Date.now() + Math.random(),
         category: validation.data.category,
         name: validation.data.ingredient,
         amount: validation.data.amount,
         unit: validation.data.unit,
         source: validation.data.source,
-        comm_code: commCode || 'UNKNOWN',
-        matched: false
+        comm_code: match?.comm_code || 'UNKNOWN',
+        matched: !!match
       };
     
       this.processNewIngredient(newIngredient);
@@ -142,100 +393,174 @@ export class FormHandler {
       this.clearForm();
     }
   
-    // Process new ingredient with improved matching
+    // 🔥 ENHANCED: Smart name extraction + matching + amount parsing
     processNewIngredient(ingredient) {
-      const ingredientName = ingredient.name || ingredient.mainIngredient;
+      const fullName = ingredient.name || ingredient.mainIngredient;
       
-      if (!ingredientName) {
-        console.error('Ingredient missing name:', ingredient);
+      if (!fullName) {
+        console.error('❌ Ingredient missing name:', ingredient);
         return;
       }
 
-      const cleanInputName = ingredientName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-    
-      // Use improved matching algorithm
-      const match = this.findBestMatch(cleanInputName);
+      // 🔥 FIX: Parse amount properly
+      const parsedAmount = this.parseAmount(ingredient.amount);
+      const parsedUnit = this.normalizeUnit(ingredient.unit);
+      
+      console.log(`🔍 Processing: "${fullName}" (${parsedAmount} ${parsedUnit})`);
+
+      // Extract core ingredient name
+      const extracted = this.extractIngredientName(fullName);
+      const displayName = extracted.display;
+      const coreName = extracted.core;
+      
+      console.log(`  → Display: "${displayName}"`);
+      console.log(`  → Core for matching: "${coreName}"`);
+      
+      // Try to match using core name
+      const match = this.findBestMatch(coreName);
     
       if (match) {
         const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
+        const ingredientId = ingredient.id || Date.now() + Math.random();
+        
         this.selectedIngredients.push({
           ...ingredient,
-          name: ingredientName,
+          id: ingredientId,
+          originalName: fullName,
+          displayName: displayName,
+          name: displayName,
+          matchedTo: match.Ingredient,
+          category: match["Food group"],
           comm_code: match.comm_code,
           matched: true,
+          amount: parsedAmount,
+          unit: parsedUnit,
           possibleSources: possibleSources,
           source: ingredient.source || possibleSources[0] || ''
         });
-        console.log(`✅ Matched "${ingredientName}" to "${match.Ingredient}" (${match.comm_code})`);
+        
+        console.log(`✅ Matched "${displayName}" → "${match.Ingredient}" (${match.comm_code})`);
+        console.log(`   Category: ${match["Food group"]}`);
       } else {
+        const ingredientId = ingredient.id || Date.now() + Math.random();
+        
         this.unmatchedIngredients.push({
           ...ingredient,
-          name: ingredientName,
+          id: ingredientId,
+          originalName: fullName,
+          displayName: displayName,
+          name: displayName,
           comm_code: 'UNKNOWN',
           matched: false,
+          amount: parsedAmount,
+          unit: parsedUnit,
           possibleSources: DataManager.getAllCountries() || [''],
           source: ingredient.source || ''
         });
-        console.log(`⚠️ No match found for "${ingredientName}"`);
+        
+        console.warn(`⚠️ No match found for "${displayName}" (core: "${coreName}")`);
       }
     }
 
-    static getCommCodeByCategory(category) {
-      const cleanCategory = category.toLowerCase().replace(/\s+/g, ' ');
-      return DataManager.database.find(item => 
-        item["Food group"].toLowerCase().replace(/\s+/g, ' ') === cleanCategory
-      )?.comm_code;
+    // 🔥 NEW: Extract core ingredient name from detailed descriptions
+    extractIngredientName(fullName) {
+        // Core ingredients to look for
+        const coreIngredients = [
+            'cheese', 'butter', 'milk', 'cream', 'yogurt', 'yoghurt',
+            'chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'tuna', 'shrimp', 'ribs',
+            'tomato', 'potato', 'onion', 'garlic', 'carrot', 'lettuce', 'cabbage', 'pepper', 'paprika',
+            'cucumber', 'spinach', 'broccoli', 'cauliflower', 'mushroom', 'corn', 'peas', 'salad',
+            'apple', 'banana', 'orange', 'lemon', 'lime', 'berry', 'pear',
+            'bread', 'baguette', 'rice', 'pasta', 'noodle', 'flour', 'wheat', 'oat',
+            'egg', 'oil', 'sugar', 'salt', 'sauce', 'wine', 'beer', 'water', 'juice',
+            'soy', 'ginger', 'sesame', 'honey', 'vinegar'
+        ];
+        
+        const cleaned = fullName
+            .toLowerCase()
+            .trim()
+            .replace(/\d+\s*(g|kg|ml|l|oz|lb|%|percent)/gi, '')
+            .replace(/\b\d+\b/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        
+        // Try to find a core ingredient
+        for (const core of coreIngredients) {
+            if (cleaned.includes(core)) {
+                const words = cleaned.split(' ');
+                const coreIndex = words.indexOf(core);
+                
+                let displayWords = [];
+                if (coreIndex > 0) {
+                    displayWords.push(words[coreIndex - 1]);
+                }
+                displayWords.push(core);
+                
+                return {
+                    display: displayWords.join(' '),
+                    core: core,
+                    original: fullName
+                };
+            }
+        }
+        
+        // Fallback: clean up but keep most significant words
+        const noiseWords = ['g', 'kg', 'ml', 'large', 'small', 'medium', 'pack', 'fresh', 'organic'];
+        const words = cleaned.split(' ').filter(w => 
+            w.length >= 3 && !noiseWords.includes(w)
+        );
+        
+        const display = words.slice(-2).join(' ') || cleaned;
+        const core = words[words.length - 1] || cleaned;
+        
+        return {
+            display: display,
+            core: core,
+            original: fullName
+        };
     }
 
-    normalizeUnit(unit) {
-      const unitAliases = {
-        'oz': 'ounce',
-        'ounces': 'ounce',
-        'pound': 'lb',
-        'lbs': 'lb',
-        'teaspoon': 'tsp',
-        'teaspoons': 'tsp',
-        'tablespoon': 'tbsp',
-        'tablespoons': 'tbsp',
-        'cup': 'cup',
-        'cups': 'cup'
-      };
+    fuzzyMatch(dbName, inputName) {
+      const cleanDb = dbName.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+      const cleanInput = inputName.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
       
-      const cleanUnit = String(unit || 'unit')
-        .toLowerCase()
-        .replace(/s$/, '')
-        .trim();
-    
-      return unitAliases[cleanUnit] ?? 
-        (['g', 'kg', 'cup', 'tbsp', 'tsp', 'ounce', 'lb'].includes(cleanUnit) 
-          ? cleanUnit 
-          : 'unit');
+      if (cleanDb === cleanInput) return 5;
+      
+      const dbWords = cleanDb.split(' ');
+      const inputWords = cleanInput.split(' ');
+      
+      if (dbWords.every(word => inputWords.includes(word))) return 4;
+      if (cleanInput.includes(cleanDb)) return 3;
+      if (cleanDb.includes(cleanInput)) return 2;
+      
+      const matchingWords = dbWords.filter(word => inputWords.includes(word));
+      if (matchingWords.length > 0) return 1;
+      
+      return 0;
     }
-
-    async loadRecipe() {
-      if (this.recipeLoaded) return;
-
-      try {
-        const savedIngredients = await DataManager.loadSavedRecipe();
-        const processedIngredients = savedIngredients.map(ing => ({
-          ...ing,
-          id: Date.now() + Math.random(),
-          category: ing.category,
-          name: this.cleanIngredientName(ing.mainIngredient || ing.name),
-          amount: this.parseAmount(ing.amount),
-          unit: this.normalizeUnit(ing.unit),
-          source: ing.source?.trim() || '',
-          matched: false
-        }));
-
-        this.initDatabaseMatching(processedIngredients);
-        this.recipeLoaded = true;
-        this.updateTable();
-
-      } catch (error) {
-        console.error('Failed to load recipe:', error);
-        this.showErrors([error.message]);
+    
+    findBestMatch(inputName) {
+      if (!DataManager.database || DataManager.database.length === 0) {
+        console.error('❌ Database not loaded!');
+        return null;
       }
+      
+      let bestMatch = null;
+      let bestScore = 0;
+      
+      for (const item of DataManager.database) {
+        if (!item.Ingredient) continue;
+        
+        const dbName = item.Ingredient.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+        const score = this.fuzzyMatch(dbName, inputName);
+        
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = item;
+        }
+      }
+      
+      return bestScore >= 2 ? bestMatch : null;
     }
   
     updateTable() {
@@ -253,110 +578,80 @@ export class FormHandler {
     }
  
     createTableRow(ingredient, index) {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
-            ${ingredient.matched ? 
-                `<span class="editable-category">${ingredient.category}</span>` :
-                `<input type="text" class="category-input" value="${ingredient.category}">`
-            }
-        </td>
-        <td data-label="Ingredient" class="${!ingredient.matched ? 'unmatched' : ''}">
-            ${ingredient.matched ? 
-                `<span class="editable-name">${ingredient.name}</span>` :
-                `<input type="text" class="name-input" value="${ingredient.name}">`
-            }
-        </td>
-        <td data-label="Amount">
-            <input type="number" class="amount-input" 
-                   value="${ingredient.amount}" min="0" step="0.1"
-                    data-id="${ingredient.id}">
-        </td>
-        <td data-label="Unit">
-            <select class="unit-input" data-index="${index}">
-                ${['g', 'kg', 'ounce', 'lb', 'cup', 'tbsp', 'tsp', 'unit'].map(unit => `
-                    <option value="${unit}" ${unit === ingredient.unit ? 'selected' : ''}>
-                        ${unit}
-                    </option>
-                `).join('')}
-            </select>
-        </td>
-        <td data-label="Source" class="source-cell" style="text-align: center;">
-            ${this.createSourceInput(ingredient)}
-        </td>
-        <td data-label="Action">
-            <button class="remove-btn" data-id="${ingredient.id}">🗑️</button>
-        </td>
-    `;
-    return row;
+        const row = document.createElement('tr');
+        
+        if (!ingredient.id) {
+            ingredient.id = Date.now() + Math.random();
+        }
+        
+        const nameToShow = ingredient.displayName || ingredient.name;
+        const matchInfo = ingredient.matched ? 
+            `Matched to: ${ingredient.matchedTo} (${ingredient.comm_code})` : 
+            'Not in database';
+        
+        row.innerHTML = `
+            <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
+                ${ingredient.matched ? 
+                    `<span class="editable-category" title="${matchInfo}">${ingredient.category}</span>` :
+                    `<input type="text" class="category-input" value="${ingredient.category || ''}" placeholder="Unmatched">`
+                }
+            </td>
+            <td data-label="Ingredient" class="${!ingredient.matched ? 'unmatched' : ''}" title="${ingredient.originalName || nameToShow}">
+                ${ingredient.matched ? 
+                    `<span class="editable-name">${nameToShow}</span>` :
+                    `<input type="text" class="name-input" value="${nameToShow}" placeholder="Not in database">`
+                }
+            </td>
+            <td data-label="Amount">
+                <input type="number" class="amount-input" 
+                      value="${ingredient.amount || 1}" 
+                      min="0" 
+                      step="0.1"
+                      data-id="${ingredient.id}">
+            </td>
+            <td data-label="Unit">
+                <select class="unit-input" data-index="${index}">
+                    ${['g', 'kg', 'ounce', 'lb', 'cup', 'tbsp', 'tsp', 'unit'].map(unit => `
+                        <option value="${unit}" ${unit === ingredient.unit ? 'selected' : ''}>
+                            ${unit}
+                        </option>
+                    `).join('')}
+                </select>
+            </td>
+            <td data-label="Source" class="source-cell">
+                ${this.createSourceInput(ingredient)}
+            </td>
+            <td data-label="Action">
+                <button class="remove-btn" data-id="${ingredient.id}">🗑️</button>
+            </td>
+        `;
+        return row;
     }
 
     createSourceInput(ingredient) {
-      let sources = ingredient.matched 
-        ? ingredient.possibleSources 
-        : DataManager.getAllCountries();
-    
-      if (!sources || sources.length === 0) {
-        sources = [''];
-      }
-    
-      return `
-        <select class="source-select centered-select" data-id="${ingredient.id}">
-          ${sources.map(country => `
-            <option value="${country}" ${country === ingredient.source ? 'selected' : ''}>
-              ${country}
-            </option>
-          `).join('')}
-        </select>
-      `;
+        if (!ingredient.id) {
+            ingredient.id = Date.now() + Math.random();
+        }
+        
+        let sources = ingredient.matched 
+            ? ingredient.possibleSources 
+            : DataManager.getAllCountries();
+        
+        if (!sources || sources.length === 0) {
+            sources = [''];
+        }
+        
+        return `
+            <select class="source-select centered-select" data-id="${ingredient.id}">
+                ${sources.map(country => `
+                    <option value="${country}" ${country === ingredient.source ? 'selected' : ''}>
+                        ${country}
+                    </option>
+                `).join('')}
+            </select>
+        `;
     }
 
-    // Improved fuzzy matching with scoring
-    fuzzyMatch(dbName, inputName) {
-      const cleanDb = dbName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-      const cleanInput = inputName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-      
-      // Exact match (highest priority)
-      if (cleanDb === cleanInput) return 3;
-      
-      // Input contains full database name (e.g., "chicken eggs" contains "eggs")
-      if (cleanInput.includes(cleanDb)) return 2;
-      
-      // Database name contains input (e.g., "poultry meat" contains "meat")
-      if (cleanDb.includes(cleanInput)) return 1;
-      
-      return 0;
-    }
-    
-    // Find best match using scoring
-    findBestMatch(inputName) {
-      let bestMatch = null;
-      let bestScore = 0;
-      
-      for (const item of DataManager.database) {
-        const dbName = item.Ingredient.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        const score = this.fuzzyMatch(dbName, inputName);
-        
-        if (score > bestScore) {
-          bestScore = score;
-          bestMatch = item;
-        }
-      }
-      
-      return bestScore > 0 ? bestMatch : null;
-    }
-  
-    createMatchedIngredient(dbEntry) {
-      return {
-        matched: true,
-        category: dbEntry["Food group"],
-        comm_code: dbEntry.comm_code,
-        possibleSources: [
-          dbEntry.Top1, dbEntry.Top2, dbEntry.Top3, dbEntry.Top4, dbEntry.Top5
-        ].filter(Boolean)
-      };
-    }
-  
     setupRowInteractions() {
       document.querySelectorAll('.save-btn').forEach(btn => {
         btn.addEventListener('click', e => {
@@ -368,11 +663,18 @@ export class FormHandler {
             ingredient.category = row.querySelector('.category-input').value;
             ingredient.name = row.querySelector('.name-input').value;
             
-            const cleanName = ingredient.name.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-            const match = this.findBestMatch(cleanName);
+            const match = this.findBestMatch(ingredient.name);
             
             if (match) {
-              this.selectedIngredients.push({ ...ingredient, ...this.createMatchedIngredient(match) });
+              const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
+              this.selectedIngredients.push({ 
+                ...ingredient, 
+                category: match["Food group"],
+                comm_code: match.comm_code,
+                matched: true,
+                possibleSources: possibleSources,
+                source: ingredient.source || possibleSources[0] || ''
+              });
               this.unmatchedIngredients = this.unmatchedIngredients.filter(item => item.id !== id);
             }
             this.updateTable();
@@ -381,115 +683,6 @@ export class FormHandler {
       });
     }
     
-    initDatabaseMatching(newIngredients = []) {
-      const newlyMatched = [];
-      const stillUnmatched = [];
-    
-      newIngredients.forEach(ingredient => {
-        const ingredientName = ingredient.name || ingredient.mainIngredient;
-
-        if (!ingredientName) {
-          console.warn('Skipping ingredient without name:', ingredient);
-          stillUnmatched.push(ingredient);
-          return;
-        }
-        
-        const cleanName = ingredientName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        const match = this.findBestMatch(cleanName);
-        
-        if (match) {
-          const possibleSources = [
-            match.Top1, match.Top2, match.Top3, match.Top4, match.Top5
-          ].filter(Boolean);
-          
-          newlyMatched.push({ 
-            ...ingredient,
-            name: ingredientName,
-            ...this.createMatchedIngredient(match),
-            comm_code: match.comm_code,
-            matched: true,
-            possibleSources: possibleSources,
-            source: ingredient.source || possibleSources[0] || ''
-          });
-          console.log(`✅ Matched "${ingredientName}" to "${match.Ingredient}" (${match.comm_code})`);
-        } else {
-          stillUnmatched.push({
-            ...ingredient,
-            name: ingredientName
-          });
-          console.log(`⚠️ No match found for "${ingredientName}"`);
-        }
-      });
-      
-      this.selectedIngredients = [...this.selectedIngredients, ...newlyMatched];
-      this.unmatchedIngredients = [...this.unmatchedIngredients, ...stillUnmatched];
-    }
-    
-    handleDatabaseMatch(index, dbEntry) {
-        this.selectedIngredients[index] = {
-            ...this.selectedIngredients[index],
-            matched: true,
-            commCode: dbEntry.comm_code,
-            possibleSources: [
-                dbEntry.Top1,
-                dbEntry.Top2,
-                dbEntry.Top3,
-                dbEntry.Top4,
-                dbEntry.Top5
-            ].filter(Boolean)
-        };
-    
-        const sourceCell = document.querySelector(`[data-index="${index}"] .source-input`);
-        if (sourceCell) {
-            this.updateSourceOptions(index, sourceCell);
-        }
-    }
-  
-    updateSourceOptions(index, container) {
-        const ingredient = this.selectedIngredients[index];
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'source-input';
-        input.placeholder = 'Select source country';
-        
-        new AutocompleteHandler({
-            input: input,
-            dataset: ingredient.possibleSources,
-            onSelect: (selectedCountry) => {
-                this.selectedIngredients[index].source = selectedCountry;
-                this.updateTable();
-            }
-        });
-    
-        container.innerHTML = '';
-        container.appendChild(input);
-    }
-
-    getCategory(ingredientName) {
-      return DataManager.categories.find(cat => 
-          ingredientName.toLowerCase().includes(cat.toLowerCase())
-      ) || 'Other';
-    }
-
-    cleanIngredientName(name) {
-      return name
-        .replace(/(optional|divided|to taste|see note|,)/gi, '')
-        .replace(/[^a-zA-Z\s]/g, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
-    parseAmount(amount) {
-      return typeof amount === 'string' ? 
-          parseFloat(amount.replace(/[^0-9.]/g, '')) || 0 : 
-          amount || 0;
-    }
-
-    extractSource(text) {
-      const countryMatch = text.match(/\((.*?)\)/);
-      return countryMatch ? countryMatch[1] : '';
-    }
-  
     handleSourceChange(event) {
       const id = Number(event.target.dataset.id);
       const newSource = event.target.value;
@@ -499,9 +692,6 @@ export class FormHandler {
 
       if (ingredient) {
         ingredient.source = newSource;
-        console.log('Source updated:', ingredient);
-      } else {
-        console.warn('Ingredient not found. ID:', id, 'All IDs:', allIngredients.map(i => i.id));
       }
     }
   
@@ -514,7 +704,6 @@ export class FormHandler {
       
       if (ingredient) {
         ingredient.unit = newUnit;
-        console.log('Unit updated:', ingredient);
       }
     }
 
@@ -527,7 +716,6 @@ export class FormHandler {
       
       if (ingredient && !isNaN(newValue)) {
         ingredient.amount = newValue;
-        console.log('Amount updated:', ingredient);
       }
     }
     
@@ -565,7 +753,17 @@ export class FormHandler {
     clearForm() {
       this.elements.categoryInput.value = '';
       this.elements.ingredientInput.value = '';
+      this.elements.amountInput.value = '100';
+      this.elements.unitInput.value = 'g';
       this.elements.sourceInput.value = '';
+      this.currentIngredientData = null;
+      
+      // Clear autocomplete datasets
+      this.categoryAutocomplete.updateDataset([]);
+      this.sourceAutocomplete.updateDataset([]);
+      
+      // Focus back to ingredient input
+      this.elements.ingredientInput.focus();
     }
   
     getIngredients() {
@@ -610,7 +808,7 @@ export class FormHandler {
           });
           
           ingredientMeta.push({
-            name: ing.name,
+            name: ing.displayName || ing.name,
             source: ing.source,
             amount: amountInTons,
             unit: ing.unit,
@@ -659,16 +857,9 @@ export class FormHandler {
         totals.co2e += ingredientImpact.co2e;
         totals.landUse += ingredientImpact.landUse;
         totals.waterUse += ingredientImpact.waterUse;
-        
-        console.log(`  ✔ ${meta.name} (${meta.source}): biodiv=${ingredientImpact.biodiv.toFixed(3)}, co2e=${ingredientImpact.co2e.toFixed(2)}`);
       });
       
-      console.log('✅ Total impact calculated:', {
-        biodiv: totals.biodiv.toFixed(3),
-        co2e: totals.co2e.toFixed(2),
-        landUse: totals.landUse.toFixed(2),
-        waterUse: totals.waterUse.toFixed(2)
-      });
+      console.log('✅ Total impact calculated');
       
       this._ingredientImpacts = ingredientImpacts;
       
@@ -735,7 +926,7 @@ export class FormHandler {
             allProducers.push({
               producingCountryCode: String(producer.area_code),
               importFrom: ing.source,
-              commodity: ing.name,
+              commodity: ing.displayName || ing.name,
               amount: amountInTons,
               biodiv: producer.biodiv * amountInTons,
               co2e: producer.gwp100 * amountInTons,
@@ -822,27 +1013,6 @@ export class FormHandler {
       );
       
       return dbEntry?.comm_code || null;
-    }
-
-    formatNumber(value) {
-      return Number(value.toFixed(3));
-    }
-
-    convertToKilograms(amount, unit) {
-      const conversions = {
-        'g': amount => amount / 1000,
-        'kg': amount => amount,
-        'ml': amount => amount * 0.001,
-        'l': amount => amount * 1.0,
-        'ton': amount => amount * 1000
-      };
-
-      if (!conversions[unit]) {
-        console.error(`Invalid unit: ${unit}`);
-        return 0;
-      }
-
-      return conversions[unit](Number(amount));
     }
 
     convertToTons(amount, unit) {

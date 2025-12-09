@@ -1,140 +1,143 @@
-// frontend/static/js/ui/autocomplete.js
+// frontend/static/js/autocomplete.js
 
 export class AutocompleteHandler {
-  /**
-   * @param {Object} config - Configuration object
-   * @param {string} config.input - CSS selector for input element
-   * @param {Array} config.dataset - Array of suggestions
-   * @param {Function} config.onSelect - Selection callback
-   * @param {number} config.maxSuggestions - Maximum number of suggestions to show
-   */
   constructor({ input, dataset, onSelect, maxSuggestions = 10 }) {
     this.input = document.querySelector(input);
-    this.dataset = dataset;
+    this.dataset = dataset || [];
     this.onSelect = onSelect;
     this.maxSuggestions = maxSuggestions;
     this.currentFocus = -1;
-    this.input.autocompleteInstance = this;
     
     if (!this.input) {
       throw new Error(`Input element not found: ${input}`);
     }
 
+    this.input.autocompleteInstance = this;
     this.createListElement();
-    this.setupEventListeners();
+    this.attachEventListeners();
   }
 
   createListElement() {
+    // Remove existing if any
+    const existing = this.input.parentNode.querySelector('.autocomplete-dropdown-list');
+    if (existing) existing.remove();
+
     this.list = document.createElement('ul');
-    this.list.className = 'autocomplete-list';
-    Object.assign(this.list.style, {
-      position: 'absolute',
-      zIndex: '1000',
-      backgroundColor: '#fff',
-      border: '1px solid #ddd',
-      borderRadius: '4px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      maxHeight: '200px',
-      overflowY: 'auto'
-    });
+    this.list.className = 'autocomplete-dropdown-list';
+    this.list.id = `autocomplete-${this.input.id}`;
+    
+    this.list.setAttribute('style', `
+      position: absolute !important;
+      top: 100% !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 99999 !important;
+      background: white !important;
+      border: 2px solid #4CAF50 !important;
+      border-top: none !important;
+      border-radius: 0 0 4px 4px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      max-height: 250px !important;
+      overflow-y: auto !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+      display: none !important;
+    `);
     
     this.input.parentNode.appendChild(this.list);
-    this.positionList();
+    
+    // Force parent to be positioned
+    const parent = this.input.parentNode;
+    if (window.getComputedStyle(parent).position === 'static') {
+      parent.style.position = 'relative';
+    }
   }
 
-  positionList() {
-    const rect = this.input.getBoundingClientRect();
-    this.list.style.left = `${rect.left}px`;
-    this.list.style.top = `${rect.bottom + window.scrollY}px`;
-    this.list.style.width = `${rect.width}px`;
-  }
-
-  setupEventListeners() {
+  attachEventListeners() {
     this.input.addEventListener('input', () => this.handleInput());
     this.input.addEventListener('keydown', (e) => this.handleKeyDown(e));
     this.input.addEventListener('focus', () => this.showSuggestions());
     
-    window.addEventListener('resize', () => this.positionList());
-    document.addEventListener('click', (e) => this.handleOutsideClick(e));
-  }
-
-  static injectStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .autocomplete-list {
-        position: absolute;
-        z-index: 1000;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        max-height: 200px;
-        overflow-y: auto;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-  
-      .autocomplete-list li {
-        padding: 8px 12px;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-  
-      .autocomplete-list li.selected {
-        background-color: #f0f8ff;
-        font-weight: 500;
-      }
-  
-      .autocomplete-list li:hover {
-        background-color: #f5f5f5;
-      }
-    `;
-    document.head.appendChild(style);
+    // Hide on blur with delay to allow clicking suggestions
+    this.input.addEventListener('blur', () => {
+      setTimeout(() => this.close(), 200);
+    });
   }
 
   handleInput() {
-    const value = this.input.value.toLowerCase();
-    const filtered = this.dataset.filter(item => 
-      item.toLowerCase().includes(value)
-    ).slice(0, this.maxSuggestions);
+    const value = this.input.value.trim();
+    
+    if (value.length === 0) {
+      this.renderSuggestions(this.dataset.slice(0, this.maxSuggestions));
+      return;
+    }
+    
+    const searchLower = value.toLowerCase();
+    const filtered = this.dataset
+      .filter(item => item.toLowerCase().includes(searchLower))
+      .sort((a, b) => {
+        const aLower = a.toLowerCase();
+        const bLower = b.toLowerCase();
+        
+        // Exact match first
+        if (aLower === searchLower) return -1;
+        if (bLower === searchLower) return 1;
+        
+        // Then starts with
+        if (aLower.startsWith(searchLower) && !bLower.startsWith(searchLower)) return -1;
+        if (!aLower.startsWith(searchLower) && bLower.startsWith(searchLower)) return 1;
+        
+        // Then alphabetical
+        return a.localeCompare(b);
+      })
+      .slice(0, this.maxSuggestions);
     
     this.renderSuggestions(filtered);
   }
 
   renderSuggestions(items) {
+    if (!items || items.length === 0) {
+      this.list.innerHTML = '<li style="padding: 10px; color: #999;">No matches found</li>';
+      this.list.setAttribute('style', this.list.getAttribute('style').replace('display: none', 'display: block'));
+      return;
+    }
+
     this.list.innerHTML = items.map((item, index) => `
-      <li class="${index === this.currentFocus ? 'selected' : ''}" 
-          data-index="${index}"
-          role="option"
-          aria-selected="${index === this.currentFocus}">
-        ${item}
-      </li>
+      <li data-index="${index}" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #ccc; background: white;">${item}</li>
     `).join('');
 
+    // Add click handlers
     this.list.querySelectorAll('li').forEach((li, index) => {
-      li.addEventListener('click', () => this.selectItem(index));
-      li.addEventListener('mouseover', () => this.setActiveItem(index));
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // Prevent blur
+        this.selectItem(index);
+      });
+      
+      li.addEventListener('mouseover', () => {
+        this.setActiveItem(index);
+      });
     });
 
-    this.list.style.display = items.length ? 'block' : 'none';
+    this.list.setAttribute('style', this.list.getAttribute('style').replace('display: none', 'display: block'));
     this.currentFocus = -1;
   }
 
-  // Add to handleKeyDown() method
   handleKeyDown(e) {
-    const items = this.list.querySelectorAll('li');
+    const items = this.list.querySelectorAll('li[data-index]');
     if (!items.length) return;
 
     switch(e.key) {
       case 'ArrowDown':
         e.preventDefault();
         this.currentFocus = (this.currentFocus + 1) % items.length;
+        this.setActiveItem(this.currentFocus);
         break;
         
       case 'ArrowUp':
         e.preventDefault();
         this.currentFocus = (this.currentFocus - 1 + items.length) % items.length;
+        this.setActiveItem(this.currentFocus);
         break;
         
       case 'Enter':
@@ -147,41 +150,32 @@ export class AutocompleteHandler {
       case 'Escape':
         this.close();
         break;
-        
-      case 'Tab':
-        if (this.currentFocus > -1) {
-          this.selectItem(this.currentFocus);
-        }
-        this.close();
-        break;
-        
-        
-      default:
-        return;
     }
-    
-    this.setActiveItem(this.currentFocus);
   }
 
   setActiveItem(index) {
-    const items = this.list.querySelectorAll('li');
-    items.forEach(item => {
-      item.classList.remove('selected');
-      item.setAttribute('aria-selected', 'false');
+    const items = this.list.querySelectorAll('li[data-index]');
+    items.forEach((item, i) => {
+      if (i === index) {
+        item.style.background = '#e3f2fd';
+        item.classList.add('selected');
+      } else {
+        item.style.background = 'white';
+        item.classList.remove('selected');
+      }
     });
     
-    if (index > -1 && items[index]) {
-      items[index].classList.add('selected');
-      items[index].setAttribute('aria-selected', 'true');
+    if (items[index]) {
       items[index].scrollIntoView({ block: 'nearest' });
     }
   }
 
   selectItem(index) {
-    const items = this.list.querySelectorAll('li');
+    const items = this.list.querySelectorAll('li[data-index]');
     if (items[index]) {
-      this.input.value = items[index].textContent;
-      this.onSelect(items[index].textContent);
+      const selectedText = items[index].textContent;
+      this.input.value = selectedText;
+      this.onSelect(selectedText);
       this.close();
     }
   }
@@ -189,29 +183,20 @@ export class AutocompleteHandler {
   showSuggestions() {
     if (!this.input.value.trim()) {
       this.renderSuggestions(this.dataset.slice(0, this.maxSuggestions));
-    }
-    this.positionList();
-  }
-
-  handleOutsideClick(e) {
-    if (!this.input.contains(e.target)) {
-      this.close();
+    } else {
+      this.handleInput();
     }
   }
 
   close() {
-    this.list.style.display = 'none';
+    this.list.setAttribute('style', this.list.getAttribute('style').replace('display: block', 'display: none'));
     this.currentFocus = -1;
   }
 
   updateDataset(newDataset) {
-    this.dataset = newDataset;
+    this.dataset = newDataset || [];
     if (document.activeElement === this.input) {
       this.showSuggestions();
     }
   }
 }
-
-
-// Style injection at end
-AutocompleteHandler.injectStyles(); 

@@ -120,11 +120,11 @@
       }
     },
     {
-      "mainIngredient": "Precut pickled radish strips, white or Yellow",
+      "mainIngredient": "Precut pickled radish strips",
       "details": {
         "amount": 4.0,
         "unit": "strips",
-        "originalText": "pre-cut pickled radish (danmuji, \ub2e8\ubb34\uc9c0) strips, white or yellow"
+        "originalText": "pre-cut pickled radish (danmuji, strips, white or yellow"
       }
     },
     {
@@ -159,15 +159,8 @@
         "unit": "teaspoon",
         "originalText": "sugar"
       }
-    },
-    {
-      "mainIngredient": "Sesame oil",
-      "details": {
-        "amount": 0.5,
-        "unit": "teaspoon",
-        "originalText": "sesame oil"
-      }
     }
+    
   ],
   "recipeInstructions": [
     {

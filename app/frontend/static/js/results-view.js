@@ -1,4 +1,4 @@
-// frontend/static/js/ui/results-view.js
+// frontend/static/js/results-view.js
 
 export class ResultsView {
     constructor() {

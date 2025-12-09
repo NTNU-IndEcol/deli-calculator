@@ -15,42 +15,82 @@ export class FoodCalculatorApp {
       this.initializeApp();
     }
 
-    initializeApp(){
-      DataManager.initialize().then(() => {
-        this.setupAutocomplete();
-        this.setupEventListeners();
-        this.formHandler.loadRecipe(); 
-        this.mapView = new MapView('map-container');
-      });
+    async initializeApp(){
+      // Step 1: Initialize core data (config, regions, conversion factors)
+      await DataManager.initialize();
+      
+      // Step 2: Load location-specific data (database, import data)
+      // This is CRITICAL - the database is loaded here!
+      await DataManager.loadDataForLocation();
+      
+      // Step 3: Now setup autocomplete with the loaded database
+      this.setupAutocomplete();
+      this.setupEventListeners();
+      this.mapView = new MapView('map-container');
     }
 
+    //=================================
+    // setupAutocomplete
+    //=================================
     setupAutocomplete() {
       const app = this;
-  
-      new AutocompleteHandler({
+      
+      console.log('🔧 Setting up autocomplete with database:', DataManager.database?.length || 0, 'items');
+      console.log('📊 Available ingredients:', DataManager.ingredients?.length || 0);
+      console.log('📊 Available categories:', DataManager.categories?.length || 0);
+
+      // 🔥 FIX: Verify we have data before proceeding
+      if (!DataManager.database || DataManager.database.length === 0) {
+        console.error('❌ Cannot setup autocomplete: Database not loaded!');
+        return;
+      }
+
+      if (!DataManager.ingredients || DataManager.ingredients.length === 0) {
+        console.error('❌ Cannot setup autocomplete: Ingredients not processed!');
+        return;
+      }
+
+      // Category autocomplete
+      const categoryAutocomplete = new AutocompleteHandler({
         input: '#category-input',
         dataset: DataManager.categories,
         onSelect: (selectedCategory) => {
+          console.log('📂 Category selected:', selectedCategory);
           document.getElementById('ingredient-input').value = '';
-          FormHandler.updateCategory(selectedCategory);
+          document.getElementById('category-input').value = selectedCategory;
+          
           const ingredients = DataManager.getIngredientsByCategory(selectedCategory);
+          console.log('  ↓ Available ingredients:', ingredients.length);
           app.updateIngredientAutocomplete(ingredients);
         }
       });
-  
+
+      // 🔥 Ingredient autocomplete with working dropdown
       this.autocompleteInstances.ingredient = new AutocompleteHandler({
         input: '#ingredient-input',
-        dataset: DataManager.ingredients,
+        dataset: DataManager.ingredients, // This should now have data
+        maxSuggestions: 20,
         onSelect: (selectedIngredient) => {
+          console.log('🥕 Ingredient selected:', selectedIngredient);
+          
+          // Set the input value
+          document.getElementById('ingredient-input').value = selectedIngredient;
+          
+          // Find in database
           const ingredient = DataManager.database.find(item => 
-            item.Ingredient.trim() === selectedIngredient.trim()
+            item.Ingredient.trim().toLowerCase() === selectedIngredient.trim().toLowerCase()
           );
           
           if (ingredient) {
+            console.log('  ✔ Found in database:', ingredient.comm_code);
+            
             const ingredientInput = document.getElementById('ingredient-input');
             ingredientInput.dataset.commCode = ingredient.comm_code;
+            
+            // Auto-fill category
             document.getElementById('category-input').value = ingredient["Food group"];
 
+            // Get top source countries
             const countries = [
               ingredient.Top1,
               ingredient.Top2,
@@ -58,18 +98,58 @@ export class FoodCalculatorApp {
               ingredient.Top4,
               ingredient.Top5
             ].filter(Boolean);
-            this.autocompleteInstances.source.updateDataset(countries);
+            
+            console.log('  ↓ Top sources:', countries.join(', '));
+            
+            // Update source dropdown with these countries
+            if (this.autocompleteInstances.source) {
+              this.autocompleteInstances.source.updateDataset(countries);
+            }
+            
+            // Auto-select first source
+            if (countries.length > 0) {
+              document.getElementById('source-input').value = countries[0];
+              console.log('  ✔ Auto-selected source:', countries[0]);
+            }
+          } else {
+            console.warn('  ⚠ Not found in database');
           }
         }
       });
       
+      console.log('✅ Ingredient autocomplete created');
+      
+      // Source country autocomplete
       this.autocompleteInstances.source = new AutocompleteHandler({
         input: '#source-input',
         dataset: DataManager.importCountries,
+        maxSuggestions: 10,
         onSelect: (selectedCountry) => {
+          console.log('🌍 Source country selected:', selectedCountry);
           document.getElementById('source-input').value = selectedCountry;
         }
       });
+      
+      console.log('✅ Autocomplete setup complete');
+      
+      // Test if autocomplete is working
+      setTimeout(() => {
+        const ingredientInput = document.getElementById('ingredient-input');
+        if (ingredientInput && ingredientInput.autocompleteInstance) {
+          console.log('✅ Ingredient autocomplete is attached to input');
+          console.log('   Dataset size:', ingredientInput.autocompleteInstance.dataset.length);
+        } else {
+          console.error('❌ Ingredient autocomplete NOT attached!');
+        }
+      }, 100);
+    }
+
+    // Helper method to update ingredient autocomplete dataset
+    updateIngredientAutocomplete(ingredients) {
+      if (this.autocompleteInstances.ingredient) {
+        this.autocompleteInstances.ingredient.updateDataset(ingredients);
+        console.log('  ✓ Updated ingredient autocomplete:', ingredients.length, 'items');
+      }
     }
 
     setupEventListeners() {   
@@ -127,6 +207,4 @@ export class FoodCalculatorApp {
         }
       });
     }
-
-
 }

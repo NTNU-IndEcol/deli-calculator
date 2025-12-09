@@ -20,6 +20,24 @@
     <header class="header">
         <div class="header-logo"></div>
         <span class="header-title">DELI Calculator</span>
+
+       <div class="location-selector header-center">
+            <label class="location-label">
+                📍 Location: 
+                            <button class="inline-help-icon location-help" 
+                                aria-label="Help"
+                                data-tooltip-text="Select the user location">?
+                            </button>
+
+                <!--button class="inline-help-icon" ...>?</button-->
+            </label>
+            <div class="location-input-group">
+                <input type="text" id="location-input" placeholder="Enter user country...">
+                <button id="location-reset-btn" ...>🔄</button>
+            </div>
+            <ul id="location-suggestions"></ul>
+        </div>
+
         <nav class="nav-menu">
             <!--a href="recipes.html">Recipes</a-->
             <a href="{{ url_for('index') }}">Home</a>
@@ -28,10 +46,8 @@
             <a href="{{ url_for('feedback') }}">Feedback</a>
             <a></a>
         </nav>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search in site">
-            <button id="search-btn">🔍</button>
-        </div>
+
+      
     </header>
 
     <!-- Hero Section -->
@@ -62,62 +78,88 @@
     </section>
 
     <!-- User add the ingredient -->
-
     <div class="form-group">
         <h3 class="section-heading">
             User add ingredient
             <button class="inline-help-icon section-help" 
                 aria-label="Help"
-                data-tooltip-text="Ingredient is from Poore_and_Nemecke_FABIO datasets.">?
+                data-tooltip-text="Ingredient is from Poore_and_Nemecke_FABIO classfication">?
             </button>
         </h3>
 
-        <label>Ingredient:</label>
-        <input type="text" id="ingredient-input" placeholder="Type to search..." />
+        <div class="ingredient-form-horizontal">
+            <!-- INGREDIENT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Ingredient:</span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="ingredient-input" placeholder="Type to search..." />
+                    </div>
+                </div>
+            </div>
 
-        <label>Category:</label>
-        <input type="text" id="category-input" placeholder="Type to search..." />
+            <!-- CATEGORY FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Category:</span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="category-input" placeholder="Auto-fills" readonly />
+                    </div>
+                </div>
+            </div>
 
-        <label>Amount:</label>
-        <input type="number" id="amount-input" min="0" />
-    
-        <label>Unit:</label>
-        <input type="text" id="unit-input" list="unit-options" placeholder="Type to search...">
-        <datalist id="unit-options">
-            <option value="g">g (grams)</option>
-            <option value="kg">kg (kilograms)</option>
-            <option value="ounce">ounce</option>
-            <option value="lb">lb (pounds)</option>
-            <option value="cup">cup</option>
-            <option value="tbsp">tbsp (tablespoon)</option>
-            <option value="tsp">tsp (teaspoon)</option>
-            <option value="unit">unit</option>
-        </datalist>
+            <!-- AMOUNT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Amount:</span>
+                    <input type="number" id="amount-input" min="0" value="100" />
+                </div>
+            </div>
 
-   
-        <label class="source-label">
-            <span class="label-text">
-                Source
-            <button class="inline-help-icon" 
-                    aria-label="Help"
-                    data-tooltip-text="The source is from the top import country for the ingredient.">?
-            </button>
-            </span>:
-        </label>
-        
-        <input type="text" id="source-input" placeholder="Select country...">
-        
+            <!-- UNIT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Unit:</span>
+                    <div class="unit-field">
+                        <input type="text" id="unit-input" list="unit-options" placeholder="Select" value="g" />
+                        <datalist id="unit-options">
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="ounce">ounce</option>
+                            <option value="lb">lb</option>
+                            <option value="cup">cup</option>
+                            <option value="tbsp">tbsp</option>
+                            <option value="tsp">tsp</option>
+                            <option value="unit">unit</option>
+                        </datalist>
+                    </div>
+                </div>
+            </div>
 
-   
-        <button id="add-ingredient-btn">➕ Add</button>
+            <!-- SOURCE FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">
+                        Source:
+                        <button class="inline-help-icon tiny" 
+                                aria-label="Help"
+                                data-tooltip-text="Top import country">?</button>
+                    </span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="source-input" placeholder="Auto-fills" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADD BUTTON -->
+            <div class="form-field-group">
+                <button id="add-ingredient-btn" class="add-button">➕ Add</button>
+            </div>
+        </div>
     </div>
-    
+
     <div id="form-errors" class="error-container"></div>
-    
-    <!-- Autocomplete Suggestions -->
-    <ul id="category-suggestions" class="autocomplete-list"></ul>
-    <ul id="ingredient-suggestions" class="autocomplete-list"></ul>
-  
+
 
     <!-- Selected Ingredients Table -->
     <section class="ingredients-list-section">

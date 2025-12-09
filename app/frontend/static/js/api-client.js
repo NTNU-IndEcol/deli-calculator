@@ -1,4 +1,4 @@
-// frontend/static/js/core/api-client.js
+// frontend/static/js/api-client.js
 export class ApiClient {
   static baseURL = '/api'; // Align with Flask blueprint prefix
   static debug = true;
