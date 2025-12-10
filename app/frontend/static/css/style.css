@@ -641,7 +641,7 @@ body {
     border-radius: 8px;
 }
 
-/* Help icon */
+/* Inline help icon */
 .tooltip-overlay {
     position: fixed;
     background: #fdfeff;
@@ -693,6 +693,25 @@ body {
     background: #0026ff;
     border-color: #cbd5e0;
 }
+
+
+.inline-help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    position: relative;
+}
+
+
 
 .results-panel {
     display: flex;
@@ -981,40 +1000,7 @@ body {
     list-style: none;
 }
 
-/* Inline help icon */
-.inline-help-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: help;
-    position: relative;
-}
 
-.inline-help-icon:hover::after {
-    content: attr(data-tooltip-text);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    white-space: normal;
-    width: 200px;
-    text-align: center;
-    z-index: 1001;
-    font-weight: normal;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

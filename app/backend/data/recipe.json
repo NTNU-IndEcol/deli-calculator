@@ -1,90 +1,140 @@
 {
   "@context": "https://schema.org",
   "@type": "Recipe",
-  "id": 1,
-  "name": "Ham cheese sandwich",
-  "author": "Korean Bapsang",
-  "datePublished": "2025-09-05",
-  "category": "Main Dishes",
+  "name": "Dubu salad (Korean Tofu Salad)",
+  "author": "Hyosun",
+  "datePublished": "2023-03-05T09:42:00+00:00",
+  "category": [
+    "Salad",
+    "Side Dish"
+  ],
   "recipeIngredient": [
     {
-      "mainIngredient": "Cheese",
+      "mainIngredient": "Soft or silken tofu",
       "details": {
-        "amount": 20,
-        "unit": "g",
-        "originalText": "norvegia cheese 26% large slice 550 g"
+        "amount": 1.0,
+        "unit": "package",
+        "originalText": "1 package soft or silken tofu"
       }
     },
     {
-      "mainIngredient": "cooded Ham sliced",
+      "mainIngredient": "Spring salad mix",
       "details": {
-        "amount": 40,
-        "unit": "g",
-        "originalText": "cooked ham sliced gilde 0.5kg"
+        "amount": 2.0,
+        "unit": "ounces",
+        "originalText": "2  ounces spring salad mix"
       }
     },
     {
-      "mainIngredient": "Butter",
+      "mainIngredient": "Scallions , finely chopped, 1/4 cup",
       "details": {
-        "amount": 20,
-        "unit": "g",
-        "originalText": "soft flora original butter"
+        "amount": 2.0,
+        "unit": null,
+        "originalText": "2  scallions (1 if large), finely chopped, about 1/4 cup"
       }
     },
     {
-      "mainIngredient": "Sweet pepper",
+      "mainIngredient": "Minced garlic",
       "details": {
-        "amount": 20,
-        "unit": "g",
-        "originalText": "red paprika"
+        "amount": 0.5,
+        "unit": "teaspoon",
+        "originalText": "1/2 teaspoon minced garlic"
       }
     },
     {
-      "mainIngredient": "Crispi Salad",
+      "mainIngredient": "Soy sauce",
       "details": {
-        "amount": 10,
-        "unit": "g",
-        "originalText": "Crispi salad"
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons soy sauce"
       }
     },
     {
-      "mainIngredient": "Baguette",
+      "mainIngredient": "Vinegar or lemon juice",
       "details": {
-        "amount": 90,
-        "unit": "g",
-        "originalText": "sandwich baguette 90g molin"
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "1 tablespoon vinegar or lemon juice"
+      }
+    },
+    {
+      "mainIngredient": "Rice wine , or matsul )",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "1 tablespoon rice wine (mirin, mirim (미림), or matsul (맛술))"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "1 teaspoon sugar (or 2 teaspoons Korean plum syrup -maesilcheong, 매실청)"
+      }
+    },
+    {
+      "mainIngredient": "Gochugaru",
+      "details": {
+        "amount": 0.5,
+        "unit": "teaspoon",
+        "originalText": "1/2 teaspoon gochugaru (Korean red chili pepper flakes) (Adjust to taste)"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "teaspoon",
+        "originalText": "1 teaspoon sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seeds",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "2 teaspoons sesame seeds"
       }
     }
-    
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Let the sliced brie sit out at room temperature whlle you prepare everything."
+      "text": "Mix all the sauce ingredients in a small bowl."
     },
     {
       "@type": "HowToStep",
-      "text": "Add butter, herbs, dijon, and garlic to a small bowl. Mix to combine. Season to taste with salt and pepper. "
+      "text": "Wash the spring mix and drain."
     },
     {
       "@type": "HowToStep",
-      "text": "Add arugula to a bowl. Toss with lemon juice. Season with salt and pepper. "
+      "text": "In a medium size pot, bring about 4 cups of water to a boil and add the tofu. Cover and boil for 5 minutes over medium heat."
     },
     {
       "@type": "HowToStep",
-      "text": "Spread butter generously on one side of the baguette for a thick layer of butter or two sides for two thin layers. Layer the prosciutto on the bottom piece of baguette. Top with three pieces of brie. Season with salt and pepper. Top with a handful of arugula. Cover with remaining half of baguette. Secure with toothpics or if eating later, wrap tightly in plastic wrap. "
+      "text": "Carefully transfer the tofu to a colander to drain and cool."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Cut the tofu into two blocks. Cut each block into about 1/2-inch thick slices."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Spread some spring mix on a plate. Arrange the tofu slices on top of the spring mix. Drizzle the sauce over the tofu when ready to serve."
     }
-
   ],
-  "recipeYield": "1",
-  "servings": "1",
-  "prepTime": "15 Minutes",
-  "cookTime": " ",
-  "time": "15",
-  "image": "ham_cheese_sandwich.avif",
-  "description": "This classic French Baguette Sandwich, also known as a Jambon Beurre Sandwich is such a nice departure from a classic deli sandwich.  ",
+  "recipeYield": [
+    "2"
+  ],
+  "prepTime": "PT10M",
+  "cookTime": "PT10M",
+  "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/03/DSC7335-e1677997017565.jpg",
+  "description": "A simple Korean tofu salad served with a soy based sauce. Simple, healthy and refreshing!",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null
-  }
+  },
+  "sourceUrl": "https://www.koreanbapsang.com/dubu-salad-korean-tofu-salad/",
+  "extractedAt": "2025-12-10"
 }
