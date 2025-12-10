@@ -1,0 +1,5 @@
+,unit_nominator,unit_denominator
+biodiv,PDF*yr,tonne|1000heads
+landuse,m^2,tonne|1000heads
+water,m^3,tonne|1000heads
+gwp100,kg CO2eq,tonne|1000heads
