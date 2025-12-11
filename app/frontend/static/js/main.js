@@ -105,16 +105,16 @@ document.addEventListener('DOMContentLoaded', async () => {
           formHandler.unmatchedIngredients = [];
           
           result.ingredients.forEach(ingredient => {
-            formHandler.processNewIngredient({
-              name: ingredient.name || ingredient.mainIngredient,
-              mainIngredient: ingredient.mainIngredient || ingredient.name,
-              amount: ingredient.amount,
-              unit: ingredient.unit,
-              source: ingredient.source || '',
-              category: ingredient.category || 'Uncategorized',
-              matched: false
-            });
-          });
+                formHandler.processNewIngredient({
+                    name: ingredient.name || ingredient.mainIngredient,
+                    mainIngredient: ingredient.mainIngredient || ingredient.name,
+                    amount: ingredient.details?.amount ?? ingredient.amount ?? 1,  // ✅ Check nested structure
+                    unit: ingredient.details?.unit ?? ingredient.unit ?? 'unit',    // ✅ Check nested structure
+                    source: ingredient.source || '',
+                    category: ingredient.category || 'Uncategorized',
+                    matched: false
+                });
+                });
           
           formHandler.updateTable();
           
@@ -196,8 +196,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     formHandler.processNewIngredient({
                         name: ingredient.name || ingredient.mainIngredient,
                         mainIngredient: ingredient.mainIngredient || ingredient.name,
-                        amount: ingredient.amount,
-                        unit: ingredient.unit,
+                        // 🔥 FIX: Extract from details if nested, otherwise use top-level
+                        amount: ingredient.details?.amount ?? ingredient.amount,
+                        unit: ingredient.details?.unit ?? ingredient.unit,
                         source: ingredient.source || '',
                         category: ingredient.category || 'Uncategorized',
                         matched: false

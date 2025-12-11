@@ -402,10 +402,17 @@ export class FormHandler {
         return;
       }
 
-      // 🔥 FIX: Parse amount properly
-      const parsedAmount = this.parseAmount(ingredient.amount);
-      const parsedUnit = this.normalizeUnit(ingredient.unit);
+      // 🔥 FIX: Parse amount properly - handle nested details structure
+      const amount = ingredient.amount ?? ingredient.details?.amount;
+      const unit = ingredient.unit ?? ingredient.details?.unit;
       
+
+      // 🔥 FIX: Parse amount properly
+      //const parsedAmount = this.parseAmount(ingredient.amount);
+      //const parsedUnit = this.normalizeUnit(ingredient.unit);
+      const parsedAmount = this.parseAmount(amount);
+      const parsedUnit = this.normalizeUnit(unit);
+
       console.log(`🔍 Processing: "${fullName}" (${parsedAmount} ${parsedUnit})`);
 
       // Extract core ingredient name

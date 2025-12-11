@@ -6,70 +6,243 @@ import os
 import re
 from urllib.parse import urlparse
 
-ALLOWED_DOMAINS = [
-    'koreanbapsang.com', 'www.koreanbapsang.com',
-    'allrecipes.com', 'www.allrecipes.com', 
-    'simplehomeedit.com', 'www.simplehomeedit.com',
-    'howtocook.recipes', 'www.howtocook.recipes',
-    'your-recipesite.com'
-]
-
-RECIPE_FILE = "backend/data/recipes.json"
+RECIPE_FILE = "backend/data/recipe.json"
 
 
 class RecipeExtractor:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         })
     
     def extract_recipe_from_url(self, url):
         """Extract recipe information from a given URL"""
         try:
-            print(f"Extracting recipe from: {url}")
-            response = self.session.get(url, timeout=10)
+            print(f"\n{'='*60}")
+            print(f"🔍 Extracting recipe from: {url}")
+            print(f"{'='*60}")
+            
+            response = self.session.get(url, timeout=15)
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            # Try to find JSON-LD structured data first
+            # Try extraction methods in order of reliability
+            recipe_data = None
+            
+            # Method 1: JSON-LD structured data (most reliable)
+            print("\n📋 Method 1: Trying JSON-LD extraction...")
             recipe_data = self._extract_json_ld(soup)
+            if recipe_data and recipe_data.get('recipeIngredient'):
+                print("✅ JSON-LD extraction successful!")
+                recipe_data['sourceUrl'] = url
+                recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
+                return recipe_data
             
-            if not recipe_data:
-                # Fall back to meta tags and HTML parsing
-                recipe_data = self._extract_from_meta(soup, url)
+            # Method 2: Site-specific extractors
+            print("\n📋 Method 2: Trying site-specific extraction...")
+            recipe_data = self._extract_site_specific(soup, url)
+            if recipe_data and recipe_data.get('recipeIngredient'):
+                print("✅ Site-specific extraction successful!")
+                recipe_data['sourceUrl'] = url
+                recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
+                return recipe_data
             
-            # If still no data, try site-specific parsing
-            if not recipe_data or not recipe_data.get('recipeIngredient'):
-                recipe_data = self._extract_site_specific(soup, url)
+            # Method 3: HTML parsing fallback
+            print("\n📋 Method 3: Trying HTML parsing fallback...")
+            recipe_data = self._extract_from_meta(soup, url)
+            if recipe_data and recipe_data.get('recipeIngredient'):
+                print("✅ HTML parsing extraction successful!")
+                recipe_data['sourceUrl'] = url
+                recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
+                return recipe_data
             
-            if not recipe_data or not recipe_data.get('recipeIngredient'):
-                raise ValueError("No recipe data found on the page")
+            # Method 4: Aggressive HTML parsing
+            print("\n📋 Method 4: Trying aggressive HTML extraction...")
+            recipe_data = self._extract_aggressive(soup, url)
+            if recipe_data and recipe_data.get('recipeIngredient'):
+                print("✅ Aggressive extraction successful!")
+                recipe_data['sourceUrl'] = url
+                recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
+                return recipe_data
             
-            # Add URL information
-            recipe_data['sourceUrl'] = url
-            recipe_data['extractedAt'] = time.strftime('%Y-%m-%d')
+            raise ValueError("❌ No recipe data found using any extraction method")
             
-            return recipe_data
-            
-        except Exception as e:
-            print(f"Error extracting from {url}: {str(e)}")
+        except requests.exceptions.HTTPError as e:
+            status_code = getattr(e.response, 'status_code', None)
+            if status_code == 403:
+                print(f"❌ Access forbidden (403) - site may require subscription or block scrapers")
+            elif status_code == 404:
+                print(f"❌ Page not found (404)")
+            elif status_code:
+                print(f"❌ HTTP Error {status_code}: {str(e)}")
+            else:
+                print(f"❌ HTTP Error: {str(e)}")
             return None
+        except requests.exceptions.Timeout:
+            print(f"❌ Request timeout - site took too long to respond")
+            return None
+        except Exception as e:
+            print(f"❌ Error extracting from {url}: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
+    def _extract_aggressive(self, soup, url):
+        """Aggressive extraction when other methods fail"""
+        print("  🔎 Searching for any list structures that might be ingredients...")
+        
+        recipe = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "",
+            "recipeIngredient": [],
+            "recipeInstructions": [],
+            "environmentalImpact": {
+                "co2Emissions": None,
+                "waterUse": None
+            }
+        }
+        
+        # Extract title aggressively
+        title = (
+            soup.find('h1') or 
+            soup.find('h2') or 
+            soup.find('title')
+        )
+        if title:
+            recipe['name'] = title.get_text().strip()
+            print(f"  📝 Found title: {recipe['name']}")
+        
+        # Look for any <ul> or <ol> that might contain ingredients
+        all_lists = soup.find_all(['ul', 'ol'])
+        print(f"  📋 Found {len(all_lists)} list elements to check")
+        
+        potential_ingredients = []
+        for list_elem in all_lists:
+            items = list_elem.find_all('li')
+            if 3 <= len(items) <= 30:  # Reasonable ingredient list size
+                list_text = list_elem.get_text().lower()
+                # Check if list looks like ingredients
+                ingredient_keywords = ['cup', 'tablespoon', 'teaspoon', 'ounce', 'pound', 
+                                      'gram', 'oz', 'lb', 'tsp', 'tbsp', 'chopped', 'diced']
+                
+                if any(keyword in list_text for keyword in ingredient_keywords):
+                    print(f"    ✓ Found potential ingredient list with {len(items)} items")
+                    for item in items:
+                        text = item.get_text().strip()
+                        if text and len(text) > 3:
+                            potential_ingredients.append(text)
+                    if potential_ingredients:
+                        break
+        
+        if potential_ingredients:
+            recipe['recipeIngredient'] = [
+                self._parse_ingredient_string(ing) for ing in potential_ingredients
+            ]
+            print(f"  ✅ Extracted {len(potential_ingredients)} ingredients")
+            return recipe
+        
+        print("  ❌ No ingredient lists found")
+        return None
     
     def _extract_site_specific(self, soup, url):
         """Site-specific extraction for problematic sites"""
         parsed_url = urlparse(url)
         domain = parsed_url.netloc.replace('www.', '')
         
+        print(f"  🌐 Checking domain: {domain}")
+        
         if domain == 'koreanbapsang.com':
             return self._extract_korean_bapsang(soup)
+        elif domain == 'food.com':
+            return self._extract_food_com(soup)
+        elif domain == 'tastefullysimple.com':
+            return self._extract_tastefully_simple(soup)
         
+        print("  ℹ️ No specific extractor for this domain")
         return None
+    
+    def _extract_food_com(self, soup):
+        """Specific extraction for food.com"""
+        print("  🍽️ Using Food.com specific extractor")
+        
+        recipe = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "",
+            "recipeIngredient": [],
+            "recipeInstructions": [],
+            "environmentalImpact": {
+                "co2Emissions": None,
+                "waterUse": None
+            }
+        }
+        
+        # Title
+        title = soup.find('h1', class_='recipe-title')
+        if title:
+            recipe['name'] = title.get_text().strip()
+            print(f"    📝 Title: {recipe['name']}")
+        
+        # Ingredients - food.com uses specific classes
+        ingredients = []
+        ingredient_elements = soup.select('.ingredient-list li, .recipe-ingredients li, [class*="ingredient"] li')
+        
+        print(f"    🔍 Found {len(ingredient_elements)} ingredient elements")
+        
+        for elem in ingredient_elements:
+            text = elem.get_text().strip()
+            if text and len(text) > 3:
+                ingredients.append(text)
+        
+        recipe['recipeIngredient'] = [self._parse_ingredient_string(ing) for ing in ingredients]
+        print(f"    ✅ Parsed {len(ingredients)} ingredients")
+        
+        return recipe if recipe['recipeIngredient'] else None
+    
+    def _extract_tastefully_simple(self, soup):
+        """Specific extraction for tastefullysimple.com"""
+        print("  🥗 Using Tastefully Simple specific extractor")
+        
+        recipe = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "",
+            "recipeIngredient": [],
+            "recipeInstructions": [],
+            "environmentalImpact": {
+                "co2Emissions": None,
+                "waterUse": None
+            }
+        }
+        
+        # Title
+        title = soup.find('h1')
+        if title:
+            recipe['name'] = title.get_text().strip()
+            print(f"    📝 Title: {recipe['name']}")
+        
+        # Ingredients
+        ingredients = []
+        ingredient_sections = soup.select('.recipe-ingredients, [class*="ingredients"]')
+        
+        for section in ingredient_sections:
+            items = section.find_all('li')
+            for item in items:
+                text = item.get_text().strip()
+                if text and len(text) > 3:
+                    ingredients.append(text)
+        
+        recipe['recipeIngredient'] = [self._parse_ingredient_string(ing) for ing in ingredients]
+        print(f"    ✅ Parsed {len(ingredients)} ingredients")
+        
+        return recipe if recipe['recipeIngredient'] else None
     
     def _extract_korean_bapsang(self, soup):
         """Specific extraction for Korean Bapsang website"""
-        print("Using Korean Bapsang specific extractor")
+        print("  🍜 Using Korean Bapsang specific extractor")
         
         recipe = {
             "@context": "https://schema.org",
@@ -98,6 +271,7 @@ class RecipeExtractor:
             title_elem = soup.select_one(selector)
             if title_elem:
                 recipe['name'] = title_elem.get_text().strip()
+                print(f"    📝 Title: {recipe['name']}")
                 break
         
         # Extract ingredients - Korean Bapsang specific
@@ -121,76 +295,44 @@ class RecipeExtractor:
                     break
         
         recipe['recipeIngredient'] = [self._parse_ingredient_string(ing) for ing in ingredients]
-        
-        # Extract instructions
-        instruction_selectors = [
-            '.entry-content ol li',
-            '.wprm-recipe-instruction',
-            '.instructions li',
-            '[class*="instruction"] li'
-        ]
-        
-        instructions = []
-        for selector in instruction_selectors:
-            elements = soup.select(selector)
-            if elements:
-                for i, elem in enumerate(elements, 1):
-                    text = elem.get_text().strip()
-                    if text:
-                        instructions.append({
-                            "@type": "HowToStep",
-                            "text": text
-                        })
-                if instructions:
-                    break
-        
-        recipe['recipeInstructions'] = instructions
-        
-        # Extract description
-        desc_selectors = [
-            '.entry-content p',
-            '.post-content p',
-            '[class*="description"]'
-        ]
-        
-        for selector in desc_selectors:
-            elem = soup.select_one(selector)
-            if elem:
-                text = elem.get_text().strip()
-                if text and len(text) > 50:  # Reasonable description length
-                    recipe['description'] = text
-                    break
+        print(f"    ✅ Parsed {len(ingredients)} ingredients")
         
         return recipe if recipe['recipeIngredient'] else None
 
     def _extract_json_ld(self, soup):
         """Extract recipe data from JSON-LD structured data"""
         script_tags = soup.find_all('script', type='application/ld+json')
+        print(f"  🔍 Found {len(script_tags)} JSON-LD script tags")
         
-        for script in script_tags:
+        for i, script in enumerate(script_tags):
             try:
-                # Clean the script content
                 script_content = script.string
                 if not script_content:
                     continue
-                    
+                
                 # Remove CDATA if present
                 if script_content.strip().startswith('/*<![CDATA[*/') or script_content.strip().startswith('//<![CDATA['):
                     script_content = re.sub(r'/\*<!\[CDATA\[\*/(.*?)/\*\]\]>\*/', r'\1', script_content, flags=re.DOTALL)
                 
                 data = json.loads(script_content)
                 recipe = self._find_recipe_in_json(data)
+                
                 if recipe:
+                    print(f"    ✓ Found recipe data in script tag #{i+1}")
                     parsed_recipe = self._parse_structured_recipe(recipe)
                     if parsed_recipe.get('recipeIngredient'):
+                        ingredient_count = len(parsed_recipe['recipeIngredient'])
+                        print(f"    ✅ Successfully parsed {ingredient_count} ingredients")
                         return parsed_recipe
+                    
             except json.JSONDecodeError as e:
-                print(f"JSON decode error: {e}")
+                print(f"    ⚠️ JSON decode error in script #{i+1}: {e}")
                 continue
             except Exception as e:
-                print(f"Error parsing JSON-LD: {e}")
+                print(f"    ⚠️ Error parsing script #{i+1}: {e}")
                 continue
         
+        print("  ❌ No valid recipe data found in JSON-LD")
         return None
     
     def _find_recipe_in_json(self, data):
@@ -263,7 +405,6 @@ class RecipeExtractor:
         
         for ingredient in ingredients:
             if isinstance(ingredient, str):
-                # Parse ingredient string into components
                 parsed = self._parse_ingredient_string(ingredient)
                 structured_ingredients.append(parsed)
         
@@ -271,7 +412,6 @@ class RecipeExtractor:
         
     def _parse_ingredient_string(self, ingredient_text):
         """Parse a single ingredient string into structured format"""
-        # Common units and patterns
         units = ['teaspoon', 'tsp', 'tablespoon', 'tbsp', 'cup', 'cups', 'ounce', 'oz', 'ounces', 
                 'pound', 'lb', 'pounds', 'gram', 'g', 'grams', 'kg', 'kilogram', 'milliliter', 
                 'ml', 'liter', 'l', 'pinch', 'dash', 'can', 'package', 'pkg', 'bunch', 'clove',
@@ -279,10 +419,7 @@ class RecipeExtractor:
                 'medium', 'small', 'whole', 'fresh', 'dried', 'chopped', 'minced', 'sliced',
                 'tablespoons', 'teaspoons', 'lbs']
         
-        # Improved pattern to match amount and unit
         amount_pattern = r'^([\d\/\.\s-]+)\s*([a-zA-Z]*)\s*(.*)$'
-        
-        # First, extract the original ingredient components
         original_ingredient = ingredient_text.strip()
         match = re.match(amount_pattern, original_ingredient)
         
@@ -291,19 +428,14 @@ class RecipeExtractor:
             unit = match.group(2).strip()
             ingredient = match.group(3).strip()
             
-            # Clean up unit
             unit_lower = unit.lower()
             if unit and unit_lower in [u.lower() for u in units]:
                 unit = unit_lower
             else:
-                # If the "unit" doesn't match known units, it's probably part of the ingredient
                 ingredient = f"{unit} {ingredient}".strip()
                 unit = ""
             
-            # Convert fraction amounts to decimal
             amount = self._convert_fraction_to_decimal(amount)
-            
-            # Extract main ingredient by cleaning the ingredient string
             main_ingredient = self._extract_main_ingredient(ingredient)
             
             return {
@@ -315,7 +447,6 @@ class RecipeExtractor:
                 }
             }
         else:
-            # No amount/unit found, use the whole string as ingredient
             main_ingredient = self._extract_main_ingredient(original_ingredient)
             return {
                 "mainIngredient": main_ingredient,
@@ -327,30 +458,24 @@ class RecipeExtractor:
             }
 
     def _extract_main_ingredient(self, ingredient_text):
-        """Extract only the main ingredient name by removing explanations, measurements, etc."""
+        """Extract only the main ingredient name"""
         if not ingredient_text:
             return ""
         
-        # Remove content within parentheses (including Korean text and explanations)
         cleaned = re.sub(r'\([^)]*\)', '', ingredient_text).strip()
-        
-        # Remove content within brackets
         cleaned = re.sub(r'\[[^\]]*\]', '', cleaned).strip()
         
-        # Remove common measurement words and preparation terms that might be left
         preparation_terms = [
             'to taste', 'for serving', 'for garnish', 'garnish', 'optional',
             'divided', 'warm', 'cold', 'hot', 'room temperature'
         ]
         
-        # Remove preparation terms
         for term in preparation_terms:
             cleaned = re.sub(r'\b' + re.escape(term) + r'\b', '', cleaned, flags=re.IGNORECASE)
         
-        # Remove common quantity indicators
         quantity_patterns = [
-            r'\b\d+\s*-\s*\d+\b',  # "6 to 8"
-            r'\b\d+\s*to\s*\d+\b',  # "6 to 8"
+            r'\b\d+\s*-\s*\d+\b',
+            r'\b\d+\s*to\s*\d+\b',
             r'\bdepending on the size\b',
             r'\babout\b',
             r'\bapproximately\b',
@@ -363,33 +488,22 @@ class RecipeExtractor:
         for pattern in quantity_patterns:
             cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
         
-        # Remove extra spaces and commas at beginning/end
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
         cleaned = re.sub(r'^,\s*|\s*,$', '', cleaned)
         
-        # If the cleaned text is empty, fall back to the original (without parentheses)
         if not cleaned:
-            # Remove just the parenthetical content but keep the rest
             cleaned = re.sub(r'\([^)]*\)', '', ingredient_text).strip()
         
-        # Final cleanup - remove any remaining non-ingredient words at the start
-        # Common prefixes to remove
         prefixes_to_remove = [
-            r'^of\s+',
-            r'^and\s+',
-            r'^or\s+',
-            r'^plus\s+',
-            r'^about\s+',
-            r'^approximately\s+',
+            r'^of\s+', r'^and\s+', r'^or\s+', r'^plus\s+',
+            r'^about\s+', r'^approximately\s+',
         ]
         
         for prefix in prefixes_to_remove:
             cleaned = re.sub(prefix, '', cleaned, flags=re.IGNORECASE)
         
-        # Remove any remaining leading/trailing punctuation
         cleaned = re.sub(r'^[,\s.-]+|[,\s.-]+$', '', cleaned)
         
-        # Capitalize first letter for consistency
         if cleaned:
             cleaned = cleaned[0].upper() + cleaned[1:]
         
@@ -407,7 +521,6 @@ class RecipeExtractor:
         """Convert fraction strings to decimal"""
         if '/' in amount_str:
             try:
-                # Handle mixed numbers like "1 1/2"
                 parts = amount_str.split()
                 total = 0.0
                 for part in parts:
@@ -426,7 +539,6 @@ class RecipeExtractor:
         structured_instructions = []
         
         if isinstance(instructions, str):
-            # Split by newlines or numbers
             steps = re.split(r'\n+|\d+\.', instructions)
             steps = [step.strip() for step in steps if step.strip()]
             for i, step in enumerate(steps, 1):
@@ -452,6 +564,8 @@ class RecipeExtractor:
     
     def _extract_from_meta(self, soup, url):
         """Fallback method to extract recipe data from meta tags and HTML structure"""
+        print("  🔍 Extracting from HTML meta tags and structure...")
+        
         recipe = {
             "@context": "https://schema.org",
             "@type": "Recipe",
@@ -470,11 +584,15 @@ class RecipeExtractor:
             }
         }
         
+        if recipe['name']:
+            print(f"    📝 Title: {recipe['name']}")
+        if recipe['recipeIngredient']:
+            print(f"    ✅ Found {len(recipe['recipeIngredient'])} ingredients")
+        
         return {k: v for k, v in recipe.items() if v}
     
     def _extract_title(self, soup):
         """Extract recipe title"""
-        # Try multiple selectors
         selectors = [
             'h1[class*="recipe"]', 
             '[class*="recipe-title"]',
@@ -523,7 +641,7 @@ class RecipeExtractor:
                 if element.name == 'meta':
                     return element.get('content', '').strip()
                 text = element.get_text().strip()
-                if text and len(text) > 20:  # Only return substantial descriptions
+                if text and len(text) > 20:
                     return text
         
         return ""
@@ -565,7 +683,6 @@ class RecipeExtractor:
             if elements:
                 for element in elements:
                     text = element.get_text().strip()
-                    # Filter out very short texts and obvious non-ingredients
                     if (text and len(text) > 2 and 
                         not any(word in text.lower() for word in ['instruction', 'method', 'step', 'note:', 'tips:'])):
                         ingredients.append(text)
@@ -639,32 +756,26 @@ class RecipeExtractor:
         
         return ""
 
-def validate_url(url):
-    """Ensure URL is from allowed domains"""
-    parsed = urlparse(url)
-    domain = parsed.netloc.replace('www.', '')
-    base_domains = [d.replace('www.', '') for d in ALLOWED_DOMAINS]
-    
-    if domain not in base_domains:
-        raise ValueError(f"Domain {domain} not allowed")
-    return True
 
 def extract_recipe_data(url):
     """Extract recipe data from a given URL."""
     try:
-        print(f"Fetching URL: {url}")
-        validate_url(url)
+        print(f"\n🌐 Fetching URL: {url}")
         extractor = RecipeExtractor()
         recipe = extractor.extract_recipe_from_url(url)
         
         if not recipe:
-            print("Error: No recipe data found.")
+            print("\n❌ Error: No recipe data found.")
             return None
         
-        print(f"Successfully extracted recipe: {recipe.get('name', 'Unknown')}")
+        print(f"\n✅ Successfully extracted recipe: {recipe.get('name', 'Unknown')}")
+        print(f"   Ingredients: {len(recipe.get('recipeIngredient', []))}")
+        print(f"   Instructions: {len(recipe.get('recipeInstructions', []))}")
         return recipe
     except Exception as e:
-        print(f"Error extracting recipe: {e}")
+        print(f"\n❌ Error extracting recipe: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 def save_recipe(recipe):

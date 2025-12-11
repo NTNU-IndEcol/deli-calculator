@@ -1,68 +1,50 @@
 {
   "@context": "https://schema.org",
   "@type": "Recipe",
-  "name": "Dubu salad (Korean Tofu Salad)",
-  "author": "Hyosun",
-  "datePublished": "2023-03-05T09:42:00+00:00",
-  "category": [
-    "Salad",
-    "Side Dish"
-  ],
+  "id": 1,
+  "name": "Fried pork and bean sprouts",
+  "author": "Korean Bapsang",
+  "datePublished": "2025-09-15",
+  "category": "Main Dishes",
   "recipeIngredient": [
     {
-      "mainIngredient": "Soft or silken tofu",
+      "mainIngredient": "Pork or Beef",
       "details": {
-        "amount": 1.0,
-        "unit": "package",
-        "originalText": "1 package soft or silken tofu"
-      }
-    },
-    {
-      "mainIngredient": "Spring salad mix",
-      "details": {
-        "amount": 2.0,
+        "amount": 8.0,
         "unit": "ounces",
-        "originalText": "2  ounces spring salad mix"
+        "originalText": "thinly sliced/shaved pork belly or other thinly sliced pork or beef"
       }
     },
     {
-      "mainIngredient": "Scallions , finely chopped, 1/4 cup",
+      "mainIngredient": "Bean sprout",
+      "details": {
+        "amount": 10.0,
+        "unit": "ounces",
+        "originalText": "bean sprouts (sukju)"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 0.25,
+        "unit": "",
+        "originalText": "medium onion"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
       "details": {
         "amount": 2.0,
-        "unit": null,
-        "originalText": "2  scallions (1 if large), finely chopped, about 1/4 cup"
+        "unit": "teaspoons",
+        "originalText": "minced garlic"
       }
     },
     {
-      "mainIngredient": "Minced garlic",
-      "details": {
-        "amount": 0.5,
-        "unit": "teaspoon",
-        "originalText": "1/2 teaspoon minced garlic"
-      }
-    },
-    {
-      "mainIngredient": "Soy sauce",
+      "mainIngredient": "Soy sauce or Oyster sauce",
       "details": {
         "amount": 2.0,
         "unit": "tablespoons",
-        "originalText": "2 tablespoons soy sauce"
-      }
-    },
-    {
-      "mainIngredient": "Vinegar or lemon juice",
-      "details": {
-        "amount": 1.0,
-        "unit": "tablespoon",
-        "originalText": "1 tablespoon vinegar or lemon juice"
-      }
-    },
-    {
-      "mainIngredient": "Rice wine , or matsul )",
-      "details": {
-        "amount": 1.0,
-        "unit": "tablespoon",
-        "originalText": "1 tablespoon rice wine (mirin, mirim (미림), or matsul (맛술))"
+        "originalText": "soy sauce or oyster sauce (or 1 T each)"
       }
     },
     {
@@ -70,71 +52,49 @@
       "details": {
         "amount": 1.0,
         "unit": "teaspoon",
-        "originalText": "1 teaspoon sugar (or 2 teaspoons Korean plum syrup -maesilcheong, 매실청)"
+        "originalText": "sugar - optional"
       }
     },
     {
-      "mainIngredient": "Gochugaru",
+      "mainIngredient": "Pepper",
       "details": {
-        "amount": 0.5,
-        "unit": "teaspoon",
-        "originalText": "1/2 teaspoon gochugaru (Korean red chili pepper flakes) (Adjust to taste)"
-      }
-    },
-    {
-      "mainIngredient": "Sesame oil",
-      "details": {
-        "amount": 1.0,
-        "unit": "teaspoon",
-        "originalText": "1 teaspoon sesame oil"
-      }
-    },
-    {
-      "mainIngredient": "Sesame seeds",
-      "details": {
-        "amount": 2.0,
-        "unit": "teaspoons",
-        "originalText": "2 teaspoons sesame seeds"
+        "amount": null,
+        "unit": "",
+        "originalText": "pepper to taste"
       }
     }
   ],
   "recipeInstructions": [
     {
       "@type": "HowToStep",
-      "text": "Mix all the sauce ingredients in a small bowl."
+      "text": "Cut the meat into bite size pieces (about 2 to 3 inches long)."
     },
     {
       "@type": "HowToStep",
-      "text": "Wash the spring mix and drain."
+      "text": "Give the bean sprouts a quick rinse, and drain. Thinly slice the onion, and cut the scallions (or garlic chives) into 2-inch pieces."
     },
     {
       "@type": "HowToStep",
-      "text": "In a medium size pot, bring about 4 cups of water to a boil and add the tofu. Cover and boil for 5 minutes over medium heat."
+      "text": "Heat a large pan over high heat until very hot. Add the pork, and stir-fry quickly until no longer pink. You don't need cooking oil if using pork belly, but use a tablespoon if needed. A non-stick pan helps with no additional oil as well,"
     },
     {
       "@type": "HowToStep",
-      "text": "Carefully transfer the tofu to a colander to drain and cool."
+      "text": "Add the bean sprouts, garlic, and onion, and continue to stir fry until the bean sprouts have wilted slightly."
     },
     {
       "@type": "HowToStep",
-      "text": "Cut the tofu into two blocks. Cut each block into about 1/2-inch thick slices."
-    },
-    {
-      "@type": "HowToStep",
-      "text": "Spread some spring mix on a plate. Arrange the tofu slices on top of the spring mix. Drizzle the sauce over the tofu when ready to serve."
+      "text": "Add the soy sauce and/or oyster sauce, optional sugar and pepper to taste. Stir-fry quickly. Stir in the scallion (or garlic chives). Sprinkle with optional sesame seeds to serve."
     }
   ],
-  "recipeYield": [
-    "2"
-  ],
-  "prepTime": "PT10M",
-  "cookTime": "PT10M",
-  "image": "https://www.koreanbapsang.com/wp-content/uploads/2012/03/DSC7335-e1677997017565.jpg",
-  "description": "A simple Korean tofu salad served with a soy based sauce. Simple, healthy and refreshing!",
+  "recipeYield": "2",
+  "prepTime": "5 Minutes",
+  "cookTime": "10 Minutes",
+  "servings": 1,
+  "time": 15,
+  "image": "Fried_pork_belly_and_bean_sprouts.jpg",
+  "description": "Stir-fried pork belly with bean sprouts from Korean Drama Itaewon Class. It's quick, easy and delicious! In my first Korean drama series post, we took a",
   "environmentalImpact": {
     "co2Emissions": null,
     "waterUse": null
-  },
-  "sourceUrl": "https://www.koreanbapsang.com/dubu-salad-korean-tofu-salad/",
-  "extractedAt": "2025-12-10"
+  }
 }
