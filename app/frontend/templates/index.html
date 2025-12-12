@@ -91,7 +91,7 @@
             <!-- INGREDIENT FIELD -->
             <div class="form-field-group">
                 <div class="field-with-label">
-                    <span class="field-label">Ingredient:</span>
+                    <span class="field-label">Ingredient</span>
                     <div class="autocomplete-wrapper">
                         <input type="text" id="ingredient-input" placeholder="Type to search..." />
                     </div>
@@ -101,7 +101,7 @@
             <!-- CATEGORY FIELD -->
             <div class="form-field-group">
                 <div class="field-with-label">
-                    <span class="field-label">Category:</span>
+                    <span class="field-label">Category</span>
                     <div class="autocomplete-wrapper">
                         <input type="text" id="category-input" placeholder="Auto-fills" readonly />
                     </div>
@@ -111,7 +111,7 @@
             <!-- AMOUNT FIELD -->
             <div class="form-field-group">
                 <div class="field-with-label">
-                    <span class="field-label">Amount:</span>
+                    <span class="field-label">Amount</span>
                     <input type="number" id="amount-input" min="0" value="100" />
                 </div>
             </div>
@@ -119,7 +119,7 @@
             <!-- UNIT FIELD -->
             <div class="form-field-group">
                 <div class="field-with-label">
-                    <span class="field-label">Unit:</span>
+                    <span class="field-label">Unit</span>
                     <div class="unit-field">
                         <input type="text" id="unit-input" list="unit-options" placeholder="Select" value="g" />
                         <datalist id="unit-options">
@@ -140,13 +140,13 @@
             <div class="form-field-group">
                 <div class="field-with-label">
                     <span class="field-label">
-                        Source:
+                        Source
                         <button class="inline-help-icon tiny" 
                                 aria-label="Help"
                                 data-tooltip-text="Top import country">?</button>
                     </span>
                     <div class="autocomplete-wrapper">
-                        <input type="text" id="source-input" placeholder="Auto-fills" readonly />
+                        <input type="text" id="source-input" placeholder="Select country..." />
                     </div>
                 </div>
             </div>
@@ -175,8 +175,8 @@
             <table id="ingredients-table">
                 <thead>
                     <tr>
+                        <th>Ingredient</th>                       
                         <th>Category</th>
-                        <th>Ingredient</th>
                         <th>Amount</th>
                         <th>Unit</th>
                         <th>Source</th>

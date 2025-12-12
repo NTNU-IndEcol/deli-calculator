@@ -107,10 +107,12 @@ export class FoodCalculatorApp {
             }
             
             // Auto-select first source
+            /*
             if (countries.length > 0) {
               document.getElementById('source-input').value = countries[0];
               console.log('  ✔ Auto-selected source:', countries[0]);
             }
+            */
           } else {
             console.warn('  ⚠ Not found in database');
           }

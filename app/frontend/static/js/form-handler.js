@@ -147,11 +147,12 @@ export class FormHandler {
       console.log('🌍 Top import countries:', topCountries);
       
       // Auto-fill source with top country
+     /*
       if (topCountries.length > 0) {
         this.elements.sourceInput.value = topCountries[0];
         console.log('📍 Auto-filled source:', topCountries[0]);
       }
-      
+      */
       // Update source autocomplete
       this.sourceAutocomplete.updateDataset(topCountries);
     }
@@ -434,8 +435,8 @@ export class FormHandler {
           ...ingredient,
           id: ingredientId,
           originalName: fullName,
-          displayName: displayName,
-          name: displayName,
+          displayName: fullName,
+          name: match.Ingredient,
           matchedTo: match.Ingredient,
           category: match["Food group"],
           comm_code: match.comm_code,
@@ -472,14 +473,19 @@ export class FormHandler {
     // 🔥 NEW: Extract core ingredient name from detailed descriptions
     extractIngredientName(fullName) {
         // Core ingredients to look for
+        // ⚠️ Order matters! Put compound ingredients first, then singular
         const coreIngredients = [
+            // Compound terms first (to match "chicken eggs" before "chicken")
+            'chicken eggs', 'duck eggs', 'goose eggs', 'turkey eggs',
+            
+            // Then individual terms
             'cheese', 'butter', 'milk', 'cream', 'yogurt', 'yoghurt',
             'chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'tuna', 'shrimp', 'ribs',
             'tomato', 'potato', 'onion', 'garlic', 'carrot', 'lettuce', 'cabbage', 'pepper', 'paprika',
             'cucumber', 'spinach', 'broccoli', 'cauliflower', 'mushroom', 'corn', 'peas', 'salad',
             'apple', 'banana', 'orange', 'lemon', 'lime', 'berry', 'pear',
             'bread', 'baguette', 'rice', 'pasta', 'noodle', 'flour', 'wheat', 'oat',
-            'egg', 'oil', 'sugar', 'salt', 'sauce', 'wine', 'beer', 'water', 'juice',
+            'egg', 'eggs', 'oil', 'sugar', 'salt', 'sauce', 'wine', 'beer', 'water', 'juice',  // ✅ Added 'egg' and 'eggs'
             'soy', 'ginger', 'sesame', 'honey', 'vinegar'
         ];
         
@@ -494,6 +500,16 @@ export class FormHandler {
         // Try to find a core ingredient
         for (const core of coreIngredients) {
             if (cleaned.includes(core)) {
+                // For multi-word cores like "chicken eggs", use the whole phrase
+                if (core.includes(' ')) {
+                    return {
+                        display: core,
+                        core: core,
+                        original: fullName
+                    };
+                }
+                
+                // For single-word cores
                 const words = cleaned.split(' ');
                 const coreIndex = words.indexOf(core);
                 
@@ -597,16 +613,16 @@ export class FormHandler {
             'Not in database';
         
         row.innerHTML = `
-            <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
-                ${ingredient.matched ? 
-                    `<span class="editable-category" title="${matchInfo}">${ingredient.category}</span>` :
-                    `<input type="text" class="category-input" value="${ingredient.category || ''}" placeholder="Unmatched">`
-                }
-            </td>
             <td data-label="Ingredient" class="${!ingredient.matched ? 'unmatched' : ''}" title="${ingredient.originalName || nameToShow}">
                 ${ingredient.matched ? 
                     `<span class="editable-name">${nameToShow}</span>` :
                     `<input type="text" class="name-input" value="${nameToShow}" placeholder="Not in database">`
+                }
+            </td>
+            <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
+                ${ingredient.matched ? 
+                    `<span class="editable-category" title="${matchInfo}">${ingredient.category}</span>` :
+                    `<input type="text" class="category-input" value="${ingredient.category || ''}" placeholder="Unmatched">`
                 }
             </td>
             <td data-label="Amount">
