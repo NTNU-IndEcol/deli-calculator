@@ -409,12 +409,11 @@ export class FormHandler {
       
 
       // 🔥 FIX: Parse amount properly
-      //const parsedAmount = this.parseAmount(ingredient.amount);
-      //const parsedUnit = this.normalizeUnit(ingredient.unit);
       const parsedAmount = this.parseAmount(amount);
       const parsedUnit = this.normalizeUnit(unit);
 
-      console.log(`🔍 Processing: "${fullName}" (${parsedAmount} ${parsedUnit})`);
+      console.log(`🔍 Processing: "${fullName}" (${parsedAmount} ${parsedUnit}) from "${ingredient.source}"`);
+
 
       // Extract core ingredient name
       const extracted = this.extractIngredientName(fullName);
@@ -431,6 +430,9 @@ export class FormHandler {
         const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
         const ingredientId = ingredient.id || Date.now() + Math.random();
         
+        // ✅ CRITICAL FIX: Keep the user's entered source!
+        const userSource = ingredient.source || possibleSources[0] || '';
+
         this.selectedIngredients.push({
           ...ingredient,
           id: ingredientId,
@@ -444,7 +446,8 @@ export class FormHandler {
           amount: parsedAmount,
           unit: parsedUnit,
           possibleSources: possibleSources,
-          source: ingredient.source || possibleSources[0] || ''
+          source: userSource  // ✅ Use what the user entered
+         // source: ingredient.source || possibleSources[0] || ''
         });
         
         console.log(`✅ Matched "${displayName}" → "${match.Ingredient}" (${match.comm_code})`);
@@ -651,6 +654,8 @@ export class FormHandler {
         return row;
     }
 
+
+    // ✅ FIXED: Add custom source to dropdown if not in list
     createSourceInput(ingredient) {
         if (!ingredient.id) {
             ingredient.id = Date.now() + Math.random();
@@ -663,6 +668,14 @@ export class FormHandler {
         if (!sources || sources.length === 0) {
             sources = [''];
         }
+        
+        // ✅ If user entered a custom source not in the list, add it
+        if (ingredient.source && !sources.includes(ingredient.source)) {
+            sources = [ingredient.source, ...sources];
+            console.log(`➕ Added custom source "${ingredient.source}" to dropdown`);
+        }
+        
+        console.log(`📍 Creating dropdown for "${ingredient.name}" with source: ${ingredient.source}`);
         
         return `
             <select class="source-select centered-select" data-id="${ingredient.id}">
@@ -710,13 +723,21 @@ export class FormHandler {
       const id = Number(event.target.dataset.id);
       const newSource = event.target.value;
 
-      const allIngredients = [...this.selectedIngredients, ...this.unmatchedIngredients];
-      const ingredient = allIngredients.find(item => item.id === id);
+      // Find in the ORIGINAL arrays
+      let ingredient = this.selectedIngredients.find(item => item.id === id);
+      
+      if (!ingredient) {
+        ingredient = this.unmatchedIngredients.find(item => item.id === id);
+      }
 
       if (ingredient) {
         ingredient.source = newSource;
+        console.log(`✅ Updated source for "${ingredient.name}" to "${newSource}"`);
+      } else {
+        console.error('❌ Could not find ingredient with id:', id);
       }
     }
+      
   
     handleUnitChange(event) {
       const index = Number(event.target.dataset.index);

@@ -1,0 +1,141 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Falafel",
+  "datePublished": "2018-12-05T06:00:08+00:00",
+  "category": [
+    "Appetizer",
+    "Main Course"
+  ],
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Wheat",
+      "details": {
+        "amount": 60,
+        "unit": "g",
+        "originalText": "2 Cup Soaked Chick peas ((Kabuli Chana))"
+      }
+    },
+    {
+      "mainIngredient": "Celery",
+      "details": {
+        "amount": "20",
+        "unit": "g",
+        "originalText": "1-1.5 cup Parsley"
+      }
+    },
+    {
+      "mainIngredient": "Red onion",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "20 g red onion"
+      }
+    },
+ 
+    {
+      "mainIngredient": "Garlic cloves",
+      "details": {
+        "amount": "4",
+        "unit": "g",
+        "originalText": "3-4  garlic cloves"
+      }
+    },
+    {
+      "mainIngredient": "Coriander seeds",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "1 tsp Coriander seeds"
+      }
+    },
+    {
+      "mainIngredient": "Crushed black Paprika",
+      "details": {
+        "amount": 1,
+        "unit": "g",
+        "originalText": "1/2 tsp Crushed black pepper"
+      }
+    },
+    {
+      "mainIngredient": "Crushed Chili Paprika",
+      "details": {
+        "amount": 1,
+        "unit": "g",
+        "originalText": "1/2 tsp Crushed black pepper"
+      }
+    },
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 1.0,
+        "unit": "tsp",
+        "originalText": "1 tsp Olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": null,
+        "unit": null,
+        "originalText": "Salt"
+      }
+    }
+
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Line a tray with parchment paper and preheat your oven to 180 Deg C"
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Soaked Chickpeas, double in size. So if you want 2 Cups of Soaked, use 1 cup of dry."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "In a food processor put all the ingredients and grind it."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "It will be like a coarse mixture."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Take a gooseberry size or like 2 tablespoon of the mix and make small balls from it, by gently pressing it between your palms."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Line it evenly on a baking tray.&nbsp;Lightly brush them with oil."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Let them bake for 20-30 minutes turning in between. (Half baked Pic)"
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Bake them until they are golden brown on all the sides."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Serve it with Tahini dip, Hummus,  Baba Ghanoush or as a sandwich in Pita bread or a wrap."
+    }
+  ],
+  "recipeYield": [
+    "24",
+    "24 Falafel"
+  ],
+  "servings": 1,
+  "prepTime": "PT10M",
+  "cookTime": "PT20M",
+  "totalTime": "PT40M",
+  "time": 40,
+  "image": "Easy-Home-Baked-Fafale.jpg",
+  "description": "Easy Homemade Baked Falafel is a healthy alternative to the typical fried falafel, which is made using chickpeas, a few spices and herbs.",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  },
+  "sourceUrl": "https://cookwithrenu.com/easy-homemade-baked-falafel-no-canned-beans/",
+  "extractedAt": "2026-01-20"
+}

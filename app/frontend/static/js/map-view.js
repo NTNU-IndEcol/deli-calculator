@@ -643,7 +643,7 @@ export class MapView {
         "republic of moldova": "moldova, republic of",
         "republic of korea": "korea, republic of",
         "democratic peoples republic of korea": "korea, democratic people's republic of",
-        "cote divoire": "côte d'ivoire",
+        "côte d'ivoire": "côte d'ivoire",
         "swaziland": "eswatini",
         "timorleste": "timor-leste",
         "guineabissau": "guinea-bissau",
@@ -662,11 +662,19 @@ export class MapView {
     };
 
     normalizeCountryName(name) {
-        let normalized = name.toLowerCase()
+        // First check aliases before normalization (to catch special characters)
+        const lowercaseName = name.toLowerCase().trim();
+        if (this.countryAliases[lowercaseName]) {
+            return this.countryAliases[lowercaseName];
+        }
+        
+        // Then normalize by removing special characters
+        let normalized = lowercaseName
             .replace(/[^a-z\s]/g, '')
             .replace(/\s+/g, ' ')
             .trim();
 
+        // Check aliases again after normalization
         if (this.countryAliases[normalized]) {
             return this.countryAliases[normalized];
         }
