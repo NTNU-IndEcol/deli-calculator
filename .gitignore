@@ -1,5 +1,11 @@
 ./app/backend/data
 
+# Database files - DO NOT commit
+app/backend/data/*.db
+app/backend/data/*.sqlite
+app/backend/data/*.sqlite3
+app/backend/data/backups/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -5,6 +5,7 @@ import { FormHandler } from './form-handler.js';
 import { ApiClient } from './api-client.js';
 import { LocationSelector } from './location-selector.js';
 import { LocationManager } from './location-manager.js';
+import { MetricsTracker } from './metrics-tracker.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log('✅ Location ready:', LocationManager.getCurrentLocation().countryName);
     
+    // Track page view
+    await MetricsTracker.trackView();
+
     // Step 4: Initialize form handler (NO auto-load)
     const formHandler = new FormHandler();
     

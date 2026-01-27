@@ -1,15 +1,17 @@
 # app.py - Flask entry point
-from flask import Flask, request, render_template, jsonify, send_file, send_from_directory
-from flask_cors import CORS
+from flask import Flask, request, render_template, jsonify, send_file, send_from_directory # type: ignore
+from flask_cors import CORS # type: ignore
 import os
 import shutil
 import json
+from metrics import metrics_bp
 
 # Import Blueprints
 from backend.routes import api_bp
 from backend.feedback import feedback_bp
 from backend.recipes import recipes_bp
 from backend.env_data_loader import env_data_bp, load_env_impact_files
+from backend.metrics.init_db import init_database
 
 # Initialize Flask app with custom folders
 app = Flask(__name__,
@@ -29,11 +31,19 @@ print("\n🚀 Loading environmental impact data...")
 load_env_impact_files()
 print("✅ Environmental data ready!")
 
+# Initialize database on startup
+try:
+    init_database()
+    print("✅ Database ready")
+except Exception as e:
+    print(f"❌ Database initialization error: {e}")
+
 # Register Blueprints
 app.register_blueprint(api_bp, url_prefix='/api')
 app.register_blueprint(feedback_bp)
 app.register_blueprint(recipes_bp)
 app.register_blueprint(env_data_bp)
+app.register_blueprint(metrics_bp)
 
 # Cloudflare Turnstile Configuration
 app.config['TURNSTILE_SITEKEY'] = os.environ.get('TURNSTILE_SITEKEY')

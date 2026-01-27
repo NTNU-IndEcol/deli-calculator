@@ -213,9 +213,7 @@
       "text": "Mul mandu (boiled)"
     }
   ],
-  "recipeYield": [
-    "8"
-  ],
+  "recipeYield": ["8"],
   "image": "korean_dumplings.jpg",
   "description": "Learn how to make Korean dumplings (mandu) with this easy to follow recipe! They are so delicious and versatile! Much easier than you think!",
   "environmentalImpact": {

@@ -5,6 +5,7 @@ import { AutocompleteHandler } from './autocomplete.js';
 import { FormHandler } from './form-handler.js';
 import { ResultsView } from './results-view.js';
 import { MapView } from './map-view.js';
+import { MetricsTracker } from './metrics-tracker.js';
 
 export class FoodCalculatorApp {
     constructor(formHandler) {
@@ -192,6 +193,9 @@ export class FoodCalculatorApp {
             // Update map visualization
             this.mapView.updateMap(impactByCountry);
             
+            // Track the calculation
+            await MetricsTracker.trackCalculation();
+
             console.log(`✅ Calculation complete: ${impactByCountry.length} countries processed`);
           } else {
             console.warn("No country impact data available");
