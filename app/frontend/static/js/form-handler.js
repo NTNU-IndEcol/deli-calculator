@@ -480,15 +480,16 @@ export class FormHandler {
         const coreIngredients = [
             // Compound terms first (to match "chicken eggs" before "chicken")
             'chicken eggs', 'duck eggs', 'goose eggs', 'turkey eggs',
+            'soy sauce', 'oyster sauce',
             
             // Then individual terms
             'cheese', 'butter', 'milk', 'cream', 'yogurt', 'yoghurt',
-            'chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'tuna', 'shrimp', 'ribs',
+            'ham', 'chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'tuna', 'shrimp', 'ribs',
             'tomato', 'potato', 'onion', 'garlic', 'carrot', 'lettuce', 'cabbage', 'pepper', 'paprika',
             'cucumber', 'spinach', 'broccoli', 'cauliflower', 'mushroom', 'corn', 'peas', 'salad',
             'apple', 'banana', 'orange', 'lemon', 'lime', 'berry', 'pear',
             'bread', 'baguette', 'rice', 'pasta', 'noodle', 'flour', 'wheat', 'oat',
-            'egg', 'eggs', 'oil', 'sugar', 'salt', 'sauce', 'wine', 'beer', 'water', 'juice',  // ✅ Added 'egg' and 'eggs'
+            'egg', 'eggs', 'oil', 'sugar', 'salt', 'wine', 'beer', 'water', 'juice',  // ✅ Added 'egg' and 'eggs'
             'soy', 'ginger', 'sesame', 'honey', 'vinegar'
         ];
         
@@ -497,6 +498,7 @@ export class FormHandler {
             .trim()
             .replace(/\d+\s*(g|kg|ml|l|oz|lb|%|percent)/gi, '')
             .replace(/\b\d+\b/g, '')
+            .replace(/\b(sliced|slice|cooked|cooded|smoked|cured|diced|minced|chopped|fresh|raw)\b/gi, '')
             .replace(/\s+/g, ' ')
             .trim();
         

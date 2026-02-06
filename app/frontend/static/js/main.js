@@ -17,16 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Step 2: Initialize LocationSelector (detects location and loads data)
     const locationSelector = new LocationSelector();
     
-    // Step 3: Wait for location to be ready
+    // Step 3: Wait for location to be ready (no polling)
     console.log('⏳ Waiting for location detection...');
-    await new Promise(resolve => {
-        const checkReady = setInterval(() => {
-            if (LocationManager.getCurrentLocation() && DataManager.datasets.importData) {
-                clearInterval(checkReady);
-                resolve();
-            }
-        }, 100);
-    });
+    await locationSelector.ready;
     
     console.log('✅ Location ready:', LocationManager.getCurrentLocation().countryName);
     
@@ -42,6 +35,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Step 5: Initialize app (pass formHandler but DON'T auto-load recipe)
     const app = new FoodCalculatorApp(formHandler);
 
+    const applyIngredients = (ingredients) => {
+        if (!ingredients || ingredients.length === 0) return;
+        
+        ingredients.forEach(ingredient => {
+            formHandler.processNewIngredient({
+                name: ingredient.name || ingredient.mainIngredient,
+                mainIngredient: ingredient.mainIngredient || ingredient.name,
+                amount: ingredient.details?.amount ?? ingredient.amount ?? 1,
+                unit: ingredient.details?.unit ?? ingredient.unit ?? 'unit',
+                source: ingredient.source || '',
+                category: ingredient.category || 'Uncategorized',
+                matched: false
+            });
+        });
+        formHandler.updateTable();
+    };
+
     // Step 6: Check for auto-load flag from recipes.html
     const autoLoadFlag = localStorage.getItem('autoLoadRecipe');
     
@@ -56,20 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (savedIngredients && savedIngredients.length > 0) {
                 console.log(`🔍 Auto-matching ${savedIngredients.length} ingredients against database...`);
-                
-                savedIngredients.forEach(ingredient => {
-                    formHandler.processNewIngredient({
-                        name: ingredient.name || ingredient.mainIngredient,
-                        mainIngredient: ingredient.mainIngredient || ingredient.name,
-                        amount: ingredient.amount,
-                        unit: ingredient.unit,
-                        source: ingredient.source,
-                        category: ingredient.category,
-                        matched: false
-                    });
-                });
-                
-                formHandler.updateTable();
+                applyIngredients(savedIngredients);
                 
                 console.log('✅ Recipe auto-loaded:');
                 console.log('  - Matched ingredients:', formHandler.selectedIngredients.length);
@@ -81,8 +78,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Recipe extraction handler
-    document.getElementById('extract-btn').addEventListener('click', async () => {
-      const urlInput = document.getElementById('recipe-url');
+    const extractBtn = document.getElementById('extract-btn');
+    const urlInput = document.getElementById('recipe-url');
+    
+    if (extractBtn && urlInput) extractBtn.addEventListener('click', async () => {
       const url = urlInput.value.trim();
       
       if (!url) {
@@ -90,7 +89,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
 
-      const extractBtn = document.getElementById('extract-btn');
       const originalText = extractBtn.textContent;
       
       try {
@@ -108,19 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           formHandler.selectedIngredients = [];
           formHandler.unmatchedIngredients = [];
           
-          result.ingredients.forEach(ingredient => {
-                formHandler.processNewIngredient({
-                    name: ingredient.name || ingredient.mainIngredient,
-                    mainIngredient: ingredient.mainIngredient || ingredient.name,
-                    amount: ingredient.details?.amount ?? ingredient.amount ?? 1,  // ✅ Check nested structure
-                    unit: ingredient.details?.unit ?? ingredient.unit ?? 'unit',    // ✅ Check nested structure
-                    source: ingredient.source || '',
-                    category: ingredient.category || 'Uncategorized',
-                    matched: false
-                });
-                });
-          
-          formHandler.updateTable();
+          applyIngredients(result.ingredients);
           
           console.log('✅ Recipe extracted and matched:');
           console.log('  - Matched ingredients:', formHandler.selectedIngredients.length);
@@ -196,21 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(`🔍 Matching ${savedIngredients.length} ingredients against database...`);
                 
                 // Step 4: Process each ingredient
-                savedIngredients.forEach(ingredient => {
-                    formHandler.processNewIngredient({
-                        name: ingredient.name || ingredient.mainIngredient,
-                        mainIngredient: ingredient.mainIngredient || ingredient.name,
-                        // 🔥 FIX: Extract from details if nested, otherwise use top-level
-                        amount: ingredient.details?.amount ?? ingredient.amount,
-                        unit: ingredient.details?.unit ?? ingredient.unit,
-                        source: ingredient.source || '',
-                        category: ingredient.category || 'Uncategorized',
-                        matched: false
-                    });
-                });
-                
-                // Step 5: Update the table
-                formHandler.updateTable();
+                applyIngredients(savedIngredients);
                 
                 console.log('✅ Recipe loaded and matched:');
                 console.log('  - Recipe:', loadData.recipe.name);
@@ -235,11 +207,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Tooltip handling
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip-overlay';
-    document.body.appendChild(tooltip);
-
-    document.querySelectorAll('.inline-help-icon').forEach(icon => {
+    const tooltipIcons = document.querySelectorAll('.inline-help-icon');
+    if (tooltipIcons.length > 0) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip-overlay';
+        document.body.appendChild(tooltip);
+        
+        tooltipIcons.forEach(icon => {
         const message = icon.dataset.tooltipText;
         
         icon.addEventListener('mouseenter', function(e) {
@@ -268,7 +242,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         icon.addEventListener('mouseleave', function() {
             tooltip.classList.remove('visible');
         });
-    });
+        });
+    }
 
     console.log('✅ Application initialized successfully');
 

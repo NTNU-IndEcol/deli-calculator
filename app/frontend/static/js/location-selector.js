@@ -8,7 +8,7 @@ export class LocationSelector {
         this.resetBtn = document.getElementById('location-reset-btn');
         this.countries = [];
         
-        this.init();
+        this.ready = this.init();
     }
 
     async init() {
@@ -31,15 +31,7 @@ export class LocationSelector {
 
     async waitForRegions() {
         const { DataManager } = await import('./data-manager.js');
-        
-        return new Promise((resolve) => {
-            const checkRegions = setInterval(() => {
-                if (DataManager.datasets.regions && DataManager.datasets.regions.length > 0) {
-                    clearInterval(checkRegions);
-                    resolve();
-                }
-            }, 100);
-        });
+        return DataManager.waitForRegions();
     }
 
     // 🔥 FIXED: Better ingredient preservation logic

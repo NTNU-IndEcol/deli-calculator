@@ -93,17 +93,13 @@ def load_env_impact_files():
             print(f"   ✓ Area code column: {area_code_col}")
             print(f"   ✓ Sample commodity columns: {list(commodity_columns[:5])}")
             
-            # Process each commodity column - sum all values to get total impact
-            entries_count = 0
-            for commodity_code in commodity_columns:
-                # Sum all values in this column (across all producing countries)
-                column_sum = df[commodity_code].sum()
-                
-                # Store with key: "impactType_commodityCode"
-                # Example: "biodiv_2_c002" -> 12.345
-                cache_key = f"{impact_type}_{commodity_code}".lower()
-                env_impact_cache[cache_key] = float(column_sum) if pd.notna(column_sum) else 0.0
-                entries_count += 1
+            # Process all commodity columns at once (vectorized)
+            column_sums = df.iloc[:, 1:].sum(axis=0, numeric_only=True)
+            entries_count = len(column_sums)
+            env_impact_cache.update({
+                f"{impact_type}_{commodity_code}".lower(): float(column_sum) if pd.notna(column_sum) else 0.0
+                for commodity_code, column_sum in column_sums.items()
+            })
             
             total_entries += entries_count
             
@@ -359,35 +355,24 @@ def get_production_breakdown():
         # Get area_code column name
         area_code_col = first_df.columns[0]
         
-        # Collect data from each producing country (each row)
-        producing_countries = []
+        impact_frame = pd.DataFrame({
+            'area_code': first_df[area_code_col].astype(str)
+        })
         
-        for idx, row in first_df.iterrows():
-            producing_country_code = str(row[area_code_col])
-            
-            # Get impact values from each dataset for this producing country
-            impacts = {}
-            has_data = False
-            
-            for impact_type, df in env_dataframes.items():
-                if matching_column in df.columns:
-                    cell_value = df.loc[idx, matching_column]
-                    value = float(cell_value) if pd.notna(cell_value) else 0.0
-                    impacts[impact_type] = value
-                    if value != 0.0:
-                        has_data = True
-                else:
-                    impacts[impact_type] = 0.0
-            
-            # Only include producing countries with non-zero impact
-            if has_data:
-                producing_countries.append({
-                    'area_code': producing_country_code,
-                    'biodiv': impacts.get('biodiv', 0.0),
-                    'gwp100': impacts.get('gwp100', 0.0),
-                    'landuse': impacts.get('landuse', 0.0),
-                    'water': impacts.get('water', 0.0)
-                })
+        for impact_type, df in env_dataframes.items():
+            if matching_column in df.columns:
+                impact_frame[impact_type] = pd.to_numeric(df[matching_column], errors='coerce').fillna(0.0)
+            else:
+                impact_frame[impact_type] = 0.0
+        
+        impact_cols = ['biodiv', 'gwp100', 'landuse', 'water']
+        for col in impact_cols:
+            if col not in impact_frame.columns:
+                impact_frame[col] = 0.0
+        
+        # Only include producing countries with non-zero impact in any dataset
+        mask = impact_frame[impact_cols].ne(0).any(axis=1)
+        producing_countries = impact_frame.loc[mask, ['area_code'] + impact_cols].to_dict(orient='records')
         
         print(f"Found {len(producing_countries)} producing countries for {matching_column}")
         

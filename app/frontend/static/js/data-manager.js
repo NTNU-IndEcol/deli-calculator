@@ -3,6 +3,8 @@ import { ApiClient } from './api-client.js';
 
 export class DataManager {
     static initialized = false;
+    static regionsReady = null;
+    static _regionsReadyResolve = null;
     static config = null;
     static datasets = {
       database: null,
@@ -248,10 +250,28 @@ export class DataManager {
         );
         
         console.log("✅ Loaded regions data with", this.countryCodeMap.size, "countries");
+        if (this._regionsReadyResolve) {
+          this._regionsReadyResolve();
+          this._regionsReadyResolve = null;
+        }
         
       } catch (error) {
         console.error("⚠️ Region data load failed:", error.message);
       }
+    }
+
+    static waitForRegions() {
+      if (this.datasets.regions && this.datasets.regions.length > 0) {
+        return Promise.resolve();
+      }
+      
+      if (!this.regionsReady) {
+        this.regionsReady = new Promise(resolve => {
+          this._regionsReadyResolve = resolve;
+        });
+      }
+      
+      return this.regionsReady;
     }
 
     static async loadConversionFactors() {
