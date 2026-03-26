@@ -463,11 +463,15 @@ export class MapView {
         
         // Color based on metric with more spread
         let hue, saturationMin, saturationMax;
+        let lightnessStart = 85;
+        let lightnessEnd = 30;
         switch(this.currentMetric) {
             case 'biodiv': 
-                hue = 120; // Green
-                saturationMin = 30;
-                saturationMax = 90;
+                hue = 24; // Bright orange
+                saturationMin = 45;
+                saturationMax = 100;
+                lightnessStart = 90;
+                lightnessEnd = 38;
                 break;
             case 'gwp100': 
                 hue = 0; // Red
@@ -480,9 +484,11 @@ export class MapView {
                 saturationMax = 90;
                 break;
             case 'land': 
-                hue = 30; // Orange
-                saturationMin = 30;
-                saturationMax = 90;
+                hue = 80; // Olive
+                saturationMin = 25;
+                saturationMax = 75;
+                lightnessStart = 88;
+                lightnessEnd = 32;
                 break;
             default: 
                 hue = 120;
@@ -492,7 +498,7 @@ export class MapView {
         
         // More spread: light colors for low values, intense for high values
         const saturation = saturationMin + (normalized * (saturationMax - saturationMin));
-        const lightness = 85 - (normalized * 55); // Range from 85% (very light) to 30% (dark)
+        const lightness = lightnessStart - (normalized * (lightnessStart - lightnessEnd));
         const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
         
         return {
@@ -535,8 +541,8 @@ export class MapView {
                     maxDisplay = maxValue.toExponential(2);
                     break;
                 case 'gwp100':
-                    title = 'GWP100';
-                    unit = 'CO₂eq';
+                    title = 'Climate Change (GWP100)';
+                    unit = 'kg CO2e';
                     minValue = this.minGWP;
                     maxValue = this.maxGWP;
                     minDisplay = minValue >= 1000 ? (minValue/1000).toFixed(2) + ' t' : minValue.toFixed(2);
@@ -562,11 +568,15 @@ export class MapView {
             
             // Color gradient with more spread based on metric
             let hue, saturationMin, saturationMax;
+            let lightnessStart = 85;
+            let lightnessEnd = 30;
             switch(this.currentMetric) {
                 case 'biodiv': 
-                    hue = 120; 
-                    saturationMin = 30;
-                    saturationMax = 90;
+                    hue = 24; 
+                    saturationMin = 45;
+                    saturationMax = 100;
+                    lightnessStart = 90;
+                    lightnessEnd = 38;
                     break;
                 case 'gwp100': 
                     hue = 0; 
@@ -579,9 +589,11 @@ export class MapView {
                     saturationMax = 90;
                     break;
                 case 'land': 
-                    hue = 30; 
-                    saturationMin = 30;
-                    saturationMax = 90;
+                    hue = 80; 
+                    saturationMin = 25;
+                    saturationMax = 75;
+                    lightnessStart = 88;
+                    lightnessEnd = 32;
                     break;
                 default: 
                     hue = 120;
@@ -593,7 +605,7 @@ export class MapView {
             for (let i = 0; i <= 10; i++) {
                 const value = i / 10;
                 const saturation = saturationMin + (value * (saturationMax - saturationMin));
-                const lightness = 85 - (value * 55);
+                const lightness = lightnessStart - (value * (lightnessStart - lightnessEnd));
                 gradientStops.push(`hsl(${hue}, ${saturation}%, ${lightness}%) ${value * 100}%`);
             }
             
@@ -605,6 +617,7 @@ export class MapView {
                     <span style="font-size: 11px;">${minDisplay}</span>
                     <span style="font-size: 11px;">${maxDisplay}</span>
                 </div>
+                <p style="margin: 6px 0 0 0; font-size: 11px; color: #666; text-align: center;">Producing countries contributing to the selected metric.</p>
             `;
             return div;
         };
@@ -691,22 +704,26 @@ export class MapView {
         const land = data.landUse || data.land || 0;
         
         // Use exponential notation for very small values
-        let bdDisplay = biodiv < 0.001 ? biodiv.toExponential(2) : biodiv.toFixed(4);
-        let co2Display = co2 < 0.01 ? co2.toExponential(2) : 
-                        (co2 >= 1000 ? (co2 / 1000).toFixed(2) + ' t' : co2.toFixed(2));
-        let waterDisplay = water < 0.01 ? water.toExponential(2) : 
-                        (water >= 1000 ? water.toFixed(0) : water.toFixed(2));
-        let landDisplay = land < 0.01 ? land.toExponential(2) : 
-                        (land >= 10000 ? (land / 10000).toFixed(2) + ' ha' : land.toFixed(2));
+        const bdDisplay = biodiv < 0.001 ? `${biodiv.toExponential(2)} PDF·yr` : `${biodiv.toFixed(4)} PDF·yr`;
+        const co2Display = co2 < 0.01
+            ? `${co2.toExponential(2)} kg CO2e`
+            : (co2 >= 1000 ? `${(co2 / 1000).toFixed(2)} t CO2e` : `${co2.toFixed(2)} kg CO2e`);
+        const waterDisplay = water < 0.01
+            ? `${water.toExponential(2)} m<sup>3</sup>`
+            : `${water >= 1000 ? water.toFixed(0) : water.toFixed(2)} m<sup>3</sup>`;
+        const landDisplay = land < 0.01
+            ? `${land.toExponential(2)} m<sup>2</sup>`
+            : (land >= 10000 ? `${(land / 10000).toFixed(2)} ha` : `${land.toFixed(2)} m<sup>2</sup>`);
 
         
         return `
             <div class="impact-popup">
                 <h4>${data.country}</h4>
-                <p><strong>Biodiversity:</strong> ${bdDisplay} PDF·yr</p>
-                <p><strong>GWP100:</strong> ${co2Display} kg CO₂eq</p>
-                <p><strong>Water:</strong> ${waterDisplay} m<sup>3</sup></p>
-                <p><strong>Land:</strong> ${landDisplay} m<sup>2</sup></p>
+                <p><strong>Biodiversity:</strong> ${bdDisplay}</p>
+                <p><strong>Climate change (GWP100):</strong> ${co2Display}</p>
+                <p><strong>Water:</strong> ${waterDisplay}</p>
+                <p><strong>Land:</strong> ${landDisplay}</p>
+                <p><em>These values reflect production-linked contributions from this country.</em></p>
             </div>
         `;
     }

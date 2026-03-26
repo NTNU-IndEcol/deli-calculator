@@ -19,11 +19,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 20px;
     padding: 15px 20px;
     background-color: rgb(145, 41, 10);
     border-bottom: 2px solid #ccc;
     color: white;
     box-sizing: border-box;
+}
+
+.header-title {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
 }
 
 .nav-menu {
@@ -33,6 +42,7 @@ body {
     color: white;
     cursor: pointer;
     margin-left: auto;
+    flex-wrap: wrap;
 }
 
 .nav-menu a {
@@ -129,6 +139,13 @@ body {
     flex: 1;
     min-width: 280px;
     max-width: 450px;
+    align-items: flex-end;
+    min-width: 0;
+}
+
+.hero-url-help {
+    flex: 0 0 auto;
+    align-self: center;
 }
 
 .recipe-select-group {
@@ -137,6 +154,7 @@ body {
     flex: 1;
     min-width: 280px;
     max-width: 450px;
+    min-width: 0;
 }
 
 .input-box, .recipe-select {
@@ -794,6 +812,15 @@ body {
     border-bottom: none;
 }
 
+.results-overlay-note {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #555;
+}
+
 .results-overlay .metric h3 {
     margin: 0 0 6px 0;
     font-size: 13px;
@@ -805,6 +832,148 @@ body {
     font-size: 16px;
     font-weight: bold;
     color: #2f00ff;
+}
+
+.field-help-text {
+    margin: 6px 0 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #666;
+    text-align: left;
+}
+
+.results-comparison-section {
+    width: 95%;
+    max-width: 95%;
+    margin: 16px auto 24px;
+}
+
+.results-explainer,
+#results-comparison {
+    width: 100%;
+}
+
+#results-comparison {
+    padding: 18px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.comparison-header h2 {
+    margin: 0 0 8px;
+    color: rgb(145, 41, 10);
+    text-align: center;
+}
+
+.comparison-header p {
+    margin: 0 0 18px;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+}
+
+.export-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 18px;
+}
+
+.export-button {
+    font-size: 14px;
+}
+
+.comparison-header h2 .inline-help-icon {
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.comparison-card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-card h3 {
+    margin: 0 0 10px;
+    color: rgb(145, 41, 10);
+    font-size: 16px;
+}
+
+.comparison-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) 1fr minmax(110px, auto);
+    gap: 12px;
+    align-items: start;
+}
+
+.comparison-label,
+.comparison-value {
+    font-size: 12px;
+    color: #333;
+}
+
+.comparison-label {
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.comparison-bar-track {
+    width: 100%;
+    height: 14px;
+    background: #efefef;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.comparison-bar {
+    height: 100%;
+    border-radius: 999px;
+}
+
+.comparison-bar.biodiv {
+    background: linear-gradient(90deg, #ffcf8f, #ff7a00);
+}
+
+.comparison-bar.gwp100 {
+    background: linear-gradient(90deg, #ffc1c1, #d62828);
+}
+
+.comparison-bar.water {
+    background: linear-gradient(90deg, #b9ecff, #1d84d6);
+}
+
+.comparison-bar.land {
+    background: linear-gradient(90deg, #dceab8, #738b2d);
+}
+
+@media (max-width: 700px) {
+    .comparison-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
 }
 
 /* Legend styling */
@@ -1019,6 +1188,31 @@ body {
 
 /* Tablet Responsive (768px - 1024px) */
 @media (max-width: 1024px) {
+    .header {
+        align-items: flex-start;
+    }
+
+    .nav-menu {
+        width: 100%;
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .location-selector {
+        order: 3;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .location-input-group {
+        width: 100%;
+    }
+
+    #location-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .map-overlay-container {
         height: 500px;
     }
@@ -1042,6 +1236,7 @@ body {
         padding: 12px 15px;
         flex-direction: column;
         gap: 10px;
+        align-items: stretch;
     }
     
     .nav-menu {
@@ -1050,6 +1245,12 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         font-size: 14px;
+        width: 100%;
+    }
+
+    .header-title {
+        text-align: center;
+        white-space: normal;
     }
     
     .hero {
@@ -1066,6 +1267,11 @@ body {
         min-width: 100%;
         max-width: 100%;
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-url-help {
+        align-self: flex-end;
     }
     
     .divider {
@@ -1097,20 +1303,28 @@ body {
     
     /* Map adjustments for mobile */
     .map-overlay-container {
-        height: 450px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        height: auto;
         max-width: 100%;
         margin: 10px auto;
     }
+
+    #map-container {
+        height: 360px;
+    }
     
     .results-overlay {
-        top: 10px;
-        left: 10px;
+        position: relative;
+        top: auto;
+        left: auto;
         right: auto;
-        transform: none;
-        width: auto;
-        min-width: 140px;
-        max-width: 160px;
-        padding: 8px;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        padding: 10px;
+        box-sizing: border-box;
     }
     
     .results-overlay .metric {
@@ -1132,6 +1346,7 @@ body {
         right: 10px;
         padding: 8px;
         font-size: 11px;
+        max-width: 150px;
     }
     
     .info.legend h4 {
@@ -1170,12 +1385,14 @@ body {
     }
     
     .map-overlay-container {
-        height: 400px;
+        height: auto;
+    }
+
+    #map-container {
+        height: 300px;
     }
     
     .results-overlay {
-        min-width: 120px;
-        max-width: 140px;
         padding: 6px;
     }
     
@@ -1410,6 +1627,7 @@ input, select, textarea {
     
     .form-field-group {
         flex: 1 1 calc(33.333% - 10px);
+        min-width: 220px;
     }
 }
 
@@ -1417,13 +1635,17 @@ input, select, textarea {
     .ingredient-form-horizontal {
         flex-direction: column;
         align-items: stretch;
+        padding: 12px;
     }
     
     .form-field-group {
         width: 100%;
+        min-width: 0;
     }
     
     .add-button {
         margin-top: 10px;
+        width: 100%;
+        min-height: 44px;
     }
 }

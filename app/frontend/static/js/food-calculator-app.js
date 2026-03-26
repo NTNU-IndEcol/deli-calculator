@@ -184,11 +184,14 @@ export class FoodCalculatorApp {
           if (impactByCountry && impactByCountry.length > 0) {
             // Calculate totals from country data using MapView's method
             const totals = this.mapView.calculateTotals(impactByCountry);
+            const recipeLabel = this.formHandler.getRecipeLabel();
+            const ingredients = this.formHandler.getIngredients();
             
             console.log("📊 Calculated totals:", totals);
             
             // Display totals in results panel
-            this.resultsView.showResults(totals);
+            this.resultsView.showResults(totals, recipeLabel);
+            this.resultsView.setLatestCountryImpactData(impactByCountry, recipeLabel, ingredients);
             
             // Update map visualization
             this.mapView.updateMap(impactByCountry);

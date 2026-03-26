@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 amount: ingredient.details?.amount ?? ingredient.amount ?? 1,
                 unit: ingredient.details?.unit ?? ingredient.unit ?? 'unit',
                 source: ingredient.source || '',
-                category: ingredient.category || 'Uncategorized',
+                category: '',
                 matched: false
             });
         });
@@ -212,37 +212,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip-overlay';
         document.body.appendChild(tooltip);
-        
-        tooltipIcons.forEach(icon => {
-        const message = icon.dataset.tooltipText;
-        
-        icon.addEventListener('mouseenter', function(e) {
-            const rect = e.target.getBoundingClientRect();
+
+        const showTooltip = (icon) => {
+            const message = icon?.dataset?.tooltipText;
+            if (!message) return;
+
+            const rect = icon.getBoundingClientRect();
             tooltip.textContent = message;
-            
+
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-            
+
             let top = rect.bottom + 8;
             let left = rect.left;
-            
+
             if (top + tooltip.offsetHeight > windowHeight) {
                 top = rect.top - tooltip.offsetHeight - 8;
             }
-            
+
             if (left + tooltip.offsetWidth > windowWidth) {
                 left = windowWidth - tooltip.offsetWidth - 16;
             }
-            
+
             tooltip.style.top = `${top}px`;
             tooltip.style.left = `${left}px`;
             tooltip.classList.add('visible');
-        });
+        };
 
-        icon.addEventListener('mouseleave', function() {
-            tooltip.classList.remove('visible');
-        });
-        });
+        document.addEventListener('mouseenter', (e) => {
+            const icon = e.target.closest('.inline-help-icon');
+            if (!icon) return;
+            showTooltip(icon);
+        }, true);
+
+        document.addEventListener('mouseleave', (e) => {
+            if (e.target.closest('.inline-help-icon')) {
+                tooltip.classList.remove('visible');
+            }
+        }, true);
     }
 
     console.log('✅ Application initialized successfully');

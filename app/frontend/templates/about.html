@@ -28,13 +28,15 @@
         }
         
         .about-container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            box-sizing: border-box;
         }
         
         .about-section {
-            margin-bottom: 50px 0;
+            margin: 0 0 50px 0;
             max-width: 1200px;
         }
         
@@ -195,12 +197,40 @@
 }
 
 @media (max-width: 900px) {
+    .about-hero {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .feature-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
     .team-carousel .team-member {
         flex: 0 0 50%;
     }
 }
 
 @media (max-width: 600px) {
+    .about-container {
+        padding: 0 15px;
+    }
+
+    .about-section h2 {
+        font-size: 1.35rem;
+    }
+
+    .feature-card {
+        padding: 18px;
+    }
+
+    .faq-question {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
     .team-carousel .team-member {
         flex: 0 0 100%;
     }
@@ -260,6 +290,7 @@
         <!-- How it Works Section -->
         <section class="about-section">
             <h2>How DELI Calculator Works</h2>
+            <p>DELI Calculator currently reports a cradle-to-consumer scope based on the linked supply-chain datasets. This means the results cover upstream production and supply-chain impacts associated with ingredients up to the consumer stage, but they do not include home preparation, cooking energy, refrigeration in the kitchen, or post-purchase food waste.</p>
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📋</div>
@@ -270,9 +301,8 @@
                 <div class="feature-card">
                     <div class="feature-icon">🌍</div>
                     <h3>Data Sources</h3>
-                    <p>Our calculations are based on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a>, 
-                        and the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer"> Poore and Nemecke ingredient classfication</a>, 
-                        ensuring scientifically accurate results.</p>
+                    <p>Our calculations are based on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> and on <a href="https://nva.sikt.no/registration/0198e71811bb-89dbebc9-7b6f-4e79-9e0e-231ccae3d2bc" target="_blank" rel="noopener noreferrer">Paula Alejandra Barco Alzate's work</a>. 
+                        Her DELI Calculator repository (<a href="https://github.com/PaulaBarco/DELI_Calculator" target="_blank" rel="noopener noreferrer">GitHub</a>) builds on the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore and Nemecek ingredient classification</a> and AGRIBALYSE definitions, helping provide the ingredient-level structure used in this app.</p>
                 </div>
                 
                 <div class="feature-card">
@@ -281,7 +311,7 @@
                     <p>
                         Get detailed breakdowns of biodiversity impacts, 
                         CO₂ emissions, water usage, and land use for the entire recipe, 
-                        including how these impacts are distributed across countries worldwide.
+                        including how production-linked contributions are distributed across producing countries worldwide.
                     </p>
                 </div>
             </div>
@@ -374,14 +404,30 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Our calculations are based on two comprehensive datasets: 
-                        the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> (<a href="https://github.com/fineprint-global/fabio/tree/data-2010-current" target="_blank" rel="noopener noreferrer">FABIO code in GitHub</a>)
-                         and the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore & Nemecek ingredient classfication</a>, 
-                        which are among the most scientifically robust databases for food environmental impact. 
-                        However, it's important to note that these are estimates based on average values,
-                        and actual impacts can vary based on specific farming practices, transportation methods,
-                        and other factors.
+                    <p>Our calculations build on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> and on <a href="https://nva.sikt.no/registration/0198e71811bb-89dbebc9-7b6f-4e79-9e0e-231ccae3d2bc" target="_blank" rel="noopener noreferrer">Paula Alejandra Barco Alzate's work</a>, including the ingredient-level structure in her <a href="https://github.com/PaulaBarco/DELI_Calculator" target="_blank" rel="noopener noreferrer">DELI Calculator repository</a>. 
+                        That work is based on the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore and Nemecek ingredient classification</a> and AGRIBALYSE definitions. 
+                        The results are therefore grounded in robust scientific data sources, but they are still estimates based on average values. Actual impacts can vary with farming practices, sourcing choices, transport routes, processing details, and other real-world conditions.
                     </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What does the map show?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The map shows producing countries that contribute to the selected indicator for the ingredients in your recipe. It is not a map of where damages are experienced after production. For example, the climate change map shows where production-linked greenhouse gas emissions occur in the supply chain represented by the underlying data.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What do GWP100 and the units mean?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>GWP100 means global warming potential over a 100-year time horizon and is reported as CO₂-equivalents. The other indicators use the units in the source datasets: biodiversity in PDF·yr, water use in m³, and land use in m² or hectares when values are large.</p>
                 </div>
             </div>
             
@@ -391,8 +437,8 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Yes, DELI Calculator can be used by restaurants, food businesses, and other commercial entities.
-                        Please contact us for any further information.
+                    <p>DELI Calculator may be useful for restaurants, food businesses, and other organizations that want to explore recipe impacts. 
+                        If you plan to use the tool in a formal or commercial setting, please contact us first so the scope, assumptions, and current beta-stage limitations are clear.
                     </p>
                 </div>
             </div>
@@ -403,8 +449,8 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>The app is currently in beta testing and receives frequent updates based on user feedback. 
-                        We continuously work to improve our database and update it regularly with the latest available scientific research.
+                    <p>The app is currently in beta testing. Updates are made as the project develops and as feedback is incorporated, but the database should not be interpreted as continuously refreshed in real time. 
+                        When important methodological or data improvements are integrated, they will be reflected in the calculator.
                     </p>
                 </div>
             </div>
@@ -416,7 +462,9 @@
                 </div>
                 <div class="faq-answer">
                     <p>
-                        We value your privacy. Recipe data analyzed through our public tool (as well as any other personal data) is not stored permanently.
+                        The public calculator does not currently send your full recipe to a permanent user database on the server as part of normal use. 
+                        However, some recipe-related state can be stored locally in your browser, for example to keep comparison results or transfer a selected recipe between pages. 
+                        The app also records basic usage metrics such as page views and calculation events by country.
                    </p>
                 </div>
             </div>

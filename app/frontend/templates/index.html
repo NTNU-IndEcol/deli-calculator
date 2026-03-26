@@ -58,6 +58,12 @@
         <div class="hero-actions-container">
             <div class="hero-input-group">
                 <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
+                <!-- Current working websites include: koreanbapsang.com, allrecipes.com, recipetineats.com,
+                     smittenkitchen.com, simplyrecipes.com, therecipecritic.com, and seriouseats.com. -->
+                <button class="inline-help-icon tiny hero-url-help"
+                        type="button"
+                        aria-label="Recipe URL help"
+                        data-tooltip-text="The recipe should be in English.">?</button>
                 <button class="button button-primary" id="extract-btn">Extract Recipe</button>
             </div>
             
@@ -83,7 +89,7 @@
             User add ingredient
             <button class="inline-help-icon section-help" 
                 aria-label="Help"
-                data-tooltip-text="Ingredient is from Poore_and_Nemecke_FABIO classfication">?
+                data-tooltip-text="Ingredient is from Paula Alzate classfication.">?
             </button>
         </h3>
 
@@ -101,9 +107,14 @@
             <!-- CATEGORY FIELD -->
             <div class="form-field-group">
                 <div class="field-with-label">
-                    <span class="field-label">Category</span>
+                    <span class="field-label">
+                        Category
+                        <button class="inline-help-icon tiny"
+                                aria-label="Help"
+                                data-tooltip-text="The category associated with this ingredient in the database. You can edit it if the suggested grouping looks wrong.">?</button>
+                    </span>
                     <div class="autocomplete-wrapper">
-                        <input type="text" id="category-input" placeholder="Auto-fills" readonly />
+                        <input type="text" id="category-input" placeholder="Auto-filled, but editable" />
                     </div>
                 </div>
             </div>
@@ -143,7 +154,7 @@
                         Source
                         <button class="inline-help-icon tiny" 
                                 aria-label="Help"
-                                data-tooltip-text="Enter a produce country or select from the top import country">?</button>
+                                data-tooltip-text="Enter a produce country or select from the top import country.">?</button>
                     </span>
                     <div class="autocomplete-wrapper">
                         <input type="text" id="source-input" placeholder="Select country..." />
@@ -175,8 +186,20 @@
             <table id="ingredients-table">
                 <thead>
                     <tr>
-                        <th>Ingredient</th>                       
-                        <th>Category</th>
+                        <th>
+                            Ingredient
+                            <button class="inline-help-icon tiny"
+                                    type="button"
+                                    aria-label="Ingredient help"
+                                    data-tooltip-text="The cooking ingredient for your food.">?</button>
+                        </th>                       
+                        <th>
+                            Category
+                            <button class="inline-help-icon tiny"
+                                    type="button"
+                                    aria-label="Category help"
+                                    data-tooltip-text="The category associated with this ingredient in the database.">?</button>
+                        </th>
                         <th>Amount</th>
                         <th>Unit</th>
                         <th>Source</th>
@@ -211,7 +234,7 @@
                 <div id="biodiv-result" class="value">--</div>
             </div>
             <div class="metric">
-                <h3>GWP100</h3>
+                <h3>Climate Change (GWP100)</h3>
                 <div id="co2-result" class="value">--</div>
             </div>
             <div class="metric">
@@ -222,6 +245,9 @@
                 <h3>Land Use</h3>
                 <div id="land-result" class="value">--</div>
             </div>
+            <div class="results-overlay-note">
+                The map shades producing countries that contribute to the selected recipe impact. Click a metric card to switch the map.
+            </div>
         </div>
     </div>
 
@@ -231,6 +257,10 @@
     <section id="calculation-results">
         <!-- Results will be dynamically inserted here -->
     </section >
+
+    <section class="results-comparison-section">
+        <div id="results-comparison"></div>
+    </section>
 
  
     <!--div id="map-container" style="height: 500px; width: 85%;"></div -->

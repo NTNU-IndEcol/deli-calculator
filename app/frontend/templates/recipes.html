@@ -36,6 +36,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .recipe-card:hover {
@@ -66,6 +68,9 @@
         
         .recipe-content {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
         
         .recipe-title {
@@ -78,6 +83,7 @@
             color: #666;
             margin-bottom: 15px;
             line-height: 1.5;
+            flex: 1;
         }
         
         .recipe-meta {
@@ -100,6 +106,7 @@
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
+            margin-top: auto;
         }
         
         .recipe-button:hover {

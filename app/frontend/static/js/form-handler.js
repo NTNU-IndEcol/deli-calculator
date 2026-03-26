@@ -75,6 +75,44 @@ export class FormHandler {
       });
     }
 
+    normalizeText(value) {
+      return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    getIngredientAliases(inputName) {
+      const normalized = this.normalizeText(inputName);
+      const aliases = {
+        milk: 'Cow milk',
+        butter: 'Butter',
+        salt: 'Salt',
+        'sea salt': 'Sea salt',
+        pepper: 'Black pepper',
+        'black pepper': 'Black pepper',
+        'white pepper': 'Black pepper',
+        'bell pepper': 'Sweet pepper',
+        'red pepper': 'Sweet pepper',
+        'green pepper': 'Sweet pepper',
+        'yellow pepper': 'Sweet pepper'
+      };
+
+      return aliases[normalized] || null;
+    }
+
+    getPossibleCategoriesForIngredient(ingredientName) {
+      const normalizedName = this.normalizeText(ingredientName);
+      const database = DataManager.database || [];
+      const categories = database
+        .filter(item => this.normalizeText(item.Ingredient) === normalizedName)
+        .map(item => item["Food group"])
+        .filter(Boolean);
+
+      return [...new Set(categories)].sort();
+    }
+
     // 🆕 NEW: Handle ingredient selection from autocomplete
     handleIngredientSelection(ingredientName) {
       const database = DataManager.database || [];
@@ -320,6 +358,18 @@ export class FormHandler {
         }
       });
 
+      this.elements.tableBody.addEventListener('change', (e) => {
+        if (e.target.classList.contains('name-input')) {
+          this.handleIngredientNameChange(e);
+        }
+      });
+
+      this.elements.tableBody.addEventListener('change', (e) => {
+        if (e.target.classList.contains('category-input')) {
+          this.handleCategoryChange(e);
+        }
+      });
+
       this.elements.tableBody.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove-btn')) {
           this.handleRemoveIngredient(e);
@@ -376,7 +426,7 @@ export class FormHandler {
       this.clearErrors();
     
       // Try to find the database match for the selected ingredient
-      const match = this.findBestMatch(validation.data.ingredient);
+      const match = this.findBestMatch(validation.data.ingredient, validation.data.category);
 
       const newIngredient = {
         id: Date.now() + Math.random(),
@@ -424,11 +474,13 @@ export class FormHandler {
       console.log(`  → Core for matching: "${coreName}"`);
       
       // Try to match using core name
-      const match = this.findBestMatch(coreName);
+      const preferredCategory = ingredient.category && ingredient.category !== 'Uncategorized' ? ingredient.category : null;
+      const match = this.findBestMatch(coreName, preferredCategory);
     
       if (match) {
         const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
         const ingredientId = ingredient.id || Date.now() + Math.random();
+        const possibleCategories = this.getPossibleCategoriesForIngredient(match.Ingredient);
         
         // ✅ CRITICAL FIX: Keep the user's entered source!
         const userSource = ingredient.source || possibleSources[0] || '';
@@ -440,12 +492,13 @@ export class FormHandler {
           displayName: fullName,
           name: match.Ingredient,
           matchedTo: match.Ingredient,
-          category: match["Food group"],
+          category: preferredCategory || match["Food group"],
           comm_code: match.comm_code,
           matched: true,
           amount: parsedAmount,
           unit: parsedUnit,
           possibleSources: possibleSources,
+          possibleCategories: possibleCategories,
           source: userSource  // ✅ Use what the user entered
          // source: ingredient.source || possibleSources[0] || ''
         });
@@ -567,10 +620,27 @@ export class FormHandler {
       return 0;
     }
     
-    findBestMatch(inputName) {
+    findBestMatch(inputName, preferredCategory = null) {
       if (!DataManager.database || DataManager.database.length === 0) {
         console.error('❌ Database not loaded!');
         return null;
+      }
+
+      const aliasMatch = this.getIngredientAliases(inputName);
+      const normalizedPreferredCategory = this.normalizeText(preferredCategory);
+      const normalizedInput = this.normalizeText(inputName);
+
+      if (aliasMatch) {
+        const aliasCandidates = DataManager.database.filter(item => item.Ingredient === aliasMatch);
+        if (normalizedPreferredCategory) {
+          const categoryCandidate = aliasCandidates.find(item => this.normalizeText(item["Food group"]) === normalizedPreferredCategory);
+          if (categoryCandidate) {
+            return categoryCandidate;
+          }
+        }
+        if (aliasCandidates.length > 0) {
+          return aliasCandidates[0];
+        }
       }
       
       let bestMatch = null;
@@ -579,8 +649,18 @@ export class FormHandler {
       for (const item of DataManager.database) {
         if (!item.Ingredient) continue;
         
-        const dbName = item.Ingredient.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-        const score = this.fuzzyMatch(dbName, inputName);
+        const dbName = this.normalizeText(item.Ingredient);
+        let score = this.fuzzyMatch(dbName, normalizedInput);
+
+        if (dbName === normalizedInput) {
+          score += 10;
+        } else if (dbName.startsWith(`${normalizedInput} `) || dbName.endsWith(` ${normalizedInput}`)) {
+          score += 4;
+        }
+
+        if (normalizedPreferredCategory && this.normalizeText(item["Food group"]) === normalizedPreferredCategory) {
+          score += 3;
+        }
         
         if (score > bestScore) {
           bestScore = score;
@@ -619,16 +699,22 @@ export class FormHandler {
         
         row.innerHTML = `
             <td data-label="Ingredient" class="${!ingredient.matched ? 'unmatched' : ''}" title="${ingredient.originalName || nameToShow}">
-                ${ingredient.matched ? 
-                    `<span class="editable-name">${nameToShow}</span>` :
-                    `<input type="text" class="name-input" value="${nameToShow}" placeholder="Not in database">`
-                }
+                <input
+                    type="text"
+                    class="name-input"
+                    value="${nameToShow}"
+                    placeholder="Ingredient"
+                    data-id="${ingredient.id}"
+                    title="${matchInfo}">
             </td>
             <td data-label="Category" class="${!ingredient.matched ? 'unmatched' : ''}">
-                ${ingredient.matched ? 
-                    `<span class="editable-category" title="${matchInfo}">${ingredient.category}</span>` :
-                    `<input type="text" class="category-input" value="${ingredient.category || ''}" placeholder="Unmatched">`
-                }
+                <input
+                    type="text"
+                    class="category-input"
+                    value="${ingredient.category || ''}"
+                    placeholder="Category"
+                    data-id="${ingredient.id}"
+                    title="${matchInfo}">
             </td>
             <td data-label="Amount">
                 <input type="number" class="amount-input" 
@@ -691,34 +777,23 @@ export class FormHandler {
     }
 
     setupRowInteractions() {
-      document.querySelectorAll('.save-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const id = Number(e.target.dataset.id);
-          const ingredient = this.unmatchedIngredients.find(item => item.id === id);
-          
-          if (ingredient) {
-            const row = e.target.closest('tr');
-            ingredient.category = row.querySelector('.category-input').value;
-            ingredient.name = row.querySelector('.name-input').value;
-            
-            const match = this.findBestMatch(ingredient.name);
-            
-            if (match) {
-              const possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
-              this.selectedIngredients.push({ 
-                ...ingredient, 
-                category: match["Food group"],
-                comm_code: match.comm_code,
-                matched: true,
-                possibleSources: possibleSources,
-                source: ingredient.source || possibleSources[0] || ''
-              });
-              this.unmatchedIngredients = this.unmatchedIngredients.filter(item => item.id !== id);
-            }
-            this.updateTable();
-          }
-        });
-      });
+    }
+
+    getIngredientById(id) {
+      return this.selectedIngredients.find(item => item.id === id)
+        || this.unmatchedIngredients.find(item => item.id === id)
+        || null;
+    }
+
+    moveIngredientBetweenLists(ingredient, shouldBeMatched) {
+      this.selectedIngredients = this.selectedIngredients.filter(item => item.id !== ingredient.id);
+      this.unmatchedIngredients = this.unmatchedIngredients.filter(item => item.id !== ingredient.id);
+
+      if (shouldBeMatched) {
+        this.selectedIngredients.push(ingredient);
+      } else {
+        this.unmatchedIngredients.push(ingredient);
+      }
     }
     
     handleSourceChange(event) {
@@ -726,11 +801,7 @@ export class FormHandler {
       const newSource = event.target.value;
 
       // Find in the ORIGINAL arrays
-      let ingredient = this.selectedIngredients.find(item => item.id === id);
-      
-      if (!ingredient) {
-        ingredient = this.unmatchedIngredients.find(item => item.id === id);
-      }
+      let ingredient = this.getIngredientById(id);
 
       if (ingredient) {
         ingredient.source = newSource;
@@ -738,6 +809,90 @@ export class FormHandler {
       } else {
         console.error('❌ Could not find ingredient with id:', id);
       }
+    }
+
+    handleIngredientNameChange(event) {
+      const id = Number(event.target.dataset.id);
+      const newName = event.target.value.trim();
+      const ingredient = this.getIngredientById(id);
+
+      if (!ingredient) {
+        console.error('❌ Could not find ingredient for name update:', id);
+        return;
+      }
+
+      ingredient.displayName = newName;
+      ingredient.originalName = newName;
+
+      if (!newName) {
+        ingredient.name = '';
+        ingredient.matched = false;
+        ingredient.matchedTo = '';
+        ingredient.comm_code = 'UNKNOWN';
+        ingredient.possibleSources = DataManager.getAllCountries() || [''];
+        this.moveIngredientBetweenLists(ingredient, false);
+        this.updateTable();
+        return;
+      }
+
+      const match = this.findBestMatch(newName, ingredient.category);
+
+      if (match) {
+        ingredient.name = match.Ingredient;
+        ingredient.matchedTo = match.Ingredient;
+        ingredient.comm_code = match.comm_code;
+        ingredient.matched = true;
+        ingredient.category = match["Food group"];
+        ingredient.possibleSources = [match.Top1, match.Top2, match.Top3, match.Top4, match.Top5].filter(Boolean);
+        ingredient.possibleCategories = this.getPossibleCategoriesForIngredient(match.Ingredient);
+        if (!ingredient.source) {
+          ingredient.source = ingredient.possibleSources[0] || '';
+        }
+        this.moveIngredientBetweenLists(ingredient, true);
+      } else {
+        ingredient.name = newName;
+        ingredient.matchedTo = '';
+        ingredient.comm_code = 'UNKNOWN';
+        ingredient.matched = false;
+        ingredient.possibleSources = DataManager.getAllCountries() || [''];
+        this.moveIngredientBetweenLists(ingredient, false);
+      }
+
+      this.updateTable();
+    }
+
+    handleCategoryChange(event) {
+      const id = Number(event.target.dataset.id);
+      const newCategory = event.target.value.trim();
+      let ingredient = this.getIngredientById(id);
+
+      if (!ingredient) {
+        console.error('❌ Could not find ingredient for category update:', id);
+        return;
+      }
+
+      ingredient.category = newCategory;
+
+      const rematchName = ingredient.matchedTo || ingredient.name || ingredient.originalName || ingredient.displayName;
+      const rematch = this.findBestMatch(rematchName, newCategory);
+
+      if (rematch) {
+        ingredient.name = rematch.Ingredient;
+        ingredient.matchedTo = rematch.Ingredient;
+        ingredient.comm_code = rematch.comm_code;
+        ingredient.matched = true;
+        ingredient.possibleSources = [rematch.Top1, rematch.Top2, rematch.Top3, rematch.Top4, rematch.Top5].filter(Boolean);
+        ingredient.possibleCategories = this.getPossibleCategoriesForIngredient(rematch.Ingredient);
+        this.moveIngredientBetweenLists(ingredient, true);
+      } else {
+        ingredient.matched = false;
+        ingredient.matchedTo = '';
+        ingredient.comm_code = 'UNKNOWN';
+        ingredient.possibleSources = DataManager.getAllCountries() || [''];
+        this.moveIngredientBetweenLists(ingredient, false);
+      }
+
+      this.updateTable();
     }
       
   
@@ -816,6 +971,32 @@ export class FormHandler {
       return this.selectedIngredients.map(ingredient => ({
         ...ingredient,
       }));
+    }
+
+    getRecipeLabel() {
+      const names = this.selectedIngredients
+        .map(ingredient => ({
+          name: ingredient.displayName || ingredient.name,
+          amountInTons: this.convertToTons(ingredient.amount || 0, ingredient.unit)
+        }))
+        .sort((a, b) => b.amountInTons - a.amountInTons)
+        .map(ingredient => ingredient.name)
+        .filter(Boolean)
+        .slice(0, 3);
+
+      if (names.length === 0) {
+        return `Recipe ${Date.now()}`;
+      }
+
+      if (names.length === 1) {
+        return names[0];
+      }
+
+      if (names.length === 2) {
+        return `${names[0]} + ${names[1]}`;
+      }
+
+      return `${names[0]} + ${names[1]} + ${names[2]}`;
     }
 
     async calculateImpact() {
