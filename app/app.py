@@ -4,6 +4,8 @@ from flask_cors import CORS # type: ignore
 import os
 import shutil
 import json
+import io
+import zipfile
 from metrics import metrics_bp
 
 # Import Blueprints
@@ -238,6 +240,50 @@ def list_recipes():
         return jsonify({
             'success': False, 
             'error': str(e)
+        }), 500
+
+
+@app.route('/api/export-impact-zip', methods=['POST'])
+def export_impact_zip():
+    """
+    Bundle exported result files into a single ZIP archive.
+    """
+    try:
+        data = request.get_json() or {}
+        filename = data.get('filename', 'impact_export.zip')
+        files = data.get('files', [])
+
+        if not files or not isinstance(files, list):
+            return jsonify({
+                'success': False,
+                'message': 'No export files provided'
+            }), 400
+
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for file_entry in files:
+                name = file_entry.get('name')
+                content = file_entry.get('content', '')
+
+                if not name:
+                    continue
+
+                zip_file.writestr(name, content)
+
+        zip_buffer.seek(0)
+
+        return send_file(
+            zip_buffer,
+            mimetype='application/zip',
+            as_attachment=True,
+            download_name=filename
+        )
+
+    except Exception as e:
+        app.logger.error(f"Error creating export ZIP: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': str(e)
         }), 500
 
 # ============================================

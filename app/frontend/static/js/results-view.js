@@ -18,6 +18,7 @@ export class ResultsView {
         this.latestCountryImpactData = [];
         this.latestRecipeLabel = 'recipe';
         this.latestIngredients = [];
+        this.getMapExportFiles = null;
         this.restoreState();
     }
 
@@ -274,16 +275,18 @@ export class ResultsView {
                 </h2>
                 <p>Each new calculation adds another bar so you can compare recipes across the four impact indicators.</p>
                 <div class="export-actions">
-                    <button class="button button-secondary export-button" type="button" data-export-all="true">
-                        Export Impact Result
-                    </button>
+                    <div class="export-action-group">
+                        <button class="button button-secondary export-button" type="button" data-export-all="true">
+                            Export Impact Result
+                        </button>
+                        <button class="inline-help-icon tiny export-help-icon"
+                                type="button"
+                                aria-label="Export help"
+                                data-tooltip-text="Export the result from the newest environmental impact calculation.">?</button>
+                    </div>
                     <button class="button button-primary reset-comparison-button" type="button" data-reset-comparison="true">
                         Reset Comparison
                     </button>
-                    <button class="inline-help-icon tiny"
-                            type="button"
-                            aria-label="Export help"
-                            data-tooltip-text="Export the result from the newest environmental impact calculation.">?</button>
                 </div>
             </div>
             <div class="comparison-grid">
@@ -300,8 +303,13 @@ export class ResultsView {
         if (!button || button.dataset.exportBound === 'true') return;
 
         button.dataset.exportBound = 'true';
-        button.addEventListener('click', () => {
-            this.exportAllMetricsData();
+        button.addEventListener('click', async () => {
+            try {
+                await this.exportAllMetricsData();
+            } catch (error) {
+                console.error('Export failed:', error);
+                alert('Failed to export the latest impact result.');
+            }
         });
     }
 
@@ -332,7 +340,7 @@ export class ResultsView {
         }
     }
 
-    exportAllMetricsData() {
+    async exportAllMetricsData() {
         const metrics = this.getMetricDefinitions();
         if (!Array.isArray(this.latestCountryImpactData) || this.latestCountryImpactData.length === 0) {
             console.warn('No country impact data available for export');
@@ -403,11 +411,35 @@ export class ResultsView {
         });
 
         const csvContent = csvRows.join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const mapFiles = this.getMapExportFiles ? await this.getMapExportFiles() : [];
+        const zipFilename = `${this.slugify(this.latestRecipeLabel)}_impact_export.zip`;
+
+        const response = await fetch('/api/export-impact-zip', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                filename: zipFilename,
+                files: [
+                    {
+                        name: `${this.slugify(this.latestRecipeLabel)}_all_impacts.csv`,
+                        content: csvContent
+                    },
+                    ...mapFiles
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create ZIP export');
+        }
+
+        const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${this.slugify(this.latestRecipeLabel)}_all_impacts.csv`;
+        link.download = zipFilename;
         document.body.appendChild(link);
         link.click();
         link.remove();

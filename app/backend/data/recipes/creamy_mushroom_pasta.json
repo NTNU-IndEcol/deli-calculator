@@ -1,0 +1,104 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Creamy Mushroom Pasta",
+  "author": "DELI Calculator",
+  "category": [
+    "Main Dishes",
+    "Pasta"
+  ],
+  "description": "Creamy pasta with mushrooms, onion, garlic, and parmesan cheese.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Pasta",
+      "details": {
+        "amount": 350,
+        "unit": "g",
+        "originalText": "350 g pasta"
+      }
+    },
+    {
+      "mainIngredient": "Mushroom",
+      "details": {
+        "amount": 300,
+        "unit": "g",
+        "originalText": "300 g mushrooms"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 1,
+        "unit": "unit",
+        "originalText": "1 onion"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 3,
+        "unit": "cloves",
+        "originalText": "3 cloves garlic"
+      }
+    },
+    {
+      "mainIngredient": "Cream",
+      "details": {
+        "amount": 250,
+        "unit": "ml",
+        "originalText": "250 ml cream"
+      }
+    },
+    {
+      "mainIngredient": "Parmesan cheese",
+      "details": {
+        "amount": 60,
+        "unit": "g",
+        "originalText": "60 g parmesan cheese"
+      }
+    },
+    {
+      "mainIngredient": "Butter",
+      "details": {
+        "amount": 2,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons butter"
+      }
+    },
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 1,
+        "unit": "tablespoon",
+        "originalText": "1 tablespoon olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Parsley",
+      "details": {
+        "amount": 2,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons chopped parsley"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cook the pasta until tender."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Saute onion, garlic, and mushrooms in butter and olive oil."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add cream and parmesan, then toss with the pasta and parsley."
+    }
+  ],
+  "recipeYield": "4",
+  "prepTime": "10 Minutes",
+  "time": 30,
+  "servings": 4,
+  "image": "creamy-mushroom-pasta.jpg"
+}

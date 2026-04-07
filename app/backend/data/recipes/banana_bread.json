@@ -1,0 +1,88 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Banana Bread",
+  "author": "DELI Calculator",
+  "category": [
+    "Dessert",
+    "Baking"
+  ],
+  "description": "A simple banana bread with ripe banana, flour, butter, sugar, milk, and eggs.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Banana",
+      "details": {
+        "amount": 3,
+        "unit": "unit",
+        "originalText": "3 ripe bananas"
+      }
+    },
+    {
+      "mainIngredient": "Flour",
+      "details": {
+        "amount": 250,
+        "unit": "g",
+        "originalText": "250 g flour"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 150,
+        "unit": "g",
+        "originalText": "150 g sugar"
+      }
+    },
+    {
+      "mainIngredient": "Butter",
+      "details": {
+        "amount": 110,
+        "unit": "g",
+        "originalText": "110 g butter"
+      }
+    },
+    {
+      "mainIngredient": "Milk",
+      "details": {
+        "amount": 60,
+        "unit": "ml",
+        "originalText": "60 ml milk"
+      }
+    },
+    {
+      "mainIngredient": "Egg",
+      "details": {
+        "amount": 2,
+        "unit": "unit",
+        "originalText": "2 eggs"
+      }
+    },
+    {
+      "mainIngredient": "Baking powder",
+      "details": {
+        "amount": 2,
+        "unit": "teaspoons",
+        "originalText": "2 teaspoons baking powder"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Mash the bananas and mix them with butter, milk, eggs, and sugar."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Stir in the flour and baking powder."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Bake until the loaf is golden and cooked through."
+    }
+  ],
+  "recipeYield": "8",
+  "prepTime": "10 Minutes",
+  "time": 60,
+  "servings": 8,
+  "image": "banana_bread.jpg"
+}

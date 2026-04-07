@@ -38,6 +38,7 @@
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
         
         .recipe-card:hover {
@@ -174,15 +175,15 @@
         <div class="filter-container">
             <button class="filter-button active" data-filter="all">All Recipes</button>
             <button class="filter-button" data-filter="vegetarian">Vegetarian</button>
-            <button class="filter-button" data-filter="vegan">Vegan</button>
-            <button class="filter-button" data-filter="meat">With Meat</button>
-            <button class="filter-button" data-filter="low-impact">Low Impact</button>
+            <button class="filter-button" data-filter="meat">Meat</button>
+            <button class="filter-button" data-filter="seafood">Seafood</button>
+            <button class="filter-button" data-filter="dairy">Dairy</button>
         </div>
         
         <div class="recipes-grid">
             {% if recipes %}
                 {% for recipe in recipes %}
-                <div class="recipe-card" data-category="{{ recipe.category | default('all') | lower }}">
+                <div class="recipe-card" data-category="{{ recipe.filter_tags | join(' ') }}">
                     <div class="recipe-image">
                         {% if recipe.image %}
                         <img src="{{ url_for('recipes.recipe_image', filename=recipe.image) }}" alt="{{ recipe.name }}">
@@ -230,11 +231,11 @@
                     // Show/hide recipes based on filter
                     recipeCards.forEach(card => {
                         if (filter === 'all') {
-                            card.style.display = 'block';
+                            card.style.display = 'flex';
                         } else {
                             const categories = card.getAttribute('data-category').split(' ');
                             if (categories.includes(filter)) {
-                                card.style.display = 'block';
+                                card.style.display = 'flex';
                             } else {
                                 card.style.display = 'none';
                             }
@@ -301,11 +302,11 @@
                     // Show/hide recipes based on filter
                     recipeCards.forEach(card => {
                         if (filter === 'all') {
-                            card.style.display = 'block';
+                            card.style.display = 'flex';
                         } else {
                             const categories = card.getAttribute('data-category').split(' ');
                             if (categories.includes(filter)) {
-                                card.style.display = 'block';
+                                card.style.display = 'flex';
                             } else {
                                 card.style.display = 'none';
                             }

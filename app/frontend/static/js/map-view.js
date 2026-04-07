@@ -47,7 +47,7 @@ export class MapView {
             maxBoundsViscosity: 1.0,
             worldCopyJump: true,
             zoomControl: false, // Disable default zoom control
-            attributionControl: false
+            attributionControl: true
         }).setView([20, 0], 2);
     
         // Add custom zoom control in top-right
@@ -56,6 +56,7 @@ export class MapView {
         }).addTo(this.map);
     
         this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
             detectRetina: true,
             updateWhenIdle: false,
             reuseTiles: true,
@@ -730,5 +731,252 @@ export class MapView {
 
     getImpactData() {
         return [];
+    }
+
+    getMetricExportMeta(metric) {
+        switch (metric) {
+            case 'biodiv':
+                return { title: 'Biodiversity', unit: 'PDF·yr', minValue: this.minBiodiversity, maxValue: this.maxBiodiversity };
+            case 'gwp100':
+                return { title: 'Climate Change (GWP100)', unit: 'kg CO2e', minValue: this.minGWP, maxValue: this.maxGWP };
+            case 'water':
+                return { title: 'Water Use', unit: 'm³', minValue: this.minWater, maxValue: this.maxWater };
+            case 'land':
+                return { title: 'Land Use', unit: 'm²', minValue: this.minLand, maxValue: this.maxLand };
+            default:
+                return { title: metric, unit: '', minValue: 0, maxValue: 0 };
+        }
+    }
+
+    getMetricColorSettings(metric) {
+        switch(metric) {
+            case 'biodiv':
+                return { hue: 24, saturationMin: 45, saturationMax: 100, lightnessStart: 90, lightnessEnd: 38 };
+            case 'gwp100':
+                return { hue: 0, saturationMin: 30, saturationMax: 90, lightnessStart: 85, lightnessEnd: 30 };
+            case 'water':
+                return { hue: 200, saturationMin: 30, saturationMax: 90, lightnessStart: 85, lightnessEnd: 30 };
+            case 'land':
+                return { hue: 80, saturationMin: 25, saturationMax: 75, lightnessStart: 88, lightnessEnd: 32 };
+            default:
+                return { hue: 120, saturationMin: 30, saturationMax: 90, lightnessStart: 85, lightnessEnd: 30 };
+        }
+    }
+
+    formatLegendValue(metric, value) {
+        if (!value || Number.isNaN(value)) return '0';
+        if (metric === 'biodiv') {
+            return value < 0.001 ? value.toExponential(2) : value.toFixed(4);
+        }
+        if (metric === 'gwp100') {
+            return value >= 1000 ? `${(value / 1000).toFixed(2)} t` : value.toFixed(2);
+        }
+        if (metric === 'water') {
+            return value >= 1000 ? value.toFixed(0) : value.toFixed(2);
+        }
+        if (metric === 'land') {
+            return value >= 10000 ? `${(value / 10000).toFixed(2)} ha` : value.toFixed(2);
+        }
+        return String(value);
+    }
+
+    waitForNextFrame() {
+        return new Promise(resolve => requestAnimationFrame(() => resolve()));
+    }
+
+    projectRobinson(lon, lat) {
+        const xTable = [
+            1.0000, 0.9986, 0.9954, 0.9900, 0.9822, 0.9730, 0.9600, 0.9427, 0.9216,
+            0.8962, 0.8679, 0.8350, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213, 0.5722, 0.5322
+        ];
+        const yTable = [
+            0.0000, 0.0620, 0.1240, 0.1860, 0.2480, 0.3100, 0.3720, 0.4340, 0.4958,
+            0.5571, 0.6176, 0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1.0000
+        ];
+
+        const absLat = Math.min(Math.abs(lat), 90);
+        const index = Math.min(Math.floor(absLat / 5), 17);
+        const fraction = (absLat - (index * 5)) / 5;
+        const xCoeff = xTable[index] + ((xTable[index + 1] - xTable[index]) * fraction);
+        const yCoeff = yTable[index] + ((yTable[index + 1] - yTable[index]) * fraction);
+        const lambda = lon * Math.PI / 180;
+
+        const x = 0.8487 * xCoeff * lambda;
+        const y = 1.3523 * (lat < 0 ? -yCoeff : yCoeff);
+        return { x, y };
+    }
+
+    buildExportPath(rings, scale, minX, minY, padding, height) {
+        return rings.map(ring => {
+            return ring.map((coord, index) => {
+                const projected = this.projectEqualEarth(coord[0], coord[1]);
+                const x = ((projected.x - minX) * scale) + padding;
+                const y = height - (((projected.y - minY) * scale) + padding);
+                return `${index === 0 ? 'M' : 'L'} ${x.toFixed(2)} ${y.toFixed(2)}`;
+            }).join(' ') + ' Z';
+        }).join(' ');
+    }
+
+    getFeatureRings(geometry) {
+        if (!geometry) return [];
+        if (geometry.type === 'Polygon') {
+            return [geometry.coordinates];
+        }
+        if (geometry.type === 'MultiPolygon') {
+            return geometry.coordinates;
+        }
+        return [];
+    }
+
+    getExportMetricValue(data, metric) {
+        switch (metric) {
+            case 'biodiv':
+                return data?.biodiv || data?.total_bd || 0;
+            case 'gwp100':
+                return data?.gwp100 || data?.co2e || 0;
+            case 'water':
+                return data?.waterUse || data?.water || 0;
+            case 'land':
+                return data?.landUse || data?.land || 0;
+            default:
+                return 0;
+        }
+    }
+
+    buildMetricSvgExport(metric) {
+        if (!this.geoJsonData || !this.cachedImpactData) {
+            return null;
+        }
+
+        const width = 1280;
+        const height = 760;
+        const topHeader = 74;
+        const padding = 24;
+        const legendWidth = 220;
+        const mapWidth = width - legendWidth - padding * 3;
+        const mapHeight = height - topHeader - padding * 2;
+        const { title, unit, minValue, maxValue } = this.getMetricExportMeta(metric);
+        const colorSettings = this.getMetricColorSettings(metric);
+        const impactLookup = new Map();
+
+        this.cachedImpactData.forEach(entry => {
+            impactLookup.set(this.normalizeCountryName(entry.country), entry);
+        });
+
+        const projectedPoints = [];
+        this.geoJsonData.features.forEach(feature => {
+            const polygons = this.getFeatureRings(feature.geometry);
+            polygons.forEach(polygon => {
+                polygon.forEach(ring => {
+                    ring.forEach(coord => {
+                        projectedPoints.push(this.projectRobinson(coord[0], coord[1]));
+                    });
+                });
+            });
+        });
+
+        if (projectedPoints.length === 0) {
+            return null;
+        }
+
+        const minX = Math.min(...projectedPoints.map(point => point.x));
+        const maxX = Math.max(...projectedPoints.map(point => point.x));
+        const minY = Math.min(...projectedPoints.map(point => point.y));
+        const maxY = Math.max(...projectedPoints.map(point => point.y));
+        const scale = Math.min(
+            mapWidth / (maxX - minX),
+            mapHeight / (maxY - minY)
+        );
+        const projectedWidth = (maxX - minX) * scale;
+        const projectedHeight = (maxY - minY) * scale;
+        const offsetX = padding + (mapWidth - projectedWidth) / 2;
+        const offsetY = topHeader + padding + (mapHeight - projectedHeight) / 2;
+
+        const paths = this.geoJsonData.features.map(feature => {
+            const countryName = feature.properties?.countryName || '';
+            const data = impactLookup.get(this.normalizeCountryName(countryName));
+            const polygons = this.getFeatureRings(feature.geometry);
+            const pathData = polygons.map(polygon => {
+                return polygon.map(ring => {
+                    return ring.map((coord, index) => {
+                        const projected = this.projectRobinson(coord[0], coord[1]);
+                        const x = ((projected.x - minX) * scale) + offsetX;
+                        const y = (((maxY - projected.y) * scale) + offsetY);
+                        return `${index === 0 ? 'M' : 'L'} ${x.toFixed(2)} ${y.toFixed(2)}`;
+                    }).join(' ') + ' Z';
+                }).join(' ');
+            }).join(' ');
+            const style = this.getCountryStyle(data || {});
+            const value = this.getExportMetricValue(data || {}, metric);
+
+            return `<path d="${pathData}" fill="${style.fillColor}" stroke="#777777" stroke-width="0.6">
+  <title>${countryName}${value > 0 ? `: ${value}` : ''}</title>
+</path>`;
+        }).join('\n');
+
+        const gradientStops = [];
+        for (let i = 0; i <= 10; i++) {
+            const value = i / 10;
+            const saturation = colorSettings.saturationMin + (value * (colorSettings.saturationMax - colorSettings.saturationMin));
+            const lightness = colorSettings.lightnessStart - (value * (colorSettings.lightnessStart - colorSettings.lightnessEnd));
+            gradientStops.push(`hsl(${colorSettings.hue}, ${saturation}%, ${lightness}%) ${value * 100}%`);
+        }
+
+        const legendX = width - legendWidth - padding;
+        const legendY = topHeader + 24;
+        const legendBarY = legendY + 52;
+        const legendBarWidth = 28;
+        const legendBarHeight = 220;
+
+        return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  <defs>
+    <linearGradient id="legend-${metric}" x1="0%" y1="100%" x2="0%" y2="0%">
+      ${gradientStops.map((stop, index) => `<stop offset="${index * 10}%" stop-color="${stop.match(/hsl\([^)]+\)/)[0]}"/>`).join('')}
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"/>
+  <text x="${width / 2}" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#5b2208">${title}</text>
+  <text x="${width / 2}" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#666666">Robinson projection. Producing countries contributing to the selected metric (${unit})</text>
+  <rect x="${padding}" y="${topHeader}" width="${mapWidth}" height="${mapHeight}" rx="10" fill="#f7f7f7" stroke="#dddddd"/>
+  ${paths}
+  <g transform="translate(${legendX}, ${legendY})">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#333333">Legend</text>
+    <text x="0" y="20" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#666666">${unit}</text>
+    <rect x="0" y="52" width="${legendBarWidth}" height="${legendBarHeight}" fill="url(#legend-${metric})" stroke="#cccccc" rx="6"/>
+    <text x="${legendBarWidth + 12}" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333333">${this.formatLegendValue(metric, maxValue)}</text>
+    <text x="${legendBarWidth + 12}" y="${52 + legendBarHeight / 2 + 4}" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333333">${this.formatLegendValue(metric, (minValue + maxValue) / 2)}</text>
+    <text x="${legendBarWidth + 12}" y="${52 + legendBarHeight}" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333333">${this.formatLegendValue(metric, minValue)}</text>
+    <text x="0" y="${52 + legendBarHeight + 28}" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#666666">Only countries with mapped production</text>
+    <text x="0" y="${52 + legendBarHeight + 44}" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#666666">contributions are colored.</text>
+  </g>
+</svg>`;
+    }
+
+    async exportMetricMaps() {
+        if (!this.cachedImpactData || !this.map) {
+            return [];
+        }
+
+        const originalMetric = this.currentMetric;
+        const metrics = ['biodiv', 'gwp100', 'water', 'land'];
+        const files = [];
+
+        for (const metric of metrics) {
+            this.setMetric(metric);
+            await this.waitForNextFrame();
+            const svgContent = this.buildMetricSvgExport(metric);
+            if (svgContent) {
+                files.push({
+                    name: `${metric}_map.svg`,
+                    content: svgContent
+                });
+            }
+        }
+
+        this.setMetric(originalMetric);
+        await this.waitForNextFrame();
+
+        return files;
     }
 }

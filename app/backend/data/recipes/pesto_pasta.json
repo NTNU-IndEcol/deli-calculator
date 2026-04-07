@@ -1,0 +1,88 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Pesto Pasta",
+  "author": "DELI Calculator",
+  "category": [
+    "Main Dishes",
+    "Pasta"
+  ],
+  "description": "A simple pasta dish with basil, olive oil, parmesan cheese, and pine nuts.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Pasta",
+      "details": {
+        "amount": 350,
+        "unit": "g",
+        "originalText": "350 g pasta"
+      }
+    },
+    {
+      "mainIngredient": "Basil",
+      "details": {
+        "amount": 50,
+        "unit": "g",
+        "originalText": "50 g fresh basil"
+      }
+    },
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 80,
+        "unit": "ml",
+        "originalText": "80 ml olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Parmesan cheese",
+      "details": {
+        "amount": 50,
+        "unit": "g",
+        "originalText": "50 g parmesan cheese"
+      }
+    },
+    {
+      "mainIngredient": "Pine nuts",
+      "details": {
+        "amount": 30,
+        "unit": "g",
+        "originalText": "30 g pine nuts"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 2,
+        "unit": "cloves",
+        "originalText": "2 cloves garlic"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 0.5,
+        "unit": "teaspoon",
+        "originalText": "1/2 teaspoon salt"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cook the pasta in salted water."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Blend basil, olive oil, parmesan, pine nuts, garlic, and salt into pesto."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Toss the pasta with the pesto and serve."
+    }
+  ],
+  "recipeYield": "4",
+  "prepTime": "10 Minutes",
+  "time": 20,
+  "servings": 4,
+  "image": "pesto-pasta.jpg"
+}

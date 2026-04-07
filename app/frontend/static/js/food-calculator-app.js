@@ -161,6 +161,7 @@ export class FoodCalculatorApp {
           console.log(`🎯 User selected metric: ${metric}`);
           this.mapView.setMetric(metric);
         };
+        this.resultsView.getMapExportFiles = async () => this.mapView.exportMetricMaps();
 
       document.getElementById('calculate-selected').addEventListener('click', async (e) => {
         e.preventDefault();      

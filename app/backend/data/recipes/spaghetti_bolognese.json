@@ -1,0 +1,104 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Spaghetti Bolognese",
+  "author": "DELI Calculator",
+  "category": [
+    "Main Dishes",
+    "Pasta"
+  ],
+  "description": "A classic spaghetti dinner with ground beef, tomato, onion, and garlic.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Spaghetti",
+      "details": {
+        "amount": 400,
+        "unit": "g",
+        "originalText": "400 g spaghetti"
+      }
+    },
+    {
+      "mainIngredient": "Ground beef",
+      "details": {
+        "amount": 500,
+        "unit": "g",
+        "originalText": "500 g ground beef"
+      }
+    },
+    {
+      "mainIngredient": "Tomato",
+      "details": {
+        "amount": 800,
+        "unit": "g",
+        "originalText": "800 g crushed tomatoes"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 1,
+        "unit": "unit",
+        "originalText": "1 onion"
+      }
+    },
+    {
+      "mainIngredient": "Carrot",
+      "details": {
+        "amount": 1,
+        "unit": "unit",
+        "originalText": "1 carrot"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 3,
+        "unit": "cloves",
+        "originalText": "3 cloves garlic"
+      }
+    },
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 2,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 1,
+        "unit": "teaspoon",
+        "originalText": "1 teaspoon salt"
+      }
+    },
+    {
+      "mainIngredient": "Black pepper",
+      "details": {
+        "amount": 0.5,
+        "unit": "teaspoon",
+        "originalText": "1/2 teaspoon black pepper"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cook the spaghetti in salted water until al dente."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Cook the onion, carrot, and garlic in olive oil, then brown the ground beef."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add tomato, salt, and pepper and simmer until thickened. Serve over spaghetti."
+    }
+  ],
+  "recipeYield": "4",
+  "prepTime": "15 Minutes",
+  "time": 40,
+  "servings": 4,
+  "image": "spaghetti-bolognese.jpg"
+}

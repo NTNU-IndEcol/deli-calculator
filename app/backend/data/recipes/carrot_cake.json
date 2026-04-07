@@ -1,0 +1,96 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Carrot Cake",
+  "author": "DELI Calculator",
+  "category": [
+    "Dessert",
+    "Cake"
+  ],
+  "description": "A moist carrot cake with carrots, flour, sugar, eggs, and cream cheese frosting.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Carrot",
+      "details": {
+        "amount": 300,
+        "unit": "g",
+        "originalText": "300 g carrots"
+      }
+    },
+    {
+      "mainIngredient": "Flour",
+      "details": {
+        "amount": 250,
+        "unit": "g",
+        "originalText": "250 g flour"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 200,
+        "unit": "g",
+        "originalText": "200 g sugar"
+      }
+    },
+    {
+      "mainIngredient": "Egg",
+      "details": {
+        "amount": 3,
+        "unit": "unit",
+        "originalText": "3 eggs"
+      }
+    },
+    {
+      "mainIngredient": "Vegetable oil",
+      "details": {
+        "amount": 180,
+        "unit": "ml",
+        "originalText": "180 ml vegetable oil"
+      }
+    },
+    {
+      "mainIngredient": "Cream cheese",
+      "details": {
+        "amount": 200,
+        "unit": "g",
+        "originalText": "200 g cream cheese"
+      }
+    },
+    {
+      "mainIngredient": "Butter",
+      "details": {
+        "amount": 60,
+        "unit": "g",
+        "originalText": "60 g butter"
+      }
+    },
+    {
+      "mainIngredient": "Baking powder",
+      "details": {
+        "amount": 2,
+        "unit": "teaspoons",
+        "originalText": "2 teaspoons baking powder"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Mix the batter with grated carrot, flour, sugar, eggs, oil, and baking powder."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Bake until the cake is cooked through."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Cool the cake and top with cream cheese frosting."
+    }
+  ],
+  "recipeYield": "8",
+  "prepTime": "20 Minutes",
+  "time": 60,
+  "servings": 8,
+  "image": "carrot-cake.jpg"
+}

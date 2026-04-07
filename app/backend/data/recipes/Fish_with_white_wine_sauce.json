@@ -1,0 +1,148 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Fish with White Wine Sauce",
+  "datePublished": "2021-08-16T15:56:23+00:00",
+  "category": [
+    "Fish",
+    "Main"
+  ],
+  "recipeIngredient": [
+    {
+      "mainIngredient": "X 150g / 5oz white fish fillets )",
+      "details": {
+        "amount": 4.0,
+        "unit": null,
+        "originalText": "4   x 150g / 5oz white fish fillets (, skinless, boneless (I used snapper, Note 1))"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 0.5,
+        "unit": "tsp",
+        "originalText": "1/2 tsp salt"
+      }
+    },
+    {
+      "mainIngredient": "Pepper",
+      "details": {
+        "amount": 0.25,
+        "unit": "tsp",
+        "originalText": "1/4 tsp pepper"
+      }
+    },
+    {
+      "mainIngredient": "Virgin olive oil",
+      "details": {
+        "amount": 2.0,
+        "unit": "tbsp",
+        "originalText": "2 tbsp extra virgin olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Eschalot )",
+      "details": {
+        "amount": 1.0,
+        "unit": null,
+        "originalText": "1  eschalot (, small, finely chopped (~1 1/2 tbs, Note 2))"
+      }
+    },
+    {
+      "mainIngredient": "White wine )",
+      "details": {
+        "amount": 1.25,
+        "unit": "cups",
+        "originalText": "1 1/4 cups white wine (, dry, not sweet or too woody (chardonnay is especially good, Note 3))"
+      }
+    },
+    {
+      "mainIngredient": "Lemon juice )",
+      "details": {
+        "amount": 1.0,
+        "unit": "tsp",
+        "originalText": "1 tsp lemon juice ((sub white wine vinegar))"
+      }
+    },
+    {
+      "mainIngredient": "White wine vinegar )",
+      "details": {
+        "amount": 1.0,
+        "unit": "tsp",
+        "originalText": "1 tsp white wine vinegar ((sub more lemon))"
+      }
+    },
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 0.125,
+        "unit": "tsp",
+        "originalText": "1/8 tsp salt"
+      }
+    },
+    {
+      "mainIngredient": "Pepper",
+      "details": {
+        "amount": 1.0,
+        "unit": "pinch",
+        "originalText": "1 pinch pepper"
+      }
+    },
+    {
+      "mainIngredient": "White sugar",
+      "details": {
+        "amount": 1.0,
+        "unit": "pinch",
+        "originalText": "1 pinch white sugar"
+      }
+    },
+    {
+      "mainIngredient": "Thickened/heavy cream",
+      "details": {
+        "amount": 1.0,
+        "unit": "cup",
+        "originalText": "1 cup thickened/heavy cream"
+      }
+    },
+    {
+      "mainIngredient": "/ 2 tbsp unsalted butter",
+      "details": {
+        "amount": 30.0,
+        "unit": "g",
+        "originalText": "30g / 2 tbsp  unsalted butter (, cold, cut into 1cm / 1/3\" cubes)"
+      }
+    },
+    {
+      "mainIngredient": "Finely chopped parsley )",
+      "details": {
+        "amount": 2.0,
+        "unit": "tsp",
+        "originalText": "2 tsp finely chopped parsley ((or chives))"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Cook fish:"
+    },
+    {
+      "@type": "HowToStep",
+      "text": "White wine sauce:"
+    }
+  ],
+  "recipeYield": [
+    "4"
+  ],
+  "prepTime": "PT5M",
+  "cookTime": "PT12M",
+  "totalTime": "PT17M",
+  "image": "Fish-with-white-wine-cream-sauce.jpg",
+  "description": "This is a beautiful, elegant white wine sauce that will go with virtually any fish. The simple restaurant trick we deploy here is to mix in cold cubes of butter which makes the sauce glossy and satiny.  You need to pan fry because the fond left in the pan after pan frying dissolves into the sauce and adds flavour.",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  },
+  "sourceUrl": "https://www.recipetineats.com/fish-with-white-wine-sauce/",
+  "extractedAt": "2026-04-07"
+}

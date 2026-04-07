@@ -5,6 +5,43 @@ from flask import Blueprint, render_template, send_from_directory, current_app #
 
 recipes_bp = Blueprint('recipes', __name__)
 
+
+def classify_recipe_tags(recipe_data):
+    """Infer filter tags from ingredient text."""
+    ingredients = recipe_data.get('recipeIngredient', []) or []
+    ingredient_text = ' '.join(
+        f"{item.get('mainIngredient', '')} {item.get('details', {}).get('originalText', '')}".lower()
+        for item in ingredients
+        if isinstance(item, dict)
+    )
+
+    meat_terms = [
+        'pork', 'beef', 'ham', 'chicken', 'turkey', 'lamb', 'meat', 'bacon', 'sausage'
+    ]
+    seafood_terms = [
+        'fish', 'salmon', 'tuna', 'shrimp', 'seafood', 'seaweed', 'oyster', 'anchovy'
+    ]
+    dairy_terms = [
+        'milk', 'cheese', 'butter', 'cream', 'yogurt', 'yoghurt', 'ghee'
+    ]
+
+    tags = ['all']
+
+    has_meat = any(term in ingredient_text for term in meat_terms)
+    has_seafood = any(term in ingredient_text for term in seafood_terms)
+    has_dairy = any(term in ingredient_text for term in dairy_terms)
+
+    if has_meat:
+        tags.append('meat')
+    if has_seafood:
+        tags.append('seafood')
+    if has_dairy:
+        tags.append('dairy')
+    if not has_meat and not has_seafood:
+        tags.append('vegetarian')
+
+    return tags
+
 def get_recipes_data():
     """Get all recipes data from the recipes directory"""
     try:
@@ -37,9 +74,10 @@ def get_recipes_data():
                         recipe_data.setdefault('category', 'all')
                         recipe_data.setdefault('servings', 4)
                         recipe_data.setdefault('prepTime', 30)
+                        recipe_data['filter_tags'] = classify_recipe_tags(recipe_data)
                         
-                        # Check if image exists
-                        image_name = recipe_data.get('image', f"{recipe_data['id']}.jpg")
+                        # Check if image exists. Some recipe files explicitly set image to null.
+                        image_name = recipe_data.get('image') or f"{recipe_data['id']}.jpg"
                         image_path = os.path.join(images_dir, image_name)
                         if os.path.exists(image_path):
                             recipe_data['image'] = image_name

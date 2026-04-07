@@ -883,8 +883,19 @@ body {
     margin: 0 0 18px;
 }
 
+.export-action-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .export-button {
     font-size: 14px;
+}
+
+.export-help-icon {
+    position: static;
+    flex: 0 0 auto;
 }
 
 .comparison-header h2 .inline-help-icon {
