@@ -2,7 +2,7 @@
 
 export class AutocompleteHandler {
   constructor({ input, dataset, onSelect, maxSuggestions = 10 }) {
-    this.input = document.querySelector(input);
+    this.input = typeof input === 'string' ? document.querySelector(input) : input;
     this.dataset = dataset || [];
     this.onSelect = onSelect;
     this.maxSuggestions = maxSuggestions;
@@ -99,6 +99,7 @@ export class AutocompleteHandler {
   renderSuggestions(items) {
     if (!items || items.length === 0) {
       this.list.innerHTML = '<li style="padding: 10px; color: #999;">No matches found</li>';
+      this.updateDropdownPosition();
       this.list.setAttribute('style', this.list.getAttribute('style').replace('display: none', 'display: block'));
       return;
     }
@@ -119,8 +120,24 @@ export class AutocompleteHandler {
       });
     });
 
+    this.updateDropdownPosition();
     this.list.setAttribute('style', this.list.getAttribute('style').replace('display: none', 'display: block'));
     this.currentFocus = -1;
+  }
+
+  updateDropdownPosition() {
+    const inputRect = this.input.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const estimatedListHeight = Math.min((this.dataset?.length || 1) * 42, 250);
+    const spaceBelow = viewportHeight - inputRect.bottom;
+    const spaceAbove = inputRect.top;
+    const shouldOpenUpward = spaceBelow < Math.min(estimatedListHeight, 160) && spaceAbove > spaceBelow;
+
+    this.list.style.top = shouldOpenUpward ? 'auto' : '100%';
+    this.list.style.bottom = shouldOpenUpward ? '100%' : 'auto';
+    this.list.style.borderTop = shouldOpenUpward ? '2px solid #4CAF50' : 'none';
+    this.list.style.borderBottom = shouldOpenUpward ? 'none' : '2px solid #4CAF50';
+    this.list.style.borderRadius = shouldOpenUpward ? '4px 4px 0 0' : '0 0 4px 4px';
   }
 
   handleKeyDown(e) {

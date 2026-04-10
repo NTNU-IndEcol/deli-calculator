@@ -39,6 +39,7 @@ export class FormHandler {
       // Get unique ingredients from database
       const database = DataManager.database || [];
       const uniqueIngredients = [...new Set(database.map(item => item.Ingredient))].sort();
+      this.databaseIngredientNames = uniqueIngredients;
       
       console.log(`🔧 Setting up autocomplete with ${uniqueIngredients.length} ingredients`);
       
@@ -777,6 +778,26 @@ export class FormHandler {
     }
 
     setupRowInteractions() {
+      const ingredientNames = this.databaseIngredientNames || [];
+      const nameInputs = this.elements.tableBody.querySelectorAll('.name-input');
+
+      nameInputs.forEach(input => {
+        if (input.dataset.autocompleteBound === 'true') {
+          return;
+        }
+
+        input.dataset.autocompleteBound = 'true';
+
+        new AutocompleteHandler({
+          input,
+          dataset: ingredientNames,
+          maxSuggestions: 8,
+          onSelect: (ingredientName) => {
+            const id = Number(input.dataset.id);
+            this.applyIngredientNameChange(id, ingredientName);
+          }
+        });
+      });
     }
 
     getIngredientById(id) {
@@ -814,6 +835,10 @@ export class FormHandler {
     handleIngredientNameChange(event) {
       const id = Number(event.target.dataset.id);
       const newName = event.target.value.trim();
+      this.applyIngredientNameChange(id, newName);
+    }
+
+    applyIngredientNameChange(id, newName) {
       const ingredient = this.getIngredientById(id);
 
       if (!ingredient) {
@@ -829,6 +854,7 @@ export class FormHandler {
         ingredient.matched = false;
         ingredient.matchedTo = '';
         ingredient.comm_code = 'UNKNOWN';
+        ingredient.category = '';
         ingredient.possibleSources = DataManager.getAllCountries() || [''];
         this.moveIngredientBetweenLists(ingredient, false);
         this.updateTable();
@@ -854,6 +880,7 @@ export class FormHandler {
         ingredient.matchedTo = '';
         ingredient.comm_code = 'UNKNOWN';
         ingredient.matched = false;
+        ingredient.category = '';
         ingredient.possibleSources = DataManager.getAllCountries() || [''];
         this.moveIngredientBetweenLists(ingredient, false);
       }

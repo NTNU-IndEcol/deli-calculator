@@ -83,6 +83,41 @@ export class ResultsView {
         return String(value);
     }
 
+    formatComparisonValue(metric, value) {
+        if (value === 0 || !value) {
+            switch (metric) {
+                case 'biodiv':
+                    return '0';
+                case 'gwp100':
+                    return '0 kg';
+                case 'water':
+                    return '0 m³';
+                case 'land':
+                    return '0 m²';
+                default:
+                    return '0';
+            }
+        }
+
+        if (metric === 'biodiv') {
+            return value < 0.01 ? value.toExponential(1) : value.toFixed(2);
+        }
+
+        if (metric === 'gwp100') {
+            return value >= 1000 ? `${(value / 1000).toFixed(1)} t` : `${value.toFixed(value >= 10 ? 0 : 1)} kg`;
+        }
+
+        if (metric === 'water') {
+            return value >= 100 ? `${value.toFixed(0)} m³` : `${value.toFixed(value >= 10 ? 1 : 2)} m³`;
+        }
+
+        if (metric === 'land') {
+            return value >= 10000 ? `${(value / 10000).toFixed(1)} ha` : `${value.toFixed(value >= 10 ? 1 : 2)} m²`;
+        }
+
+        return String(value);
+    }
+
     showResults(data, label = null) {
         console.log('📊 Displaying total impact results:', data);
 
@@ -249,7 +284,7 @@ export class ResultsView {
                         <div class="comparison-bar-track">
                             <div class="comparison-bar ${metric.className}" style="width: ${width}%"></div>
                         </div>
-                        <div class="comparison-value">${this.formatMetricValue(metric.key, rawValue)}</div>
+                        <div class="comparison-value">${this.formatComparisonValue(metric.key, rawValue)}</div>
                     </div>
                 `;
             }).join('');
