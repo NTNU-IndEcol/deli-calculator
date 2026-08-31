@@ -55,12 +55,13 @@ export class MapView {
             position: 'topright'
         }).addTo(this.map);
     
-        this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
             detectRetina: true,
             updateWhenIdle: false,
             reuseTiles: true,
-            unloadInvisibleTiles: true
+            unloadInvisibleTiles: true,
+            maxZoom: 19
         }).addTo(this.map);
 
         this.layerGroup = L.layerGroup().addTo(this.map);
@@ -210,6 +211,14 @@ export class MapView {
                                 .setLatLng(e.latlng)
                                 .setContent(this.createPopupContent(data))
                                 .openOn(this.map);
+                                
+                                // Scroll to ensure ingredients table is visible
+                                setTimeout(() => {
+                                    const ingredientsSection = document.querySelector('.ingredients-list-section');
+                                    if (ingredientsSection) {
+                                        ingredientsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                }, 700);
                             }, 500);
                         } else {
                             // Normal behavior for other areas
