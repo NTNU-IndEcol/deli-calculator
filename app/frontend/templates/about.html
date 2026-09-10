@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - DELI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* Additional styles specific to the about page */
+        .about-hero {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: rgb(231, 179, 106);/*rgba(230, 179, 12, 0.59); /* 41% transparent */
+            color:  rgb(145, 41, 10);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+
+        }
+        
+        .about-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .about-section {
+            margin: 0 0 50px 0;
+            max-width: 1200px;
+        }
+        
+        .about-section h2 {
+            color: rgb(145, 41, 10);
+            border-bottom: 2px solid rgb(231, 179, 106);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color:  rgb(145, 41, 10);
+            margin-top: 0;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: rgb(145, 41, 10);
+            margin-bottom: 15px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid rgb(231, 179, 106);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color:  rgb(145, 41, 10);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: #302e2e;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            background: rgb(231, 179, 106);
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 50px 0;
+        }
+        
+/* Team Carousel Styles */
+.team-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.team-carousel {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    width: calc(100% * totalSlides); /* make track wide enough */
+    transition: transform 0.5s ease-in-out;
+}
+
+.team-carousel .team-member {
+    flex: 0 0 calc(100% / 3);
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.carousel-control {
+    background: rgb(231, 179, 106);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    color: rgb(145, 41, 10);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+.carousel-control:hover {
+    background: rgb(210, 160, 90);
+}
+
+.carousel-control:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carousel-dot.active {
+    background: rgb(145, 41, 10);
+}
+
+@media (max-width: 900px) {
+    .about-hero {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .feature-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .team-carousel .team-member {
+        flex: 0 0 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-container {
+        padding: 0 15px;
+    }
+
+    .about-section h2 {
+        font-size: 1.35rem;
+    }
+
+    .feature-card {
+        padding: 18px;
+    }
+
+    .faq-question {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .team-carousel .team-member {
+        flex: 0 0 100%;
+    }
+    
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo"></div>
+        <span class="header-title">DELI Calculator</span>
+        <nav class="nav-menu">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}" class="active">About</a>
+            <a href="{{ url_for('recipes.recipes_list') }}">Recipes</a>
+            <a href="{{ url_for('feedback') }}">Feedback</a>
+            <a></a>
+        </nav>
+        <!--div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search in site">
+            <button id="search-btn">🔍</button>
+        </div-->
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-container">
+            <h1>About DELI Calculator</h1>
+            <p class="lead">Discover how our tool helps you calculate the environmental impact of food recipes</p>
+        </div>
+    </section>
+
+    <main class="about-container">
+        <!-- What is DELI Section -->
+        <section class="about-section">
+            <h2>What is DELI Calculator?</h2>
+            <p>DELI ("fooD rEcipe environmentaL Impact") Calculator is a web application designed to provide comprehensive, 
+                quantitative sustainability assessment of food recipes. Our mission is to empower individuals, chefs, and 
+                food businesses to make informed decisions about their food choices by understanding their environmental footprint.</p>
+            
+            <p>Developed by researchers at the Norwegian University of Science and Technology (NTNU), 
+                DELI Calculator uses scientifically robust data to estimate the carbon emissions, water usage, 
+                and land use associated with food ingredients and recipes.</p>
+        
+            <p>More information about the app architecture and development can be found via our GitHub repository:
+            
+                <a href="https://github.com/NTNU-IndEcol/deli-calculator" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i> DELI Calculator GitHub Repository
+                </a>  
+            </p>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="about-section">
+            <h2>How DELI Calculator Works</h2>
+            <p>DELI Calculator currently reports a cradle-to-consumer scope based on the linked supply-chain datasets. This means the results cover upstream production and supply-chain impacts associated with ingredients up to the consumer stage, but they do not include home preparation, cooking energy, refrigeration in the kitchen, or post-purchase food waste.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Recipe Analysis</h3>
+                    <p>Paste a recipe URL or manually input ingredients to analyze the environmental impact of any dish.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Data Sources</h3>
+                    <p>Our calculations are based on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> and on <a href="https://nva.sikt.no/registration/0198e71811bb-89dbebc9-7b6f-4e79-9e0e-231ccae3d2bc" target="_blank" rel="noopener noreferrer">Paula Alejandra Barco Alzate's work</a>. 
+                        Her DELI Calculator repository (<a href="https://github.com/PaulaBarco/DELI_Calculator" target="_blank" rel="noopener noreferrer">GitHub</a>) builds on the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore and Nemecek ingredient classification</a> and AGRIBALYSE definitions, helping provide the ingredient-level structure used in this app.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Impact Metrics</h3>
+                    <p>
+                        Get detailed breakdowns of biodiversity impacts, 
+                        CO₂ emissions, water usage, and land use for the entire recipe, 
+                        including how production-linked contributions are distributed across producing countries worldwide.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why It Matters Section -->
+        <section class="about-section">
+            <h2>Why Food Environmental Impact Matters</h2>
+            <p>The food system is responsible for approximately 26% of global greenhouse gas emissions, 
+                70% of freshwater use, and 50% of habitable land use. 
+                By understanding the environmental impact of our food choices, 
+                we can collectively make a significant difference in reducing our ecological footprint.</p>
+            
+            <p>DELI Calculator helps bridge the gap between scientific knowledge and everyday cooking decisions, 
+                making sustainability accessible to everyone.</p>
+        </section>
+
+        <!-- Team Section -->
+        <section class="about-section">
+            <h2>Our Team</h2>
+            <div class="team-carousel-container">
+                <button class="carousel-control prev" aria-label="Previous team members">❮</button>
+                <div class="team-carousel">
+                    <div class="carousel-track">
+                        <div class="team-member">
+                            <a href="https://www.ntnu.edu/employees/bo.huang" target="_blank">
+                                <img src="{{ url_for('static', filename='img/BoHuang.jpg') }}" alt="Dr. Bo Huang">
+                            </a>
+                            <h3>Dr. Bo Huang</h3>
+                            <p>Lead Scientist</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/konstantin.stadler" target="_blank">
+                                <img src="{{ url_for('static', filename='img/KonstantinStadler.jpg') }}" alt="Dr. Konstantin Stadler">
+                            </a>
+                            <h3>Dr. Konstantin Stadler</h3>
+                            <p>Lead Scientist</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/francesca.verones" target="_blank">
+                                <img src="{{ url_for('static', filename='img/FrancescaVerones.jpg') }}" alt="Prof. Francesca Verones">
+                            </a>
+                            <h3>Prof. Francesca Verones</h3>
+                            <p>Project lead</p>
+                        </div>
+
+                        <!--div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/martin.dorber" target="_blank">
+                                <img src="{{ url_for('static', filename='img/MartinDorber.jpg') }}" alt="Martin Dorber">
+                            </a>
+                            <h3>Dr. Martin Dorber</h3>
+                            <p>Sustainability Expert</p>
+                        </div--->
+
+                        <!--div class="team-member">
+                            <a href="https://www.ntnu.edu/employees/silvan.goldenberg" target="_blank">
+                                <img src="{{ url_for('static', filename='img/SilvanGoldenberg.jpg') }}" alt="Silvan Goldenberg">
+                            </a>
+                            <h3>Dr. Silvan Goldenberg</h3>
+                            <p>Sustainability Expert</p>
+                        </div--->
+
+                        <!--div class="team-member">
+                            <a href="https://www.ntnu.no/ansatte/ruslan.zhuravchak" target="_blank">
+                                <img src="{{ url_for('static', filename='img/RuslanZhuravchak.png') }}" alt="Ruslan Zhuravchak">
+                            </a>
+                            <h3>Dr. Ruslan Zhuravchak</h3>
+                            <p>Technical</p>
+                        </div--->
+
+
+                    </div>
+                </div>
+                <button class="carousel-control next" aria-label="Next team members">❯</button>
+            </div>
+            <div class="carousel-dots">
+                <!-- Dots will be added dynamically via JavaScript -->
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="about-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How accurate are the environmental impact calculations?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our calculations build on the <a href="https://pubs.acs.org/doi/10.1021/acs.est.9b03554" target="_blank" rel="noopener noreferrer">FABIO database</a> and on <a href="https://nva.sikt.no/registration/0198e71811bb-89dbebc9-7b6f-4e79-9e0e-231ccae3d2bc" target="_blank" rel="noopener noreferrer">Paula Alejandra Barco Alzate's work</a>, including the ingredient-level structure in her <a href="https://github.com/PaulaBarco/DELI_Calculator" target="_blank" rel="noopener noreferrer">DELI Calculator repository</a>. 
+                        That work is based on the <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank" rel="noopener noreferrer">Poore and Nemecek ingredient classification</a> and AGRIBALYSE definitions. 
+                        The results are therefore grounded in robust scientific data sources, but they are still estimates based on average values. Actual impacts can vary with farming practices, sourcing choices, transport routes, processing details, and other real-world conditions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What does the map show?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The map shows producing countries that contribute to the selected indicator for the ingredients in your recipe. It is not a map of where damages are experienced after production. For example, the climate change map shows where production-linked greenhouse gas emissions occur in the supply chain represented by the underlying data.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What do GWP100 and the units mean?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>GWP100 means global warming potential over a 100-year time horizon and is reported as CO₂-equivalents. The other indicators use the units in the source datasets: biodiversity in PDF·yr, water use in m³, and land use in m² or hectares when values are large.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use DELI Calculator for commercial purposes?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>DELI Calculator may be useful for restaurants, food businesses, and other organizations that want to explore recipe impacts. 
+                        If you plan to use the tool in a formal or commercial setting, please contact us first so the scope, assumptions, and current beta-stage limitations are clear.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How often is the data updated?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The app is currently in beta testing. Updates are made as the project develops and as feedback is incorporated, but the database should not be interpreted as continuously refreshed in real time. 
+                        When important methodological or data improvements are integrated, they will be reflected in the calculator.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is my recipe data stored?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        The public calculator does not currently send your full recipe to a permanent user database on the server as part of normal use. 
+                        However, some recipe-related state can be stored locally in your browser, for example to keep comparison results or transfer a selected recipe between pages. 
+                        The app also records basic usage metrics such as page views and calculation events by country.
+                   </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADD THIS NEW METRICS SECTION HERE -->
+        <!--section class="about-section">
+            <h2>Usage Metrics & Global Reach</h2>
+            <div id="metrics-root"></div>
+        </section -->
+
+        <!-- Call to Action Section -->
+        <!-- section class="cta-section">
+            <h2>Start Calculating Your Recipe's Impact Today</h2>
+            <p>Join thousands of environmentally conscious cooks and food businesses using DELI Calculator to make sustainable food choices.</p>
+            <a href="{{ url_for('index') }}" class="button button-primary">Calculate Now</a>
+        </section -->
+    </main>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isVisible = answer.style.display === 'block';
+                
+                answer.style.display = isVisible ? 'none' : 'block';
+                question.querySelector('span:last-child').textContent = isVisible ? '+' : '-';
+            });
+        });
+        
+        // Initially hide all answers
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+
+        // Team Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const members = document.querySelectorAll('.team-member');
+            const nextButton = document.querySelector('.carousel-control.next');
+            const prevButton = document.querySelector('.carousel-control.prev');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            
+            let currentIndex = 0;
+            const membersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 3) : 5);
+            const totalSlides = Math.ceil(members.length / membersPerView);
+            
+            // Create dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            function updateCarousel() {
+                const slideWidth = 100 // (100 / membersPerView);
+                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                
+                // Update button states
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex >= totalSlides - 1;
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const newMembersPerView = Math.min(3, window.innerWidth < 900 ? (window.innerWidth < 600 ? 1 : 3) : 5);
+                
+                if (newMembersPerView !== membersPerView) {
+                    // Reset carousel on significant width change
+                    currentIndex = 0;
+                    updateCarousel();
+                }
+            });
+            
+            // Initialize carousel
+            updateCarousel();
+        });
+    </script>
+
+    <!-- ADD THIS NEW SCRIPT FOR METRICS -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <script>
+        // Add spinning animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        const { useState, useEffect, createElement: h } = React;
+
+        // Simple SVG icon components
+        const Eye = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 },
+            h('path', { d: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' }),
+            h('circle', { cx: 12, cy: 12, r: 3 })
+        );
+
+        const Users = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 },
+            h('path', { d: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2' }),
+            h('circle', { cx: 9, cy: 7, r: 4 }),
+            h('path', { d: 'M23 21v-2a4 4 0 0 0-3-3.87' }),
+            h('path', { d: 'M16 3.13a4 4 0 0 1 0 7.75' })
+        );
+
+        const FileText = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 },
+            h('path', { d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' }),
+            h('polyline', { points: '14 2 14 8 20 8' }),
+            h('line', { x1: 16, y1: 13, x2: 8, y2: 13 }),
+            h('line', { x1: 16, y1: 17, x2: 8, y2: 17 })
+        );
+
+        const Globe = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 },
+            h('circle', { cx: 12, cy: 12, r: 10 }),
+            h('line', { x1: 2, y1: 12, x2: 22, y2: 12 }),
+            h('path', { d: 'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z' })
+        );
+
+        const TrendingUp = () => h('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 },
+            h('polyline', { points: '23 6 13.5 15.5 8.5 10.5 1 18' }),
+            h('polyline', { points: '17 6 23 6 23 12' })
+        );
+
+        function MetricsSection() {
+            const [metrics, setMetrics] = useState({
+                views: 0,
+                uniqueVisitors: 0,
+                recipesAnalyzed: 0,
+                countriesReached: 0
+            });
+
+            const [usersByCountry, setUsersByCountry] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                const fetchMetrics = async () => {
+                    try {
+                        setLoading(true);
+
+                        const [overviewRes, countryRes] = await Promise.all([
+                            fetch('/api/metrics/overview'),
+                            fetch('/api/metrics/by-country')
+                        ]);
+
+                        if (!overviewRes.ok || !countryRes.ok) {
+                            throw new Error('Failed to fetch metrics');
+                        }
+
+                        const overviewData = await overviewRes.json();
+                        const countryData = await countryRes.json();
+
+                        // Animate counters
+                        const duration = 2000;
+                        const targetMetrics = {
+                            views: overviewData.totalViews || 0,
+                            uniqueVisitors: overviewData.uniqueVisitors || 0,
+                            recipesAnalyzed: overviewData.recipesAnalyzed || 0,
+                            countriesReached: overviewData.countriesReached || 0
+                        };
+
+                        const startTime = Date.now();
+                        const animate = () => {
+                            const elapsed = Date.now() - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+
+                            setMetrics({
+                                views: Math.floor(targetMetrics.views * progress),
+                                uniqueVisitors: Math.floor(targetMetrics.uniqueVisitors * progress),
+                                recipesAnalyzed: Math.floor(targetMetrics.recipesAnalyzed * progress),
+                                countriesReached: Math.floor(targetMetrics.countriesReached * progress)
+                            });
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animate);
+                            }
+                        };
+
+                        animate();
+                        setUsersByCountry(countryData.countries || []);
+                        setLoading(false);
+
+                    } catch (err) {
+                        console.error('Error fetching metrics:', err);
+                        setError('Unable to load metrics data. Please make sure the Flask app is running.');
+                        setLoading(false);
+                    }
+                };
+
+                fetchMetrics();
+            }, []);
+
+            const totalUsers = usersByCountry.reduce((sum, country) => sum + country.count, 0);
+            const getPercentage = (count) => totalUsers > 0 ? ((count / totalUsers) * 100).toFixed(1) : '0.0';
+
+            const getCountryFlag = (countryCode) => {
+                if (!countryCode || countryCode.length !== 3) return '🌍';
+                const iso2Map = {
+                    'NOR': '🇳🇴', 'USA': '🇺🇸', 'GBR': '🇬🇧', 'DEU': '🇩🇪', 'FRA': '🇫🇷',
+                    'CAN': '🇨🇦', 'AUS': '🇦🇺', 'SWE': '🇸🇪', 'NLD': '🇳🇱', 'DNK': '🇩🇰',
+                    'ESP': '🇪🇸', 'ITA': '🇮🇹', 'JPN': '🇯🇵', 'BRA': '🇧🇷', 'IND': '🇮🇳',
+                    'FIN': '🇫🇮', 'BEL': '🇧🇪', 'CHE': '🇨🇭', 'AUT': '🇦🇹', 'POL': '🇵🇱'
+                };
+                return iso2Map[countryCode] || '🌍';
+            };
+
+            if (loading) {
+                return h('div', { style: { textAlign: 'center', padding: '50px 0' } },
+                    h('div', {
+                        style: {
+                            display: 'inline-block',
+                            width: '50px',
+                            height: '50px',
+                            border: '4px solid rgb(231, 179, 106)',
+                            borderTopColor: 'rgb(145, 41, 10)',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite'
+                        }
+                    }),
+                    h('p', { style: { marginTop: '20px', color: 'rgb(145, 41, 10)' } }, 'Loading metrics...')
+                );
+            }
+
+            if (error) {
+                return h('div', {
+                    style: {
+                        backgroundColor: '#fee',
+                        border: '1px solid #fcc',
+                        borderRadius: '8px',
+                        padding: '20px',
+                        textAlign: 'center',
+                        color: '#c00'
+                    }
+                }, error);
+            }
+
+            return h('div', { style: { width: '100%', maxWidth: '1200px', margin: '0 auto' } },
+                // Metrics Cards
+                h('div', {
+                    style: {
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                        gap: '20px',
+                        marginBottom: '40px'
+                    }
+                },
+                    // Total Views Card
+                    h('div', {
+                        className: 'metric-card',
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(255, 237, 213), rgb(255, 228, 196))',
+                            borderRadius: '8px',
+                            padding: '25px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.3s ease',
+                            cursor: 'pointer'
+                        },
+                        onMouseEnter: (e) => e.currentTarget.style.transform = 'translateY(-5px)',
+                        onMouseLeave: (e) => e.currentTarget.style.transform = 'translateY(0)'
+                    },
+                        h('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '15px' } },
+                            h(Eye),
+                            h(TrendingUp)
+                        ),
+                        h('div', { style: { fontSize: '32px', fontWeight: 'bold', color: 'rgb(145, 41, 10)', marginBottom: '5px' } },
+                            metrics.views.toLocaleString()
+                        ),
+                        h('div', { style: { fontSize: '14px', color: 'rgb(145, 41, 10)' } }, 'Total Views')
+                    ),
+
+                    // Unique Visitors Card
+                    h('div', {
+                        className: 'metric-card',
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(255, 243, 224), rgb(255, 235, 205))',
+                            borderRadius: '8px',
+                            padding: '25px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.3s ease',
+                            cursor: 'pointer'
+                        },
+                        onMouseEnter: (e) => e.currentTarget.style.transform = 'translateY(-5px)',
+                        onMouseLeave: (e) => e.currentTarget.style.transform = 'translateY(0)'
+                    },
+                        h('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '15px' } },
+                            h(Users),
+                            h(TrendingUp)
+                        ),
+                        h('div', { style: { fontSize: '32px', fontWeight: 'bold', color: 'rgb(145, 41, 10)', marginBottom: '5px' } },
+                            metrics.uniqueVisitors.toLocaleString()
+                        ),
+                        h('div', { style: { fontSize: '14px', color: 'rgb(145, 41, 10)' } }, 'Unique Visitors')
+                    ),
+
+                    // Recipes Analyzed Card
+                    h('div', {
+                        className: 'metric-card',
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(255, 228, 196), rgb(255, 218, 185))',
+                            borderRadius: '8px',
+                            padding: '25px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.3s ease',
+                            cursor: 'pointer'
+                        },
+                        onMouseEnter: (e) => e.currentTarget.style.transform = 'translateY(-5px)',
+                        onMouseLeave: (e) => e.currentTarget.style.transform = 'translateY(0)'
+                    },
+                        h('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '15px' } },
+                            h(FileText),
+                            h(TrendingUp)
+                        ),
+                        h('div', { style: { fontSize: '32px', fontWeight: 'bold', color: 'rgb(145, 41, 10)', marginBottom: '5px' } },
+                            metrics.recipesAnalyzed.toLocaleString()
+                        ),
+                        h('div', { style: { fontSize: '14px', color: 'rgb(145, 41, 10)' } }, 'Recipes Analyzed')
+                    ),
+
+                    // Countries Reached Card
+                    h('div', {
+                        className: 'metric-card',
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(255, 235, 205), rgb(255, 222, 173))',
+                            borderRadius: '8px',
+                            padding: '25px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.3s ease',
+                            cursor: 'pointer'
+                        },
+                        onMouseEnter: (e) => e.currentTarget.style.transform = 'translateY(-5px)',
+                        onMouseLeave: (e) => e.currentTarget.style.transform = 'translateY(0)'
+                    },
+                        h('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '15px' } },
+                            h(Globe),
+                            h(TrendingUp)
+                        ),
+                        h('div', { style: { fontSize: '32px', fontWeight: 'bold', color: 'rgb(145, 41, 10)', marginBottom: '5px' } },
+                            metrics.countriesReached
+                        ),
+                        h('div', { style: { fontSize: '14px', color: 'rgb(145, 41, 10)' } }, 'Countries Reached')
+                    )
+                ),
+
+                // Users by Country Section
+                usersByCountry.length > 0 && h('div', {
+                    style: {
+                        backgroundColor: 'white',
+                        borderRadius: '8px',
+                        padding: '30px',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                        marginBottom: '40px'
+                    }
+                },
+                    h('h3', {
+                        style: {
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            color: 'rgb(145, 41, 10)',
+                            marginBottom: '20px'
+                        }
+                    }, 'Users by Country'),
+
+                    h('div', {
+                        style: {
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                            gap: '15px'
+                        }
+                    },
+                        ...usersByCountry.map((country, index) => {
+                            const percentage = getPercentage(country.count);
+
+                            return h('div', {
+                                key: index,
+                                style: {
+                                    backgroundColor: 'rgb(255, 243, 224)',
+                                    borderRadius: '8px',
+                                    padding: '15px',
+                                    transition: 'background-color 0.3s ease',
+                                    cursor: 'pointer'
+                                },
+                                onMouseEnter: (e) => e.currentTarget.style.backgroundColor = 'rgb(255, 235, 205)',
+                                onMouseLeave: (e) => e.currentTarget.style.backgroundColor = 'rgb(255, 243, 224)'
+                            },
+                                h('div', {
+                                    style: {
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginBottom: '10px'
+                                    }
+                                },
+                                    h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
+                                        h('span', { style: { fontSize: '24px' } }, getCountryFlag(country.countryCode)),
+                                        h('div', null,
+                                            h('div', {
+                                                style: {
+                                                    fontWeight: 'bold',
+                                                    color: 'rgb(145, 41, 10)'
+                                                }
+                                            }, country.country),
+                                            h('div', {
+                                                style: {
+                                                    fontSize: '14px',
+                                                    color: 'rgb(145, 41, 10)'
+                                                }
+                                            }, `${country.count} users (${percentage}%)`)
+                                        )
+                                    ),
+                                    h('div', {
+                                        style: {
+                                            fontSize: '14px',
+                                            fontWeight: 'bold',
+                                            color: 'rgb(145, 41, 10)'
+                                        }
+                                    }, `#${index + 1}`)
+                                ),
+
+                                // Progress bar
+                                h('div', {
+                                    style: {
+                                        width: '100%',
+                                        height: '8px',
+                                        backgroundColor: 'rgb(231, 179, 106)',
+                                        borderRadius: '4px',
+                                        overflow: 'hidden'
+                                    }
+                                },
+                                    h('div', {
+                                        style: {
+                                            width: `${percentage}%`,
+                                            height: '100%',
+                                            backgroundColor: 'rgb(145, 41, 10)',
+                                            transition: 'width 1s ease-out'
+                                        }
+                                    })
+                                )
+                            );
+                        })
+                    )
+                ),
+
+                // Impact Statement
+                h('div', {
+                    style: {
+                        background: 'linear-gradient(135deg, rgb(255, 235, 205), rgb(255, 222, 173))',
+                        borderRadius: '8px',
+                        padding: '40px',
+                        textAlign: 'center'
+                    }
+                },
+                    h('h3', {
+                        style: {
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            color: 'rgb(145, 41, 10)',
+                            marginBottom: '15px'
+                        }
+                    }, 'Making a Global Impact'),
+                    h('p', {
+                        style: {
+                            fontSize: '18px',
+                            color: 'rgb(145, 41, 10)',
+                            maxWidth: '800px',
+                            margin: '0 auto',
+                            lineHeight: '1.6'
+                        }
+                    }, `Together, our users have analyzed over ${metrics.recipesAnalyzed.toLocaleString()} recipes, helping promote sustainable food choices across ${metrics.countriesReached} countries. Join our growing community in making environmentally conscious cooking decisions.`)
+                )
+            );
+        }
+
+        // Mount the React component when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const rootElement = document.getElementById('metrics-root');
+            if (rootElement) {
+                const root = ReactDOM.createRoot(rootElement);
+                root.render(React.createElement(MetricsSection));
+            }
+        });
+    </script>
+
+</body>
+</html>

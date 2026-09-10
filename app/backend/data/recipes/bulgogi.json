@@ -1,0 +1,136 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Bulgogi (Korean BBQ Beef)",
+  "author": "Korean Bapsang",
+  "datePublished": "2019-04-14",
+  "category": [
+    "Main Dishes",
+    "Beef"
+  ],
+  "description": "Classic Korean marinated beef made with soy sauce, garlic, sesame oil, and vegetables.",
+  "url": "https://www.koreanbapsang.com/bulgogi-korean-bbq-beef/",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Thinly sliced beef",
+      "details": {
+        "amount": 2.0,
+        "unit": "pounds",
+        "originalText": "2 pounds thinly-sliced beef"
+      }
+    },
+    {
+      "mainIngredient": "Scallions",
+      "details": {
+        "amount": 3.0,
+        "unit": "unit",
+        "originalText": "3 scallions"
+      }
+    },
+    {
+      "mainIngredient": "Onion",
+      "details": {
+        "amount": 1.0,
+        "unit": "unit",
+        "originalText": "1 small onion"
+      }
+    },
+    {
+      "mainIngredient": "Carrot",
+      "details": {
+        "amount": 1.0,
+        "unit": "unit",
+        "originalText": "1 small carrot"
+      }
+    },
+    {
+      "mainIngredient": "Soy sauce",
+      "details": {
+        "amount": 6.0,
+        "unit": "tablespoons",
+        "originalText": "6 tablespoons soy sauce"
+      }
+    },
+    {
+      "mainIngredient": "Water",
+      "details": {
+        "amount": 3.0,
+        "unit": "tablespoons",
+        "originalText": "3 tablespoons water"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 4.0,
+        "unit": "tablespoons",
+        "originalText": "4 tablespoons sugar"
+      }
+    },
+    {
+      "mainIngredient": "Rice wine",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons rice wine or mirin"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons minced garlic"
+      }
+    },
+    {
+      "mainIngredient": "Sesame oil",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons sesame oil"
+      }
+    },
+    {
+      "mainIngredient": "Sesame seeds",
+      "details": {
+        "amount": 2.0,
+        "unit": "teaspoons",
+        "originalText": "2 teaspoons sesame seeds"
+      }
+    },
+    {
+      "mainIngredient": "Pear",
+      "details": {
+        "amount": 0.5,
+        "unit": "unit",
+        "originalText": "1/2 Korean pear or apple"
+      }
+    },
+    {
+      "mainIngredient": "Black pepper",
+      "details": {
+        "amount": 0.125,
+        "unit": "teaspoon",
+        "originalText": "1/8 teaspoon pepper"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Mix the marinade ingredients together."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Combine the beef and vegetables with the marinade and let it rest."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Cook the marinated beef on a grill or in a hot pan until lightly caramelized."
+    }
+  ],
+  "recipeYield": "4",
+  "prepTime": "10 Minutes",
+  "image": "Korean-Beef-Bulgogi.jpg"
+}

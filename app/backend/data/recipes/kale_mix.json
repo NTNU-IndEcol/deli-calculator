@@ -1,0 +1,125 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Kale mixed Salad",
+  "author": "Kristianne",
+  "datePublished": "2020-02-29T05:00:17+00:00",
+  "category": [
+    "Salad"
+  ],
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Kale",
+      "details": {
+        "amount": 65,
+        "unit": "g",
+        "originalText": "65 g chopped kale"
+      }
+    },
+    {
+      "mainIngredient": "Shredded carrots",
+      "details": {
+        "amount": 15,
+        "unit": "g",
+        "originalText": "15 g shredded carrots"
+      }
+    },
+    {
+      "mainIngredient": "Shredded red cabbage",
+      "details": {
+        "amount": 15,
+        "unit": "g",
+        "originalText": "17 g shredded red cabbage"
+      }
+    },
+    {
+      "mainIngredient": "Beetroot",
+      "details": {
+        "amount": 20,
+        "unit": "g",
+        "originalText": "20 g shredded beetroot"
+      }
+    },
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 3,
+        "unit": "tbsp",
+        "originalText": "3 tbsp olive oil"
+      }
+    },
+    {
+      "mainIngredient": "Apple cider vinegar",
+      "details": {
+        "amount": 1.0,
+        "unit": "tbsp",
+        "originalText": "1 tbsp apple cider vinegar"
+      }
+    },
+    {
+      "mainIngredient": "Balsamic vinegar",
+      "details": {
+        "amount": 1.0,
+        "unit": "tbsp",
+        "originalText": "1 tbsp balsamic vinegar"
+      }
+    },
+    {
+      "mainIngredient": "Mustard",
+      "details": {
+        "amount": 1.0,
+        "unit": "tsp",
+        "originalText": "1 tsp mustard"
+      }
+    },
+    {
+      "mainIngredient": "Honey",
+      "details": {
+        "amount": 0.5,
+        "unit": "tbsp",
+        "originalText": "1 tbsp honey"
+      }
+    },
+    {
+      "mainIngredient": "Paprika",
+      "details": {
+        "amount": 0.5,
+        "unit": "g",
+        "originalText": "1 tbsp honey"
+      }
+    },
+
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 1,
+        "unit": "g",
+        "originalText": "Salt and pepper to taste"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Add all of the dressing ingredients to a large bowl and mix well."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Add the kale, carrots, cabbage and pistachios and toss together with the dressing."
+    }
+  ],
+  "recipeYield": [
+    "4"
+  ],
+  "servings": 1,
+  "prepTime": "PT10M",
+  "time": 10,
+  "image": "kale-cabbage-pistachio-salad.jpg",
+  "description": "This kale mixed salad is easy to make by blending canned kale, carot, cabbage, red cabbage and beetroot.",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  },
+  "sourceUrl": "https://www.thecookingrx.com/kale-red-cabbage-and-carrot-salad/",
+  "extractedAt": "2026-01-20"
+}

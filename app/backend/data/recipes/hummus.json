@@ -1,0 +1,92 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Best Hummus",
+  "author": "Reman9981",
+  "datePublished": "2019-07-10T03:04:12.000-04:00",
+  "category": [
+    "Appetizer",
+    "Snack"
+  ],
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Chickpeas",
+      "details": {
+        "amount": 60,
+        "unit": "g",
+        "originalText": "1 (15 ounce) can garbanzo beans (chickpeas), drained"
+      }
+    },
+    {
+      "mainIngredient": "Fresh lemon juice",
+      "details": {
+        "amount": 1.0,
+        "unit": "tablespoon",
+        "originalText": "1 tablespoon fresh lemon juice"
+      }
+    },
+    {
+      "mainIngredient": "Garlic",
+      "details": {
+        "amount": 3.0,
+        "unit": "cloves",
+        "originalText": "3 cloves garlic, crushed"
+      }
+    },
+
+    {
+      "mainIngredient": "Olive oil",
+      "details": {
+        "amount": 2.0,
+        "unit": "tablespoons",
+        "originalText": "2 tablespoons olive oil"
+      }
+    },
+
+    {
+      "mainIngredient": "Salt",
+      "details": {
+        "amount": 2,
+        "unit": "g",
+        "originalText": "0.25 g salt"
+      }
+    },
+
+    {
+      "mainIngredient": "Water",
+      "details": {
+        "amount": 0.25,
+        "unit": "cup",
+        "originalText": "0.25 cup water"
+      }
+    },
+    {
+      "mainIngredient": "Paprika",
+      "details": {
+        "amount": 2,
+        "unit": "g",
+        "originalText": "2 g paprika"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Place chickpeas, tahini, olive oil, lemon juice, water, garlic, and cumin into a food processor and process until smooth, about 1 minute. Transfer to a bowl and sprinkle top of hummus with paprika and fresh parsley."
+    }
+  ],
+  
+  "recipeYield": "2 cups",
+  "prepTime": "10 min",
+  "totalTime": "10 min",
+  "servings": 8,
+  "time": 20,
+  "image": "best-hummus.jpg",
+  "description": "This hummus recipe is easy to make by blending canned chickpeas, lemon juice,  garlic, olive oil, salt and pepper.",
+  "environmentalImpact": {
+    "co2Emissions": null,
+    "waterUse": null
+  },
+  "sourceUrl": "https://www.allrecipes.com/recipe/231081/best-hummus/",
+  "extractedAt": "2026-01-20"
+}

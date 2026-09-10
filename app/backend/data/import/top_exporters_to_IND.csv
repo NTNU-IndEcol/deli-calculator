@@ -1,0 +1,1529 @@
+Country,Commodity,Export_Value,Rank
+India,c001,13644486.0,1
+Viet Nam,c001,97.0,2
+Thailand,c001,87.0,3
+Pakistan,c001,63.0,4
+"China, mainland",c001,37.0,5
+United States of America,c001,37.0,6
+Myanmar,c001,29.0,7
+Brazil,c001,17.0,8
+Uruguay,c001,14.0,9
+Cambodia,c001,11.0,10
+Paraguay,c001,11.0,11
+Italy,c001,10.0,12
+Guyana,c001,9.0,13
+Argentina,c001,5.0,14
+United Republic of Tanzania,c001,5.0,15
+Spain,c001,3.0,16
+"China, Taiwan Province of",c001,3.0,17
+Turkey,c001,2.0,18
+Greece,c001,1.0,19
+Kazakhstan,c001,1.0,20
+India,c002,16052818.0,1
+Russian Federation,c002,4408.0,2
+Canada,c002,3018.0,3
+United States of America,c002,2803.0,4
+France,c002,2354.0,5
+Ukraine,c002,1988.0,6
+Argentina,c002,1287.0,7
+Australia,c002,1169.0,8
+Germany,c002,1157.0,9
+Kazakhstan,c002,783.0,10
+Poland,c002,620.0,11
+Lithuania,c002,477.0,12
+Romania,c002,398.0,13
+Bulgaria,c002,388.0,14
+Hungary,c002,374.0,15
+Turkey,c002,370.0,16
+Czech Republic,c002,308.0,17
+Latvia,c002,286.0,18
+Italy,c002,253.0,19
+United Kingdom,c002,174.0,20
+India,c003,595599.0,1
+France,c003,4582.0,2
+Russian Federation,c003,2904.0,3
+Australia,c003,2880.0,4
+Ukraine,c003,2532.0,5
+Canada,c003,1938.0,6
+Germany,c003,1649.0,7
+Argentina,c003,1583.0,8
+United Kingdom,c003,999.0,9
+Kazakhstan,c003,547.0,10
+Denmark,c003,515.0,11
+Hungary,c003,474.0,12
+Romania,c003,428.0,13
+Czech Republic,c003,328.0,14
+United States of America,c003,321.0,15
+Sweden,c003,311.0,16
+Uruguay,c003,290.0,17
+Lithuania,c003,241.0,18
+Slovakia,c003,207.0,19
+Poland,c003,196.0,20
+India,c004,18845644.0,1
+United States of America,c004,51406.0,2
+Argentina,c004,36052.0,3
+Brazil,c004,33629.0,4
+Ukraine,c004,21297.0,5
+Romania,c004,4910.0,6
+France,c004,4258.0,7
+Hungary,c004,3961.0,8
+Serbia,c004,3611.0,9
+South Africa,c004,3300.0,10
+Bulgaria,c004,2527.0,11
+Russian Federation,c004,2267.0,12
+Paraguay,c004,2070.0,13
+Poland,c004,1439.0,14
+Croatia,c004,1137.0,15
+Canada,c004,1097.0,16
+"China, mainland",c004,979.0,17
+Myanmar,c004,910.0,18
+Slovakia,c004,573.0,19
+Turkey,c004,519.0,20
+Germany,c005,2828047.0,1
+Poland,c005,1639520.0,2
+Russian Federation,c005,1197160.0,3
+Belarus,c005,887290.0,4
+Denmark,c005,674173.0,5
+"China, mainland",c005,421000.0,6
+Spain,c005,353710.0,7
+Canada,c005,286023.0,8
+Argentina,c005,220999.0,9
+Ukraine,c005,168958.0,10
+United States of America,c005,156225.0,11
+Latvia,c005,127881.0,12
+Austria,c005,120007.0,13
+France,c005,101516.0,14
+Turkey,c005,95960.0,15
+Hungary,c005,68247.0,16
+Czech Republic,c005,64890.0,17
+Lithuania,c005,64831.0,18
+Sweden,c005,47123.0,19
+Estonia,c005,44666.0,20
+Canada,c006,13986.0,1
+Finland,c006,2540.0,2
+Australia,c006,2122.0,3
+Chile,c006,1724.0,4
+United Kingdom,c006,1073.0,5
+Sweden,c006,1032.0,6
+Poland,c006,866.0,7
+Germany,c006,864.0,8
+Latvia,c006,765.0,9
+Russian Federation,c006,712.0,10
+Lithuania,c006,532.0,11
+Estonia,c006,393.0,12
+France,c006,358.0,13
+Spain,c006,312.0,14
+Denmark,c006,261.0,15
+Czech Republic,c006,223.0,16
+United States of America,c006,190.0,17
+Ukraine,c006,175.0,18
+Bulgaria,c006,154.0,19
+Ireland,c006,134.0,20
+India,c007,2029263.0,1
+India,c008,870693.0,1
+Poland,c009,8350897.0,1
+Germany,c009,2276712.0,2
+France,c009,2006143.0,3
+Belarus,c009,1549796.0,4
+"China, mainland",c009,1527161.0,5
+Spain,c009,1260269.0,6
+Russian Federation,c009,897105.0,7
+Lithuania,c009,597095.0,8
+Turkey,c009,539734.0,9
+Hungary,c009,498892.0,10
+Canada,c009,472574.0,11
+Ethiopia,c009,433131.0,12
+Austria,c009,390099.0,13
+Kazakhstan,c009,384368.0,14
+Thailand,c009,327800.0,15
+Czech Republic,c009,292489.0,16
+Romania,c009,254244.0,17
+Sweden,c009,239393.0,18
+Argentina,c009,199000.0,19
+Belgium,c009,175233.0,20
+India,c010,15917348.0,1
+Netherlands,c010,1048.0,2
+Germany,c010,1013.0,3
+United States of America,c010,743.0,4
+Belgium,c010,699.0,5
+France,c010,644.0,6
+Canada,c010,505.0,7
+Poland,c010,256.0,8
+Egypt,c010,150.0,9
+"China, mainland",c010,137.0,10
+Argentina,c010,111.0,11
+Pakistan,c010,92.0,12
+Belarus,c010,89.0,13
+United Kingdom,c010,73.0,14
+Denmark,c010,70.0,15
+Spain,c010,54.0,16
+South Africa,c010,49.0,17
+Turkey,c010,48.0,18
+Iran (Islamic Republic of),c010,34.0,19
+Israel,c010,31.0,20
+India,c011,312345.0,1
+Thailand,c011,984.0,2
+Viet Nam,c011,472.0,3
+Lao People's Democratic Republic,c011,99.0,4
+Indonesia,c011,23.0,5
+Cambodia,c011,16.0,6
+Brazil,c011,7.0,7
+Paraguay,c011,6.0,8
+Costa Rica,c011,3.0,9
+Nicaragua,c011,2.0,10
+United Republic of Tanzania,c011,2.0,11
+Sri Lanka,c011,1.0,12
+"China, mainland",c011,1.0,13
+Ghana,c011,1.0,14
+Nigeria,c011,1.0,15
+Peru,c011,1.0,16
+Uganda,c011,1.0,17
+India,c012,115076.0,1
+Lao People's Democratic Republic,c013,3577530.0,1
+Nigeria,c013,961874.0,2
+Cameroon,c013,915038.0,3
+Ethiopia,c013,823441.0,4
+Ghana,c013,403943.0,5
+"China, mainland",c013,334663.0,6
+Democratic Republic of the Congo,c013,217546.0,7
+Madagascar,c013,113432.0,8
+Namibia,c013,84362.0,9
+Colombia,c013,72940.0,10
+Peru,c013,67152.0,11
+Cuba,c013,66876.0,12
+Indonesia,c013,60145.0,13
+Mexico,c013,58359.0,14
+Papua New Guinea,c013,50001.0,15
+Pakistan,c013,48395.0,16
+Nicaragua,c013,47170.0,17
+Guinea,c013,42963.0,18
+Japan,c013,39204.0,19
+Gabon,c013,38836.0,20
+Nigeria,c014,25143059.0,1
+Côte d'Ivoire,c014,2597759.0,2
+Ghana,c014,2151594.0,3
+Benin,c014,1395408.0,4
+Togo,c014,216560.0,5
+Chad,c014,157002.0,6
+Cameroon,c014,139996.0,7
+Brazil,c014,120704.0,8
+Central African Republic,c014,81000.0,9
+Gabon,c014,70738.0,10
+Guinea,c014,62950.0,11
+Colombia,c014,44500.0,12
+Papua New Guinea,c014,28000.0,13
+Jamaica,c014,26804.0,14
+Haiti,c014,24620.0,15
+Japan,c014,21788.0,16
+Democratic Republic of the Congo,c014,19873.0,17
+Burkina Faso,c014,15999.0,18
+Mali,c014,13152.0,19
+Rwanda,c014,13001.0,20
+India,c015,350428918.0,1
+Russian Federation,c016,39353891.0,1
+Germany,c016,28206564.0,2
+United States of America,c016,26460729.0,3
+France,c016,25996243.0,4
+Turkey,c016,21405334.0,5
+Poland,c016,14719223.0,6
+Egypt,c016,11805000.0,7
+"China, mainland",c016,10029888.0,8
+Ukraine,c016,9149999.0,9
+Netherlands,c016,6806893.0,10
+United Kingdom,c016,5635000.0,11
+Iran (Islamic Republic of),c016,5420058.0,12
+Belgium,c016,4816410.0,13
+Belarus,c016,4526922.0,14
+Japan,c016,3889223.0,15
+Czech Republic,c016,3601236.0,16
+Morocco,c016,3083052.0,17
+Denmark,c016,2438616.0,18
+Austria,c016,2116000.0,19
+Spain,c016,2037889.0,20
+India,c017,877254.0,1
+Myanmar,c017,24483.0,2
+Argentina,c017,8764.0,3
+United States of America,c017,8428.0,4
+Canada,c017,7006.0,5
+"China, mainland",c017,5629.0,6
+Ethiopia,c017,3086.0,7
+Brazil,c017,2941.0,8
+Kyrgyzstan,c017,2036.0,9
+Nicaragua,c017,2003.0,10
+Uganda,c017,1493.0,11
+Turkey,c017,1445.0,12
+United Republic of Tanzania,c017,1388.0,13
+Australia,c017,1186.0,14
+Egypt,c017,1020.0,15
+Indonesia,c017,706.0,16
+Madagascar,c017,705.0,17
+Mozambique,c017,580.0,18
+Kenya,c017,498.0,19
+Thailand,c017,411.0,20
+India,c018,105409.0,1
+Canada,c018,6459.0,2
+Russian Federation,c018,1221.0,3
+United States of America,c018,808.0,4
+Ukraine,c018,649.0,5
+France,c018,391.0,6
+Lithuania,c018,238.0,7
+Estonia,c018,118.0,8
+Kazakhstan,c018,98.0,9
+Argentina,c018,95.0,10
+Australia,c018,90.0,11
+Czech Republic,c018,44.0,12
+Germany,c018,42.0,13
+Latvia,c018,40.0,14
+Malawi,c018,36.0,15
+Sweden,c018,36.0,16
+Hungary,c018,29.0,17
+New Zealand,c018,29.0,18
+United Kingdom,c018,19.0,19
+Denmark,c018,18.0,20
+India,c019,3205277.0,1
+Canada,c019,138455.0,2
+Australia,c019,61081.0,3
+United States of America,c019,22688.0,4
+Turkey,c019,16897.0,5
+Russian Federation,c019,14829.0,6
+United Republic of Tanzania,c019,14039.0,7
+Lithuania,c019,6168.0,8
+Argentina,c019,5772.0,9
+Latvia,c019,3833.0,10
+Mexico,c019,3774.0,11
+Ethiopia,c019,2824.0,12
+Germany,c019,2821.0,13
+France,c019,2720.0,14
+United Kingdom,c019,2587.0,15
+"China, mainland",c019,2131.0,16
+Kazakhstan,c019,2068.0,17
+Kenya,c019,1937.0,18
+Poland,c019,1539.0,19
+United Arab Emirates,c019,1332.0,20
+India,c020,43149.0,1
+United States of America,c020,2148.0,2
+Côte d'Ivoire,c020,1305.0,3
+Turkey,c020,832.0,4
+Viet Nam,c020,646.0,5
+United Republic of Tanzania,c020,561.0,6
+"China, mainland",c020,472.0,7
+Spain,c020,456.0,8
+Chile,c020,293.0,9
+Indonesia,c020,270.0,10
+Australia,c020,247.0,11
+Mexico,c020,230.0,12
+Iran (Islamic Republic of),c020,214.0,13
+Nigeria,c020,190.0,14
+Guinea-Bissau,c020,175.0,15
+Ghana,c020,167.0,16
+Benin,c020,149.0,17
+Mozambique,c020,134.0,18
+Italy,c020,130.0,19
+Myanmar,c020,127.0,20
+India,c021,11239028.0,1
+Brazil,c021,199101.0,2
+United States of America,c021,177872.0,3
+Paraguay,c021,19709.0,4
+Argentina,c021,17597.0,5
+Canada,c021,12573.0,6
+Uruguay,c021,5353.0,7
+Ukraine,c021,4053.0,8
+Russian Federation,c021,2464.0,9
+Croatia,c021,756.0,10
+Serbia,c021,747.0,11
+Romania,c021,282.0,12
+Slovakia,c021,247.0,13
+France,c021,229.0,14
+Ethiopia,c021,203.0,15
+Austria,c021,184.0,16
+Hungary,c021,156.0,17
+"China, mainland",c021,147.0,18
+Kazakhstan,c021,118.0,19
+Mozambique,c021,109.0,20
+India,c022,2919509.0,1
+Argentina,c022,110.0,2
+United States of America,c022,91.0,3
+"China, mainland",c022,76.0,4
+Sudan,c022,53.0,5
+Brazil,c022,43.0,6
+Senegal,c022,43.0,7
+Myanmar,c022,11.0,8
+Nicaragua,c022,11.0,9
+Malawi,c022,8.0,10
+United Republic of Tanzania,c022,7.0,11
+Viet Nam,c022,7.0,12
+Benin,c022,5.0,13
+Egypt,c022,5.0,14
+Madagascar,c022,4.0,15
+Bolivia (Plurinational State of),c022,2.0,16
+Uzbekistan,c022,2.0,17
+Lao People's Democratic Republic,c022,1.0,18
+India,c023,212846.0,1
+Romania,c023,651.0,2
+Bulgaria,c023,276.0,3
+"China, mainland",c023,226.0,4
+Republic of Moldova,c023,179.0,5
+France,c023,174.0,6
+Hungary,c023,156.0,7
+Kazakhstan,c023,111.0,8
+Argentina,c023,98.0,9
+Serbia,c023,67.0,10
+Slovakia,c023,47.0,11
+Turkey,c023,41.0,12
+United States of America,c023,28.0,13
+Croatia,c023,24.0,14
+Canada,c023,17.0,15
+Spain,c023,13.0,16
+Greece,c023,10.0,17
+Austria,c023,4.0,18
+Lithuania,c023,3.0,19
+Germany,c023,2.0,20
+India,c024,8198610.0,1
+India,c025,17731050.0,1
+India,c026,4687828.0,1
+Indonesia,c026,14306.0,2
+Philippines,c026,6573.0,3
+Papua New Guinea,c026,1559.0,4
+Viet Nam,c026,1481.0,5
+Thailand,c026,1447.0,6
+Sri Lanka,c026,1313.0,7
+Dominican Republic,c026,444.0,8
+Vanuatu,c026,405.0,9
+Malaysia,c026,367.0,10
+Ghana,c026,135.0,11
+Mexico,c026,96.0,12
+Costa Rica,c026,69.0,13
+Guyana,c026,69.0,14
+Côte d'Ivoire,c026,46.0,15
+Nicaragua,c026,35.0,16
+Venezuela (Bolivarian Republic of),c026,26.0,17
+Kiribati,c026,21.0,18
+Timor-Leste,c026,21.0,19
+Peru,c026,13.0,20
+India,c027,223800.0,1
+Sudan,c027,12259.0,2
+Nigeria,c027,6736.0,3
+Ethiopia,c027,6129.0,4
+United Republic of Tanzania,c027,3990.0,5
+Myanmar,c027,3436.0,6
+Brazil,c027,1701.0,7
+Burkina Faso,c027,1510.0,8
+Chad,c027,1389.0,9
+Mozambique,c027,1315.0,10
+Paraguay,c027,870.0,11
+Pakistan,c027,819.0,12
+Mali,c027,793.0,13
+Uganda,c027,719.0,14
+"China, mainland",c027,554.0,15
+Egypt,c027,444.0,16
+Somalia,c027,420.0,17
+Bangladesh,c027,346.0,18
+Guatemala,c027,285.0,19
+Bolivia (Plurinational State of),c027,248.0,20
+Indonesia,c028,250039391.0,1
+Malaysia,c028,96081856.0,2
+Thailand,c028,13025435.0,3
+Nigeria,c028,9986154.0,4
+Colombia,c028,6166162.0,5
+Cameroon,c028,3030895.0,6
+Guatemala,c028,2893542.0,7
+Papua New Guinea,c028,2747356.0,8
+Ghana,c028,2680152.0,9
+Honduras,c028,2532326.0,10
+Ecuador,c028,2478628.0,11
+Brazil,c028,2348009.0,12
+Côte d'Ivoire,c028,2102950.0,13
+Democratic Republic of the Congo,c028,2011213.0,14
+Mexico,c028,1556027.0,15
+Costa Rica,c028,1135187.0,16
+Peru,c028,945058.0,17
+Guinea,c028,885400.0,18
+"China, mainland",c028,667135.0,19
+Benin,c028,666667.0,20
+Spain,c029,7646702.0,1
+Greece,c029,2107151.0,2
+Italy,c029,2048434.0,3
+Tunisia,c029,1968000.0,4
+Morocco,c029,1393711.0,5
+Turkey,c029,1286646.0,6
+Algeria,c029,780459.0,7
+Syrian Arab Republic,c029,664890.0,8
+Portugal,c029,597363.0,9
+Argentina,c029,251931.0,10
+Egypt,c029,135208.0,11
+Jordan,c029,132046.0,12
+Chile,c029,114485.0,13
+Albania,c029,100534.0,14
+Lebanon,c029,90667.0,15
+Libya,c029,89419.0,16
+Israel,c029,75778.0,17
+RoW,c029,72040.0,18
+Iran (Islamic Republic of),c029,48000.0,19
+Peru,c029,40037.0,20
+India,c030,2516876.0,1
+Russian Federation,c030,17444.0,2
+Kazakhstan,c030,16240.0,3
+Canada,c030,14604.0,4
+Italy,c030,4510.0,5
+Burkina Faso,c030,3382.0,6
+Bolivia (Plurinational State of),c030,2434.0,7
+"China, mainland",c030,2392.0,8
+Benin,c030,2010.0,9
+Sudan,c030,1719.0,10
+United States of America,c030,832.0,11
+Serbia,c030,685.0,12
+Austria,c030,615.0,13
+Poland,c030,578.0,14
+Ukraine,c030,534.0,15
+United Kingdom,c030,529.0,16
+Czech Republic,c030,458.0,17
+Ethiopia,c030,389.0,18
+France,c030,360.0,19
+Hungary,c030,347.0,20
+India,c031,1719051.0,1
+Italy,c031,989.0,2
+"China, mainland",c031,590.0,3
+Spain,c031,553.0,4
+Mexico,c031,298.0,5
+Turkey,c031,245.0,6
+Portugal,c031,211.0,7
+United States of America,c031,192.0,8
+Iran (Islamic Republic of),c031,156.0,9
+Morocco,c031,98.0,10
+Chile,c031,86.0,11
+Netherlands,c031,84.0,12
+Greece,c031,48.0,13
+Ukraine,c031,43.0,14
+Azerbaijan,c031,32.0,15
+Jordan,c031,32.0,16
+Egypt,c031,21.0,17
+France,c031,17.0,18
+Canada,c031,16.0,19
+Russian Federation,c031,16.0,20
+India,c032,2236962.0,1
+Netherlands,c032,2501.0,2
+"China, mainland",c032,1424.0,3
+Iran (Islamic Republic of),c032,797.0,4
+Mexico,c032,655.0,5
+Egypt,c032,611.0,6
+Spain,c032,545.0,7
+United States of America,c032,539.0,8
+Pakistan,c032,464.0,9
+Peru,c032,414.0,10
+Turkey,c032,357.0,11
+Uzbekistan,c032,340.0,12
+Argentina,c032,303.0,13
+Poland,c032,206.0,14
+South Africa,c032,190.0,15
+France,c032,148.0,16
+Yemen,c032,140.0,17
+Afghanistan,c032,138.0,18
+Niger,c032,137.0,19
+Russian Federation,c032,91.0,20
+India,c033,7770804.0,1
+"China, mainland",c033,501.0,2
+Spain,c033,290.0,3
+Mexico,c033,284.0,4
+United States of America,c033,118.0,5
+Netherlands,c033,104.0,6
+Italy,c033,69.0,7
+Iran (Islamic Republic of),c033,59.0,8
+Belgium,c033,54.0,9
+Turkey,c033,53.0,10
+France,c033,48.0,11
+Guatemala,c033,38.0,12
+Morocco,c033,38.0,13
+Poland,c033,38.0,14
+Egypt,c033,34.0,15
+Hungary,c033,25.0,16
+Germany,c033,24.0,17
+New Zealand,c033,22.0,18
+Thailand,c033,22.0,19
+Uzbekistan,c033,22.0,20
+India,c034,819486.0,1
+Brazil,c034,1415.0,2
+Spain,c034,508.0,3
+South Africa,c034,272.0,4
+Egypt,c034,263.0,5
+Turkey,c034,175.0,6
+"China, mainland",c034,117.0,7
+United States of America,c034,106.0,8
+Morocco,c034,86.0,9
+Greece,c034,82.0,10
+Pakistan,c034,78.0,11
+Mexico,c034,61.0,12
+Italy,c034,44.0,13
+Peru,c034,37.0,14
+Chile,c034,36.0,15
+Australia,c034,34.0,16
+Argentina,c034,26.0,17
+Costa Rica,c034,26.0,18
+Israel,c034,26.0,19
+Portugal,c034,16.0,20
+India,c035,311000.0,1
+"China, mainland",c036,543380.0,1
+South Africa,c036,47636.0,2
+United States of America,c036,45701.0,3
+Mexico,c036,42870.0,4
+Viet Nam,c036,25657.0,5
+Thailand,c036,24910.0,6
+Sudan,c036,22000.0,7
+Turkey,c036,15267.0,8
+Brazil,c036,12000.0,9
+Israel,c036,10332.0,10
+Iran (Islamic Republic of),c036,8000.0,11
+Tunisia,c036,8000.0,12
+Argentina,c036,7757.0,13
+Bangladesh,c036,7000.0,14
+"China, Taiwan Province of",c036,6790.0,15
+Spain,c036,5649.0,16
+Paraguay,c036,4335.0,17
+Eswatini,c036,4324.0,18
+Syrian Arab Republic,c036,4007.0,19
+Haiti,c036,4000.0,20
+India,c037,34000.0,1
+India,c038,6301000.0,1
+Cameroon,c039,2919089.0,1
+Democratic Republic of the Congo,c039,943564.0,2
+Uganda,c039,942406.0,3
+Colombia,c039,473947.0,4
+Côte d'Ivoire,c039,379662.0,5
+Ghana,c039,376156.0,6
+Philippines,c039,260035.0,7
+Nigeria,c039,258000.0,8
+Myanmar,c039,218022.0,9
+United Republic of Tanzania,c039,165183.0,10
+Bolivia (Plurinational State of),c039,155251.0,11
+Dominican Republic,c039,99343.0,12
+Venezuela (Bolivarian Republic of),c039,98777.0,13
+Sri Lanka,c039,82739.0,14
+Gabon,c039,80000.0,15
+Haiti,c039,79863.0,16
+Rwanda,c039,76000.0,17
+Nicaragua,c039,74092.0,18
+Central African Republic,c039,53856.0,19
+Guinea,c039,41000.0,20
+India,c040,230329.0,1
+Poland,c040,1904.0,2
+"China, mainland",c040,1271.0,3
+Italy,c040,974.0,4
+Chile,c040,771.0,5
+Turkey,c040,661.0,6
+South Africa,c040,406.0,7
+United States of America,c040,401.0,8
+Republic of Moldova,c040,371.0,9
+Iran (Islamic Republic of),c040,349.0,10
+New Zealand,c040,322.0,11
+France,c040,256.0,12
+Argentina,c040,203.0,13
+Spain,c040,194.0,14
+Germany,c040,172.0,15
+Austria,c040,142.0,16
+Serbia,c040,141.0,17
+Hungary,c040,129.0,18
+Ukraine,c040,89.0,19
+Portugal,c040,87.0,20
+India,c041,150813.0,1
+Philippines,c041,63.0,2
+Costa Rica,c041,60.0,3
+Thailand,c041,20.0,4
+Indonesia,c041,14.0,5
+Kenya,c041,5.0,6
+Guatemala,c041,3.0,7
+South Africa,c041,3.0,8
+Ecuador,c041,2.0,9
+Honduras,c041,2.0,10
+Lebanon,c041,2.0,11
+Viet Nam,c041,2.0,12
+Brazil,c041,1.0,13
+"China, mainland",c041,1.0,14
+Benin,c041,1.0,15
+Ghana,c041,1.0,16
+Côte d'Ivoire,c041,1.0,17
+Malaysia,c041,1.0,18
+Mexico,c041,1.0,19
+"China, Taiwan Province of",c041,1.0,20
+Iraq,c042,209800.0,1
+Egypt,c042,171806.0,2
+Iran (Islamic Republic of),c042,160693.0,3
+United Arab Emirates,c042,137894.0,4
+Tunisia,c042,94562.0,5
+Libya,c042,68883.0,6
+Algeria,c042,58223.0,7
+Sudan,c042,50892.0,8
+Oman,c042,42589.0,9
+Saudi Arabia,c042,35807.0,10
+Morocco,c042,33770.0,11
+Pakistan,c042,27063.0,12
+"China, mainland",c042,16651.0,13
+Kuwait,c042,11210.0,14
+Israel,c042,5653.0,15
+United States of America,c042,4171.0,16
+Yemen,c042,4119.0,17
+Turkey,c042,3437.0,18
+Qatar,c042,3007.0,19
+Mauritania,c042,2542.0,20
+India,c043,252709.0,1
+Turkey,c043,1510.0,2
+Chile,c043,1068.0,3
+United States of America,c043,892.0,4
+Italy,c043,822.0,5
+"China, mainland",c043,686.0,6
+South Africa,c043,683.0,7
+Spain,c043,575.0,8
+Peru,c043,495.0,9
+Iran (Islamic Republic of),c043,474.0,10
+Argentina,c043,418.0,11
+Uzbekistan,c043,332.0,12
+Afghanistan,c043,315.0,13
+Mexico,c043,190.0,14
+Egypt,c043,178.0,15
+Greece,c043,158.0,16
+Germany,c043,70.0,17
+Brazil,c043,58.0,18
+Lebanon,c043,55.0,19
+Republic of Moldova,c043,49.0,20
+India,c044,4370495.0,1
+Thailand,c044,1608.0,2
+Mexico,c044,1469.0,3
+"China, mainland",c044,1367.0,4
+Spain,c044,1245.0,5
+Viet Nam,c044,1016.0,6
+Turkey,c044,926.0,7
+Chile,c044,801.0,8
+Peru,c044,617.0,9
+Greece,c044,601.0,10
+Italy,c044,457.0,11
+United States of America,c044,437.0,12
+South Africa,c044,345.0,13
+New Zealand,c044,336.0,14
+Egypt,c044,319.0,15
+Brazil,c044,304.0,16
+Poland,c044,290.0,17
+Netherlands,c044,271.0,18
+Argentina,c044,262.0,19
+Serbia,c044,258.0,20
+India,c045,6599.0,1
+Brazil,c045,510.0,2
+Viet Nam,c045,231.0,3
+Colombia,c045,137.0,4
+Indonesia,c045,134.0,5
+Honduras,c045,60.0,6
+Uganda,c045,58.0,7
+Ethiopia,c045,44.0,8
+Peru,c045,38.0,9
+Guatemala,c045,33.0,10
+Nicaragua,c045,29.0,11
+Mexico,c045,23.0,12
+Côte d'Ivoire,c045,16.0,13
+Costa Rica,c045,11.0,14
+United Republic of Tanzania,c045,11.0,15
+Lao People's Democratic Republic,c045,9.0,16
+Iran (Islamic Republic of),c045,7.0,17
+Kenya,c045,7.0,18
+"China, mainland",c045,6.0,19
+Papua New Guinea,c045,5.0,20
+Côte d'Ivoire,c046,337.0,1
+India,c046,221.0,2
+Ghana,c046,157.0,3
+Indonesia,c046,59.0,4
+Ecuador,c046,56.0,5
+Nigeria,c046,42.0,6
+Cameroon,c046,41.0,7
+Peru,c046,14.0,8
+Dominican Republic,c046,11.0,9
+Brazil,c046,8.0,10
+Papua New Guinea,c046,7.0,11
+Uganda,c046,7.0,12
+Mexico,c046,6.0,13
+Democratic Republic of the Congo,c046,4.0,14
+Colombia,c046,3.0,15
+Guinea,c046,3.0,16
+Liberia,c046,3.0,17
+Sierra Leone,c046,3.0,18
+Madagascar,c046,2.0,19
+United Republic of Tanzania,c046,2.0,20
+India,c047,55685.0,1
+Kenya,c047,105.0,2
+"China, mainland",c047,66.0,3
+Sri Lanka,c047,52.0,4
+Viet Nam,c047,23.0,5
+Uganda,c047,13.0,6
+Brazil,c047,9.0,7
+Malawi,c047,9.0,8
+Indonesia,c047,8.0,9
+Argentina,c047,7.0,10
+Paraguay,c047,4.0,11
+United Republic of Tanzania,c047,4.0,12
+Burundi,c047,2.0,13
+Iran (Islamic Republic of),c047,2.0,14
+Nepal,c047,2.0,15
+Zimbabwe,c047,2.0,16
+Myanmar,c047,1.0,17
+Japan,c047,1.0,18
+Mozambique,c047,1.0,19
+"China, Taiwan Province of",c047,1.0,20
+Ethiopia,c048,47323.0,1
+United States of America,c048,47090.0,2
+Germany,c048,46900.0,3
+"China, mainland",c048,8131.0,4
+Czech Republic,c048,5930.0,5
+Poland,c048,3640.0,6
+Slovenia,c048,2720.0,7
+Democratic People's Republic of Korea,c048,2030.0,8
+Albania,c048,1787.0,9
+United Kingdom,c048,1307.0,10
+Spain,c048,1040.0,11
+New Zealand,c048,911.0,12
+France,c048,840.0,13
+Japan,c048,669.0,14
+Australia,c048,606.0,15
+Ukraine,c048,510.0,16
+Austria,c048,500.0,17
+Argentina,c048,474.0,18
+South Africa,c048,463.0,19
+Russian Federation,c048,221.0,20
+India,c049,2846.0,1
+Viet Nam,c049,658.0,2
+Brazil,c049,241.0,3
+Indonesia,c049,154.0,4
+Sri Lanka,c049,27.0,5
+Malaysia,c049,22.0,6
+Madagascar,c049,13.0,7
+Ecuador,c049,8.0,8
+Cambodia,c049,8.0,9
+Mexico,c049,6.0,10
+"China, mainland",c049,5.0,11
+Honduras,c049,3.0,12
+Kenya,c049,3.0,13
+Rwanda,c049,3.0,14
+Ethiopia,c049,2.0,15
+Guatemala,c049,1.0,16
+India,c050,70973.0,1
+"China, mainland",c050,15.0,2
+Peru,c050,3.0,3
+Myanmar,c050,2.0,4
+Mexico,c050,2.0,5
+Viet Nam,c050,2.0,6
+Spain,c050,1.0,7
+Thailand,c050,1.0,8
+Uzbekistan,c050,1.0,9
+Indonesia,c051,12784.0,1
+Madagascar,c051,1141.0,2
+United Republic of Tanzania,c051,1038.0,3
+Sri Lanka,c051,1019.0,4
+RoW,c051,1019.0,5
+India,c052,125474.0,1
+"China, mainland",c052,1199.0,2
+Indonesia,c052,156.0,3
+Thailand,c052,128.0,4
+Turkey,c052,127.0,5
+Viet Nam,c052,116.0,6
+Peru,c052,99.0,7
+Syrian Arab Republic,c052,91.0,8
+Nigeria,c052,86.0,9
+Iran (Islamic Republic of),c052,47.0,10
+Guatemala,c052,46.0,11
+Russian Federation,c052,43.0,12
+Myanmar,c052,39.0,13
+Bulgaria,c052,37.0,14
+Sri Lanka,c052,35.0,15
+Nepal,c052,31.0,16
+Egypt,c052,25.0,17
+Afghanistan,c052,24.0,18
+Ethiopia,c052,19.0,19
+Bangladesh,c052,17.0,20
+India,c061,121924992.0,1
+India,c062,1376352246.0,1
+India,c063,11457040.0,1
+United States of America,c063,1549.0,2
+Greece,c063,1353.0,3
+Côte d'Ivoire,c063,813.0,4
+Benin,c063,452.0,5
+Brazil,c063,143.0,6
+Togo,c063,85.0,7
+Kazakhstan,c063,74.0,8
+Azerbaijan,c063,63.0,9
+Ethiopia,c063,43.0,10
+Argentina,c063,35.0,11
+Malawi,c063,19.0,12
+Nigeria,c063,19.0,13
+Turkey,c063,14.0,14
+Australia,c063,9.0,15
+Uzbekistan,c063,9.0,16
+Israel,c063,4.0,17
+Mexico,c063,4.0,18
+Spain,c063,4.0,19
+Eswatini,c063,4.0,20
+Indonesia,c064,10188472.0,1
+Malaysia,c064,4734563.0,2
+Thailand,c064,631605.0,3
+Nigeria,c064,331703.0,4
+Colombia,c064,288670.0,5
+Honduras,c064,198111.0,6
+Guatemala,c064,184320.0,7
+Papua New Guinea,c064,156866.0,8
+Brazil,c064,148187.0,9
+Ghana,c064,141077.0,10
+Côte d'Ivoire,c064,135314.0,11
+Ecuador,c064,103897.0,12
+Mexico,c064,87819.0,13
+Costa Rica,c064,87818.0,14
+Cameroon,c064,79963.0,15
+Democratic Republic of the Congo,c064,74999.0,16
+Peru,c064,65882.0,17
+Sierra Leone,c064,36086.0,18
+"China, mainland",c064,33240.0,19
+Philippines,c064,33000.0,20
+India,c065,429736.0,1
+"China, mainland",c066,2442015.0,1
+Brazil,c066,735656.0,2
+India,c066,156761.0,3
+Egypt,c066,138047.0,4
+Thailand,c066,119156.0,5
+Australia,c066,71337.0,6
+France,c066,68448.0,7
+Pakistan,c066,61456.0,8
+Guatemala,c066,53448.0,9
+Germany,c066,36505.0,10
+Poland,c066,33371.0,11
+Colombia,c066,31321.0,12
+Russian Federation,c066,28518.0,13
+Mexico,c066,23792.0,14
+Croatia,c066,22228.0,15
+South Africa,c066,19068.0,16
+Eswatini,c066,15907.0,17
+Sweden,c066,15905.0,18
+Netherlands,c066,13802.0,19
+El Salvador,c066,13348.0,20
+India,c067,2782329.0,1
+United States of America,c067,5916.0,2
+Thailand,c067,5885.0,3
+Austria,c067,3876.0,4
+"China, mainland",c067,3192.0,5
+Russian Federation,c067,2548.0,6
+Germany,c067,2321.0,7
+Mexico,c067,2079.0,8
+Guatemala,c067,1389.0,9
+Malaysia,c067,1200.0,10
+Hungary,c067,1039.0,11
+Netherlands,c067,958.0,12
+Indonesia,c067,935.0,13
+Republic of Korea,c067,935.0,14
+Poland,c067,921.0,15
+El Salvador,c067,764.0,16
+Spain,c067,736.0,17
+South Africa,c067,689.0,18
+France,c067,669.0,19
+Egypt,c067,658.0,20
+Argentina,c068,11266.0,1
+Belgium,c068,3561.0,2
+Japan,c068,2975.0,3
+Austria,c068,2889.0,4
+United States of America,c068,2643.0,5
+Brazil,c068,2355.0,6
+Paraguay,c068,1331.0,7
+Russian Federation,c068,1203.0,8
+Netherlands,c068,1153.0,9
+Bolivia (Plurinational State of),c068,796.0,10
+Spain,c068,749.0,11
+Guatemala,c068,694.0,12
+Ukraine,c068,566.0,13
+Turkey,c068,444.0,14
+United Arab Emirates,c068,405.0,15
+Germany,c068,366.0,16
+Egypt,c068,240.0,17
+Thailand,c068,240.0,18
+Canada,c068,238.0,19
+"China, mainland",c068,235.0,20
+Argentina,c070,33098.0,1
+Austria,c070,2978.0,2
+Ukraine,c070,1464.0,3
+Russian Federation,c070,779.0,4
+Bulgaria,c070,119.0,5
+Hungary,c070,119.0,6
+Turkey,c070,105.0,7
+France,c070,55.0,8
+Netherlands,c070,47.0,9
+Romania,c070,41.0,10
+Serbia,c070,35.0,11
+Republic of Moldova,c070,32.0,12
+Spain,c070,25.0,13
+Kazakhstan,c070,22.0,14
+Bolivia (Plurinational State of),c070,15.0,15
+Czech Republic,c070,13.0,16
+South Africa,c070,8.0,17
+Germany,c070,7.0,18
+United States of America,c070,7.0,19
+Bosnia and Herzegovina,c070,6.0,20
+Germany,c071,841636.0,1
+Canada,c071,65316.0,2
+Chile,c071,43040.0,3
+Russian Federation,c071,11120.0,4
+France,c071,6740.0,5
+United Arab Emirates,c071,6558.0,6
+Belarus,c071,5539.0,7
+Belgium,c071,5049.0,8
+Czech Republic,c071,4986.0,9
+Australia,c071,3380.0,10
+Ukraine,c071,2486.0,11
+Denmark,c071,2375.0,12
+United Kingdom,c071,2358.0,13
+Poland,c071,1424.0,14
+Hungary,c071,1104.0,15
+Austria,c071,983.0,16
+Estonia,c071,944.0,17
+United States of America,c071,932.0,18
+Kazakhstan,c071,844.0,19
+Bangladesh,c071,383.0,20
+Malaysia,c073,22084.0,1
+Indonesia,c073,2366.0,2
+Papua New Guinea,c073,1088.0,3
+Guatemala,c073,103.0,4
+Colombia,c073,92.0,5
+Thailand,c073,83.0,6
+Honduras,c073,74.0,7
+Costa Rica,c073,30.0,8
+Nigeria,c073,18.0,9
+Côte d'Ivoire,c073,17.0,10
+Cambodia,c073,13.0,11
+Ecuador,c073,10.0,12
+Peru,c073,8.0,13
+Ghana,c073,4.0,14
+Nicaragua,c073,4.0,15
+Brazil,c073,1.0,16
+Solomon Islands,c073,1.0,17
+Cameroon,c073,1.0,18
+Benin,c073,1.0,19
+Liberia,c073,1.0,20
+Malaysia,c074,154241.0,1
+Indonesia,c074,111743.0,2
+Colombia,c074,44485.0,3
+Nigeria,c074,38431.0,4
+Guatemala,c074,22460.0,5
+Cameroon,c074,9095.0,6
+Papua New Guinea,c074,8082.0,7
+Panama,c074,5038.0,8
+"China, mainland",c074,2261.0,9
+Honduras,c074,1986.0,10
+Thailand,c074,943.0,11
+Côte d'Ivoire,c074,922.0,12
+Costa Rica,c074,795.0,13
+Ecuador,c074,691.0,14
+Peru,c074,366.0,15
+Ghana,c074,237.0,16
+Nicaragua,c074,207.0,17
+Japan,c074,191.0,18
+Cambodia,c074,184.0,19
+Liberia,c074,111.0,20
+North Macedonia,c077,732.0,1
+Spain,c077,121.0,2
+Tunisia,c077,42.0,3
+Greece,c077,23.0,4
+Italy,c077,18.0,5
+Portugal,c077,12.0,6
+Syrian Arab Republic,c077,7.0,7
+Turkey,c077,5.0,8
+Argentina,c077,3.0,9
+Morocco,c077,2.0,10
+Chile,c077,1.0,11
+Lebanon,c077,1.0,12
+India,c081,4935555.0,1
+Argentina,c081,6504.0,2
+Brazil,c081,4949.0,3
+United States of America,c081,2922.0,4
+Paraguay,c081,607.0,5
+Netherlands,c081,501.0,6
+Bolivia (Plurinational State of),c081,477.0,7
+Germany,c081,337.0,8
+"China, mainland",c081,283.0,9
+Ukraine,c081,169.0,10
+Russian Federation,c081,137.0,11
+Norway,c081,53.0,12
+Spain,c081,52.0,13
+Canada,c081,47.0,14
+Nigeria,c081,47.0,15
+Portugal,c081,28.0,16
+Zambia,c081,26.0,17
+South Africa,c081,23.0,18
+Italy,c081,22.0,19
+Belgium,c081,18.0,20
+India,c082,702199.0,1
+Ukraine,c083,156951.0,1
+India,c083,80222.0,2
+Russian Federation,c083,55326.0,3
+Bulgaria,c083,16043.0,4
+Argentina,c083,11139.0,5
+Hungary,c083,10240.0,6
+Romania,c083,7991.0,7
+Netherlands,c083,3563.0,8
+Kazakhstan,c083,3253.0,9
+Republic of Moldova,c083,3176.0,10
+United Republic of Tanzania,c083,2593.0,11
+Bolivia (Plurinational State of),c083,2457.0,12
+Serbia,c083,2150.0,13
+Spain,c083,1819.0,14
+France,c083,835.0,15
+Portugal,c083,700.0,16
+United States of America,c083,646.0,17
+Germany,c083,589.0,18
+South Africa,c083,546.0,19
+Bosnia and Herzegovina,c083,532.0,20
+India,c084,3112077.0,1
+Canada,c084,3523.0,2
+Germany,c084,1262.0,3
+Poland,c084,501.0,4
+Belgium,c084,428.0,5
+United Arab Emirates,c084,381.0,6
+France,c084,316.0,7
+Russian Federation,c084,156.0,8
+Romania,c084,125.0,9
+Ukraine,c084,103.0,10
+Belarus,c084,86.0,11
+Lithuania,c084,82.0,12
+Kazakhstan,c084,46.0,13
+Hungary,c084,44.0,14
+Slovakia,c084,41.0,15
+Austria,c084,38.0,16
+Nepal,c084,34.0,17
+Latvia,c084,30.0,18
+Pakistan,c084,28.0,19
+Sweden,c084,23.0,20
+India,c085,3467464.0,1
+Benin,c085,7859.0,2
+Greece,c085,6474.0,3
+United States of America,c085,5893.0,4
+United Republic of Tanzania,c085,5331.0,5
+Burkina Faso,c085,4337.0,6
+Mali,c085,3612.0,7
+Uzbekistan,c085,1290.0,8
+Kazakhstan,c085,1245.0,9
+Argentina,c085,1178.0,10
+Zimbabwe,c085,663.0,11
+Zambia,c085,643.0,12
+Uganda,c085,290.0,13
+Mozambique,c085,286.0,14
+Azerbaijan,c085,158.0,15
+Turkmenistan,c085,123.0,16
+Cameroon,c085,85.0,17
+Iran (Islamic Republic of),c085,57.0,18
+Nigeria,c085,33.0,19
+Myanmar,c085,26.0,20
+Indonesia,c086,12017.0,1
+Malaysia,c086,6206.0,2
+Guatemala,c086,64.0,3
+Ghana,c086,51.0,4
+Nigeria,c086,37.0,5
+Costa Rica,c086,11.0,6
+Colombia,c086,7.0,7
+Honduras,c086,7.0,8
+Thailand,c086,7.0,9
+Benin,c086,2.0,10
+Togo,c086,2.0,11
+India,c087,215972.0,1
+Philippines,c087,120684.0,2
+Indonesia,c087,109743.0,3
+Sri Lanka,c087,9976.0,4
+Viet Nam,c087,5726.0,5
+Malaysia,c087,3155.0,6
+Mozambique,c087,1478.0,7
+Vanuatu,c087,555.0,8
+Honduras,c087,213.0,9
+Fiji,c087,121.0,10
+Thailand,c087,66.0,11
+Guinea,c087,47.0,12
+United Republic of Tanzania,c087,15.0,13
+Jamaica,c087,2.0,14
+Sao Tome and Principe,c087,1.0,15
+India,c088,115788.0,1
+Nigeria,c088,113.0,2
+India,c089,6258174.0,1
+Belgium,c089,5.0,2
+Kazakhstan,c089,1.0,3
+Russian Federation,c089,1.0,4
+France,c090,552376.0,1
+Spain,c090,477601.0,2
+Italy,c090,455678.0,3
+South Africa,c090,336601.0,4
+Portugal,c090,33063.0,5
+Australia,c090,27938.0,6
+Mexico,c090,24100.0,7
+Chile,c090,22720.0,8
+Greece,c090,19167.0,9
+New Zealand,c090,15785.0,10
+Germany,c090,12518.0,11
+Czech Republic,c090,11802.0,12
+Austria,c090,11585.0,13
+Argentina,c090,10289.0,14
+United States of America,c090,6628.0,15
+Brazil,c090,4940.0,16
+Republic of Moldova,c090,3524.0,17
+Hungary,c090,2790.0,18
+Georgia,c090,1821.0,19
+North Macedonia,c090,1768.0,20
+France,c091,30795.0,1
+Mexico,c091,3315.0,2
+Belgium,c091,1693.0,3
+Netherlands,c091,1563.0,4
+Germany,c091,1501.0,5
+Czech Republic,c091,511.0,6
+United States of America,c091,447.0,7
+Poland,c091,411.0,8
+"China, mainland",c091,405.0,9
+United Kingdom,c091,380.0,10
+Russian Federation,c091,361.0,11
+Spain,c091,321.0,12
+Ireland,c091,315.0,13
+Denmark,c091,276.0,14
+Italy,c091,254.0,15
+Portugal,c091,189.0,16
+Brazil,c091,179.0,17
+Ukraine,c091,143.0,18
+Serbia,c091,131.0,19
+Canada,c091,129.0,20
+Angola,c092,80000.0,1
+"China, mainland",c092,60722.0,2
+Rwanda,c092,8903.0,3
+France,c092,1972.0,4
+Central African Republic,c092,1000.0,5
+Mexico,c092,53.0,6
+Republic of Korea,c092,35.0,7
+Italy,c092,34.0,8
+Sweden,c092,34.0,9
+Belgium,c092,32.0,10
+Canada,c092,27.0,11
+Ireland,c092,26.0,12
+South Africa,c092,25.0,13
+Germany,c092,19.0,14
+Austria,c092,14.0,15
+Hungary,c092,12.0,16
+Japan,c092,12.0,17
+Netherlands,c092,11.0,18
+Denmark,c092,10.0,19
+Lithuania,c092,9.0,20
+"China, mainland",c096,46427771.0,1
+Brazil,c096,41148637.0,2
+United States of America,c096,32128207.0,3
+Argentina,c096,13991529.0,4
+Mexico,c096,9266458.0,5
+Pakistan,c096,9054964.0,6
+Australia,c096,8634712.0,7
+Russian Federation,c096,7807036.0,8
+France,c096,5980203.0,9
+Uzbekistan,c096,5260070.0,10
+New Zealand,c096,4738735.0,11
+Turkey,c096,4345278.0,12
+Ethiopia,c096,4144867.0,13
+Chad,c096,3991562.0,14
+Germany,c096,3977416.0,15
+Canada,c096,3917687.0,16
+United Republic of Tanzania,c096,3611396.0,17
+Sudan,c096,3591727.0,18
+Colombia,c096,3511850.0,19
+Nigeria,c096,3209238.0,20
+India,c097,11487764.0,1
+Lao People's Democratic Republic,c097,28630.0,2
+Thailand,c097,4296.0,3
+Myanmar,c097,588.0,4
+Switzerland,c097,80.0,5
+Canada,c097,1.0,6
+India,c098,23477551.0,1
+Australia,c098,821.0,2
+Mali,c098,17.0,3
+Mauritania,c098,6.0,4
+Syrian Arab Republic,c098,1.0,5
+India,c099,55540574.0,1
+India,c100,9436498.0,1
+Myanmar,c100,222.0,2
+Netherlands,c100,28.0,3
+United States of America,c100,16.0,4
+Denmark,c100,2.0,5
+Canada,c100,1.0,6
+Germany,c100,1.0,7
+Lao People's Democratic Republic,c100,1.0,8
+Thailand,c100,1.0,9
+India,c101,2831086005.0,1
+Germany,c101,10511.0,2
+Netherlands,c101,7438.0,3
+France,c101,5054.0,4
+Hungary,c101,4569.0,5
+Czech Republic,c101,4243.0,6
+Belgium,c101,3761.0,7
+Poland,c101,2970.0,8
+Malaysia,c101,2543.0,9
+Denmark,c101,2499.0,10
+United States of America,c101,2386.0,11
+Serbia,c101,1358.0,12
+Pakistan,c101,1226.0,13
+Turkey,c101,1167.0,14
+Portugal,c101,1120.0,15
+Spain,c101,1098.0,16
+Brazil,c101,1004.0,17
+Austria,c101,866.0,18
+Bulgaria,c101,854.0,19
+United Kingdom,c101,840.0,20
+"China, mainland",c102,1078355.0,1
+Mongolia,c102,955270.0,2
+Kazakhstan,c102,800264.0,3
+Mexico,c102,535624.0,4
+Russian Federation,c102,271864.0,5
+Brazil,c102,173182.0,6
+Kyrgyzstan,c102,161400.0,7
+United States of America,c102,135208.0,8
+Canada,c102,97157.0,9
+Australia,c102,96855.0,10
+Argentina,c102,87883.0,11
+Senegal,c102,56453.0,12
+Colombia,c102,45146.0,13
+Chile,c102,42884.0,14
+Ukraine,c102,36805.0,15
+Uruguay,c102,36068.0,16
+Uzbekistan,c102,32209.0,17
+Spain,c102,31118.0,18
+Mali,c102,28936.0,19
+France,c102,28178.0,20
+"China, mainland",c103,1090316.0,1
+Niger,c103,144006.0,2
+Mali,c103,60139.0,3
+Senegal,c103,51723.0,4
+Burkina Faso,c103,28490.0,5
+Mauritania,c103,23042.0,6
+Spain,c103,2878.0,7
+Argentina,c103,916.0,8
+Lesotho,c103,417.0,9
+Kyrgyzstan,c103,287.0,10
+Italy,c103,267.0,11
+Chad,c103,107.0,12
+Kazakhstan,c103,48.0,13
+"China, mainland",c104,122848.0,1
+United States of America,c104,3332.0,2
+Argentina,c104,525.0,3
+Spain,c104,225.0,4
+Sweden,c104,25.0,5
+Sudan,c105,552157.0,1
+Saudi Arabia,c105,465401.0,2
+Somalia,c105,339166.0,3
+Kenya,c105,204666.0,4
+United Arab Emirates,c105,199688.0,5
+Ethiopia,c105,196792.0,6
+Mauritania,c105,133348.0,7
+"China, mainland",c105,130753.0,8
+Mongolia,c105,80997.0,9
+Oman,c105,54537.0,10
+Pakistan,c105,51247.0,11
+Turkmenistan,c105,46077.0,12
+Algeria,c105,45996.0,13
+Chad,c105,41393.0,14
+Niger,c105,41129.0,15
+Egypt,c105,33933.0,16
+Kazakhstan,c105,30738.0,17
+Djibouti,c105,30051.0,18
+Iran (Islamic Republic of),c105,20815.0,19
+Afghanistan,c105,20139.0,20
+Peru,c106,577913.0,1
+Bolivia (Plurinational State of),c106,356376.0,2
+"China, mainland",c107,289283832.0,1
+Egypt,c107,59019000.0,2
+Spain,c107,40055881.0,3
+France,c107,17970549.0,4
+Italy,c107,16427000.0,5
+Czech Republic,c107,12394939.0,6
+Algeria,c107,8308000.0,7
+Sierra Leone,c107,7942000.0,8
+Russian Federation,c107,7652000.0,9
+Ukraine,c107,5909000.0,10
+Mexico,c107,4486000.0,11
+Hungary,c107,4185473.0,12
+Peru,c107,2834999.0,13
+Bulgaria,c107,2805001.0,14
+Slovakia,c107,2500000.0,15
+Colombia,c107,2462000.0,16
+Kenya,c107,2141000.0,17
+Poland,c107,1811874.0,18
+Rwanda,c107,1740001.0,19
+Gabon,c107,1721000.0,20
+Peru,c108,53226999.0,1
+Bolivia (Plurinational State of),c108,17540999.0,2
+India,c109,95817537.0,1
+New Zealand,c109,10652.0,2
+Germany,c109,8707.0,3
+France,c109,6015.0,4
+Netherlands,c109,5399.0,5
+United States of America,c109,3151.0,6
+Belarus,c109,2993.0,7
+Poland,c109,2742.0,8
+Ireland,c109,2199.0,9
+Italy,c109,2174.0,10
+United Kingdom,c109,2065.0,11
+Denmark,c109,1959.0,12
+Argentina,c109,1813.0,13
+Australia,c109,1655.0,14
+Belgium,c109,1376.0,15
+Austria,c109,1228.0,16
+Spain,c109,1224.0,17
+Czech Republic,c109,1026.0,18
+Uruguay,c109,825.0,19
+Saudi Arabia,c109,724.0,20
+Australia,c110,7572.0,1
+Yemen,c110,3227.0,2
+New Zealand,c110,2906.0,3
+Brazil,c110,1963.0,4
+Ireland,c110,1871.0,5
+France,c110,1143.0,6
+Netherlands,c110,1062.0,7
+Nepal,c110,984.0,8
+Germany,c110,830.0,9
+Belgium,c110,514.0,10
+"China, mainland",c110,474.0,11
+Belarus,c110,470.0,12
+Poland,c110,362.0,13
+United Arab Emirates,c110,309.0,14
+United Kingdom,c110,309.0,15
+Denmark,c110,273.0,16
+Finland,c110,235.0,17
+United States of America,c110,194.0,18
+Argentina,c110,130.0,19
+India,c110,115.0,20
+India,c111,823000.0,1
+Argentina,c113,285841.0,1
+Peru,c113,51897.0,2
+Kazakhstan,c113,38728.0,3
+Sudan,c113,35015.0,4
+Tajikistan,c113,23911.0,5
+Venezuela (Bolivarian Republic of),c113,22937.0,6
+Chad,c113,21000.0,7
+Colombia,c113,14994.0,8
+Mongolia,c113,14012.0,9
+Turkmenistan,c113,12643.0,10
+Japan,c113,10393.0,11
+South Sudan,c113,6949.0,12
+Brazil,c113,6762.0,13
+Romania,c113,5914.0,14
+Germany,c113,4060.0,15
+Australia,c113,3714.0,16
+United States of America,c113,3682.0,17
+Panama,c113,2901.0,18
+Iran (Islamic Republic of),c113,2559.0,19
+India,c113,2450.0,20
+Sudan,c114,49021.0,1
+Mongolia,c114,31010.0,2
+Chad,c114,29000.0,3
+Peru,c114,12000.0,4
+Turkmenistan,c114,11000.0,5
+Kyrgyzstan,c114,6000.0,6
+Tajikistan,c114,5000.0,7
+South Sudan,c114,4000.0,8
+United Arab Emirates,c114,3278.0,9
+Oman,c114,2410.0,10
+Australia,c114,2314.0,11
+New Zealand,c114,2064.0,12
+Italy,c114,1765.0,13
+Bahrain,c114,1515.0,14
+Romania,c114,1002.0,15
+Iran (Islamic Republic of),c114,973.0,16
+United Kingdom,c114,396.0,17
+Ireland,c114,266.0,18
+Qatar,c114,250.0,19
+Spain,c114,208.0,20
+Canada,c115,166375.0,1
+Peru,c115,27542.0,2
+Japan,c115,24857.0,3
+United States of America,c115,12017.0,4
+Spain,c115,9710.0,5
+Myanmar,c115,9000.0,6
+Germany,c115,7715.0,7
+Russian Federation,c115,6714.0,8
+Brazil,c115,5413.0,9
+Denmark,c115,4797.0,10
+Netherlands,c115,4145.0,11
+Lithuania,c115,3324.0,12
+Cyprus,c115,3250.0,13
+Belgium,c115,2684.0,14
+Estonia,c115,2274.0,15
+France,c115,1797.0,16
+Poland,c115,1648.0,17
+Romania,c115,1588.0,18
+Panama,c115,1019.0,19
+Mexico,c115,874.0,20
+Peru,c116,373189.0,1
+Thailand,c116,70040.0,2
+Japan,c116,34361.0,3
+Guatemala,c116,31341.0,4
+Poland,c116,30839.0,5
+Myanmar,c116,27959.0,6
+Hungary,c116,16156.0,7
+Brazil,c116,13803.0,8
+United States of America,c116,13261.0,9
+Russian Federation,c116,7329.0,10
+Netherlands,c116,2982.0,11
+Turkey,c116,1875.0,12
+South Sudan,c116,1795.0,13
+Qatar,c116,1494.0,14
+Ukraine,c116,1385.0,15
+Germany,c116,1367.0,16
+Cyprus,c116,1352.0,17
+Belgium,c116,1197.0,18
+United Kingdom,c116,1098.0,19
+Turkmenistan,c116,1095.0,20
+United States of America,c117,19708.0,1
+Argentina,c117,9936.0,2
+Peru,c117,4000.0,3
+Chile,c117,3998.0,4
+South Africa,c117,1004.0,5
+"China, mainland",c117,992.0,6
+Haiti,c117,945.0,7
+Brazil,c117,165.0,8
+Mongolia,c117,40.0,9
+Spain,c117,26.0,10
+Saudi Arabia,c117,24.0,11
+New Zealand,c117,15.0,12
+Poland,c117,13.0,13
+Canada,c117,12.0,14
+France,c117,12.0,15
+Morocco,c117,12.0,16
+Italy,c117,6.0,17
+Uruguay,c117,6.0,18
+Hungary,c117,5.0,19
+Russian Federation,c117,4.0,20
+India,c118,243000.0,1
+India,c119,45915.0,1
+Indonesia,c119,212.0,2
+United States of America,c119,143.0,3
+Germany,c119,110.0,4
+Malaysia,c119,65.0,5
+Belgium,c119,59.0,6
+Canada,c119,56.0,7
+France,c119,48.0,8
+Netherlands,c119,47.0,9
+Spain,c119,43.0,10
+Australia,c119,36.0,11
+Argentina,c119,28.0,12
+Poland,c119,27.0,13
+Sweden,c119,25.0,14
+United Kingdom,c119,24.0,15
+Italy,c119,20.0,16
+Ireland,c119,16.0,17
+Russian Federation,c119,13.0,18
+New Zealand,c119,12.0,19
+Denmark,c119,11.0,20
+India,c121,3000.0,1
+India,c123,204353.0,1
+Peru,c123,1396.0,2
+Oman,c123,562.0,3
+Bangladesh,c123,315.0,4
+Myanmar,c123,162.0,5
+Viet Nam,c123,141.0,6
+Ecuador,c123,106.0,7
+Chile,c123,61.0,8
+"China, mainland",c123,44.0,9
+United States of America,c123,44.0,10
+Mauritania,c123,23.0,11
+Morocco,c123,23.0,12
+Russian Federation,c123,21.0,13
+Thailand,c123,21.0,14
+Mexico,c123,20.0,15
+"China, Taiwan Province of",c123,20.0,16
+Indonesia,c123,18.0,17
+Argentina,c123,15.0,18
+Norway,c123,15.0,19
+Namibia,c123,14.0,20

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!---link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"--->
+    <!-- Leaflet CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo"></div>
+        <span class="header-title">DELI Calculator</span>
+
+       <div class="location-selector header-center">
+            <label class="location-label">
+                📍 Location: 
+                            <button class="inline-help-icon location-help" 
+                                aria-label="Help"
+                                data-tooltip-text="In which country are you cooking?">?
+                            </button>
+
+                <!--button class="inline-help-icon" ...>?</button-->
+            </label>
+            <div class="location-input-group">
+                <input type="text" id="location-input" placeholder="Enter user country...">
+                <button id="location-reset-btn" ...>🔄</button>
+            </div>
+            <ul id="location-suggestions"></ul>
+        </div>
+
+        <nav class="nav-menu">
+            <!--a href="recipes.html">Recipes</a-->
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('recipes.recipes_list') }}">Recipes</a>
+            <a href="{{ url_for('feedback') }}">Feedback</a>
+            <a></a>
+        </nav>
+
+      
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Calculate Recipe Environmental Impact</h1>
+        <p>Paste a recipe URL or load a preferred recipe to analyze its environmental footprint</p>
+        
+        <div class="hero-actions-container">
+            <div class="hero-input-group">
+                <input class="input-box" type="text" id="recipe-url" placeholder="Paste Recipe URL">
+                <!-- Current working websites include: koreanbapsang.com, allrecipes.com, recipetineats.com,
+                     smittenkitchen.com, simplyrecipes.com, therecipecritic.com, and seriouseats.com. -->
+                <button class="inline-help-icon tiny hero-url-help"
+                        type="button"
+                        aria-label="Recipe URL help"
+                        data-tooltip-text="The recipe should be in English.">?</button>
+                <button class="button button-primary" id="extract-btn">Extract Recipe</button>
+            </div>
+            
+            <div class="divider">OR</div>
+            
+            <div class="recipe-select-group">
+                <select id="recipe-select" class="recipe-select" autocomplete="off">
+                    <option value="" disabled selected>Select a preferred recipe</option>
+                    <option value="cheese_sandwich">Cheese sandwich</option>
+                    <option value="ham_cheese_sandwich">Ham cheese sandwich</option>
+                    <option value="seaweed_rice_rolls">Seaweed rice rolls</option>
+                    <option value="fried_pork_belly_and_bean_sprouts">Fried pork and bean sprouts</option>
+
+                </select>
+                <button class="button button-secondary" id="loading-btn">Load Recipe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- User add the ingredient -->
+    <div class="form-group">
+        <h3 class="section-heading">
+            User add ingredient
+            <button class="inline-help-icon section-help" 
+                aria-label="Help"
+                data-tooltip-text="Ingredient for your recipe">?
+            </button>
+        </h3>
+
+        <div class="ingredient-form-horizontal">
+            <!-- INGREDIENT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Ingredient</span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="ingredient-input" placeholder="Type to search..." />
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">
+                        Category
+                        <button class="inline-help-icon tiny"
+                                aria-label="Help"
+                                data-tooltip-text="The category associated with this ingredient in the database. You can edit it if the suggested grouping looks wrong.">?</button>
+                    </span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="category-input" placeholder="Auto-filled, but editable" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- AMOUNT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Amount</span>
+                    <input type="number" id="amount-input" min="0" value="100" />
+                </div>
+            </div>
+
+            <!-- UNIT FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">Unit</span>
+                    <div class="unit-field">
+                        <input type="text" id="unit-input" list="unit-options" placeholder="Select" value="g" />
+                        <datalist id="unit-options">
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="ounce">ounce</option>
+                            <option value="lb">lb</option>
+                            <option value="cup">cup</option>
+                            <option value="tbsp">tbsp</option>
+                            <option value="tsp">tsp</option>
+                            <option value="ml">ml</option>
+                            <option value="dl">dl</option>
+                            <option value="l">l</option>
+                            <option value="unit">unit</option>
+                            <option value="slice">slice</option>
+                            <option value="bunch">bunch</option>
+                            <option value="clove">clove</option>
+                        </datalist>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOURCE FIELD -->
+            <div class="form-field-group">
+                <div class="field-with-label">
+                    <span class="field-label">
+                        Source
+                        <button class="inline-help-icon tiny" 
+                                aria-label="Help"
+                                data-tooltip-text="Where is the ingredient from? (Select from the most important importing countries)">?</button>
+                    </span>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="source-input" placeholder="Select country..." />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADD BUTTON -->
+            <div class="form-field-group">
+                <button id="add-ingredient-btn" class="add-button">➕ Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-errors" class="error-container"></div>
+
+
+    <!-- Selected Ingredients Table -->
+    <section class="ingredients-list-section">
+        <h3 class="section-heading">
+            Ingredients List
+            <button class="inline-help-icon section-help" 
+                    aria-label="Help"
+                    data-tooltip-text="All ingredients added to your recipe will appear here.">?
+            </button>
+        </h3>
+        
+        <div class="table-container">
+            <table id="ingredients-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Ingredient
+                            <button class="inline-help-icon tiny"
+                                    type="button"
+                                    aria-label="Ingredient help"
+                                    data-tooltip-text="The cooking ingredient for your food. You can edit the ingredient name and match to the database.">?</button>
+                        </th>                       
+                        <th>
+                            Category
+                            <button class="inline-help-icon tiny"
+                                    type="button"
+                                    aria-label="Category help"
+                                    data-tooltip-text="The category associated with this ingredient in the database.">?</button>
+                        </th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Source</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="ingredients-table-body">
+                    <!-- Ingredients will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Calculation Controls -->
+    <section class="calculation-controls">
+        <button class="button button-primary" id="calculate-selected">
+            Calculate Environmental Impact
+        </button>
+    </section>
+
+
+
+
+    <!-- Map with Results Overlay -->
+    <div class="map-overlay-container">
+        <div id="map-container"></div>
+        
+        <!-- Results Panel (overlay on map) -->
+        <div class="results-overlay">
+            <div class="metric">
+                <h3>Biodiversity</h3>
+                <div id="biodiv-result" class="value">--</div>
+            </div>
+            <div class="metric">
+                <h3>Climate Change (GWP100)</h3>
+                <div id="co2-result" class="value">--</div>
+            </div>
+            <div class="metric">
+                <h3>Water Use</h3>
+                <div id="water-result" class="value">--</div>
+            </div>
+            <div class="metric">
+                <h3>Land Use</h3>
+                <div id="land-result" class="value">--</div>
+            </div>
+            <div class="results-overlay-note">
+                The map shades producing countries that contribute to the selected recipe impact. Click a metric card to switch the map.
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Results Display -->
+    <section id="calculation-results">
+        <!-- Results will be dynamically inserted here -->
+    </section >
+
+    <section class="results-comparison-section">
+        <div id="results-comparison"></div>
+    </section>
+
+ 
+    <!--div id="map-container" style="height: 500px; width: 85%;"></div -->
+
+
+    {% include 'footer.html' %}
+
+    <script  type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/selected-recipe-load.js') }}"></script>
+</body>
+</html>

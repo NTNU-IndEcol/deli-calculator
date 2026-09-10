@@ -1,0 +1,7 @@
+FROM python:slim-bullseye
+WORKDIR /app
+COPY . /app
+ENV OPENCAGE_API_KEY=4fce850dcd8a43cb9eb16608af532c99
+RUN pip install --no-cache-dir -r requirements.txt
+EXPOSE 9000
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=9000"]

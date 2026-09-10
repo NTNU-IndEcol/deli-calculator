@@ -1,0 +1,88 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Chocolate Cake",
+  "author": "DELI Calculator",
+  "category": [
+    "Dessert",
+    "Cake"
+  ],
+  "description": "A rich chocolate cake made with flour, cocoa powder, milk, butter, and eggs.",
+  "recipeIngredient": [
+    {
+      "mainIngredient": "Flour",
+      "details": {
+        "amount": 250,
+        "unit": "g",
+        "originalText": "250 g flour"
+      }
+    },
+    {
+      "mainIngredient": "Sugar",
+      "details": {
+        "amount": 250,
+        "unit": "g",
+        "originalText": "250 g sugar"
+      }
+    },
+    {
+      "mainIngredient": "Cocoa powder",
+      "details": {
+        "amount": 60,
+        "unit": "g",
+        "originalText": "60 g cocoa powder"
+      }
+    },
+    {
+      "mainIngredient": "Milk",
+      "details": {
+        "amount": 240,
+        "unit": "ml",
+        "originalText": "240 ml milk"
+      }
+    },
+    {
+      "mainIngredient": "Butter",
+      "details": {
+        "amount": 120,
+        "unit": "g",
+        "originalText": "120 g butter"
+      }
+    },
+    {
+      "mainIngredient": "Egg",
+      "details": {
+        "amount": 2,
+        "unit": "unit",
+        "originalText": "2 eggs"
+      }
+    },
+    {
+      "mainIngredient": "Baking powder",
+      "details": {
+        "amount": 2,
+        "unit": "teaspoons",
+        "originalText": "2 teaspoons baking powder"
+      }
+    }
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "text": "Mix the dry ingredients in a bowl."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Beat in the milk, butter, and eggs until smooth."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Bake until the cake is set and let it cool before serving."
+    }
+  ],
+  "recipeYield": "8",
+  "prepTime": "15 Minutes",
+  "time": 55,
+  "servings": 8,
+  "image": "chocolate-birthday-cake-scaled.jpg"
+}

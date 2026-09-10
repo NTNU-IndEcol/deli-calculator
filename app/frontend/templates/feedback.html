@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - DELI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <style>
+        :root {
+            --primary-color: #5294f7;
+            --secondary-color: #67a4ff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .feedback-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feedback-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+        
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--error-color);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .human-verification {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center; /* Center all text */
+        }
+
+        .verification-code {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #38eed0, #3fd8d0);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            padding: 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .verification-input {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+                padding: 0 15px;
+            }
+
+            .feedback-card {
+                padding: 1.25rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .verification-code {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .code-display {
+                width: 100%;
+                max-width: 260px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .feedback-card {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .btn-submit {
+                padding: 12px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo"></div>
+        <span class="header-title">DELI Calculator</span>
+        <nav class="nav-menu">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('recipes.recipes_list') }}">Recipes</a>
+            <a href="{{ url_for('feedback') }}">Feedback</a>
+            <a></a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="feedback-card">
+            <h1>Send Us Your Feedback</h1>
+            
+            <div id="success-alert" class="alert alert-success">
+                Thank you for your feedback! We appreciate your input.
+            </div>
+            
+            <div id="error-alert" class="alert alert-error">
+                There was an error submitting your feedback. Please try again.
+            </div>
+            
+            <form id="feedback-form" action="{{ url_for('feedback') }}" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="required">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="issue_type">Issue Type</label>
+                    <select id="issue_type" name="issue_type">
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="other" selected>Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="required">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="required">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <!-- Human Verification Section -->
+                <div class="human-verification">
+                    <!--h3 style="margin-bottom: 1rem; color: var(--primary-color);">Human Verification</h3-->
+                    <p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+                        Please enter the code below to verify you're human:
+                    </p>
+                    
+                    <div class="verification-code">
+                        <div class="code-display" id="verificationCode">LOADING...</div>
+                        <button type="button" class="refresh-btn" id="refreshCode" title="Generate new code">
+                            🔄
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="human_input" class="required">Enter the code above</label>
+                        <input type="text" id="human_input" name="human_input" class="verification-input" 
+                               placeholder="Type the code here..." required maxlength="6">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitButton">
+                    Send Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script>
+        // Generate a random verification code
+        function generateVerificationCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Remove similar looking characters
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Initialize verification code
+        let currentCode = generateVerificationCode();
+        document.getElementById('verificationCode').textContent = currentCode;
+
+        // Refresh code functionality
+        document.getElementById('refreshCode').addEventListener('click', function() {
+            currentCode = generateVerificationCode();
+            document.getElementById('verificationCode').textContent = currentCode;
+            document.getElementById('human_input').value = '';
+            document.getElementById('human_input').style.borderColor = '#ddd';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedback-form');
+            const alertSuccess = document.getElementById('success-alert');
+            const alertError = document.getElementById('error-alert');
+            const submitButton = document.getElementById('submitButton');
+            const humanInput = document.getElementById('human_input');
+            
+            // Real-time verification code validation
+            humanInput.addEventListener('input', function() {
+                const userInput = this.value.toUpperCase();
+                if (userInput === currentCode) {
+                    this.style.borderColor = '#28a745';
+                    this.style.boxShadow = '0 0 0 2px rgba(40, 167, 69, 0.2)';
+                } else {
+                    this.style.borderColor = '#ddd';
+                    this.style.boxShadow = 'none';
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending Feedback...';
+                form.classList.add('loading');
+                
+                // Hide previous alerts
+                alertSuccess.style.display = 'none';
+                alertError.style.display = 'none';
+                
+                // Basic validation
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (field.value.trim() === '') {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                // Email validation
+                const emailField = document.getElementById('email');
+                if (emailField.value.trim() !== '' && !emailField.value.includes('@')) {
+                    isValid = false;
+                    emailField.style.borderColor = '#e74c3c';
+                }
+                
+                // Human verification validation
+                const userVerification = humanInput.value.toUpperCase();
+                if (userVerification !== currentCode) {
+                    isValid = false;
+                    humanInput.style.borderColor = '#e74c3c';
+                    alertError.textContent = 'Please enter the correct verification code.';
+                    alertError.style.display = 'block';
+                }
+                
+                if (!isValid) {
+                    if (!alertError.textContent) {
+                        alertError.textContent = 'Please fill in all required fields correctly.';
+                        alertError.style.display = 'block';
+                    }
+                    
+                    // Reset loading state
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Feedback';
+                    form.classList.remove('loading');
+                    
+                    // Hide error after 5 seconds
+                    setTimeout(() => {
+                        alertError.style.display = 'none';
+                    }, 5000);
+                    return;
+                }
+                
+                // Get form data
+                const formData = new FormData(form);
+                
+                // Send to server
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 400) {
+                            throw new Error('Validation error: Please check your input.');
+                        } else if (response.status === 500) {
+                            throw new Error('Server error: Please try again later.');
+                        } else {
+                            throw new Error(`Network error: ${response.status} ${response.statusText}`);
+                        }
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        alertSuccess.textContent = data.message;
+                        alertSuccess.style.display = 'block';
+                        alertError.style.display = 'none';
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Generate new verification code
+                        currentCode = generateVerificationCode();
+                        document.getElementById('verificationCode').textContent = currentCode;
+                        
+                        submitButton.textContent = 'Send Feedback';
+                        
+                        // Hide success message after 8 seconds
+                        setTimeout(() => {
+                            alertSuccess.style.display = 'none';
+                        }, 8000);
+                    } else {
+                        throw new Error(data.message || 'Submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    
+                    // Show appropriate error message
+                    alertError.textContent = error.message || 'There was an error sending your message. Please try again.';
+                    alertError.style.display = 'block';
+                    alertSuccess.style.display = 'none';
+                    
+                    // Hide error after 8 seconds
+                    setTimeout(() => {
+                        alertError.style.display = 'none';
+                    }, 8000);
+                })
+                .finally(() => {
+                    // Reset loading state
+                    form.classList.remove('loading');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Feedback';
+                });
+            });
+            
+            // Real-time validation for other fields
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.id !== 'human_input') { // Skip verification input for real-time validation
+                    input.addEventListener('input', function() {
+                        if (this.value.trim() !== '') {
+                            this.style.borderColor = '#ddd';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
