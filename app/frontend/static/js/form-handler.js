@@ -560,6 +560,14 @@ export class FormHandler {
             .replace(/\b(sliced|slice|cooked|cooded|smoked|cured|diced|minced|chopped|fresh|raw)\b/gi, '')
             .replace(/\s+/g, ' ')
             .trim();
+
+          if (cleaned.includes('dumpling skins') || cleaned.includes('dumpling wrappers')) {
+            return {
+              display: 'dumpling skins',
+              core: 'wheat flour',
+              original: fullName
+            };
+          }
         
         // Try to find a core ingredient
         for (const core of coreIngredients) {
@@ -610,6 +618,8 @@ export class FormHandler {
     fuzzyMatch(dbName, inputName) {
       const cleanDb = dbName.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
       const cleanInput = inputName.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+
+      if (!cleanDb || !cleanInput) return 0;
       
       if (cleanDb === cleanInput) return 5;
       
@@ -618,7 +628,6 @@ export class FormHandler {
       
       if (dbWords.every(word => inputWords.includes(word))) return 4;
       if (cleanInput.includes(cleanDb)) return 3;
-      if (cleanDb.includes(cleanInput)) return 2;
       
       const matchingWords = dbWords.filter(word => inputWords.includes(word));
       if (matchingWords.length > 0) return 1;

@@ -75,11 +75,12 @@ test('the archived CSV builds a complete usable conversion map', async () => {
   const realMap = buildConversionMap(rows);
   const databaseNames = new Set(databaseRows.map(row => row.Ingredient.trim().toLowerCase()));
 
-  assert.equal(rows.length, 260);
-  assert.equal(realMap.size, 219);
+  assert.equal(rows.length, 261);
+  assert.equal(realMap.size, 220);
   assert.equal(rows.filter(row => !databaseNames.has(row.Ingredient.trim().toLowerCase())).length, 0);
   assert.equal(realMap.has('beer-dl'), false);
   assert.equal(realMap.get('wheat flour-cup').gramsPerUnit, 136);
+  assert.equal(realMap.get('wheat flour-unit').gramsPerUnit, 400);
   assert.equal(realMap.get('garlic-clove').gramsPerUnit, 5);
   assert.equal(realMap.get('seaweed-unit').gramsPerUnit, 3);
 
@@ -115,11 +116,14 @@ test('the archived CSV builds a complete usable conversion map', async () => {
 test('known generic ingredients resolve to the intended database entries', async () => {
   const databaseUrl = new URL('../app/backend/data/food_item_poore_and_nemecek_fabio.csv', import.meta.url);
   const databaseText = await readFile(databaseUrl, 'utf8');
-  DataManager.database = DataManager.parseCSV(databaseText);
+  DataManager.datasets.database = DataManager.parseCSV(databaseText);
 
   const matcher = Object.create(FormHandler.prototype);
   assert.equal(matcher.getIngredientAliases('Cheese'), 'Cow cheese');
   assert.equal(matcher.extractIngredientName('Sweet pepper').core, 'sweet pepper');
+  assert.equal(matcher.extractIngredientName('Dumpling skins/wrappers , 만두피').core, 'wheat flour');
   assert.equal(matcher.findBestMatch('Cheese').Ingredient, 'Cow cheese');
   assert.equal(matcher.findBestMatch('Sweet pepper').Ingredient, 'Sweet pepper');
+  assert.equal(matcher.findBestMatch('만두피'), null);
+  assert.equal(matcher.findBestMatch('Water'), null);
 });

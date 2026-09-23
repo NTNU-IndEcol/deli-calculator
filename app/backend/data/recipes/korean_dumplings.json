@@ -86,7 +86,7 @@
       "mainIngredient": "To 2 teaspoons finely minced ginger",
       "details": {
         "amount": 1.0,
-        "unit": null,
+        "unit": "teaspoon",
         "originalText": "1 to 2 teaspoons finely minced ginger (or juiced)"
       }
     },
