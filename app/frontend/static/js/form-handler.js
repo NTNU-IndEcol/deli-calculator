@@ -88,6 +88,15 @@ export class FormHandler {
     getIngredientAliases(inputName) {
       const normalized = this.normalizeText(inputName);
       const aliases = {
+        nori: 'Seaweed',
+        gim: 'Seaweed',
+        'dried seaweed': 'Seaweed',
+        scallion: 'Onions',
+        scallions: 'Onions',
+        'spring onion': 'Onions',
+        'spring onions': 'Onions',
+        'all purpose flour': 'Wheat flour',
+        'plain flour': 'Wheat flour',
         milk: 'Cow milk',
         cheese: 'Cow cheese',
         butter: 'Butter',
@@ -545,7 +554,7 @@ export class FormHandler {
             'cheese', 'butter', 'milk', 'cream', 'yogurt', 'yoghurt',
             'ham', 'chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'tuna', 'shrimp', 'ribs',
             'tomato', 'potato', 'onion', 'garlic', 'carrot', 'lettuce', 'cabbage', 'pepper', 'paprika',
-            'cucumber', 'spinach', 'broccoli', 'cauliflower', 'mushroom', 'corn', 'peas', 'salad',
+            'cucumber', 'spinach', 'broccoli', 'cauliflower', 'mushroom', 'corn', 'peas', 'salad', 'seaweed', 'nori', 'gim',
             'apple', 'banana', 'orange', 'lemon', 'lime', 'berry', 'pear',
             'bread', 'baguette', 'rice', 'pasta', 'noodle', 'flour', 'wheat', 'oat',
             'egg', 'eggs', 'oil', 'sugar', 'salt', 'wine', 'beer', 'water', 'juice',  // ✅ Added 'egg' and 'eggs'

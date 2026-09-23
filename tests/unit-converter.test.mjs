@@ -120,6 +120,9 @@ test('known generic ingredients resolve to the intended database entries', async
 
   const matcher = Object.create(FormHandler.prototype);
   assert.equal(matcher.getIngredientAliases('Cheese'), 'Cow cheese');
+  assert.equal(matcher.getIngredientAliases('dried seaweed'), 'Seaweed');
+  assert.equal(matcher.getIngredientAliases('spring onions'), 'Onions');
+  assert.equal(matcher.getIngredientAliases('plain flour'), 'Wheat flour');
   assert.equal(matcher.extractIngredientName('Sweet pepper').core, 'sweet pepper');
   assert.equal(matcher.extractIngredientName('Dumpling skins/wrappers , 만두피').core, 'wheat flour');
   assert.equal(matcher.findBestMatch('Cheese').Ingredient, 'Cow cheese');
