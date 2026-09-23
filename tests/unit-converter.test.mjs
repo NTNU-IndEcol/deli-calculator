@@ -75,12 +75,22 @@ test('the archived CSV builds a complete usable conversion map', async () => {
   const realMap = buildConversionMap(rows);
   const databaseNames = new Set(databaseRows.map(row => row.Ingredient.trim().toLowerCase()));
 
-  assert.equal(rows.length, 259);
-  assert.equal(realMap.size, 218);
+  assert.equal(rows.length, 260);
+  assert.equal(realMap.size, 219);
   assert.equal(rows.filter(row => !databaseNames.has(row.Ingredient.trim().toLowerCase())).length, 0);
   assert.equal(realMap.has('beer-dl'), false);
   assert.equal(realMap.get('wheat flour-cup').gramsPerUnit, 136);
   assert.equal(realMap.get('garlic-clove').gramsPerUnit, 5);
+  assert.equal(realMap.get('seaweed-unit').gramsPerUnit, 3);
+
+  const seaweed = resolveMassConversion({
+    amount: 4,
+    unit: 'unit',
+    ingredientName: 'Seaweed',
+    conversionMap: realMap
+  });
+  assert.equal(seaweed.grams, 12);
+  assert.equal(seaweed.route, 'ingredient-specific-conversion-factor');
 
   const result = resolveMassConversion({
     amount: 2,

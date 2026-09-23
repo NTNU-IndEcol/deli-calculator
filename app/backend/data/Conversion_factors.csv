@@ -1,4 +1,5 @@
 Ingredient,Amount,Unit,Grams,Source,ConversionClass
+Seaweed,1,unit,3,https://www.nutritionix.com/food/nori-seaweed/1-sheet,ingredient_specific_candidate
 Bread wheat,1,tbsp,8.5,https://www.allrecipes.com/article/cup-to-gram-conversions/,ingredient_specific_candidate
 Rye,1,tbsp,8.5,https://www.allrecipes.com/article/cup-to-gram-conversions/,ingredient_specific_candidate
 Soft wheat,1,tbsp,8.5,https://www.allrecipes.com/article/cup-to-gram-conversions/,ingredient_specific_candidate
